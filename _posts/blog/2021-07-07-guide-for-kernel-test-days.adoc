@@ -1,0 +1,161 @@
+= Guide for Kernel Test Days
+:showtitle:
+:page-navtitle: Guide for Kernel Test Days
+:page-excerpt: A quick guide for Kernel Test Days..
+:page-root: ../../../
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [fedora, kernel]
+:page-liquid:
+
+During *Kernel Test Days*, contributors are asked to run a _Kernel Regression Test_ which will help to detect and troubleshoot any issue with a new kernel version, before wider usage.
+It consist in running a series of tests provided by the https://pagure.io/kernel-tests[Kernel Test Suite]
+
+---
+
+The main goal of a Kernel Test Day is to test a new kernel on many different machines as possible, so every new Kernel Test Day is announced some days in advance with a https://fedoramagazine.org/[fedoramagazine] post.
+
+== What to do during Kernel Test Days
+
+The first thing to do is to get the right kernel version to test.
+There are different ways to get the kernel and test it:
+
+=== Using a test day image
+
+During test days a dedicated wiki page will provide a link to download a *test day image* which is a live distro of Fedora with the kernel version to test already in it.
+The test day image also contain the _test suite_, aka the scripts to test the kernel on your machine.
+The downloaded .iso file must then be written in a bootable USB stick.
+
+TIP: Check https://docs.fedoraproject.org/en-US/quick-docs/creating-and-using-a-live-installation-image/#proc_creating-and-using-live-usb[this guide] for creating a bootable USB stick.
+
+You can then boot the live image and run the tests without worries of messing up with your OS.
+
+=== Using a Virtual Machine
+
+You can also install the required kernel version on a Virtual Machine running an up to date Fedora release and do the test in the VM.
+In this case you can just add https://copr.fedorainfracloud.org/coprs/jforbes/kernel-stabilization/[this] *Copr repository* on the Fedora distro running in your VM.
+
+Once you added the repository,install the kernel to test:
+
+[source]
+----
+$ sudo dnf upgrade && sudo dnf install kernel-5.0.0-200.fc29.x86_64
+----
+
+* In the example above we install kernel-5.0.0-200 on fedora 29 with 64 bit architecture.
+* Reboot and you are ready to test.
+
+=== Using Koji
+
+During kernel test days, the dedicated wiki page will provide a link to download the newly built kernel version to test, directly from koji builds.
+This is recommended for secure boot users.
+
+IMPORTANT: *Disclaimer*: You could also install and test the new kernel on your Workstation/Server installation, on a bare metal machine, but make sure you have no important data on that installation, things might go wrong -- don't do this on your production machine!
+
+=== Lets prepare for testing (and earn a new Fedora Badge!)
+
+Before testing, you need to install some packages:
+
+[source]
+----
+$ sudo dnf install gcc make git libtirpc python3-fedora keyutils libtirpc-devel policycoreutils-python-utils
+----
+
+* If you are using the _*test day image*_ you already have the kernel-test suite in the kernel-tests folder; enter the folder with
++
+[source]
+----
+$ cd /home/liveuser/kernel-tests
+----
+
+* If you are not using the test day image you will need to clone the kernel-tests repo.
+  Use this command in terminal:
++
+[source]
+----
+$ git clone https://pagure.io/kernel-tests.git
+----
+
+This will download the same folder that you find in the test day image, with the testing scripts.
+When the download is finished, enter the kernel-tests folder:
+
+[source]
+----
+$ cd kernel-tests
+----
+
+Once inside the kernel-tests folder, it’s time to edit some configuration files; first we need to copy the content of the `config.example` file in a new hidden file named `.config`
+
+[source]
+----
+$ cp config.example .config
+----
+
+Now edit the `.config` file with your favorite editor.
+
+Here we can decide whether or not to upload the results of our tests to Fedora servers.
+By default, running the tests will not automatically submit results.
+They will just run and write results on a log file in /kernel-tests/logs/
+
+* To submit results anonymously: edit the `.config` file with `submit=anonymous`
+
+* To submit results linked to your FAS username: edit the `.config` file with `submit=authenticated` and `username=<your FAS username>`
+
+If you link your submission to your FAS username, you’ll also receive a https://badges.fedoraproject.org/badge/science-kernel-tester-i[Fedora badge!]
+
+The results of your test will be uploaded https://apps.fedoraproject.org/kerneltest/[here]
+
+=== Running tests
+
+NOTE: *Before running the test, be sure your machine has no workload already, like other cpu intensive processes.You can check using the command: top*
+
+Before running tests, we need to allow the testsuite to make their heap memory executable with this command:
+
+[source]
+----
+$ sudo semanage boolean -m --on selinuxuser_execheap
+----
+
+IMPORTANT: When you finish with the tests, remember to turn SELinux boolean selinuxuser_execheap back to default state, by issuing the command:
+*sudo semanage boolean -m --off selinuxuser_execheap*
+
+Now let's start testing!
+
+To run the basic set of tests, use this command:
+
+[source]
+----
+$ sudo ./runtests.sh
+----
+
+To run the performance test suites, use this command:
+
+[source]
+----
+$ sudo ./runtests.sh -t performance
+----
+
+The expected result is that the tests pass.
+However, some tests may fail occasionally due to system load.
+Anyway, add whatever results you got from the tests on the dedicated result page of the Kernel Test day!
+
+During a kernel test day, a dedicated web application page is created for uploading results, there you can fill a form with a description of the results you got.
+Just Click on the *Enter Result* button and fill the form.
+Enter a username in the *Username* field, in the *Profile* field enter a description of the machine you tested the kernel on, and choose the result of your test from the dropdown menu (failed or pass).
+In the *Bugs* field you can write the number of a bug (or bug numbers divided by semicolons. i.e. '752855;25532') that you opened on Bugzilla, against that particular kernel.
+If you found a bug in the kernel, please report it via https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=kernel[this link.]
+If you don't have a Bugzilla account,you can still log in with your FAS account.
+
+NOTE: If a test fails repeatedly, consider helping by reporting the failure on https://bugzilla.redhat.com/enter_bug.cgi?product=Fedora&component=kernel[Bugzilla]
+
+Finally add any other comments or observations you want in the *Comment* field and Click the *Submit Query* button.
+
+*_Done!_*
+
+Thanks for helping the fedora team in testing the newest kernel on your machine!
+
+If you want to help more: join the https://fedoraproject.org/wiki/QA[Fedora Quality Assurance] team and propose new test cases for the kernel that are not already on https://fedoraproject.org/wiki/KernelRegressionTests[this] page.
+
+=== Sources
+
+. link:https://docs.fedoraproject.org/en-US/quick-docs/kernel/howto-kernel-testday/[Guide for Kernel Test Days]

@@ -1,0 +1,60 @@
+= Welcome to Test
+:showtitle:
+:page-navtitle: Welcome to Test
+:page-excerpt: A quick guide for Kernel Test Days..
+:page-root: ../../../
+:page-permalink: /note/:title
+:page-categories: note
+
+This is the Jekyll with AsciiDoc format.
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+== Quotes
+
+TIP: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+WARNING: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+
+IMPORTANT: Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+NOTE: At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+
+== Example
+
+Lorem ipsum dolor sit amet, consectetur adipisicing elit, `$ sudo dnf install asciidoc` sed do eiusmod tempor incididunt ut labore et dolore *magna aliqua*. Ut enim ad minim veniam, quis nostrud exercitation _ullamco_ laboris nisi ut aliquip ex ea commodo consequat.
+
+[source]
+----
+$ sudo dnf update
+$ sudo dnf list
+----
+
+Duis aute irure dolor in reprehenderit in `voluptate velit` esse cillum dolore eu fugiat nulla pariatur.
+
+.~/coba.rb
+[source,ruby,linenums]
+----
+#!/usr/bin/env ruby
+
+FactoryBot.define do
+  factory :user do
+    email { Faker::Internet.email } <1>
+    name  { Faker::Name.first_name } <1>
+  end
+end
+----
+<1> *Faker* is a Gem for creating dummy object.
+
+== Images
+
+This is how to add image on asciidoc.
+
+image::https://asciidoctor.org/images/octocat.jpg[GitHub Mascot]
+
+This is the end.
+
+== Reference
+
+. link:https://docs.asciidoctor.org/asciidoc/latest/syntax-quick-reference/[AsciiDoc Syntax Quick Reference]

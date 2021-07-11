@@ -1,0 +1,38 @@
+= Congratulations!
+:showtitle:
+:page-title: Jekyll AsciiDoc Quickstart
+:page-description: A forkable blog-ready Jekyll site using AsciiDoc
+:page-liquid:
+
+You've successfully set up and deployed an Jekyll website powered by AsciiDoc using the https://github.com/asciidoctor/jekyll-asciidoc-quickstart[*Jekyll AsciiDoc Quickstart*] project. If everything is in order then changes to the AsciiDoc content will be automatically published to your `gh_pages` branch and hosted via Jekyll and Github.
+
+
+== Blog Posts
+
+{% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
+{% for post in posts reversed %}
+. link:{{ post.url }}[{{ post.date | date: '%Y-%m-%d' }} {{ post.title }}]
+{% endfor %}
+
+== Note Posts
+
+{% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
+{% for post in posts reversed %}
+. link:{{ post.url }}[{{ post.date | date: '%Y-%m-%d' }} {{ post.title }}]
+{% endfor %}
+
+== What do I do now?
+
+=== Update Look and feel
+
+The layout provided with the https://github.com/asciidoctor/jekyll-asciidoc-quickstart[Jekyll AsciiDoc Quickstart] project is based on http://foundation.zurb.com[Foundation], a responsive design css framework. You're free to update the layout by editing the `_layouts/default.html` file and css under the `css` directory.
+
+//This blog layout is based on the http://foundation.zurb.com/templates-previews-sites-f6/blog.html[Blog template].
+
+=== Reference documentation
+
+The following links will help with detailed explanations on Jekyll and AsciiDoc.
+
+* http://jekyllrb.com[Jekyll]
+* http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Quick Reference]
+* http://asciidoctor.org[Asciidoctor]

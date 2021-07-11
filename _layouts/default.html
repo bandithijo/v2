@@ -1,0 +1,157 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{page.title}}</title>
+  <meta name="description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Maybe consider a Creative Commons license">
+
+  <link rel="stylesheet" href="{{page.root}}assets/css/foundation.css">
+  <link rel="stylesheet" href="{{page.root}}assets/css/font-awesome.css">
+  <link rel="stylesheet" href="{{page.root}}assets/css/coderay.css">
+  <link rel="stylesheet" href="{{page.root}}assets/css/asciidoctor.css">
+  <link rel="icon" href="{{page.root}}assets/images/favicon/favicon.png" type="image/png">
+
+  <script src="{{page.root}}assets/js/vendor/modernizr.js"></script>
+  <script src="{{page.root}}assets/js/toc-sidebar.js"></script>
+  <script src="{{page.root}}assets/js/toc.js"></script>
+</head>
+<body>
+
+
+<!-- Nav Bar -->
+<div class="contain-to-grid">
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1>
+          <a href="{{page.root}}">{{site.title}} <sup>v2</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <!-- <li class="active"><a href="#">Right Button Active</a></li> -->
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#">Logs</a>
+          <ul class="dropdown">
+            <li><a href="/blog/">Blog</a></li>
+            <li><a href="/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+<!-- End Nav -->
+
+
+<!-- Main Page Content and Sidebar -->
+<div class="row">
+
+  <!-- Main Blog Content -->
+  <div class="large-9 columns" role="content">
+
+    {{ content }}
+
+  </div>
+  <!-- End Main Content -->
+
+  <!-- Sidebar -->
+  <aside class="large-3 columns" style="margin-top:2em">
+
+    {% if page.permalink != page.root %}
+      <div style="margin-top:1.2em"></div>
+      <div class="panel plain">
+        <ul class="vcard">
+          <li class="fn">Assyaufi, Rizqi Nur</li>
+          <li class="locality">Balikpapan, 76115</li>
+          <li class="state">East Borneo</li>
+          <li class="country">Indonesia</li>
+          <li class="email"><a href="mailto:bandithijo@gmail.com">bandithijo@gmail.com</a></li>
+        </ul>
+      </div>
+
+      <h4>Table of Contents</h4>
+      <div class="toc">
+        {% include toc-sidebar.html html=content %}
+      </div>
+
+      {% if page.categories == "blog" %}
+        <h4>Posts</h4>
+        <ul id="posts" class="posts nav">
+          {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
+          {% for post in posts reversed limit: 5 %}
+            <li><a href="{{ post.url }}">{{ post.navtitle }}</a></li>
+          {% endfor %}
+        </ul>
+      {% elsif page.categories == "note" %}
+        <h4>Notes</h4>
+        <ul id="posts" class="posts nav">
+          {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
+          {% for post in posts reversed limit: 5 %}
+            <li><a href="{{ post.url }}">{{ post.navtitle }}</a></li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <div style="margin-bottom:2em"></div>
+    {% endif %}
+
+    <div style="margin-top:1.2em"></div>
+    <div class="panel">
+      <h5>Featured</h5>
+
+      <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon
+        nulla pork belly cupidatat meatloaf cow.</p>
+    </div>
+
+  </aside>
+  <!-- End Sidebar -->
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer class="row">
+  <div class="large-12 columns">
+    <hr>
+    <div class="row">
+      <div class="large-12 columns">
+        <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+        <div class="row">
+          <div class="large-9 columns">
+            <p class="text-left">Made with ❤️ by <a href="https://bandithijo.github.io">Rizqi Nur Assyaufi - @bandithijo</a></p>
+          </div>
+          <div class="large-3 columns">
+            <p class="text-right">Powered by <a href="https://jekyllrb.com">Jekyll</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<!-- End Footer -->
+
+<script src="{{page.root}}assets/js/vendor/jquery.js"></script>
+<script src="{{page.root}}assets/js/foundation.min.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - {{ site.time | date: '%Y' }} -->
