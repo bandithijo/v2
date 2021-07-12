@@ -2,7 +2,6 @@
 :showtitle:
 :page-title: Logs::Note
 :page-description: List of my note post
-:page-root: ../../../
 :page-permalink: /note/
 :page-liquid:
 :toc: false

@@ -2,7 +2,6 @@
 :showtitle:
 :page-title: Logs::Blog
 :page-description: List of my blog post
-:page-root: ../../../
 :page-permalink: /blog/
 :page-liquid:
 :toc: false

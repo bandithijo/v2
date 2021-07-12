@@ -2,7 +2,6 @@
 :showtitle:
 :page-navtitle: Guide for Kernel Test Days
 :page-excerpt: A quick guide for Kernel Test Days..
-:page-root: ../../../
 :page-permalink: /blog/:title
 :page-categories: blog
 :page-tags: [fedora, kernel]
