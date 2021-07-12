@@ -1,7 +1,6 @@
 = Guide for Kernel Test Days
 Giardia
 :page-email: giardia@fedoraproject.org
-:showtitle:
 :page-navtitle: Guide for Kernel Test Days
 :page-excerpt: A quick guide for Kernel Test Days..
 :page-permalink: /blog/:title

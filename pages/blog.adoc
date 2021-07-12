@@ -1,5 +1,4 @@
 = Logs::Blog
-:showtitle:
 :page-title: Logs::Blog
 :page-description: List of my blog post
 :page-permalink: /blog/

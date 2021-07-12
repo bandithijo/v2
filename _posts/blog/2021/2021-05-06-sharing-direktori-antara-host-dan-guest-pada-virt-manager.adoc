@@ -1,7 +1,6 @@
 = Sharing Direktori Antara Host Linux dan Guest Windows pada Virt-Manager/KVM/Qemu
 Assyaufi, Rizqi Nur
 :page-email: bandithijo@gmail.com
-:showtitle:
 :page-navtitle: Sharing Direktori Antara Host Linux dan Guest Windows pada Virt-Manager/KVM/Qemu
 :page-excerpt: Memiliki akses Home direktori yang dimiliki oleh Host dari dalam Guest, sangat memudahkan sekali untuk proses tukar menukar data. Tidak perlu repot-repot harus menggunakan aplikasi semacam Filezilla, scp, atau semacamnya. Semuanya cukup dilakukan dengan File Explorer di Linux dan Explorer Guest Windows.
 :page-permalink: /blog/:title
