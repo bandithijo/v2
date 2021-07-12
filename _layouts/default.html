@@ -10,16 +10,16 @@
   <meta name="author" content="Rizqi Nur Assyaufi">
   <meta name="copyright" content="Maybe consider a Creative Commons license">
 
-  <link rel="stylesheet" href="{{site.url}}/assets/css/foundation.css">
-  <link rel="stylesheet" href="{{site.url}}/assets/css/font-awesome.css">
-  <link rel="stylesheet" href="{{site.url}}/assets/css/coderay.css">
-  <link rel="stylesheet" href="{{site.url}}/assets/css/asciidoctor.css">
+  <link rel="stylesheet" href="{{ site.url }}/assets/css/foundation.css">
+  <link rel="stylesheet" href="{{ site.url }}/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="{{ site.url }}/assets/css/coderay.css">
+  <link rel="stylesheet" href="{{ site.url }}/assets/css/asciidoctor.css">
 
-  <link rel="icon" href="{{site.url}}/assets/images/favicon/favicon.png" type="image/png">
+  <link rel="icon" href="{{ site.url }}/assets/images/favicon/favicon.png" type="image/png">
 
-  <script src="{{site.url}}/assets/js/vendor/modernizr.js"></script>
-  <script src="{{site.url}}/assets/js/toc-sidebar.js"></script>
-  <script src="{{site.url}}/assets/js/toc.js"></script>
+  <script src="{{ site.url }}/assets/js/vendor/modernizr.js"></script>
+  <script src="{{ site.url }}/assets/js/toc-sidebar.js"></script>
+  <script src="{{ site.url }}/assets/js/toc.js"></script>
 </head>
 <body>
 
@@ -31,7 +31,7 @@
       <!-- Title Area -->
       <li class="name">
         <h1>
-          <a href="/">{{site.title}} <sup>v2</sup></a>
+          <a href="{{ site.url }}">{{site.title}} <sup>v2</sup></a>
         </h1>
       </li>
       <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
@@ -41,12 +41,11 @@
       <!-- Right Nav Section -->
       <ul class="right">
         <!-- <li class="active"><a href="#">About</a></li> -->
-        <li class=""><a href="#">About</a></li>
         <li class="has-dropdown">
           <a class="menu-dropdown" href="#">Logs</a>
           <ul class="dropdown">
-            <li><a href="/blog/">Blog</a></li>
-            <li><a href="/note/">Note</a></li>
+            <li><a href="{{ site.url }}/blog/">Blog</a></li>
+            <li><a href="{{ site.url }}/note/">Note</a></li>
           </ul>
         </li>
       </ul>
@@ -136,7 +135,7 @@
         <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
         <div class="row">
           <div class="large-9 columns">
-            <p class="text-left">Made with ❤️ by <a href="https://bandithijo.github.io">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            <p class="text-left">Made with ❤️ by <a href="{{ site.url }}">Rizqi Nur Assyaufi - @bandithijo</a></p>
           </div>
           <div class="large-3 columns">
             <p class="text-right">Powered by <a href="https://jekyllrb.com">Jekyll</a></p>
@@ -148,8 +147,8 @@
 </footer>
 <!-- End Footer -->
 
-<script src="{{site.url}}/assets/js/vendor/jquery.js"></script>
-<script src="{{site.url}}/assets/js/foundation.min.js"></script>
+<script src="{{ site.url }}/assets/js/vendor/jquery.js"></script>
+<script src="{{ site.url }}/assets/js/foundation.min.js"></script>
 <script>
 $(document).foundation();
 var doc = document.documentElement;
