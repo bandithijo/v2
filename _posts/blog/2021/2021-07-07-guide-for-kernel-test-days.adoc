@@ -1,4 +1,6 @@
 = Guide for Kernel Test Days
+Giardia
+:page-email: giardia@fedoraproject.org
 :showtitle:
 :page-navtitle: Guide for Kernel Test Days
 :page-excerpt: A quick guide for Kernel Test Days..
@@ -60,7 +62,7 @@ Before testing, you need to install some packages:
 $ sudo dnf install gcc make git libtirpc python3-fedora keyutils libtirpc-devel policycoreutils-python-utils
 ----
 
-* If you are using the _*test day image*_ you already have the kernel-test suite in the kernel-tests folder; enter the folder with
+* If you are using the *_test day image_* you already have the kernel-test suite in the kernel-tests folder; enter the folder with
 +
 [source,console]
 ----

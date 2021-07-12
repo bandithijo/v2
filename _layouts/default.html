@@ -31,7 +31,7 @@
       <!-- Title Area -->
       <li class="name">
         <h1>
-          <a href="{{ site.url }}">{{site.title}} <sup>v2-beta</sup></a>
+          <a href="{{ site.url }}"><i class="fa fa-archive"></i>&nbsp; {{site.title}} <sup>v2-beta</sup></a>
         </h1>
       </li>
       <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
@@ -74,15 +74,21 @@
   <!-- Sidebar -->
   <aside class="large-3 columns" style="margin-top:2em">
 
-    {% if page.permalink != page.root %}
+    {% if page.permalink != page.root and page.permalink != "/blog/" and page.permalink != "/note/" %}
       <div style="margin-top:1.2em"></div>
       <div class="panel plain">
         <ul class="vcard">
-          <li class="fn">Assyaufi, Rizqi Nur</li>
-          <li class="locality">Balikpapan, 76115</li>
-          <li class="state">East Borneo</li>
-          <li class="country">Indonesia</li>
-          <li class="email"><a href="mailto:bandithijo@gmail.com">bandithijo@gmail.com</a></li>
+          <li class="fn"><i class="fa fa-user"></i> {{ page.author | truncate: 23 }}</li>
+          <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:{{ page.email }}"><span style="font-size:0.85em">{{ page.email | truncate: 25 }}</span></a></li>
+          <li class="tags"><i class="fa fa-tag"></i>
+            <span style="font-size:0.90em">
+            {% assign tag_list = page.tags %}
+            {% for tag in tag_list %}
+              <a href="{{ site.url }}/tags/#{{ tag | downcase | downcase | url_escape | strip | replace: ' ', '-' }}">#{{ tag | downcase }}</a>
+            {% endfor %}
+            </span>
+          </li>
+          <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> {{ page.date | date: '%Y-%m-%d' }}</li>
         </ul>
       </div>
 
@@ -136,11 +142,11 @@
       <div class="large-12 columns">
         <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
         <div class="row">
-          <div class="large-9 columns">
+          <div class="large-8 columns">
             <p class="text-left">Made with ❤️ by <a href="{{ site.url }}">Rizqi Nur Assyaufi - @bandithijo</a></p>
           </div>
-          <div class="large-3 columns">
-            <p class="text-right">Powered by <a href="https://jekyllrb.com">Jekyll</a></p>
+          <div class="large-4 columns">
+            <p class="text-right">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
           </div>
         </div>
       </div>

@@ -1,9 +1,13 @@
 = Welcome to Test
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
 :showtitle:
 :page-navtitle: Welcome to Test
 :page-excerpt: A quick guide for Kernel Test Days..
 :page-permalink: /note/:title
 :page-categories: note
+:page-tags: [asciidoc]
+:page-liquid:
 
 This is the Jekyll with AsciiDoc format.
 
@@ -39,8 +43,8 @@ Duis aute irure dolor in reprehenderit in `voluptate velit` esse cillum dolore e
 
 FactoryBot.define do
   factory :user do
-    email { Faker::Internet.email } <1>
-    name  { Faker::Name.first_name } <1>
+    email { Faker::Internet.email }   <1>
+    name  { Faker::Name.first_name }  <1>
   end
 end
 ----

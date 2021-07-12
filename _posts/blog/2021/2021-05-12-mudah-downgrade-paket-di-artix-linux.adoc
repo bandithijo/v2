@@ -1,10 +1,12 @@
 = Mudah Downgrade Paket di Artix Linux
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
 :showtitle:
 :page-navtitle: Mudah Downgrade Paket di Artix Linux.
 :page-excerpt: Menggunakan distribusi yang menggunakan metode rilis 'rolling' mungkin merupakan kekhawatiran bagi sebagian besar GNU/Linux user. Mereka sering menyebut distro yang memiliki paket-paket yang tidak stabil. Apakah benar? Saya senyumin aja. Apakah saya pernah memiliki masalah dengan paket terbaru? Tentu. Bagaimana cara saya mengatasinya? Downgrade. Catatan ini adalah tips menggunakan tool yang bernama 'downgrade' yang defaultnya untuk Arch Linux pada Artix Linux.
 :page-permalink: /blog/:title
 :page-categories: blog
-:page-tags: [Tips, Artix Linux]
+:page-tags: [artixlinux]
 :page-liquid:
 
 IMPORTANT: Saya, sebagai penulis, *tidak bertanggung jawab* atas segala bentuk kejadian buruk yang menimpa sistem kalian.
