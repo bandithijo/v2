@@ -1,5 +1,4 @@
 = First Entry
-:showtitle:
 :page-navtitle: First Entry
 :page-excerpt: Excerpt goes here.
 :page-permalink: /blog/:title
