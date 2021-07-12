@@ -10,5 +10,5 @@
 
 {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
 {% for post in posts reversed %}
-- link:{{ site.url }}{{ post.url }}[{{ post.date | date: '%Y-%m-%d' }} {{ post.title }}]
+icon:file[] link:{{ site.url }}{{ post.url }}[{{ post.date | date: '%Y-%m-%d' }} {{ post.title }}]
 {% endfor %}
