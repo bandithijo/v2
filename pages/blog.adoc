@@ -1,0 +1,15 @@
+= Logs::Blog
+:showtitle:
+:page-title: Logs::Blog
+:page-description: List of my blog post
+:page-root: ../../../
+:page-permalink: /blog/
+:page-liquid:
+:toc: false
+
+---
+
+{% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
+{% for post in posts reversed %}
+- link:{{ post.url }}[{{ post.date | date: '%Y-%m-%d' }} {{ post.title }}]
+{% endfor %}
