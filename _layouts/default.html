@@ -96,7 +96,7 @@
         <ul id="posts" class="posts nav">
           {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
           {% for post in posts reversed limit: 5 %}
-            <li><a href="{{ post.url }}">{{ post.navtitle }}</a></li>
+            <li><a href="{{ site.url }}{{ post.url }}">{{ post.navtitle }}</a></li>
           {% endfor %}
         </ul>
       {% elsif page.categories == "note" %}
@@ -104,7 +104,7 @@
         <ul id="posts" class="posts nav">
           {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
           {% for post in posts reversed limit: 5 %}
-            <li><a href="{{ post.url }}">{{ post.navtitle }}</a></li>
+            <li><a href="{{ site.url }}{{ post.url }}">{{ post.navtitle }}</a></li>
           {% endfor %}
         </ul>
       {% endif %}
