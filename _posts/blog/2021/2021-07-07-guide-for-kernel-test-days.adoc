@@ -36,7 +36,7 @@ In this case you can just add https://copr.fedorainfracloud.org/coprs/jforbes/ke
 
 Once you added the repository,install the kernel to test:
 
-[source]
+[source,console]
 ----
 $ sudo dnf upgrade && sudo dnf install kernel-5.0.0-200.fc29.x86_64
 ----
@@ -55,14 +55,14 @@ IMPORTANT: *Disclaimer*: You could also install and test the new kernel on your 
 
 Before testing, you need to install some packages:
 
-[source]
+[source,console]
 ----
 $ sudo dnf install gcc make git libtirpc python3-fedora keyutils libtirpc-devel policycoreutils-python-utils
 ----
 
 * If you are using the _*test day image*_ you already have the kernel-test suite in the kernel-tests folder; enter the folder with
 +
-[source]
+[source,console]
 ----
 $ cd /home/liveuser/kernel-tests
 ----
@@ -70,7 +70,7 @@ $ cd /home/liveuser/kernel-tests
 * If you are not using the test day image you will need to clone the kernel-tests repo.
   Use this command in terminal:
 +
-[source]
+[source,console]
 ----
 $ git clone https://pagure.io/kernel-tests.git
 ----
@@ -78,14 +78,14 @@ $ git clone https://pagure.io/kernel-tests.git
 This will download the same folder that you find in the test day image, with the testing scripts.
 When the download is finished, enter the kernel-tests folder:
 
-[source]
+[source,console]
 ----
 $ cd kernel-tests
 ----
 
 Once inside the kernel-tests folder, it’s time to edit some configuration files; first we need to copy the content of the `config.example` file in a new hidden file named `.config`
 
-[source]
+[source,console]
 ----
 $ cp config.example .config
 ----
@@ -110,7 +110,7 @@ NOTE: *Before running the test, be sure your machine has no workload already, li
 
 Before running tests, we need to allow the testsuite to make their heap memory executable with this command:
 
-[source]
+[source,console]
 ----
 $ sudo semanage boolean -m --on selinuxuser_execheap
 ----
@@ -122,14 +122,14 @@ Now let's start testing!
 
 To run the basic set of tests, use this command:
 
-[source]
+[source,console]
 ----
 $ sudo ./runtests.sh
 ----
 
 To run the performance test suites, use this command:
 
-[source]
+[source,console]
 ----
 $ sudo ./runtests.sh -t performance
 ----
