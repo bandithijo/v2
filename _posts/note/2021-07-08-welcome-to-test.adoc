@@ -1,7 +1,6 @@
 = Welcome to Test
 Assyaufi, Rizqi Nur
 :page-email: bandithijo@gmail.com
-:showtitle:
 :page-navtitle: Welcome to Test
 :page-excerpt: A quick guide for Kernel Test Days..
 :page-permalink: /note/:title
@@ -9,9 +8,9 @@ Assyaufi, Rizqi Nur
 :page-tags: [asciidoc]
 :page-liquid:
 
-This is the Jekyll with AsciiDoc format.
-
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+This is the Jekyll with AsciiDoc format.
 
 == Quotes
 
@@ -54,7 +53,18 @@ end
 
 This is how to add image on asciidoc.
 
-image::https://asciidoctor.org/images/octocat.jpg[GitHub Mascot]
+.Jekyll Mascot
+[caption="Gambar 1: ",link=https://jekyllrb.com]
+image::https://jekyllrb.com/img/octojekyll.png[Jekyll Mascot,300]
+
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+
+====
+*Consectetur adipisicing elit*
+
+Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+====
 
 This is the end.
 
