@@ -6,6 +6,7 @@
 :page-categories: blog
 :page-tags: [ruby, jekyll, asciidoctor, ssg]
 :page-liquid:
+:page-published: false
 
 == Example entry
 
