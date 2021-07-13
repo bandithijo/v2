@@ -7,7 +7,11 @@ I've successfully set up and deployed an Jekyll website powered by AsciiDoc usin
 
 image::https://jekyllrb.com/img/octojekyll.png[Jekyll Mascot,200,align=center]
 
-== Blog Posts
+== Post Types
+
+Currently, there area two types of post: 1) Blog, basically talking about something or everything based on time. 2) Note, post that record or writen down a small snippets for the sake of convenience to explorations next time.
+
+=== Blog Posts
 
 {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
 {% for post in posts reversed limit: 5 %}
@@ -16,7 +20,7 @@ image::https://jekyllrb.com/img/octojekyll.png[Jekyll Mascot,200,align=center]
 
 link:{{ site.url }}/blog/[more...]
 
-== Note Posts
+=== Note Posts
 
 {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
 {% for post in posts reversed limit: 5 %}
