@@ -29,9 +29,6 @@ asciidoctor:
 
 feed:
   excerpt_only: true
-  categories:
-    - blog
-    - note
 
 sitemap:
   filename: /sitemap.xml
