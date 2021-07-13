@@ -154,8 +154,7 @@ select {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  /* max-width: 62.5rem; */
-  max-width: 72.5rem;
+  max-width: 62.5rem;
 }
 
 .row:before, .row:after {
@@ -2683,8 +2682,7 @@ meta.foundation-mq-topbar {
   }
 
   .contain-to-grid .top-bar {
-    /* max-width: 62.5rem; */
-    max-width: 72.5rem;
+    max-width: 62.5rem;
     margin: 0 auto;
     margin-bottom: 0;
   }
