@@ -146,11 +146,11 @@
   <div class="large-12 columns mt4">
     <div class="text-right">
       {% if page.permalink == "/blog/" or page.permalink == "/blog/:title" %}
-        <a href="/feed/blog.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+        <a href="{{ site.url }}/feed/blog.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
       {% elsif page.permalink == "/note/" or page.permalink == "/note/:title" %}
-        <a href="/feed/note.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+        <a href="{{ site.url }}/feed/note.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
       {% else %}
-        <a href="/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+        <a href="{{ site.url }}/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
       {% endif %}
     </div>
     <hr>
