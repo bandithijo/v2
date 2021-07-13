@@ -16,6 +16,7 @@ asciidoctor:
     - source-highlighter=coderay
     - icons=font
     - hardbreaks-option
+    - experimental
 
 feed:
   excerpt_only: true
