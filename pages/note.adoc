@@ -3,11 +3,24 @@
 :page-description: List of my note post
 :page-permalink: /note/
 :page-liquid:
-:toc: false
 
+---
+
+{% assign postsByYear = site.posts | group_by_exp:"post", "post.date | date: '%Y'" %}
+{% for year in postsByYear %}
+== icon:calendar[] {{ year.name }}
+    {% for post in year.items %}
+        {% if post.categories == 'note' %}
+            * link:{{ site.url }}{{ post.url }}[{{ post.title }}] ({{ post.date | date: '%Y-%m-%d' }})
+        {% endif %}
+    {% endfor %}
+{% endfor %}
+
+////
 ---
 
 {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
 {% for post in posts reversed %}
 * link:{{ site.url }}{{ post.url }}[{{ post.title }}] ({{ post.date | date: '%Y-%m-%d' }})
 {% endfor %}
+////
