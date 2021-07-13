@@ -9,7 +9,7 @@ logo_author: /assets/images/logo_author.png
 image:
   path: /assets/images/bndt_banner_v2.png
   width: 460
-  height: 117
+  height: 120
 
 plugins:
   - jekyll-sitemap
