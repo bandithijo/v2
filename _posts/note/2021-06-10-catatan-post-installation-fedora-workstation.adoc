@@ -1,0 +1,2100 @@
+= Catatan Post Installation Fedora Workstation
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Catatan Post Installation Fedora Workstation
+:page-excerpt: Catatan ini merupakan kumpulan proses instalasi package dan beberapa konfigurasi yang saya lakukan setelah melakukan proses instalasi Fedora Workstation.
+:page-permalink: /note/:title
+:page-categories: note
+:page-tags: [fedora]
+:page-liquid:
+:page-published: true
+
+Saya memutuskan untuk mengkategorikan catatan ini sebagai "note" dan bukan sebagai "blog" karena kemungkinan saya akan terus memperbaharui isinya seiring dengan berjalannya waktu pemakaian apabila saya menemukan paket-paket yang menarik.
+
+Selain itu, memiliki sebuah catatan "perjalanan" akan *menumbuhkan rasa percaya diri untuk terus maju ke depan*. Karena, apabila gagal, kita tidak takut untuk memulai lagi dari awal. Ataupun, kita dapat dengan mudah memulai percabangan untuk awal baru yang lain.
+
+== Pre Install
+
+=== Verify your download with CHECKSUM files.
+
+Setelah mengunduh file ISO, lakukan verifikasi untuk menguji keamanan dan integritas file ISO yang telah didownload.
+
+Langkah awal, import Fedora's GPG key(s).
+
+[source,console]
+----
+$ curl https://getfedora.org/static/fedora.gpg | gpg --import
+----
+
+----
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 12543  100 12543    0     0  10945      0  0:00:01  0:00:01 --:--:-- 10945
+gpg: key 1161AE6945719A39: public key "Fedora (34) <fedora-34-primary@fedoraproject.org>" imported
+gpg: key 49FD77499570FF31: public key "Fedora (33) <fedora-33-primary@fedoraproject.org>" imported
+gpg: key 6C13026D12C944D0: public key "Fedora (32) <fedora-32-primary@fedoraproject.org>" imported
+gpg: key 50CB390B3C3359C4: public key "Fedora (31) <fedora-31-primary@fedoraproject.org>" imported
+gpg: key 7BB90722DBBDCF7C: public key "Fedora (iot 2019) <fedora-iot-2019@fedoraproject.org>" imported
+gpg: key 21EA45AB2F86D6A1: public key "Fedora EPEL (8) <epel@fedoraproject.org>" imported
+gpg: key 6A2FAEA2352C64E5: public key "Fedora EPEL (7) <epel@fedoraproject.org>" imported
+gpg: key 3B49DF2A0608B895: public key "EPEL (6) <epel@fedoraproject.org>" imported
+gpg: Total number processed: 8
+gpg:               imported: 8
+----
+
+Dapat dilihat, kita telah berhasil mengimport 8 public keys.
+
+Kemudian, download file *CHECKSUM* dari yang dapat kita download di halaman ini, link:https://getfedora.org/en/security/[*di sini*^]. Download file CHECKSUM yang sesuai dengan file ISO yang teman-teman gunakan.
+
+Kemudian, verifikasi file CHECKSUM tersebut.
+
+----
+$ gpg --verify-files *-CHECKSUM
+----
+
+[source,console]
+----
+$ gpg --verify-files Fedora-Workstation-34-1.2-x86_64-CHECKSUM
+----
+
+----
+gpg: Signature made Sat 24 Apr 2021 03:37:01 AM WITA
+gpg:                using RSA key 8C5BA6990BDB26E19F2A1A801161AE6945719A39
+gpg: Good signature from "Fedora (34) <fedora-34-primary@fedoraproject.org>" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 8C5B A699 0BDB 26E1 9F2A  1A80 1161 AE69 4571 9A39
+----
+
+CHECKSUM harus memiliki keterangan "Good signature"dari salah satu key.
+
+Letakkan file ISO (pass:[*].iso) dengan file checksum (pass:[*]-CHECKSUM) pada direktori yang sama.
+
+----
+├─ Fedora-Workstation-34-1.2-x86_64-CHECKSUM
+└─ Fedora-Workstation-Live-x86_64-34-1.2.iso
+----
+
+Selanjutnya, lakukan pengecekan checksum terhadap file ISO yang telah kita download.
+
+----
+sha256sum -c *-CHECKSUM
+----
+
+[source,console]
+----
+$ sha256sum -c Fedora-Workstation-34-1.2-x86_64-CHECKSUM
+----
+
+----
+Fedora-Workstation-Live-x86_64-34-1.2.iso: OK
+sha256sum: WARNING: 19 lines are improperly formatted
+----
+
+NOTE: Abaikan saja warning 19 lines are improperly formated, hal ini terjadi karena di dalam file *-CHECKSUM tersebut juga terdapat PGP Signature. Coba komentar saja baris-baris selain SHA256SUM valuenya (termasuk blankline), maka warningnya akan ~~berkurang~~ hilang.
+
+== Packages
+
+=== Enable fastest mirror and Delta RPM
+
+Sumber: link:https://www.linuxsec.org/2020/03/menggunakan-fastest-mirror-di-fedora.html[https://www.linuxsec.org/2020/03/menggunakan-fastest-mirror-di-fedora.html^]
+
+Edit file `/etc/dnf/dnf.conf`, lalu tambahkan baris,
+
+./etc/dnf/dnf.conf
+[source,conf,linenums]
+----
+[main]
+...
+...
+...
+fastestmirror=True
+deltarpm=true
+----
+
+Kemudian, tambahkan "kode negara" `&country=ID` di belakang meta link repository yang ada di `/etc/yum.repos.d/`.
+
+Repository utamanya adalah `fedora-updates.repo`.
+
+./etc/yum.repos.d/fedora-updates.repo
+[source,conf,linenums]
+----
+[updates]
+...
+metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&arch=$basearch&country=ID
+...
+...
+
+[updates-debuginfo]
+...
+metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-debug-f$releasever&arch=$basearch&country=ID
+...
+...
+
+[updates-source]
+...
+metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-debug-f$releasever&arch=$basearch&country=ID
+...
+...
+----
+
+=== Update system
+
+Lakukan refresh dan update repository dengan perintah,
+
+[source,console]
+----
+$ sudo dnf upgrade --refresh
+----
+
+TIP: *dnf update* dan *dnf upgrade* sama, namun konvensi terbaru sudah menggunakan *dnf upgrade*.
+
+=== Enable RPMFusion Repository
+
+Sumber: link:https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/[https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/^]
+
+*Free Repository*
+
+[source,console]
+----
+$ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+----
+
+*Nonfrere Repository*
+
+[source,console]
+----
+$ sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+----
+
+Enabling Appstream data from the RPM Fusion repositories (GNOME)
+
+This procedure describes how to install the Appstream data provided by the RPM Fusion software repositories.
+
+Prerequisites:
+
+. You have internet access.
+. You are using the Gnome desktop environment.
+. You have the RPMFusion repositories installed
+
+Procedure:
+
+[source,console]
+----
+$ sudo dnf group update core
+----
+
+=== Install gnome-tweak-tool
+
+[source,console]
+----
+$ sudo dnf install gnome-tweak-tool
+----
+
+=== Install Vim
+
+[source,console]
+----
+$ sudo dnf install vim
+----
+
+=== Install downgrade package (sample: fprintd)
+
+Sumber: link:https://unix.stackexchange.com/a/408511[https://unix.stackexchange.com/a/408511^]
+
+Saya harus mendowngrade paket *fprintd* dikarenakan fingerprint device yang ada di laptop saya (ThinkPad X61 keluaran tahun 2007), tidak dapat berfungsi pada fprintd versi 1.0. Setidaknya saya memerlukan versi 0.9.
+
+[source,console]
+----
+$ sudo dnf downgrade --releasever=31 fprintd
+----
+
+=== Exlude some packages
+
+Edit file `/etc/dnf/dnf.conf`.
+
+./etc/dnf/dnf.conf
+[source,conf,linenums]
+----
+[main]
+...
+...
+...
+exclude=fprintd fprintd-pam libfprint
+----
+
+=== Htop
+
+[source,console]
+----
+$ sudo dnf install htop
+----
+
+=== Iftop
+
+[source,console]
+----
+$ sudo dnf install iftop
+----
+
+=== iperf
+
+[source,console]
+----
+$ sudo dnf install iperf
+----
+
+=== Neofetch
+
+[source,console]
+----
+$ sudo dnf install w3m-img
+----
+
+[source,console]
+----
+$ sudo dnf install neofetch
+----
+
+=== Nmon
+
+[source,console]
+----
+$ sudo dnf install nmon
+----
+
+=== Nethogs
+
+[source,console]
+----
+$ sudo dnf install nethogs
+----
+
+=== LM Sensors
+
+[source,console]
+----
+$ sudo dnf install lm_sensors
+----
+
+=== Sound Converter
+
+[source,console]
+----
+$ sudo dnf install soundconverter
+----
+
+=== Audacity
+
+[source,console]
+----
+$ sudo dnf install audacity
+----
+
+=== Audacious
+
+[source,console]
+----
+$ sudo dnf install audacious
+----
+
+=== Pass
+
+[source,console]
+----
+$ sudo dnf install pass
+----
+
+=== Change ZSH to your shell
+
+[source,console]
+----
+$ sudo dnf install zsh
+$ sudo dnf install util-linux-user
+$ chsh -s $(which zsh)
+----
+
+=== Arandr
+
+[source,console]
+----
+$ sudo dnf install arandr
+----
+
+=== GIT-SVN
+
+[source,console]
+----
+$ sudo dnf install git-svn
+----
+
+=== TIG
+
+[source,console]
+----
+$ sudo dnf install tig
+----
+
+=== Git-Credential-Libsecret
+
+Sumber: link:https://discussion.fedoraproject.org/t/attention-git-credential-libsecret-for-storing-git-passwords-in-the-gnome-keyring-is-now-an-extra-package/18275[https://discussion.fedoraproject.org/t/attention-git-credential-libsecret-for-storing-git-passwords-in-the-gnome-keyring-is-now-an-extra-package/18275^]
+
+[source,console]
+----
+$ sudo dnf install git-credential-libsecret
+----
+
+.$HOME/.gitconfig
+[source,conf,linenums]
+----
+...
+
+[credential]
+	helper = /usr/libexec/git-core/git-credential-libsecret
+----
+
+=== SSH AskPass
+
+[source,console]
+----
+$ sudo dnf install lxqt-openssh-askpass
+----
+
+Saya memilih menggunakan versi *lxqt-openssh-askpass.x86_64*, daripada versi *openssh-askpass.x86_64* dan *x11-ssh-askpass.x86_64*.
+
+=== Glances
+
+[source,console]
+----
+$ sudo dnf install glances
+----
+
+=== Wavemon
+
+[source,console]
+----
+$ sudo dnf install wavemon
+----
+
+=== Transmission Daemon
+
+[source,console]
+----
+$ sudo dnf install transmission-daemon
+----
+
+=== Youtube-DL
+
+[source,console]
+----
+$ sudo dnf install youtube-dl
+----
+
+=== Newsboat (RSS Reader)
+
+[source,console]
+----
+$ sudo dnf install newsboat
+----
+
+=== Ranger File Manager
+
+[source,console]
+----
+$ sudo dnf install ranger
+$ sudo dnf install python3-devel
+$ sudo dnf install libX11-devel
+$ sudo dnf install libXext-devel
+$ pip install ueberzug
+----
+
+[source,console]
+----
+$ sudo dnf install mediainfo
+$ sudo dnf install highlight
+$ sudo dnf install atool
+$ sudo dnf install bsdtar
+$ sudo dnf install unrar
+$ sudo dnf install p7zip
+$ sudo dnf install odt2txt
+----
+
+=== Samba
+
+Sumber: link:https://docs.fedoraproject.org/en-US/quick-docs/samba/[https://docs.fedoraproject.org/en-US/quick-docs/samba/^]
+
+Install dan enable samba service.
+
+[source,console]
+----
+$ sudo dnf install samba
+$ sudo systemctl enable smb --now
+$ firewall-cmd --get-active-zones
+$ sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-service=samba
+$ sudo firewall-cmd --reload
+----
+
+Membuat user samba.
+
+[source,console]
+----
+$ sudo smbpasswd -a bandithijo
+----
+
+Install samba support for file manager gui.
+
+[source,console]
+----
+$ sudo dnf install gvfs-smb
+----
+
+=== Install Opus Audio Codec
+
+[source,console]
+----
+$ sudo dnf install libogg
+$ sudo dnf install opus-tools
+----
+
+(RPMFusion - Nonfree)
+
+[source,console]
+----
+$ sudo dnf install audacious-plugins-freeworld-ffaudio
+----
+
+=== Virt-Manager (libvirt)
+
+Sumber: link:https://fedoramagazine.org/full-virtualization-system-on-fedora-workstation-30/[https://fedoramagazine.org/full-virtualization-system-on-fedora-workstation-30/^]
+
+Sumber: link:https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/[https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/^]
+
+Cek apakah CPU spport untuk virtualization,
+
+[source,console]
+----
+$ egrep '^flags.*(vmx|svm)' /proc/cpuinfo
+----
+
+Kalau tidak menampilkan apapun, berarti CPU yang kamu gunakan tidak mendukung fitur virtualization.
+
+Cek group package untuk virtualization.
+
+[source,console]
+----
+$ dnf groupinfo virtualization
+----
+
+Install dengan cara,
+
+[source,console]
+----
+$ sudo dnf install @virtualization
+----
+
+Alternatively, to install the mandatory, default, and optional packages, run:
+
+[source,console]
+----
+$ sudo dnf group install --with-optional virtualization
+----
+
+Verifikasi KVM kernel module berhasil diload.
+
+[source,console]
+----
+$ lsmod | grep kvm
+----
+
+Edit file `/etc/libvirt/libvirtd.conf`
+
+[source,console]
+----
+$ sudo vi /etc/libvirt/libvirtd.conf
+----
+
+Set the domain socket group ownership to libvirt.
+
+./etc/libvirt/libvirtd.conf
+[source,conf,linenums]
+----
+...
+unix_sock_group = "libvirt"
+...
+----
+
+Adjust the UNIX socket permissions for the R/W socket
+
+./etc/libvirt/libvirtd.conf
+[source,conf,linenums]
+----
+...
+unix_sock_rw_perms = "0770"
+...
+----
+
+Add user to libvirt gorup
+
+[source,console]
+----
+$ sudo usermod -a -G libvirt $(whoami)
+----
+
+This adds the current user to the group. You must log out and log in to apply the changes.
+
+=== Chromium browser
+
+[source,console]
+----
+$ sudo dnf install chromium
+$ sudo dnf install chromium-libs-media-freeworld
+----
+
+TIP: If Chromium can't play video, replace chromium with chromium-freeworld by RPMFusion.
+
+[source,console]
+----
+$ sudo dnf swap chromium chromium-freeworld
+----
+
+=== Chromedriver
+
+[source,console]
+----
+$ sudo dnf install chromedriver
+----
+
+=== Google Chrome
+
+Sumber: link:https://docs.fedoraproject.org/en-US/quick-docs/installing-chromium-or-google-chrome-browsers/#installing-chrome[https://docs.fedoraproject.org/en-US/quick-docs/installing-chromium-or-google-chrome-browsers/#installing-chrome^]
+
+Click the following link: link:https://www.google.com/chrome/browser/desktop/index.html[https://www.google.com/chrome/browser/desktop/index.html^]
+
+Click on Download Chrome and select Fedora 64 or 32 bits download and install the repo.
+
+[source,console]
+----
+$ sudo dnf install google-chrome-stable_current_x86_64.rpm
+----
+
+Enabling Chromium plugins (*under construction*).
+
+[source,console]
+----
+$ rpm2cpio ./google-chrome-stable_current_x86_64.rpm | cpio -idmv
+----
+
+=== Codec from RPMFusion
+
+Sumber: https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/[https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/^]
+
+[source,console]
+----
+$ sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
+$ sudo dnf install lame\* --exclude=lame-devel
+$ sudo dnf group upgrade --with-optional Multimedia
+----
+
+=== Another audio video support
+
+[source,console]
+----
+$ sudo dnf install ffmpegthumbnailer
+$ sudo dnf install rpmfusion-free-obsolete-packages
+----
+
+=== Install FFMPEG
+
+[source,console]
+----
+$ sudo dnf install ffmpeg
+$ sudo dnf install ffmpeg-libs
+$ sudo dnf install compat-ffmpeg28
+----
+
+=== Tor
+
+[source,console]
+----
+$ sudo dnf install tor
+----
+
+=== HandBrake
+
+[source,console]
+----
+$ sudo dnf install handbrake
+----
+
+=== MPV
+
+(RPMFusion - Free)
+
+[source,console]
+----
+$ sudo dnf install mpv
+$ sudo dnf install celluloid
+----
+
+User script that may help you steroid your mpv.
+
+1. link:https://github.com/jonniek/mpv-playlistmanager[mpv-playlistmanager^]
+2. link:https://github.com/cvzi/mpv-youtube-download[mpv-youtube-download^]
+3. link:https://github.com/jgreco/mpv-youtube-quality[mpv-youtube-quality^]
+
+Manual Build
+
+[source,console]
+----
+$ sudo dnf install ffmpeg-devel
+----
+
+[source,console]
+----
+$ ./bootstrap.py
+$ ./waf configure
+$ ./waf
+$ sudo ./waf install
+----
+
+=== DNSCrypt-Proxy
+
+Sumber: link:https://wiki.archlinux.org/title/Systemd-resolved#Manually[https://wiki.archlinux.org/title/Systemd-resolved#Manually^]
+
+[source,console]
+----
+$ sudo dnf install dnscrypt-proxy
+----
+
+Create file `/etc/systemd/resolved.conf.d/dns_servers.conf`
+
+./etc/systemd/resolved.conf.d/dns_servers.conf
+[source,conf,linenums]
+----
+[Resolve]
+DNS=127.0.0.1
+Domains=~.
+----
+
+Kemudian, restart systemd-resolved service
+
+[source,console]
+----
+$ sudo systemctl restart systemd-resolved.conf
+----
+
+=== Adwaita-Qt5 theme
+
+[source,console]
+----
+$ sudo dnf install adwaita-qt5
+----
+
+=== Qt5Ct
+
+[source,console]
+----
+$ sudo dnf install qt5ct
+----
+
+=== Change default cursor on lightdm
+
+Change value of `/usr/share/icons/default/index.theme`
+
+./usr/share/icons/default/index.theme
+[source,conf,linenums]
+----
+[Icon Theme]
+Inherits=ComixCursors-Opaque-White
+----
+
+=== Change default cursor on GDM
+Sumber: link:https://wiki.archlinux.org/title/GDM#Changing_the_cursor_theme[https://wiki.archlinux.org/title/GDM#Changing_the_cursor_theme^]
+
+GDM disregards GNOME cursor theme settings and it also ignores the cursor theme set according to the XDG specification. To change the cursor theme used in GDM, either create the following keyfile
+
+./etc/dconf/db/gdm.d/10-cursor-settings
+[source,conf,linenums]
+----
+[org/gnome/desktop/interface]
+cursor-theme='theme-name'
+----
+
+And then recompile the GDM database or alternatively log in to the GDM user and execute the following:
+
+[source,console]
+----
+$ gsettings set org.gnome.desktop.interface cursor-theme 'theme-name'
+----
+
+=== Neovim Nightly (build)
+
+[source,console]
+----
+$ sudo dnf install cmake
+$ sudo dnf install gcc-c++
+$ sudo dnf install luajit-devel
+$ sudo dnf install libtool
+$ sudo dnf install libvterm-devel
+----
+
+[source,console]
+----
+$ sudo dnf install nodejs
+$ sudo dnf install python3-neovim
+----
+
+[source,console]
+----
+$ cd ~/.local/src
+$ git clone https://github.com/neovim/neovim.git
+$ cd neovim
+$ make CMAKE_BUILD_TYPE=RelWithDebInfo -j3
+$ sudo make install
+----
+
+For plugins,
+
+[source,console]
+----
+$ sudo dnf install ripgrep
+----
+
+=== PostgreSQL
+
+[source,console]
+----
+$ sudo dnf install postgresql-server
+----
+
+[source,console]
+----
+$ sudo /usr/bin/postgresql-setup --initdb
+----
+
+[source,console]
+----
+$ sudo systemctl start postgresql.service
+----
+
+[source,console]
+----
+$ sudo -iu postgres
+----
+
+[source,console]
+----
+[postgres@fedora-x61 ~]$ createuser --interactive
+----
+
+----
+Enter name of role to add: bandithijo
+Shall the new role be a superuser? (y/n) y
+----
+
+[source,console]
+----
+[postgres@fedora-x61 ~]$ createdb bandithijo
+----
+
+[source,console]
+----
+[postgres@fedora-x61 ~]$ psql
+----
+
+[source,console]
+----
+postgres=# ALTER DATABASE bandithijo OWNER TO bandithijo;
+----
+
+Tambahkan pada file `/var/lib/pgsql/data/pg_hba.conf`.
+
+./var/lib/pgsql/data/pg_hba.conf
+[source,conf,linenums]
+----
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+...
+...
+#host   all             all              127.0.0.1/32            ident
+host    all             bandithijo       127.0.0.1/32            trust
+----
+
+Or, using another way with Container.
+
+Since, Fedora has built in container utility named as **Podman**. So, I decided to use this tool than using Docker.
+
+I'll use *bitnami/postgresql* container image from *quay.io*.
+
+[source,console]
+----
+# podman pull quay.io/bitnami/postgresql:13.3.0
+podman run --name postgresql --net host -v /var/lib/pgsql/data/userdata:/bitnami/postgresql/data:Z -e ALLOW_EMPTY_PASSWORD=yes bitnami/postgresql:13.3.0
+----
+
+PostgreSQL container image from Bitnami is set *User: 1001*. So, for the sake convenient purposes,
+
+[source,console]
+----
+$ sudo chown -R 1001:1001 /var/lib/pgsql
+----
+
+NOTE: */var/lib/pgsql* is where Fedora put postgresql data.
+
+Generate systemd unit file.
+
+[source,console]
+----
+# podman generate systemd --new --files --name postgresql
+# mv container-postgresql.service /etc/systemd/system
+# systemctl daemon-reload
+----
+
+Stop and remove postgresql running container.
+
+[source,console]
+----
+# podman stop postgresql
+# podman rm postgresql
+----
+
+That's it! Now you're able to start and check the status of running container with systemct start and status.
+
+=== Ruby or Rails Developer
+
+[source,console]
+----
+$ sudo dnf install openssl-devel
+$ sudo dnf install libpq-devel
+$ sudo dnf install libxml2-devel
+$ sudo dnf install libxslt-devel
+$ sudo dnf install readline-devel
+----
+
+NOTE: Reinstall all your ruby with rbenv (remove and install).
+
+=== Build ADVCMP
+
+Sumber: link:https://github.com/jarun/advcpmv[https://github.com/jarun/advcpmv^]
+
+[source,console]
+----
+$ sudo dnf install patch
+----
+
+[source,console]
+----
+$ wget http://ftp.gnu.org/gnu/coreutils/coreutils-8.32.tar.xz
+$ tar xvJf coreutils-8.32.tar.xz
+$ cd coreutils-8.32/
+$ wget https://raw.githubusercontent.com/jarun/advcpmv/master/advcpmv-0.8-8.32.patch
+$ patch -p1 -i advcpmv-0.8-8.32.patch
+$ ./configure
+$ make
+----
+
+=== TLP
+
+[source,console]
+----
+$ sudo dnf install tlp
+----
+
+[source,console]
+----
+$ sudo dnf copr enable suhanc/tp_smapi
+$ sudo dnf install tp_smapi
+----
+
+=== Email Backend
+
+[source,console]
+----
+$ sudo dnf install isync
+$ sudo dnf install msmtp
+----
+
+=== Neomutt
+
+[source,console]
+----
+$ sudo dnf copr enable chriscowleyunix/neomutt
+----
+
+*Manual Build*
+
+Sumber: link:https://neomutt.org/dev/build/build[https://neomutt.org/dev/build/build^]
+
+Deps
+
+[source,console]
+----
+$ sudo dnf install libidn-devel
+$ sudo dnf install gpgme-devel
+$ sudo dnf install notmuch-devel
+$ sudo dnf install sqlite-devel
+$ sudo dnf install cyrus-sasl-devel
+$ sudo dnf install tokyocabinet-devel
+$ sudo dnf install tokyocabinet
+$ sudo dnf install urlview
+----
+
+[source,console]
+----
+$ ./configure --ssl --lua --notmuch --gpgme --gss --autocrypt --sqlite --sasl --mixmaster --fmemopen --homespool --tokyocabinet --locales-fix
+$ make
+$ sudo make install
+----
+
+=== RDP
+
+[source,console]
+----
+$ sudo dnf install freerdp
+----
+
+=== Qutebrowser
+
+[source,console]
+----
+$ sudo dnf install qutebrowser
+----
+
+Install Breave adblock,
+
+[source,console]
+----
+$ pip install adblock
+----
+
+Kemudian, update list dengan `:adblock-update`.
+
+Additional hints,
+Sumber: link:https://github.com/qutebrowser/qutebrowser/blob/master/doc/install.asciidoc#on-fedora[https://github.com/qutebrowser/qutebrowser/blob/master/doc/install.asciidoc#on-fedora^]
+
+====
+Fedora only ships free software in the repositories. To be able to play videos with proprietary codecs with QtWebEngine, you will need to install an additional package from the RPM Fusion Free repository.
+====
+
+[source,console]
+----
+$ sudo dnf install qt5-qtwebengine-freeworld
+----
+
+=== Rofi
+
+[source,console]
+----
+$ sudo dnf install rofi
+----
+
+=== Rofi-Calc
+Sumber: link:https://github.com/svenstaro/rofi-calc[https://github.com/svenstaro/rofi-calc^]
+
+[source,console]
+----
+$ sudo dnf install qalculate
+----
+
+Manual Build
+
+[source,console]
+----
+$ sudo dnf install rofi-devel
+----
+
+[source,console]
+----
+$ autoreconf -i
+$ mkdir build
+$ cd build/
+$ ../configure
+$ make
+$ sudo make install
+----
+
+=== LazyGit
+
+[source,console]
+----
+$ sudo dnf copr enable atim/lazygit
+$ sudo dnf install lazygit
+----
+
+=== Seahorse
+
+[source,console]
+----
+$ sudo dnf install seahorse
+----
+
+=== Crow translate
+Sumber: link:https://github.com/crow-translate/crow-translate[https://github.com/crow-translate/crow-translate^]
+
+[source,console]
+----
+$ sudo dnf install extra-cmake-modules
+$ sudo dnf install qt5-qtbase-devel
+$ sudo dnf install qt5-qtx11extras-devel
+$ sudo dnf install qt5-qtmultimedia-devel
+$ sudo dnf install tesseract-devel
+$ sudo dnf install libSM-devel
+----
+
+[source,console]
+----
+$ mkdir build
+$ cd build
+$ cmake ..
+$ cmake --build .
+----
+
+=== libva-intel-driver
+
+[source,console]
+----
+$ sudo dnf install libva-intel-driver
+----
+
+=== Inkscape
+
+[source,console]
+----
+$ sudo dnf install inkscape
+----
+
+=== WeeChat (build)
+
+Sumber: link:https://github.com/weechat/weechat[https://github.com/weechat/weechat^]
+
+[source,console]
+----
+$ sudo dnf install gnutls-devel
+$ sudo dnf install perl-ExtUtils-Embed
+$ sudo dnf install libgcrypt-devel
+$ sudo dnf install libcurl-devel
+$ sudo dnf install ncurses-devel
+$ sudo dnf install aspell-devel
+$ sudo dnf install php-devel
+$ sudo dnf install lua-devel
+$ sudo dnf install tcl-devel
+$ sudo dnf install guile-devel
+----
+
+[source,console]
+----
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+$ sudo make install
+----
+
+Kalau masih ada warning error perihal language, bisa menggunakan,
+
+[source,console]
+----
+$ ccmake ..
+----
+
+Lalu set *OFF* untuk language support yang tidak ingin disertakan atau yang menyebabkan error.
+
+=== WeeChat-Matrix
+
+Sumber: link:https://github.com/poljar/weechat-matrix[https://github.com/poljar/weechat-matrix^]
+
+[source,console]
+----
+$ sudo dnf install libolm-devel
+----
+
+[source,console]
+----
+$ git clone https://github.com/poljar/weechat-matrix.git
+$ cd weechat-matrix
+$ pip install -r requirements.txt
+----
+
+Kalau kamu sudah pernah mengkonfigurasi weechat, tinggal jalankan,
+
+[source,console]
+----
+$ make install
+----
+
+Selanjutnya tinggal membuat plugin matrix menjadi autostart ketika weechat dijalankan.
+
+[source,console]
+----
+$ cd ~/.weechat/python/autoload
+$ ln -s ../matrix.py ~/.weechat/python/autoload
+----
+
+=== Flameshot
+
+[source,console]
+----
+$ sudo dnf install flameshot
+----
+
+=== Optipng
+
+[source,console]
+----
+$ sudo dnf install optipng
+----
+
+=== Scrot
+
+Sumber: link:https://github.com/resurrecting-open-source-projects/scrot[https://github.com/resurrecting-open-source-projects/scrot^]
+
+[source,console]
+----
+$ sudo dnf install autoconf-archive
+$ sudo dnf install imlib2-devel
+$ sudo dnf install libtool
+$ sudo dnf install libXcomposite-devel
+$ sudo dnf install libXfixes-devel
+----
+
+[source,console]
+----
+$ git clone https://github.com/resurrecting-open-source-projects/scrot.git
+$ cd scrot
+----
+
+[source,console]
+----
+$ ./autogen.sh
+$ ./configure
+$ make
+$ sudo make install
+----
+
+=== Maim
+
+[source,console]
+----
+$ sudo dnf install maim
+----
+
+=== Change/Swap Pipewire with Pulseaudio
+
+Sumber: link:https://fedoraproject.org/wiki/Changes/DefaultPipeWire#Upgrade.2Fcompatibility_impact[https://fedoraproject.org/wiki/Changes/DefaultPipeWire#Upgrade.2Fcompatibility_impact^]
+
+[source,console]
+----
+$ sudo dnf swap --allowerasing pipewire-pulseaudio pulseaudio
+----
+
+Install PulseAudio sound server utilities
+
+[source,console]
+----
+$ sudo dnf install pulseaudio-utils
+----
+
+=== Pamixer
+
+Sumber: link:https://copr.fedorainfracloud.org/coprs/opuk/pamixer/[https://copr.fedorainfracloud.org/coprs/opuk/pamixer/^]
+
+[source,console]
+----
+$ sudo dnf copr enable opuk/pamixer
+$ sudo dnf install pamixer
+----
+
+Atau manual build (my recomended).
+
+[source,console]
+----
+$ sudo dnf install boost-devel
+----
+
+[source,console]
+----
+$ git clone https://github.com/cdemoulins/pamixer.git
+$ make
+----
+
+=== DConf & GConf Editor
+
+[source,console]
+----
+$ sudo dnf install dconf-editor
+$ sudo dnf install gconf-editor
+----
+
+=== HexChat
+
+[source,console]
+----
+$ sudo dnf install hexchat
+----
+
+Install adwaita-gtk2-theme for fix issue theme,
+
+Sumber: link:https://bugzilla.redhat.com/show_bug.cgi?id=1963223[https://bugzilla.redhat.com/show_bug.cgi?id=1963223^]
+
+[source,console]
+----
+$ sudo dnf install adwaita-gtk2-theme
+----
+
+=== Gping
+
+Sumber: link:https://github.com/orf/gping[https://github.com/orf/gping^]
+
+[source,console]
+----
+$ sudo dnf copr enable atim/gping
+$ sudo dnf install gping
+----
+
+=== PrettyPing
+
+Sumber: link:https://github.com/denilsonsa/prettyping[https://github.com/denilsonsa/prettyping^]
+
+[source,console]
+----
+$ sudo dnf install prettyping
+----
+
+=== Dunst
+
+[source,console]
+----
+$ sudo dnf install dunst
+----
+
+=== Telegram TG
+
+Sumber: link:https://github.com/paul-nameless/tg.git[https://github.com/paul-nameless/tg.git^]
+
+[source,console]
+----
+$ sudo dnf install tdlib
+$ pip install python-telegram
+$ pip install .
+----
+
+=== SimpleScreenRecorder
+
+[source,console]
+----
+$ sudo dnf install simplescreenrecorder
+----
+
+=== ps_mem
+
+[source,console]
+----
+$ sudo dnf install ps_mem
+----
+
+=== How to disable Gnome Software autostart
+
+Sumber: link:https://forums.fedoraforum.org/showthread.php?315410-How-to-disable-Gnome-Software-autostart[https://forums.fedoraforum.org/showthread.php?315410-How-to-disable-Gnome-Software-autostart^]
+
+[source,console]
+----
+$ sudo systemctl disable packagekit.service
+----
+
+Disable `download-updates` of Gnome Software with dcof-editor.
+
+----
+[org/gnome/software]
+download-updates=false
+----
+
+Disable autostart gnome-software service.
+
+Sumber: link:https://askubuntu.com/questions/959353/disable-gnome-software-from-loading-at-startup[https://askubuntu.com/questions/959353/disable-gnome-software-from-loading-at-startup^]
+
+. Copy of the `/etc/xdg/autostart/gnome-software-service.desktop` file to the `~/.config/autostart/` directory.
+
+. Open the copied `.desktop` file with a text editor and remove the `NoDisplay=true`
+
+. Now GNOME Software should appear in your Startup Applications list. Disable it. Alternatively, you may append an `X-GNOME-Autostart-enabled=false`
+
+=== Pavucontrol
+
+[source,console]
+----
+$ sudo dnf install pavucontrol
+----
+
+=== GColor2
+
+[source,console]
+----
+$ sudo dnf install gcolor2
+----
+
+=== Suckless
+
+==== st
+
+[source,console]
+----
+$ sudo dnf install libXft-devel
+----
+
+For Emoji support,
+
+Sumber: link:https://copr.fedorainfracloud.org/coprs/linuxredneck/libXft-bgra/[https://copr.fedorainfracloud.org/coprs/linuxredneck/libXft-bgra/^]
+
+[source,console]
+----
+$ sudo dnf copr enable linuxredneck/libXft-bgra
+$ sudo rpm -e --nodeps libXft-2.3.3-6.fc34.x86_64 libXft-devel-2.3.3-6.fc34.x86_64
+$ sudo dnf install libXft-bgra
+----
+
+Add `libXft` to `exclude=` package on `/etc/dnf/dnf.conf`.
+
+==== dwm
+
+Deps
+
+[source,console]
+----
+$ sudo dnf install libXinerama-devel
+----
+
+==== pinentry-dmenu (still failed)
+
+Deps
+
+[source,console]
+----
+$ sudo dnf install libassuan-devel
+----
+
+==== sxiv
+
+Deps
+
+[source,console]
+----
+$ sudo dnf install imlib2-devel
+$ sudo dnf install libexif-devel
+$ sudo dnf install giflib-devel
+$ sudo dnf install libXft-bgra-devel
+----
+
+=== Telegram Desktop
+
+(RPMFusion - Free)
+
+[source,console]
+----
+$ sudo dnf install telegram-desktop
+----
+
+=== Hide desktop icon on Application List
+
+Sumber: link:https://wiki.archlinux.org/title/desktop_entries#Hide_desktop_entries[https://wiki.archlinux.org/title/desktop_entries#Hide_desktop_entries^]
+
+Firstly, copy the desktop entry file in question to `~/.local/share/applications` to avoid your changes being overwritten.
+
+Then, to hide the entry in all environments, open the desktop entry file in a text editor and add the following line: `NoDisplay=true`.
+
+To hide the entry in a specific desktop, add the following line to the desktop entry file: `NotShowIn=desktop-name`.
+
+where desktop-name can be option such as `GNOME`, `Xfce`, `KDE` etc.
+
+A desktop entry can be hidden in more than desktop at once - simply separate the desktop names with a semi-colon.
+
+=== Flatpak via Flathub Remote
+
+[source,console]
+----
+$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+----
+
+=== Gromit-MPX
+
+(Flatpak - Flathub)
+
+[source,console]
+----
+$ flatpak install flathub net.christianbeier.Gromit-MPX
+----
+
+=== Center window in GNOME
+
+Sumber: link:https://www.reddit.com/r/gnome/comments/aaqy2p/center_windows_in_gnome/[https://www.reddit.com/r/gnome/comments/aaqy2p/center_windows_in_gnome/^]
+
+By: carmanaughty
+
+For a keyboard shortcut, there's a dconf key under `/org/gnome/desktop/wm/keybindings` which is `move-to-center` and it should be empty. Change that to whatever you want (for instance, I use ['<Super><Control><Shift>Home']).
+
+By: [deleted]
+
+Its also in GNOME Tweaks. It is under "Windows" -> "Center New Windows".
+
+=== Polybar
+
+[source,console]
+----
+$ sudo dnf install polybar
+----
+
+=== Feh
+
+Image viewer and cataloguer.
+
+[source,console]
+----
+$ sudo dnf install feh
+----
+
+=== SXHKD
+
+Simple HotKey Daemon.
+
+[source,console]
+----
+$ sudo dnf install sxhkd
+----
+
+=== j4-dmenu-desktop (dmenu wrapper)
+
+[source,console]
+----
+$ sudo dnf install j4-dmenu-desktop
+----
+
+=== XCompmgr
+
+[source,console]
+----
+$ sudo dnf install libXcomposite-devel
+$ sudo dnf install libXdamage-devel
+----
+
+=== Picom
+
+[source,console]
+----
+$ sudo dnf install meson
+$ sudo dnf install libev-devel
+$ sudo dnf install xcb-util-renderutil-devel
+$ sudo dnf install xcb-util-image-devel
+$ sudo dnf install pixman-devel
+$ sudo dnf install uthash-devel
+$ sudo dnf install libconfig-devel
+$ sudo dnf install dbus-devel
+----
+
+=== XBacklight
+
+[source,console]
+----
+$ sudo dnf install xbacklight
+----
+
+=== Udiskie
+
+[source,console]
+----
+$ sudo dnf install udiskie
+----
+
+=== Abduco
+
+[source,console]
+----
+$ sudo dnf install abduco
+----
+
+=== dtach
+
+Sumber: link:https://github.com/crigler/dtach[https://github.com/crigler/dtach^]
+
+[source,console]
+----
+$ sudo dnf install dtach
+----
+
+=== LXappearance
+
+[source,console]
+----
+$ sudo dnf install lxappearance
+----
+
+=== unclutter-xfixes
+
+Sumber: link:https://github.com/Airblader/unclutter-xfixes[https://github.com/Airblader/unclutter-xfixes^]
+
+[source,console]
+----
+$ sudo dnf intall libXi-devel
+$ sudo dnf install asciidoc
+----
+
+[source,console]
+----
+$ git clone https://github.com/Airblader/unclutter-xfixes.git
+$ cd unclutter-xfixes
+$ make
+$ sudo make install
+----
+
+=== Calibre
+
+[source,console]
+----
+$ sudo dnf install calibre
+----
+
+=== System Config Printer
+
+[source,console]
+----
+$ sudo dnf install system-config-printer
+----
+
+=== PPD from foomatic-db
+
+[source,console]
+----
+$ sudo dnf install foomatic-db
+$ sudo dnf install foomatic-db-ppds
+----
+
+=== XSane (Scanner)
+
+[source,console]
+----
+$ sudo dnf install xsane
+----
+
+=== Gparted
+
+[source,console]
+----
+$ sudo dnf install gparted
+----
+
+=== Numix Solarized Theme Build
+
+[source,console]
+----
+$ sudo dnf install sassc
+$ sudo dnf install gdk-pixbuf2-devel
+----
+
+Saya memiliki Codedark.colors
+
+[source,console]
+----
+$ sudo make THEME=Codedark install
+----
+
+Install dependensi numix theme,
+
+[source,console]
+----
+$ sudo dnf install numix-gtk-theme
+----
+
+=== Aria2
+
+[source,console]
+----
+$ sudo dnf install aria2
+----
+
+[source,console]
+----
+$ pip install "aria2p[tui]"
+----
+
+=== Mate Polkit
+
+[source,console]
+----
+$ sudo dnf install mate-polkit
+----
+
+=== LXpolkit
+
+[source,console]
+----
+$ sudo dnf install lxpolkit
+----
+
+=== P7Zip
+
+[source,console]
+----
+$ sudo dnf install p7zip
+----
+
+=== Screenkey
+
+[source,console]
+----
+$ sudo dnf install screenkey
+----
+
+=== Development Group Packages
+
+[source,console]
+----
+$ sudo dnf group install "Development Tools"
+----
+
+=== Docker
+
+Sumber: link:https://developer.fedoraproject.org/tools/docker/docker-installation.html[https://developer.fedoraproject.org/tools/docker/docker-installation.html^]
+
+Install the `docker-ce` package using the Docker repository:
+
+To install the dnf-plugins-core package (which provides the commands to manage your DNF repositories) and set up the stable repository.
+
+[source,console]
+----
+$ sudo dnf install dnf-plugins-core
+----
+
+To add the `docker-ce` repository
+
+[source,console]
+----
+$ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+----
+
+To install the docker engine. The Docker daemon relies on a OCI compliant runtime (invoked via the containerd daemon) as its interface to the Linux kernel namespaces, cgroups, and SELinux.
+
+[source,console]
+----
+$ sudo dnf install docker-ce docker-ce-cli containerd.io
+----
+
+Afterwards you need to enable the backward compatability for Cgroups. Docker Engine on Linux relies on control groups (cgroups). A cgroup limits an application to a specific set of resources. Control groups allow Docker Engine to share available hardware resources to containers and optionally enforce limits and constraints.
+
+[source,console]
+----
+$ sudo grubby --update-kernel=ALL --args="systemd.unified_cgroup_hierarchy=0"
+----
+
+You must reboot after running the command for the changes to take effect
+
+To start the Docker service use:
+
+[source,console]
+----
+$ sudo systemctl start docker
+----
+
+Now you can verify that Docker was correctly installed and is running by running the Docker hello-world image.
+
+[source,console]
+----
+$ sudo docker run hello-world
+----
+
+NOTE: *Why can’t I use docker command as a non root user, by default?*
+The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user `root` and other users can access it with `sudo`. For this reason, Docker daemon always runs as the `root` user.
+You can either link:http://www.projectatomic.io/blog/2015/08/why-we-dont-let-non-root-users-run-docker-in-centos-fedora-or-rhel[set up sudo^].
+Or you can create a Unix group called `docker` and add users to it. When the Docker daemon starts, it makes the ownership of the Unix socket read/writable by the `docker` group.
+*Warning*: The `docker` group is equivalent to the `root` user; For details on how this impacts security in your system, see link:https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface[Docker Daemon Attack Surface^] for details.
+To create the `docker` group and add your user:
+`sudo groupadd docker && sudo gpasswd -a ${USER} docker && sudo systemctl restart docker; newgrp docker`
+You have to log out and log back in (or restart Docker daemon and use `newgrp` command as mentioned here) for these changes to take effect. Then you can verify if your changes were successful by running Docker without `sudo`.
+
+=== KBBI-Qt
+
+Sumber: link:https://github.com/bgli/kbbi-qt[https://github.com/bgli/kbbi-qt^]
+
+[source,console]
+----
+$ sudo dnf install qt5-qtbase-devel
+----
+
+[source,console]
+----
+$ git clone https://github.com/bgli/kbbi-qt.git
+$ cd kbbi-qt
+$ qmake-qt5 KBBI-Qt.pro
+$ make
+$ sudo make install
+----
+
+=== Zathura
+
+[source,console]
+----
+$ sudo dnf install zathura
+$ sudo dnf install zathura-pdf-mupdf
+----
+
+=== Kamus
+
+Sumber: link:https://github.com/abihf/kamus[https://github.com/abihf/kamus^]
+
+[source,console]
+----
+$ sudo dnf install vala
+$ sudo dnf install libvala-devel
+$ sudo dnf install gtk3-devel
+$ sudo dnf install libgee-devel
+----
+
+[source,console]
+----
+$ ./configure
+$ make
+$ sudo make install
+----
+
+=== Thunderbird
+
+[source,console]
+----
+$ sudo dnf install thunderbird
+----
+
+=== Gucharmap (Character Map)
+
+[source,console]
+----
+$ sudo dnf install gucharmap
+----
+
+=== Dragon (drag and drop helper)
+
+Sumber: link:https://github.com/mwh/dragon.git[https://github.com/mwh/dragon.git^]
+
+[source,console]
+----
+$ git clone https://github.com/mwh/dragon.git
+$ cd dragon
+$ make
+$ sudo make install
+----
+
+=== Zoom Meeting Client
+
+Sumber: link:https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux#h_825b50ac-ad15-44a8-9959-28c97e4803ef[https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux#h_825b50ac-ad15-44a8-9959-28c97e4803ef^]
+
+Sumber: link:https://tecadmin.net/install-zoom-client-on-fedora/[https://tecadmin.net/install-zoom-client-on-fedora/^]
+
+[source,console]
+----
+$ wget https://zoom.us/client/latest/zoom_x86_64.rpm
+$ sudo dnf localinstall zoom_x86_64.rpm
+----
+
+=== ffmulticonverter
+
+[source,console]
+----
+$ sudo dnf install ffmulticonverter
+----
+
+=== HandBrake
+
+[source,console]
+----
+$ sudo dnf install HandBrake-gui
+----
+
+=== x11vnc
+
+[source,console]
+----
+$ sudo dnf install x11vnc
+----
+
+=== Discord
+
+(RPMFusion - NonFree)
+
+[source,console]
+----
+$ sudo dnf install discord
+----
+
+=== Slack
+
+Sumber: link:https://slack.com/intl/en-id/downloads/linux[https://slack.com/intl/en-id/downloads/linux^]
+
+[source,console]
+----
+$ wget https://downloads.slack-edge.com/linux_releases/slack-4.17.0-0.1.fc21.x86_64.rpm
+$ sudo dnf localinstall slack-4.17.0-0.1.fc21.x86_64.rpm
+----
+
+=== PDF Arranger
+
+[source,console]
+----
+$ sudo dnf install pdfarranger
+----
+
+=== Master PDF Editor 4
+
+Sumber: link:https://www.linuxuprising.com/2019/04/download-master-pdf-editor-4-for-linux.html[https://www.linuxuprising.com/2019/04/download-master-pdf-editor-4-for-linux.html^]
+
+[source,console]
+----
+$ wget http://code-industry.net/public/master-pdf-editor-4.3.89_qt5.x86_64.rpm
+$ sudo dnf localinstall master-pdf-editor-4.3.89_qt5.x86_64.rpm
+----
+
+=== Intel GPU Tools
+
+[source,console]
+----
+$ sudo dnf install igt-gpu-tools
+----
+
+=== Autocutsel
+
+Sumber: link:http://www.nongnu.org/autocutsel/[http://www.nongnu.org/autocutsel/^]
+
+Sumber: link:https://github.com/sigmike/autocutsel[https://github.com/sigmike/autocutsel^]
+
+[source,console]
+----
+$ sudo dnf install libXaw-devel
+----
+
+[source,console]
+----
+$ git clone https://github.com/sigmike/autocutsel
+$ cd autocutsel
+$ ./bootstrap
+$ ./configure
+$ make
+$ sudo make install
+----
+
+=== XZoom
+
+Sumber: link:https://copr.fedorainfracloud.org/coprs/bgstack15/stackrpms/[https://copr.fedorainfracloud.org/coprs/bgstack15/stackrpms/^]
+
+[source,console]
+----
+$ sudo dnf copr enable bgstack15/stackrpms
+$ sudo dnf install xzoom
+----
+
+////
+Sumber: link:https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=xzoom[https://aur.archlinux.org/cgit/aur.git/tree/PKGBUILD?h=xzoom^]
+
+[source,console]
+----
+$ sudo dnf install imake
+----
+
+[source,console]
+----
+$ wget http://webdiis.unizar.es/pub/unix/X11/xzoom-0.3.tgz
+$ wget ftp://ftp.acc.umu.se/mirror/cdimage/snapshot/Debian/pool/main/x/xzoom/xzoom_0.3-23.diff.gz
+----
+
+*md5sum*
+
+----
+d3a397e24aba7025f94e264fea0906d0  xzoom_0.3-23.diff.gz
+c6ecc5fade34cf46cbe8c00b93d7ac78  xzoom-0.3.tgz
+----
+
+[source,console]
+----
+$ gzip -f -d "xzoom_0.3-23.diff.gz"
+----
+////
+
+=== Minder (mind mapping)
+
+[source,console]
+----
+$ sudo dnf install minder
+----
+
+=== Taskell (Kanban Board)
+
+Sumber: link:https://github.com/smallhadroncollider/taskell[https://github.com/smallhadroncollider/taskell^]
+
+Command-line Kanban board/task manager with support for Trello boards and GitHub projects
+
+[source,console]
+----
+$ sudo dnf install ncurses-compat-libs
+----
+
+=== Show/Hide GRUB Menu
+
+Sumber: link:https://fedoraproject.org/wiki/Changes/HiddenGrubMenu[https://fedoraproject.org/wiki/Changes/HiddenGrubMenu^]
+
+On systems with only a single OS installed, the grub menu does not offer any useful functionality, so we should hide it by default.
+
+This new auto-hide functionality will be automatically enabled on new Fedora Workstation installs. This can be disabled by running:
+
+[source,console]
+----
+$ sudo grub2-editenv - unset menu_auto_hide
+----
+
+=== Zeal
+
+Offline documentation browser inspired by Dash
+
+[source,console]
+----
+$ sudo dnf install zeal
+----
+
+=== xinput
+
+[source,console]
+----
+$ sudo dnf install xinput
+----
+
+=== gThumb (image viewer, editor, organizer)
+
+[source,console]
+----
+$ sudo dnf install gthumb
+----
+
+=== Speedtest CLI
+
+[source,console]
+----
+$ sudo dnf install speedtest-cli
+----
+
+=== Spotify
+
+(Flatpak - Flathub)
+
+[source,console]
+----
+$ flatpak install flathub com.spotify.Client
+----
+
+=== rpkg
+
+Sumber: link:https://pagure.io/rpkg-util[https://pagure.io/rpkg-util^]
+
+[source,console]
+----
+$ sudo dnf install rpkg
+----
+
+=== asciidoc
+
+[source,console]
+----
+$ sudo dnf install asciidoc
+----
+
+[source,console]
+----
+$ gem install asciidoctor
+$ gem install asciidoctor-pdf --pre
+$ gem install pygments.rb
+----
+
+=== Tmux
+
+Sumber: link:https://github.com/tmux/tmux[https://github.com/tmux/tmux^]
+
+Manual build
+
+[source,console]
+----
+$ sudo dnf install libevent-devel
+----
+
+[source,console]
+----
+$ git clone https://github.com/tmux/tmux.git
+$ cd tmux
+$ sh autogen.sh
+$ ./configure
+$ make
+$ sudo make install
+----
+
+Fedora repo
+
+[source,console]
+----
+$ sudo dnf instal tmux
+----
+
+=== Emacs
+
+[source,console]
+----
+$ sudo dnf install emacs
+----
+
+=== Wireshark
+
+Sumber: link:https://fedoramagazine.org/how-to-install-wireshark-fedora/[https://fedoramagazine.org/how-to-install-wireshark-fedora/^]
+
+[source,console]
+----
+$ sudo dnf install wireshark
+----
+
+Add user ke dalam group *wireshark*.
+
+[source,console]
+----
+$ sudo usermod -a -G wireshark bandithijo
+----
+
+TIP: Perlu restart
+
+=== Scrcpy
+
+Sumber: link:https://github.com/Genymobile/scrcpy[https://github.com/Genymobile/scrcpy^]
+
+[source,console]
+----
+$ sudo dnf install SDL2-devel
+$ sudo dnf install android-tools
+----
+
+[source,console]
+----
+$ git clone https://github.com/Genymobile/scrcpy
+$ cd scrcpy
+$ ./install_release.sh
+----
+
+When a new release is out, update the repo and reinstall:
+
+[source,console]
+----
+$ git pull
+$ ./install_release.sh
+----
+
+To uninstall:
+
+[source,console]
+----
+$ sudo ninja -Cbuild-auto uninstall
+----
+
+=== Faketime
+
+Manipulate system time per process for testing purposes.
+
+[source,console]
+----
+$ sudo dnf install libfaketime
+----
