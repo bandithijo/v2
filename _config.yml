@@ -3,9 +3,18 @@ description: Here's where I started writing some notes that someday I will call 
 baseurl: /
 url: https://bandithijo.github.io/v2
 
+author: Assyaufi, Rizqi Nur
+logo_author: /assets/images/logo_author.png
+
+image:
+  path: /assets/images/bndt_banner_v2.png
+  width: 460
+  height: 117
+
 plugins:
   - jekyll-sitemap
   - jekyll-feed
+  - jekyll-seo-tag
 
 asciidoc: {}
 asciidoctor:
