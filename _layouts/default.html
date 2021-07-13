@@ -78,11 +78,10 @@
   <!-- End Main Content -->
 
   <!-- Sidebar -->
-  <aside class="large-3 columns" style="margin-top:2em">
+  <aside class="large-3 columns mt3">
 
     {% if page.permalink != page.root and page.permalink != "/blog/" and page.permalink != "/note/" %}
-      <div style="margin-top:1.2em"></div>
-      <div class="panel plain">
+      <div class="panel plain mt2">
         <ul class="vcard">
           <li class="fn"><i class="fa fa-user-secret"></i> {{ page.author | truncate: 23 }}</li>
           <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:{{ page.email }}"><span style="font-size:0.85em">{{ page.email | truncate: 25 }}</span></a></li>
@@ -105,28 +104,28 @@
         </div>
       {% endif %}
 
-      {% if page.categories == "blog" %}
-        <h4>Posts</h4>
-        <ul id="posts" class="posts nav">
-          {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
-          {% for post in posts reversed limit: 5 %}
-            <li><a href="{{ site.url }}{{ post.url }}">{{ post.navtitle }}</a></li>
-          {% endfor %}
-        </ul>
-      {% elsif page.categories == "note" %}
-        <h4>Notes</h4>
-        <ul id="posts" class="posts nav">
-          {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
-          {% for post in posts reversed limit: 5 %}
-            <li><a href="{{ site.url }}{{ post.url }}">{{ post.navtitle }}</a></li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-      <div style="margin-bottom:2em"></div>
+      <div class="mb3">
+        {% if page.categories == "blog" %}
+          <h4>Posts</h4>
+          <ul id="posts" class="posts nav">
+            {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
+            {% for post in posts reversed limit: 5 %}
+              <li><a href="{{ site.url }}{{ post.url }}">{{ post.navtitle }}</a></li>
+            {% endfor %}
+          </ul>
+        {% elsif page.categories == "note" %}
+          <h4>Notes</h4>
+          <ul id="posts" class="posts nav">
+            {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
+            {% for post in posts reversed limit: 5 %}
+              <li><a href="{{ site.url }}{{ post.url }}">{{ post.navtitle }}</a></li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
     {% endif %}
 
-    <div style="margin-top:1.2em"></div>
-    <div class="panel">
+    <div class="panel mt2">
       <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
 
       <p>
@@ -142,14 +141,14 @@
 
 <!-- Footer -->
 <footer class="row">
-  <div class="large-12 columns">
+  <div class="large-12 columns mt4">
     <div class="text-right">
       {% if page.permalink == "/blog/" or page.permalink == "/blog/:title" %}
         <a href="/feed/blog.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
       {% elsif page.permalink == "/note/" or page.permalink == "/note/:title" %}
         <a href="/feed/note.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
       {% else %}
-        <a href="/feed/blog.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+        <a href="/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
       {% endif %}
     </div>
     <hr>

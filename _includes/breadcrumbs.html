@@ -1,6 +1,6 @@
-<div style="margin:2.0em 0;">
+<div class="my3">
 {% assign crumbs = page.url | remove:'/index.html' | split: '/' %}
-<span style="color:#232323;"><i class="fa fa-play"></i> </span>&nbsp;<a href="/">Home</a>
+<i class="fa fa-play"></i> &nbsp;<a href="/">Home</a>
 {% for crumb in crumbs offset: 1 %}
   {% if forloop.last %}
     / {{ crumb | replace:'-',' ' | remove:'.html' | capitalize }}
