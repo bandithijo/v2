@@ -18,6 +18,7 @@ asciidoctor:
     - hardbreaks-option
 
 feed:
+  excerpt_only: true
   categories:
     - blog
     - note
