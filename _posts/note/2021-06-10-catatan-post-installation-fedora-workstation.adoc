@@ -91,7 +91,7 @@ Fedora-Workstation-Live-x86_64-34-1.2.iso: OK
 sha256sum: WARNING: 19 lines are improperly formatted
 ----
 
-NOTE: Abaikan saja warning 19 lines are improperly formated, hal ini terjadi karena di dalam file *-CHECKSUM tersebut juga terdapat PGP Signature. Coba komentar saja baris-baris selain SHA256SUM valuenya (termasuk blankline), maka warningnya akan ~~berkurang~~ hilang.
+NOTE: Abaikan saja warning 19 lines are improperly formated, hal ini terjadi karena di dalam file *-CHECKSUM tersebut juga terdapat PGP Signature. Coba komentar saja baris-baris selain SHA256SUM valuenya (termasuk blankline), maka warningnya akan [.line-through]#berkurang# hilang.
 
 == Packages
 
