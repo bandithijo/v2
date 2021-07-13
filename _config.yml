@@ -34,8 +34,6 @@ sitemap:
   filename: /sitemap.xml
   exclude:
     - /feed.xml
-    - /feed/blog.xml
-    - /feed/note.xml
   include_posts:
     - /index.html
 
