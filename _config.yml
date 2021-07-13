@@ -1,13 +1,12 @@
 title: BanditHijo [R]-Chive
-description: The Jekyll AsciiDoc Quickstart project is a leg-up in starting your own website hosted on GitHub with content based in AsciiDoc.
+description: Here's where I started writing some notes that someday I will call it, a book.
 baseurl: /
 url: https://bandithijo.github.io/v2
-exclude:
-  - LICENSE.adoc
-  - README.adoc
-  - Gemfile
-  - Gemfile.lock
-  - Rakefile
+
+plugins:
+  - jekyll-sitemap
+  - jekyll-feed
+
 asciidoc: {}
 asciidoctor:
   base_dir: :docdir
@@ -17,3 +16,24 @@ asciidoctor:
     - source-highlighter=coderay
     - icons=font
     - hardbreaks-option
+
+feed:
+  categories:
+    - blog
+    - note
+
+sitemap:
+  filename: /sitemap.xml
+  exclude:
+    - /feed.xml
+    - /feed/blog.xml
+    - /feed/note.xml
+  include_posts:
+    - /index.html
+
+exclude:
+  - LICENSE.adoc
+  - README.adoc
+  - Gemfile
+  - Gemfile.lock
+  - Rakefile
