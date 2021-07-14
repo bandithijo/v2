@@ -2098,3 +2098,10 @@ Manipulate system time per process for testing purposes.
 ----
 $ sudo dnf install libfaketime
 ----
+
+=== sc (Spreadsheet Calculator)
+
+[source,console]
+----
+$ sudo dnf install sc
+----
