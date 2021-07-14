@@ -404,5 +404,6 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .top-bar .name h1 a sup{top:-.8em;text-decoration:none;font-weight:normal;font-size:0.6em!important}
 .top-bar-section ul li > a.menu-dropdown{font-size:1.2em!important}
 .vcard{padding:0;border:none}
-.vcard li.tags{ padding-left:18px;text-indent:-9px}
+.vcard li.tags{padding-left:18px;text-indent:-9px}
 .admonitionblock .listingblock{margin:0.50em 0!important;}
+.breadcrumbz{padding-left:18px; text-indent:-10px}

@@ -1,4 +1,4 @@
-<div class="my3">
+<div class="breadcrumbz my3">
 {% assign crumbs = page.url | remove:'/index.html' | split: '/' %}
 <i class="fa fa-play"></i> &nbsp;<a href="{{ site.url }}">home</a>
 {% for crumb in crumbs offset: 1 %}
