@@ -7,7 +7,7 @@ Giardia
 :page-categories: blog
 :page-tags: [fedora, kernel]
 :page-liquid:
-:page-published: false
+:page-published: true
 
 During *Kernel Test Days*, contributors are asked to run a _Kernel Regression Test_ which will help to detect and troubleshoot any issue with a new kernel version, before wider usage.
 It consist in running a series of tests provided by the https://pagure.io/kernel-tests[Kernel Test Suite]
@@ -117,8 +117,15 @@ Before running tests, we need to allow the testsuite to make their heap memory e
 $ sudo semanage boolean -m --on selinuxuser_execheap
 ----
 
-IMPORTANT: When you finish with the tests, remember to turn SELinux boolean selinuxuser_execheap back to default state, by issuing the command:
-*sudo semanage boolean -m --off selinuxuser_execheap*
+[IMPORTANT]
+====
+*When you finish with the tests, remember to turn SELinux boolean selinuxuser_execheap back to default state, by issuing the command*:
+
+[source,console]
+----
+$ sudo semanage boolean -m --off selinuxuser_execheap
+----
+====
 
 Now let's start testing!
 

@@ -405,3 +405,4 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .top-bar-section ul li > a.menu-dropdown{font-size:1.2em!important}
 .vcard{padding:0;border:none}
 .vcard li.tags{ padding-left:18px;text-indent:-9px}
+.admonitionblock .listingblock{margin:0.50em 0!important;}
