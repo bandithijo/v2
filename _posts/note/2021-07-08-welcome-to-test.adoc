@@ -49,13 +49,13 @@ end
 ----
 <1> *Faker* is a Gem for creating dummy object.
 
-== Images
+=== Images
 
 This is how to add image on asciidoc.
 
-.Jekyll Mascot
+.OctoJekyll
 [caption="Gambar 1: ",link=https://jekyllrb.com]
-image::https://jekyllrb.com/img/octojekyll.png[Jekyll Mascot,300]
+image::{{ site.url }}/assets/images/octojekyll.png[OctoJekyll,300]
 
 
 Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
