@@ -7,7 +7,7 @@ Giardia
 :page-categories: blog
 :page-tags: [fedora, kernel]
 :page-liquid:
-:page-published: true
+:page-published: false
 
 During *Kernel Test Days*, contributors are asked to run a _Kernel Regression Test_ which will help to detect and troubleshoot any issue with a new kernel version, before wider usage.
 It consist in running a series of tests provided by the https://pagure.io/kernel-tests[Kernel Test Suite]
