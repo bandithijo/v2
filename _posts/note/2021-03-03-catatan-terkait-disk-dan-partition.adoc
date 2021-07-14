@@ -1,7 +1,7 @@
-= Catatan Perihal Disk dan Partition
+= Catatan Terkait Disk dan Partition
 Assyaufi, Rizqi Nur
 :page-email: bandithijo@gmail.com
-:page-navtitle: Catatan Perihal Disk dan Partition
+:page-navtitle: Catatan Terkait Disk dan Partition
 :page-excerpt: Catatan ini ditulis untuk mendokumentasikan beberapa 'Best Practice' yang sering diperlukan namun terlupakan karena jarang digunakan.
 :page-permalink: /note/:title
 :page-categories: note
