@@ -64,7 +64,7 @@ Jalankan generator untuk membuat konfigurasi awal.
 $ rails g pundit:install
 ----
 
-<1> Generator ini akan membuatkan direktori *app/policies* dan juga file bernama *application_policy.rb*.
+Generator ini akan membuatkan direktori *app/policies* dan juga file bernama *application_policy.rb*.
 
 ----
  app
@@ -170,7 +170,7 @@ end
 
 Karena yang ingin kita batasi adalah Article agar hanya Author si pemilik Article saja yang dapat memodifikasinya.
 
-<1> Struktur direktori dan file dari policy ini mengikuti dari controller namun menggunakan singular.
+Struktur direktori dan file dari policy ini mengikuti dari controller namun menggunakan singular.
 
 ----
  app
