@@ -64,7 +64,7 @@ Jalankan generator untuk membuat konfigurasi awal.
 $ rails g pundit:install
 ----
 
-Generator ini akan membuatkan direktori *app/policies* dan juga file bernama *application_policy.rb*.
+<1> Generator ini akan membuatkan direktori *app/policies* dan juga file bernama *application_policy.rb*.
 
 ----
  app
@@ -76,8 +76,8 @@ Generator ini akan membuatkan direktori *app/policies* dan juga file bernama *ap
 │  jobs
 │  mailers
 │  models
-│  <mark>policies</mark>
-│ └  <mark>application_policy.rb</mark>
+│  policies                    <1>
+│ └  application_policy.rb     <1>
 └  views
  bin
  config
@@ -106,7 +106,7 @@ Namun, karena kita menggunakan user type berupa Author yang merupakan turunan da
 
 Kita letakkan pada controller.
 
-Saya memiliki *authors_controller* yang merupakan induk dari semua controller yang ada di bawahnya.
+<1> Saya memiliki *authors_controller* yang merupakan induk dari semua controller yang ada di bawahnya.
 
 ----
  app
@@ -128,7 +128,7 @@ Saya memiliki *authors_controller* yang merupakan induk dari semua controller ya
 │ │  admins_controller.rb
 │ │  application_controller.rb
 │ │  articles_controller.rb
-│ └  <mark>authors_controller.rb</mark>
+│ └  authors_controller.rb          <1>
 │  helpers
 │  javascript
 │  jobs
@@ -170,7 +170,7 @@ end
 
 Karena yang ingin kita batasi adalah Article agar hanya Author si pemilik Article saja yang dapat memodifikasinya.
 
-Struktur direktori dan file dari policy ini mengikuti dari controller namun menggunakan singular.
+<1> Struktur direktori dan file dari policy ini mengikuti dari controller namun menggunakan singular.
 
 ----
  app
@@ -183,10 +183,10 @@ Struktur direktori dan file dari policy ini mengikuti dari controller namun meng
 │  mailers
 │  models
 │  policies
-│ │  <mark>author_policy</mark>
-│ │ └  <mark>article_policy.rb</mark>
+│ │  author_policy             <1>
+│ │ └  article_policy.rb       <1>
 │ │  application_policy.rb
-│ └  <mark>author_policy.rb</mark>
+│ └  author_policy.rb          <1>
 └  views
  bin
  config
