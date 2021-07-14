@@ -5,7 +5,7 @@
 
 I've successfully set up and deployed an Jekyll website powered by AsciiDoc using the https://github.com/asciidoctor/jekyll-asciidoc-quickstart[*Jekyll AsciiDoc Quickstart*^] project. If everything is in order then changes to the AsciiDoc content will be automatically published to my `gh_pages` branch and hosted via Jekyll and Github.
 
-image::https://jekyllrb.com/img/octojekyll.png[Jekyll Mascot,200,align=center]
+image::{{ site.url }}/assets/images/octojekyll_asciidoc.png[OctoJekyll - AsciiDoc,550,align=center]
 
 == Post Types
 
