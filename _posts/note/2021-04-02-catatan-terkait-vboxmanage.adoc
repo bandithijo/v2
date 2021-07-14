@@ -1,0 +1,129 @@
+= Catatan Terkait VBoxManage
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Catatan Terkait VBoxManage
+:page-excerpt: Hal-hal terkait command line cenderung mudah untuk lupa apabila tidak sering digunakan. Catatan ini hadir merangkum hal-hal terkait VBoxManage yang pernah saya pergunakan.
+:page-permalink: /note/:title
+:page-categories: note
+:page-tags: [virtualbox]
+:page-liquid:
+:page-published: true
+
+VBoxManage adalah command line interface dari VirtualBox. Lengkapnya adalah "*Oracle VM VirtualBox Command Line Management Interface*".
+
+== Melihat daftar VM
+
+Untuk melihat daftar vm yang ada,
+
+[source,console]
+----
+$ VBoxManage list vms
+----
+
+Outputnya akan seperti ini,
+
+----
+"RDPWindows" {34a99d7f-e482-4f6b-86ba-e827998213f2}
+----
+
+*RDPWindows* adalah nama dari vm yang saya berikan ketika membuat vm.
+
+*34a99d7f-e482-4f6b-86ba-e827998213f2* adalah UUID dari vm.
+
+== Power On/Off VM
+
+=== Menjalankan vm secara headless mode
+
+Untuk menjalankan vm tanpa membuka window display yang menampilkan tampilan layar dari vm biasanya diperlukan apabila hanya ingin menggunakan vm sebagai server. Biasanya diakses menggunakan SSH. Atau kalau ingin mengakses tampilan layar, dapat menggunakan protokol RDP.
+
+Cara menjalankan vm dengan headless mode,
+
+----
+$ VBoxManage startvm <nama_vm> --type headless
+----
+
+Misal,
+
+[source,console]
+----
+$ VBoxManage startvm RDPWindows --type headless
+----
+
+Outputnya akan seperti ini,
+
+----
+Waiting for VM "RDPWindows" to power on...
+VM "RDPWindows" has been successfully started.
+----
+
+=== Mematikan vm
+
+Saya tidak merekomendasikan mematikan vm dengan cara ini, karena sering sekali Windows vm saya masuk ke "Recovery Mode".
+
+----
+$ VBoxManage controlvm <nama_vm> poweroff
+----
+
+Misal,
+
+[source,console]
+----
+$ VBoxManage controlvm RDPWindows poweroff
+----
+
+== Konektifitas USB Host -> Guest VM
+
+=== Mengecek daftar device yang terhubung dengan USB port
+
+[source,console]
+----
+$ VBoxManage list usbhost
+----
+
+Outputnya akan seperti ini,
+
+----
+Host USB Devices:
+
+UUID:               <mark>dcab5dcf-37c1-4718-962f-0e54ff7cc80c</mark>
+VendorId:           0x0483 (0483)
+ProductId:          0x2016 (2016)
+Revision:           0.1 (0001)
+Port:               1
+USB version/speed:  1/Full
+Manufacturer:       STMicroelectronics
+Product:            Biometric Coprocessor
+Address:            sysfs:/sys/devices/pci0000:00/0000:00:1a.0/usb3/3-2//device:/dev/vboxusb/003/002
+Current State:      Available
+----
+
+*UUID* dari perangkat tersebut yang akan kita gunakan.
+
+*UUID* dari sebuah perangkat, akan berubah-ubah meskipun perangkatnya sama.
+
+Untuk membuat UUID yang permanen, dapat menggunakan USB filter.
+
+NOTE: Lain waktu saya akan catatat cara membuat USB filter yaa.
+
+=== Memindahkan attached USB dari Host ke Guest vm
+
+Untuk memindahkan perangkat USB yang terhubung dengan Host ke Guest vm.
+
+----
+VBoxManage controlvm <nama_vm> usbattach <UUID>
+----
+
+Misal,
+
+[source,console]
+----
+$ VBoxManage controlvm RDPWindows usbattach dcab5dcf-37c1-4718-962f-0e54ff7cc80c
+----
+
+Untuk melepasnya, tinggal "Safely Remove" saja. Meskipun, ada command untuk *detach* juga.
+
+== Referensi
+
+. link:https://schier.co/blog/start-virtualbox-vm-in-headless-mode[schier.co/blog/start-virtualbox-vm-in-headless-mode^]
+. link:https://www.virtualbox.org/manual/ch08.html[www.virtualbox.org/manual/ch08.html^]
+. link:https://superuser.com/questions/1301873/virtualbox-switch-access-to-an-attached-usb-device-between-guest-and-host-from[superuser.com/questions/1301873/virtualbox-switch-access-to-an-attached-usb-device-between-guest-and-host-from^]

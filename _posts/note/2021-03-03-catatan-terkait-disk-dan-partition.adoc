@@ -1,0 +1,182 @@
+= Catatan Perihal Disk dan Partition
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Catatan Perihal Disk dan Partition
+:page-excerpt: Catatan ini ditulis untuk mendokumentasikan beberapa 'Best Practice' yang sering diperlukan namun terlupakan karena jarang digunakan.
+:page-permalink: /note/:title
+:page-categories: note
+:page-tags: [partition]
+:page-liquid:
+:page-published: true
+
+Berinteraksi dengan disk dan partition mungkin merupakan pekerjaan harian bagi sebagian teman-teman, namun tidak dengan saya dan sebagian besar teman-teman yang lain.
+
+Catatan ini hadir untuk menyimpan beberapa "best practice" yang dapat kita gunakan, apabila kita memerlukannya saat akan berurusan dengan disk dan partition.
+
+== Perbedaan Disk dan Partition
+
+Saya lihat banyak sekali teman-teman yang masih suka tertukar-tukar dalam membedakan dan mengidentifikasi sebuah block termasuk disk atau partition.
+
+Sederhananya seperti ini,
+
+----
+NAME
+sda       <1>
+├─sda1    <2>
+└─sda2    <2>
+----
+<1> Disebut, *disk*, biasanya ditulis */dev/sda*
+<2> Disebut, *partition*, biasanya ditulis */dev/sda1*, */dev/sdb2*, dst.
+
+== Tips & Tricks
+
+=== Melihat list block disk
+
+Atau dapat kita artikan mengecek struktur dari partisi.
+
+[source,console]
+----
+$ lsblk
+----
+
+Kita juga dapat memformat tampilan output untuk menampilkan field apa saya yang ingin kita tampilkan.
+
+[source,console]
+----
+$ lsblk --output=NAME,FSTYPE,SIZE,TYPE,LABEL,MOUNTPOINT
+----
+
+TIP: Perintah yang panjang, dapat disederhanakan dengan mendefinisikan *alias*.
+
+=== Mounting file ISO dengan Udisks
+
+Terdapat 2 tahap:
+
+*1. Setup loop block disk*
+
+----
+$ udisksctl loop-setup -f file_image.iso
+----
+
+Misal,
+
+[source,console]
+----
+$ udisksctl loop-mount -f archlinux.iso
+----
+
+Kalau berhasil, fileiso akan terpasang ke loop block disk.
+
+----
+$ lsblk
+NAME      FSTYPE    SIZE TYPE LABEL       MOUNTPOINT
+loop0     iso9660   681M loop ARCH_202010
+├─loop0p1 iso9660   681M part ARCH_202010
+└─loop0p2 vfat       56M part ARCHISO_EFI
+----
+
+Tinggal dimounting.
+
+*2. Mounting loop block disk*
+
+----
+$ udisksctl mount -p block_disk/block_partition
+----
+
+Misal,
+
+[source,console]
+----
+$ udisksctl mount -p block_disk/loop0p1
+----
+
+----
+$ lsblk
+NAME      FSTYPE    SIZE TYPE LABEL       MOUNTPOINT
+loop0     iso9660   681M loop ARCH_202010
+├─loop0p1 iso9660   681M part ARCH_202010 /run/media/bandithijo/ARCH_202010  <1>
+└─loop0p2 vfat       56M part ARCHISO_EFI
+----
+<1> Berhasil di-mounting
+
+Secara otomatis *udisks* akan membuat mount point ke path *$XDG_RUNTIME_USER*.
+
+=== Unmounting file ISO dengan Udisks
+
+Sekenarionya tinggal dibalik dari proses mounting di atas.
+
+*1. Unmounting loop block disk*
+
+----
+udisksctl unmount -p block_disk/block_partition
+----
+
+Misal,
+
+[source,console]
+----
+$ udisksctl unmount -p block_disk/loop0p1
+----
+
+----
+$ lsblk
+NAME      FSTYPE    SIZE TYPE LABEL       MOUNTPOINT
+loop0     iso9660   681M loop ARCH_202010
+├─loop0p1 iso9660   681M part ARCH_202010
+└─loop0p2 vfat       56M part ARCHISO_EFI
+----
+
+*2. Delete loop block disk*
+
+----
+udisksctl loop-delete -b block_disk/block_partition
+----
+
+Misal,
+
+[source,console]
+----
+$ udisksctl loop-delete -b block_disk/loop0
+----
+
+=== Membuat bootable flash drive dengan dd
+
+Kita dapat menggunakan tools yang bernama **dd** untuk membuat bootable flash drive dari file ISO.
+
+Misal, kita memiliki file ISO dari Arch Linux yang berlokasi di *$HOME/iso/archlinux.iso* dan sebuah flash drive yang apabila di pasangkan ke laptop, akan beralamat di */dev/sdb*.
+
+NOTE: Kita dapat mengetahui alamat blok dari flashdrive dengan perintah *lsblk*.
+
+Selanjutnya tinggal kita ekseskusi.
+
+----
+$ sudo dd if=/path/source of=/path/target
+----
+
+Misal,
+
+[source,console]
+----
+$ sudo dd if=~/iso/archlinux.iso of=/dev/sdb
+----
+
+Kita juga dapat menambahkan beberapa parameter seperti `bs=BYTES` atay `status=LEVEL`.
+
+Seringnya, saya gunakan seperti ini:
+
+[source,console]
+----
+$ sudo dd if=~/iso/archlinux.iso of=/dev/sdb bs=1M status=progress
+----
+
+Untuk penjelasan mengenai parameter lebih lengkapnya, teman-teman dapat membaca sendiri di link:https://man.archlinux.org/man/dd.1[**man dd**^].
+
+IMPORTANT: Jangan tambahkan nomor atau partition number, seperti: */dev/sdb1*.
+Tapi, gunakan block disk, seperti: */dev/sdX*, di mana *X* merupakan abjad yang nilainya berbeda-beda (kondisional), sesuai dengan banyaknya external drive yang terhubung dengan sistem kita.
+
+IMPORTANT: Kesalahan mendefinisikan *if=* dan *of=* dapat berakibat fatal.
+*Telitilah sebelum mengeksekusi!*
+
+== Referensi
+
+. link:https://wiki.archlinux.org/index.php/USB_flash_installation_medium[https://wiki.archlinux.org/index.php/USB_flash_installation_medium^]
