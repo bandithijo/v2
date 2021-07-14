@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "FiraCodeNerdFontComplete-Medium";
+
+  src: url("../fonts/fira-code-nerd-font/FiraCodeMediumNerdFont.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}
