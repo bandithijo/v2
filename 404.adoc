@@ -1,0 +1,5 @@
+= 404
+:page-permalink: /404
+:page-toc: false
+
+== Page not found! :(

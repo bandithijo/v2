@@ -82,7 +82,8 @@
   <!-- Sidebar -->
   <aside class="large-3 columns mt3">
 
-    {% if page.permalink != page.root and page.permalink != "/blog/" and page.permalink != "/note/" %}
+    {% if page.permalink != page.root
+      and page.author != nil %}
       <div class="panel plain mt2">
         <ul class="vcard">
           <li class="fn"><i class="fa fa-user-secret"></i> {{ page.author | truncate: 23 }}</li>
