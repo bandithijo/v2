@@ -175,7 +175,7 @@ Error in imuncul karena belum tersedia action *publish* pada *books_controller.r
 [source,ruby,linenums]
 ----
 class BooksController < ApplicationController
-  before_action :set_book, only: %i[ show edit update destroy publish ]
+  before_action :set_book, only: %i[ show edit update destroy publish ]  <1>
 
   # def index, show, new, edit, dst...
 
@@ -188,7 +188,7 @@ class BooksController < ApplicationController
     end
   end
 
-  def publish
+  def publish  <2>
     @book.update(published_at: Time.zone.now)
   end
 
@@ -205,11 +205,10 @@ class BooksController < ApplicationController
 end
 ----
 
-Pada callbacks *:set_book*, tabahkan *publish*.
+<1> Pada callbacks *:set_book*, tabahkan *publish*.
+<2> Buat method *publish*, seperti pada baris 15-17.
 
-Buat method *publish*, seperti pada baris 16-18.
-
-Kalau kita, kil publish saat ini, yang terjadi pada log adalah,
+Kalau kita, klik tombol *publish* saat ini, yang terjadi pada log adalah,
 
 Update berhasil, tapi,
 
@@ -227,7 +226,7 @@ Buka lagi *app/views/books/show.html.erb* dan modifikasi pada bagian output valu
 <!-- ... -->
 <p>
   <strong>Published at:</strong>
-  <span id="published-at"><%= @book.published_at %></span>                          <1>
+  <span id="published-at"><%= @book.published_at %></span>  <1>
 </p>
 
 <%= link_to 'Publish', publish_book_path(@book), method: :patch, remote: true %> |  <2>
