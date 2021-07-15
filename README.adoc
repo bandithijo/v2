@@ -1,3 +1,37 @@
 = BanditHijo [R]-Chive
 
-Development URL: https://bandithijo.github.io/v2
+Development URL: link:https://bandithijo.github.io/v2[BanditHijo v2-Beta]
+
+////
+== Export to PDF
+
+If you want to export the `.adoc` file to PDF, you need to carry a Ruby gem (library) called *asciidoctor-pdf*
+
+*dnf*
+
+[source,console]
+----
+$ sudo dnf install asciidoc asciidoctor rubygem-asciidoctor-pdf rouge
+----
+
+Or, do you want to install from RubyGems.org
+
+[source,console]
+----
+$ gem install asciidoctor asciidoctor-pdf rubygem-rouge
+----
+
+Setelah terpasang, export dengan perintah.
+
+[source,console]
+----
+$ asciidoctor-pdf \
+-a data-uri \
+-a allow-uri-read \
+-a hardbreaks-option \
+-a experimental \
+-a icons=font \
+-a source-highlighter=rouge \
+0000-00-00-file-name-path.adoc
+----
+////
