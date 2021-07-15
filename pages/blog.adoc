@@ -11,7 +11,7 @@
 == icon:calendar[] {{ year.name }}
     {% for post in year.items %}
         {% if post.categories == 'blog' %}
-            * link:{{ site.url }}{{ post.url }}[{{ post.title }}] ({{ post.date | date: '%Y-%m-%d' }})
+            * link:{{ site.url }}{{ post.url }}[{{ post.title }}] [.nobr]#({{ post.date | date: '%Y-%m-%d' }}#)
         {% endif %}
     {% endfor %}
 {% endfor %}
