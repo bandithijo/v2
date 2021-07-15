@@ -2120,3 +2120,12 @@ $ sudo dnf install libfaketime
 ----
 $ sudo dnf install sc
 ----
+
+=== Barrier
+
+Use a single keyboard and mouse to control multiple computers.
+
+[source,console]
+----
+$ sudo dnf install barrier
+----
