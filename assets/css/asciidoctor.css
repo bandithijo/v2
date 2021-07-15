@@ -412,3 +412,4 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .nobr{white-space:nowrap}
 .has-tip-mod{cursor:help;font-weight:bold;color:#333333}
 .paragraph{text-align:justify}
+.imageblock>.title{margin-top:1.5em}
