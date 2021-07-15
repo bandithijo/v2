@@ -1,0 +1,155 @@
+= Notifikasi User Sign Up ke Email Admin dengan ActionMailer Rails
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Notifikasi User Sign Up ke Email Admin dengan ActionMailer Rails
+:page-excerpt: Bagaimana membuat email notifikasi yang dikirimkan ke email admin? Apabila terdapat user yang beru mendaftar (sign up). Kita dapat menggunakan Rails ActionMailer.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [rails, actionmailer]
+:page-liquid:
+:page-published: true
+
+====
+*Prerequisite*
+
+`Ruby 3.0.0` `Rails 6.1.3.1`
+====
+
+== Latar Belakang Masalah
+
+Membuat fitur email notifikasi ke email admin apabila terdapat user baru yang mendaftar (_sign up_) ke web aplikasi yang kita develop.
+
+== Pemecahan Masalah
+
+=== Generate Mailer
+
+Saya akan memberikan nama *AdminMailer* untuk fitur mailer yang akan dibuat.
+
+[source,console]
+----
+$ rails g mailer AdminMailer
+----
+
+Perintah ini akan mengenerate file mailers dan juga directory views yang bernama *admin_mailer*.
+
+----
+ app
+│  assets
+│  channels
+│  controllers
+│  helpers
+│  javascript
+│  jobs
+│  mailers
+│ │  <mark>admin_mailer.rb</mark>
+│ └  application_mailer.rb
+│  models
+└  views
+  │  <mark>admin_mailer</mark>
+  └  layouts
+ bin
+ config
+ db
+...
+----
+
+=== Konfigurasi Mailer
+
+Modifikasi alamat *from*, `default from: 'from@example.com'` sesuai yang kita inginkan.
+
+.app/mailers/application_mailer.rb
+[source,ruby,linenums]
+----
+class ApplicationMailer < ActionMailer::Base
+  default from: "no-reply@siaga-covid19.herokuapp.com" <1>
+  layout "mailer"
+end
+----
+
+Selanjutnya, modifikasi file *admin_mailer.rb*, yang sudah kita generate sebelumnya.
+
+Kita akan mendefinisikan alamat email admin *default to:* dan juga mendefinisikan fungsi untuk *new_user(user)*.
+
+.app/mailers/admin_mailer.rb
+[source,ruby,linenums]
+----
+class AdminMailer < ApplicationMailer
+  default to: "admin@siaga-covid19.herokuapp.com"
+
+  def new_user(user)
+    @user = user
+    mail(subject: "SiagaCOVID19 - New User: #{user.email}")
+  end
+end
+----
+
+Saya membuat instance variable `@user` yang akan saya gunakan pada view template.
+
+=== Mailer Views Template
+
+Pada file *app/mailers/admin_mailer.rb*, kita sudah mendefinisikan sebuah method yang bernama *new_user()*.
+
+Seperti halnya controller, method tersebut juga merupakan action yang akan menghubungkan dengan view template.
+
+Jadi kita akan membuat file bernama *app/views/admin_mailer/new_user.html.erb*.
+
+.app/views/admin_mailer/new_user.html.erb
+[source,eruby,linenums]
+----
+<h1>New User!</h1>
+<p>There is new user joined SiagaCOVID19:</p>
+<h3><%= @user.email %></h3>
+----
+
+Template di atas, dapat teman-teman buat sesuai preferensi masing-masing.
+
+Yang saya catat di atas, hanya contoh sederhana saja.
+
+=== Models
+
+Karena kita akan memberikan notifikasi email apabila terdapat user baru yang mendaftar, maka logika bisnis untuk mengirimkan notifikasi akan kita letakkan pada *user* model.
+
+.app/models/user.rb
+[source,ruby,linenums]
+----
+class User < ApplicationRecord
+  after_create :send_notification
+
+  def send_notification
+    AdminMailer.new_user(self).deliver
+  end
+end
+----
+
+Selesai!
+
+== Hasilnya
+
+Apabila terdapat user baru yang mendaftarkan account, admin akan mendapatkan email seperti ini.
+
+image::https://i.postimg.cc/Ls7zRQbx/gambar-01.png[gambar-01,align=center]
+
+Template email ini, sesuai dengan template yang kita didefinisikan pada *app/views/admin_mailer/new_user.html.erb*.
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:https://guides.rubyonrails.org/action_mailer_basics.html[Rails Guides - Action Mailer Basics^]
+Diakses tanggal: 2021/03/26
+
+. link:https://github.com/rails/rails/[github.com/rails/rails/^]
+Diakses tanggal: 2021/03/26
+
+. link:https://youtu.be/LcO5BuyFFAk[GoRails - Sending Emails in Rails with Mandrill^]
+Diakses tanggal: 2021/03/26
