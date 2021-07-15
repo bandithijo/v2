@@ -1,0 +1,205 @@
+= Membuat Recovery Partition Artix Linux ISO dengan GRUB2
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Membuat Recovery Partition Artix Linux ISO dengan GRUB2
+:page-excerpt: Pada catatan sebelumnya, saya pernah menulis tentang, bagaimana booting ke ISO Linux dari GRUB2. Ternyata, terdapat keterbatasan. Karena ISO berada pada partisi yang sama dengan partisi sistem yang akan direcovery. Sehingga, tidak dapat melakukan intervensi terhadap sistem. Catatan ini adalah modifikasi, ISO diletakkan pada partisi berbeda.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [artixlinux, grub]
+:page-liquid:
+:page-published: true
+
+== Latar Belakang Masalah
+
+Sebelumnya, saya sudah membuat catatan dengan judul serupa, link:{{ site.url }}/blog/booting-ke-iso-linux-menggunakan-grub[*Booting ke Linux ISO menggunakan GRUB2 (Tanpa Bootable FlashDrive) a.k.a RecoveryHD*^].
+
+Namun, ternyata setelah saya gunakan untuk melakukan *arch-chroot*, partisi tidak dapat di-mounting ke */mnt*.
+
+Saya menduga hal ini diakibatkan karena saya menjalankan Arch ISO dari dalam filesystem yang akan saya mounting -- melakukan mounting ke filesystem yang sudah dimounting oleh Arch ISO. Karena Arch ISO disimpan pada partisi */dev/sda1*, yaitu pada direktori */root/iso/archlinux.iso*. Sedangkan, saya ingin memounting */dev/sda1* ke **/mnt** untuk melakukan arch-chroot.
+
+== Pemecahan Masalah
+
+Dari kasus tersebut, sudah terlihat solusi sederhana yang dapat saya lakukan adalah, membuat partisi sendiri khusus untuk menyimpan file ISO.
+
+=== Membuat Partisi Recovery
+
+Cara untuk membuat partisi, bebas saja, teman-teman dapat menggunakan tools favorit teman-teman.
+
+Saya pribadi mengguakan link:https://gparted.org/download.php[*GParted LiveUSB*^] agar lebih mudah dalam mevisualisasikan partisi.
+
+Kira-kira, seperti di bawah ini.
+
+----
+NAME   FSTYPE   SIZE TYPE LABEL    MOUNTPOINT
+sda           447.1G disk
+├─sda1 ext4   446.1G part ROOT     /
+└─sda2 ext4    1023M part RECOVERY   <1>
+----
+
+<1> Saya membuat partisi */dev/sda2* sebesar 1 GiB dan saya beri label *RECOVERY* degan filesystem *ext4*.
+
+Ukuran partisi hanya 1 GiB karena tujuan saya membuat partisi ini adalah untuk menyimpan file ISO dari Artix Linux Base OpenRC yang hanya sebesar 600an MiB
+
+=== Masukkan File Artix ISO
+
+Kemudian, masukkan file Artix Linux ISO ke dalam partisi recovery.
+
+Agar tidak ribet karena harus menggunakan root permission, saya akan buat direktori dengan user permission yang akan saya berinama *iso/*.
+
+[source,console]
+----
+$ sudo mkdir iso
+----
+
+Kemudian, ubar kepemilikan direktori *iso/* ke user yang kita gunakan.
+
+[source,console]
+----
+$ sudo chown -R bandithijo:bandithijo iso
+----
+
+Kemudian, tinggal masukkan Artix Linux ISO ke dalam direktori *iso/* ini.
+
+----
+└─ iso
+    └─ artix-base-openrc-20210101-x86_64.iso
+----
+
+=== Membuat GRUB2 Menuentry
+
+Selanjutnya, kita perlu membuat menuentry pada GRUB2, untuk mengarahkan boot ke dalam partisi recovery yang di dalamnya sudah berisi Artix Linux ISO.
+
+./etc/grub.d/40_custom
+[source,ruby,linenums]
+----
+#!/bin/sh
+exec tail -n +3 $0
+# This file provides an easy way to add custom menu entries.  Simply type the
+# menu entries you want to add after this comment.  Be careful not to change
+# the 'exec tail' line above.
+
+menuentry "ArtixLinux ISO (OpenRC)" {
+  iso_drv=(hd0,msdos2)   <1>
+  iso_path="/iso/artix-base-openrc-20210101-x86_64.iso"   <2>
+  export iso_path
+  search --set=root --file "$iso_path"
+  probe -u $root --set=rootuuid
+  export rootuuid
+  loopback loop "$iso_drv$iso_path"
+  root=(loop)
+  configfile /boot/grub/loopback.cfg
+  loopback --delete loop
+}
+----
+
+*Yang harus diperhatikan!*
+
+<1> *iso_drv*, adalah path yang mengarahkan ke partisi yang kita siapkan khusus untuk recovery. *hd0* berarti disk pertama, *msdos2* berarti partisi kedua. (*/dev/sda2*).
+<2> *iso_path*, adalah letak dimana Artix ISO kita letakkan di dalam partisi recovery.
+
+Kedua variable di atas, perlu teman-teman sesuaikan sendiri dengan kondisi sistem yang teman-teman miliki.
+
+## Update GRUB2
+
+Kalau sudah, tinggal update GRUB2.
+
+[source,console]
+----
+$ sudo update-grub
+----
+
+Atau,
+
+[source,console]
+----
+$ sudo grub-mkconfig -o /boot/grub/grub.cfg
+----
+
+Agar custom menuentry yang baru saja kita buat/modifikasi, digenerate ke dalam GRUB2 menuentry.
+
+Mantap!
+
+Kalau sudah begini tinggal mencobanya.
+
+== Demonstrasi
+
+video::1WImC1ge40c[youtube]
+
+== Tips
+
+=== Menyembunyikan Recovery Partition
+
+Karena kita membuat partisi recovery, otomatis oleh GVFS, partisi ini akan terbaca di File Manager.
+
+image::https://i.postimg.cc/xCzxJx9k/gambar-01.png[gambar-01,align=center]
+
+Untuk menyembunyikan partisi RECOVERY, kita dapat memberikan rules di udev.
+
+Recovery partisi saya berada pada */dev/sda2*.
+
+----
+NAME   FSTYPE   SIZE TYPE LABEL    MOUNTPOINT
+sda           447.1G disk
+├─sda1 ext4   445.1G part ROOT     /
+└─sda2 ext4       2G part RECOVERY  <1>
+----
+
+<1> Blok partisi inilah yang akan saya sembunyikan.
+
+Buat file udev rule dengan text editor favorit teman-teman, dengan root permission.
+
+Tambahkan seperti rule di bawah.
+
+./etc/udev/rules.d/99-hide-partitions.rules
+[source,ruby,linenums]
+----
+KERNEL=="sda2",ENV{UDISKS_IGNORE}="1"
+----
+
+Setelah itu, jalankan perintah:
+
+[source,console]
+----
+$ sudo udevadm trigger --verbose
+----
+
+image::https://i.postimg.cc/nrK3TXjp/gambar-02.png[gambar-02,align=center]
+
+Nah, sekarag partisi RECOVERY sudah tidak terlihat.
+
+Namun, masih dapat kita lihat pada `$ lsblk`.
+
+=== Memperbaharui File ISO
+
+Kalau ingin memperbaharui file ISO, tinggal dimount saja sengan *udisksctl*.
+
+[source,console]
+----
+$ udisksctl mount -b /dev/sda2
+----
+
+Unmount dengan,
+
+[source,console]
+----
+$ udisksctl unmount -b /dev/sda2
+----
+
+Kemudian, masukkan ISO baru ke dalam partisi recovery.
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:https://forum.artixlinux.org/index.php/topic,1669.0.html[forum.artixlinux.org/index.php/topic,1669.0.html^]
+Diakses tanggal: 2021/03/01
