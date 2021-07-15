@@ -414,3 +414,5 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .paragraph{text-align:justify}
 .imageblock>.title{margin-top:1.5em}
 .bg-orbit{background-color:#ba3925}
+.videoblock{position:relative;padding-bottom:56.25%;height:0}
+.videoblock iframe{position:absolute;top:0;left:0;width:100%;height:100%}
