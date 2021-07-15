@@ -77,7 +77,7 @@ hr{border:solid #ddddd8;border-width:1px 0 0;clear:both;margin:1.25em 0 1.1875em
 em,i{font-style:italic;line-height:inherit}
 strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
-code{font-family:"mplus Nerd Font",monospace;font-weight:400;color:rgba(0,0,0,.9)}
+code{font-family:"mplus Nerd Font","FiraCodeNerdFontComplete-Medium",monospace;font-weight:400;color:rgba(0,0,0,.9)}
 ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
 ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
@@ -112,7 +112,7 @@ h1 strong,h2 strong,h3 strong,#toctitle strong,.sidebarblock>.content>.title str
 .clearfix:after,.float-group:after{clear:both}
 /* *:not(pre)>code{font-size:.8375em;font-style:normal!important;color:#ba3925;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed} */
 *:not(pre)>code{font-size:15px;font-style:normal!important;color:#ba3925;letter-spacing:0;padding:.1em .5ex;word-spacing:-.15em;background-color:#f7f7f8;-webkit-border-radius:4px;border-radius:4px;line-height:1.45;text-rendering:optimizeSpeed}
-pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"mplus Nerd Font",monospace;font-weight:400;text-rendering:optimizeSpeed;overflow:auto}
+pre,pre>code{line-height:1.45;color:rgba(0,0,0,.9);font-family:"mplus Nerd Font","FiraCodeNerdFontComplete-Medium",monospace;font-weight:400;text-rendering:optimizeSpeed;overflow:auto}
 .keyseq{color:rgba(51,51,51,.8)}
 kbd{display:inline-block;color:rgba(0,0,0,.8);font-size:.95em;font-weight:600;line-height:1.4;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:-.15em .15em 0 .15em;padding:.2em .6em .2em .5em;vertical-align:middle;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
