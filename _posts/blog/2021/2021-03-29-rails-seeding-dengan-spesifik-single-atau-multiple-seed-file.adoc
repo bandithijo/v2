@@ -157,7 +157,7 @@ Kali ini, kebutuhannya adalah melakukan seeding pada 1 atau lebih file seeds.
 
 Misalkan, untuk file seed *01_admins.seeds.rb* dan *03_subscribers.seeds.rb*.
 
-<1> Sebelumnya, kita perlu membuat fle rake task lagi. Saya akan beri nama *db_seed_multiple.rake*.
+<1> Sebelumnya, kita perlu membuat file rake task lagi. Saya akan beri nama *db_seed_multiple.rake*.
 
 ----
  app
