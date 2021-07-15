@@ -1,0 +1,264 @@
+= Rails Seeding dengan Spesifik Single atau Multiple Seed File (Modularisasi Seeds)
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Rails Seeding dengan Spesifik Single atau Multiple Seed File (Modularisasi Seeds)
+:page-excerpt: Bagaimana men-diferen-siasi seeds sesuai kategori tertentu dan juga menjalankan perintah rails db:seed untuk single ataupun multiple spesifik file.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [rails]
+:page-liquid:
+:page-published: true
+
+== Prerequisite
+
+`Ruby 3.0.0` `Rails 6.1.3.1`
+
+== Latar Belakang Masalah
+
+Pada Rails project yang sederhana, mungkin tidak akan terlalu mengalami kendala apabila menjalankan seeds dari file *db/seeds.rb*.
+
+Umumnya, Junior Rails Developer akan meletakkan semua seeds pada file tersebut. Mulai dari seed untuk membuat berbagai tipe user (misal; admin, guest, customer, dll.), membuat dan mengisi table product, dan lain sebagainya, akan campur aduk menjadi satu di dalam file *db/seeds.rb* tersebut.
+
+Hal ini wajar, karena secara default, saat membuat project baru, Rails menyediakan skeleton seperti itu.
+
+----
+ app
+ bin
+ config
+ db
+│  migrate
+│  schema.rb
+└  seeds.rb  <1>
+ lib
+ log
+ public
+...
+----
+
+*Bagaimana apabila kita hanya ingin menjalankan satu buah seed saja?*
+
+Misalkan, hanya ingin menjalankan seed untuk mengenerate user dengan tipe "subscriber", tanpa harus menjalankan semua seeds.
+
+== Pemecahan Masalah
+
+Secara sederhana, saya akan mengistilahkan "*Modularisasi*-kan, saja!".
+
+Modularisasi, merujuk pada proses yang biasa digunakan untuk memecah-mecah sebuah single file yang berisi banyak komponen, menjadi beberapa komponen-komponen yang dikategorikan berdasarkan fungsi dan tujuan tertentu.
+
+Kira-kira seperti ini project skeleton untuk seeds apabila telah dipecah-pecah.
+
+----
+ app
+ bin
+ config
+ db
+│  migrate
+│  seeds                        <2>
+│ │  01_admins.seeds.rb         <3>
+│ │  02_customers.seeds.rb      <3>
+│ │  03_subscribers.seeds.rb    <3>
+│ │  04_products.seeds.rb       <3>
+│ └  05_orders.seeds.rb         <3>
+│  schema.rb
+└  seeds.rb                     <1>
+ lib
+ log
+ public
+...
+----
+
+<1> Pemecahan file *db/seeds.rb*
+<2> Saya letakkan pada direktori *db/seeds/*
+<3> Saya berikan nama dengan sufix *pass:[*].seeds.rb*
+
+NOTE: Tidak ada aturan baku untuk hal ini.
+
+=== File Induk seeds.rb
+
+Untuk membaca semua file-file yang berakhiran *pass:[*].seeds.rb* yang ada di dalam direktori *db/seeds/*, saya menggunakan cara seperti ini di dalam file *db/seeds.rb*.
+
+.db/seeds.rb
+[source,ruby,linenums]
+----
+Dir[File.join(Rails.root, "db", "seeds", "*.seeds.rb")].sort.each { |seed| load seed }
+----
+
+Untuk isi dari file-file *db/seeds/pass:[*].seeds.rb* tidak perlu saya tuliskan lah yaa. Sama saja isinya seperti tipikal seeds pada umumnya, hanya saja dipisah/dikategorikan berdasarkan tujuan atau fungsi tertentu.
+
+=== Seeding
+
+Rails menyediakan rake task untuk melakukan seeding,
+
+[source,console]
+----
+$ rails db:seed
+----
+
+Meskipun kita sudah me-modularisasi-kan seeds, kalau kita melakukan seeding dengan perintah di atas, maka rails akan menjalankan semua file seeding tersebut.
+
+==== Seeding hanya pada single seed file
+
+Seperti yang sudah saya singgung sebelumnya, catatan ini adalah mengenai cara melakukan seeding hanya pada single seed file yang kita tentukan.
+
+<1> Kita perlu membuat file tasks untuk mengcover hal tersebut.
+
+----
+ app
+ bin
+ config
+ db
+ lib
+│  assets
+└  tasks
+  └  db_seed_single.rake  <1>
+ log
+ public
+...
+----
+
+.lib/tasks/db_seed_single.rake
+[source,ruby,linenums]
+----
+namespace :db do
+  namespace :seed do
+    desc "Loads the single selected file seed data from directory db/seeds/"
+    task :single => :environment do
+      filename = Dir[File.join(Rails.root, 'db', 'seeds', "#{ENV['SEED']}.seeds.rb")][0]
+      puts "Seeding #{filename}..."
+      load(filename) if File.exist?(filename)
+    end
+  end
+end
+----
+
+Nah, dengan begini, kita sudah membuat 1 buah rake task baru dengan perintah,
+
+Misal, untuk file *db/seeds/01_admins.seeds.rb*.
+
+[source,console]
+----
+$ rails db:seed:single SEED=01_admins
+----
+
+Kalau berhasil,
+
+----
+Seeding /home/bandithijo/rails_project/db/seeds/01_admins.seeds.rb...
+Admin has created: bandithijo@gmail.com
+----
+
+Kita hanya perlu menuliskan nama file, tanpa sufix *pass:[*].seeds.rb*.
+
+==== Seeding pada multiple seed file
+
+Kali ini, kebutuhannya adalah melakukan seeding pada 1 atau lebih file seeds.
+
+Misalkan, untuk file seed *01_admins.seeds.rb* dan *03_subscribers.seeds.rb*.
+
+<1> Sebelumnya, kita perlu membuat fle rake task lagi. Saya akan beri nama *db_seed_multiple.rake*.
+
+----
+ app
+ bin
+ config
+ db
+ lib
+│  assets
+└  tasks
+  │  db_seed_multiple.rake  <1>
+  └  db_seed_single.rake
+ log
+ public
+...
+----
+
+.lib/tasks/db_seed_multiple.rake
+[source,ruby,linenums]
+----
+namespace :db do
+  namespace :seed do
+    desc "Loads the single or multiple selected file seed data from directory db/seeds/ (SEEDS=seed_1,seed_2,seed_3)"
+    task :multiple => :environment do
+      seeds = ENV['SEEDS'].split(',')
+      seeds.each do |seed|
+        filename = Dir[File.join(Rails.root, 'db', 'seeds', "#{seed}.seeds.rb")][0]
+        puts "Seeding #{filename}..."
+        load(filename) if File.exist?(filename)
+      end
+    end
+  end
+end
+----
+
+Cara menjalankanya,
+
+[source,console]
+----
+$ rails db:seed:multiple SEEDS=01_admins,03_subscribers
+----
+
+IMPORTANT: *Jangan gunakan spasi diantara koma*.
+
+Kalau berhasil,
+
+----
+Seeding /home/bandithijo/rails_project/db/seeds/01_admins.seeds.rb...
+Admin has created: bandithijo@gmail.com
+Seeding /home/bandithijo/rails_project/db/seeds/02_subscribers.seeds.rb...
+Customer has created: budidibu@gmail.com
+Customer has created: bayuyuba@gmail.com
+----
+
+Nah, mantap!
+
+Kita dapat melihat rake task spesifik untuk namespace *db:* yang baru saja kita buat pada daftar task dengan cara,
+
+[source,console]
+----
+$ rails -T | grep 'db:'
+----
+
+----
+rails db:create                          # Creates the database from DATABASE_URL or config/database.yml for the current RAILS_ENV (use db:create:all to create all databases in the config). Without RAILS_ENV or when RAILS_ENV is development, it defaults to creating the development and test databases, except when DATABASE_URL is present
+rails db:drop                            # Drops the database from DATABASE_URL or config/database.yml for the current RAILS_ENV (use db:drop:all to drop all databases
+in the config). Without RAILS_ENV or when RAILS_ENV is development, it defaults to dropping the development and test databases, except when DATABASE_URL is present
+rails db:environment:set                 # Set the environment value for the database
+rails db:fixtures:load                   # Loads fixtures into the current environment's database
+rails db:migrate                         # Migrate the database (options: VERSION=x, VERBOSE=false, SCOPE=blog)
+rails db:migrate:down                    # Runs the "down" for a given migration VERSION
+rails db:migrate:redo                    # Rolls back the database one migration and re-migrates up (options: STEP=x, VERSION=x)
+rails db:migrate:status                  # Display status of migrations
+rails db:migrate:up                      # Runs the "up" for a given migration VERSION
+rails db:prepare                         # Runs setup if database does not exist, or runs migrations if it does
+rails db:reset                           # Drops and recreates the database from db/schema.rb for the current environment and loads the seeds
+rails db:rollback                        # Rolls the schema back to the previous version (specify steps w/ STEP=n)
+rails db:schema:cache:clear              # Clears a db/schema_cache.yml file
+rails db:schema:cache:dump               # Creates a db/schema_cache.yml file
+rails db:schema:dump                     # Creates a database schema file (either db/schema.rb or db/structure.sql, depending on `config.active_record.schema_format`)
+rails db:schema:load                     # Loads a database schema file (either db/schema.rb or db/structure.sql, depending on `config.active_record.schema_format`) into the database
+rails db:seed                            # Loads the seed data from db/seeds.rb
+rails db:seed:multiple <-                # Loads the single or multiple selected file seed data from directory db/seeds/ (SEEDS=seed_1,seed_2,seed_3)
+rails db:seed:replant                    # Truncates tables of each database for current environment and loads the seeds
+rails db:seed:single   <-                # Loads the single selected file seed data from directory db/seeds/ (SEEDS=seed_1)
+rails db:setup                           # Creates the database, loads the schema, and initializes with the seed data (use db:reset to also drop the database first)
+rails db:structure:dump                  # Dumps the database structure to db/structure.sql
+rails db:structure:load                  # Recreates the databases from the structure.sql file
+rails db:version                         # Retrieves the current schema version number
+----
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:https://stackoverflow.com/a/31815032/4862516[https://stackoverflow.com/a/31815032/4862516^]
+Diakses tanggal: 2021/03/29
