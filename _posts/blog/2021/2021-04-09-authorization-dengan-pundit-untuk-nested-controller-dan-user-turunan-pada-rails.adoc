@@ -9,7 +9,7 @@ Assyaufi, Rizqi Nur
 :page-liquid:
 :page-published: true
 
-Catatan ini mengenai bagaimana cara membuat authorization dengan bantuan gem Pundi tpada controller bertingkat, misal Authors::Articles. Author merupakan turunan dari User, karean User memiliki lebih dari satu user type. Tujuannya adalah untuk membatasi Author hanya dapat mengedit & menghapus Article miliknya saja.
+Bagaimana cara membuat authorization dengan bantuan gem Pundit pada controller bertingkat? Misal, Authors::Articles. Author merupakan turunan dari User, karean User memiliki lebih dari satu user type. Tujuannya adalah untuk membatasi Author hanya dapat mengedit & menghapus Article miliknya saja.
 
 == Prerequisite
 
