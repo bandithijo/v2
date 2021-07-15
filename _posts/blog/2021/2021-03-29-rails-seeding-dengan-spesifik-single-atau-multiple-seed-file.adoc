@@ -102,7 +102,7 @@ Meskipun kita sudah me-modularisasi-kan seeds, kalau kita melakukan seeding deng
 
 Seperti yang sudah saya singgung sebelumnya, catatan ini adalah mengenai cara melakukan seeding hanya pada single seed file yang kita tentukan.
 
-<1> Kita perlu membuat file tasks untuk mengcover hal tersebut.
+Kita perlu membuat file tasks untuk mengcover hal tersebut.
 
 ----
  app
