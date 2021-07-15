@@ -1,0 +1,138 @@
+= Konfigurasi Ruby on Rails ActionMailer pada Local Environment dengan MailCatcher
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Konfigurasi Ruby on Rails ActionMailer pada Local Environment dengan MailCatcher
+:page-excerpt: Kalau sebelumnya, saya pernah mencatat tentang konfigurasi ActionMailer dengan memanfaatkan protokol Gmail SMTP untuk mengirimkan email confirmation. Lantas bagaimana dengan testing di local? Kita dapa memanfaatkan MailCatcher.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [rails, actionmailer]
+:page-liquid:
+:page-published: true
+
+====
+*Prerequisite*
+
+`Ruby 3.0.0` `Rails 6.1.3` `PostgreSQL 12.5` `RSpec 4.0.0`
+====
+
+== Latar Belakang Masalah
+
+Mungkin teman-teman pernah dalam situasi harus mendevelop fitur email di web aplikasi yang teman-teman bangun, tapi tidak ada internet.
+
+Hahaha jarang sekali yaa. Tapi, misalkan kita sedang apes dan terjebak dalam situasi seperti itu.
+
+== Pemecahan Masalah
+
+Kita akan menggunakan *MailCatcher*.
+
+
+====
+MailCatcher:: MailCatcher runs a super simple SMTP server which catches any message sent to it to display in a web interface.
+Run mailcatcher, set your favourite app to deliver to smtp://127.0.0.1:1025 instead of your default SMTP server, then check out http://127.0.0.1:1080 to see the mail that's arrived so far.
+====
+
+Dengan MailCatcher, kita dapat manangkap email yang dikirimkan dengan prokotol SMTP ke localhost.
+
+image::https://i.postimg.cc/DwbNRGvF/gambar-01.png[gambar-01,align=center]
+
+Sebenarnya, kita dapat membaca email dari log yang ditampilkan pada Rails server log. Namun, tentu saja kita tidak dapat melihat view template dari email.
+
+== Instalasi
+
+Proses instalasi sangat mudah, selayaknya memasan gem.
+
+[source,console]
+----
+$ gem install mailcatcher
+----
+
+== Jalankan MailCatcher Daemon
+
+Setelah proses instalasi selesai, jalankan MailCatcher daemon.
+
+[source,console]
+----
+$ mailcatcher
+----
+
+----
+Starting MailCatcher
+==> smtp://127.0.0.1:1025
+==> http://127.0.0.1:1080/
+*** MailCatcher runs as a daemon by default. Go to the web interface to quit.
+----
+
+Port *1025* denga protokol SMTP, akan kita pasangkan pada Rails.
+
+Untuk mengakses MailCatcher Web Interface, dapat diakses dengan alamat,
+
+----
+http://127.0.0.1:1080
+----
+
+== Rails Config
+
+.config/environments/development.rb
+[source,ruby,linenums]
+----
+config.action_mailer.raise_delivery_errors = false
+config.action_mailer.delivery_method = :smtp   <1>
+config.action_mailer.smtp_settings = { address: "127.0.0.1", port: 1025 }     <1>
+config.action_mailer.default_url_options = { host: "localhost", port: 3000 }  <2>
+----
+
+<1> Konfigurasi yang diperlukan MailCatcher
+<2> Konfigurasi yang diperlukan Devise
+
+Sesuaikan saja dengan yang sudah ada. Jangan ada baris konfig yang berulang.
+
+.Perhatian
+[WARNING]
+====
+Karena *action_mailer.delivery_method* di atas menggunakan protokol `:smtp`, kita perlu memisahkan antara ActionMailer development dengan production.
+====
+
+Apabila terdapat configurasi untuk ActionMailer pada file *config/environment.rb*, tinggal tambahkan kondisi untuk environment production.
+
+.config/environment.rb
+[source,ruby,linenums]
+----
+# ...
+
+# ActionMailer with Gmail
+if Rails.env.production?
+  ActionMailer::Base.smtp_settings = {
+    port:                 587,
+    address:              'smtp.gmail.com',
+    user_name:            Rails.application.credentials.gmail[:SMTP_USER_NAME],
+    password:             Rails.application.credentials.gmail[:SMTP_PASSWORD],
+    authentication:       :plain,
+    enable_starttls_auto: true
+  }
+end
+----
+
+Selesai!
+
+== Demonstrasi
+
+image::https://i.postimg.cc/W3cmXqyt/gambar-02.gif[gambar-02,align=center]
+
+Dengan begini, kita dapat menguji fitur email dengan berbagai macam alamat email yang akan langsung ditangkap oleh MailCatcher.
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. https://mailcatcher.me/[mailcatcher.me^]
+Diakses tanggal: 2021/03/11
