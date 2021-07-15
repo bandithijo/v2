@@ -291,7 +291,7 @@ Seperti text bertuliskan "Publishing..." ketika link "Publish" di-klik.
 Kemudian, berikan jeda waktu dengan **sleep** pada action *publish* di *books_controller*.
 
 .app/controllers/books_controller.rb
-[source,rub,linenums]
+[source,ruby,linenums]
 ----
 class BooksController < ApplicationController
   before_action :set_book, only: %i[ show edit update destroy publish ]
