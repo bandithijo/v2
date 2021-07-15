@@ -1,0 +1,192 @@
+= Memberikan Label Temperature pada ThinkPad Sensors
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Memberikan Label Temperature pada ThinkPad Sensors
+:page-excerpt: Apabila kita melihat temperatur ThinkPad dengan menggunakan perintah sensors, kita akan mendapati label-label seperti temp1, temp2, temp3, dst. Bagaimana kita tahu, kalau label-label tersebut menunjuk pada props sensors seperti CPU, GPU, dll? Nah, catatan ini, kita akan memberika label terhadap sensor-sensor tersebut.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [thinkpad]
+:page-liquid:
+:page-published: true
+
+== Latar Belakang Masalah
+
+Apakah kalian pernah mengecek temperatur pada ThinkPad dengan menggunakan perintah?
+
+[source,console]
+----
+$ sensors
+----
+
+Hasilnya akan sepertin ini,
+
+----
+coretemp-isa-0000
+Adapter: ISA adapter
+Core 0:       +55.0°C  (high = +100.0°C, crit = +100.0°C)
+Core 1:       +56.0°C  (high = +100.0°C, crit = +100.0°C)
+
+BAT0-acpi-0
+Adapter: ACPI interface
+in0:          15.19 V
+
+thinkpad-isa-0000
+Adapter: ISA adapter
+fan1:        3383 RPM
+fan2:           0 RPM
+temp1:        +56.0°C
+temp2:        +42.0°C
+temp3:        +42.0°C
+temp4:        +51.0°C
+temp5:        +27.0°C
+temp6:            N/A
+temp7:        +32.0°C
+temp8:            N/A
+temp9:        +44.0°C
+temp10:       +44.0°C
+temp11:           N/A
+temp12:           N/A
+temp13:           N/A
+temp14:           N/A
+temp15:           N/A
+temp16:           N/A
+
+acpitz-acpi-0
+Adapter: ACPI interface
+temp1:        +56.0°C  (crit = +127.0°C)
+temp2:        +57.0°C  (crit = +100.0°C)
+----
+
+Apakah kalian dapat mengerti arti dari *temp1*, *temp2*, *temp3*, dan seterusnya?
+
+Sejak menggunakan ThinkPad, saya membiarkan saja.
+
+Untuk mendapatkan temperature CPU, saya mereferensikan dengan value dari *coretemp-isa-0000*.
+
+Sekarang, saatnya saya mencari tahu sensor prop apa saja yang dimiliki oleh ThinkPad saya (X61) dan apa makna dibalik *temp1* dan kawan-kawanya.
+
+== Pemecahan Masalah
+
+Sebenarnya sudah ada page pada ThinkPad Wiki yang menjelaskan perihal *sensors* ini.
+
+Teman-teman dapat melihatnya di sini, link:http://www.thinkwiki.org/wiki/Thermal_Sensors[*Thermal Sensors*^].
+
+Sayangnya, untuk ThinkPad X61 saya, belum ada keterangan yang jelas mengenai indikator apa-apa saja.
+
+Yang baru terkonfirmasi adalah *temp1*, *temp2*, *temp5*, dan *temp7*.
+
+|===
+| Props | Location
+
+| *temp1* | CPU
+| *temp2* | APS
+| *temp5* | BAT
+| *temp7* | BAT
+|===
+
+Setelah saya perhatikan, sepertinya, tidak terlalu jauh berbeda dengan milik ThinkPad T60.
+
+Maka, saya pun mencoba mengambil saya file konfigurasinya. Agar sewaktu-waktu untuk seri X61 sudah ada keterangan props yang lebih jelas, tinggal saya ganti.
+
+Kita perlu membuat sebuah file konfigurasi */etc/sensors.d/tpsensors* agar dapat dibaca oleh *sensors*.
+
+./etc/sensors.d/tpsensors
+[source,ruby,linenums]
+----
+chip "acpitz-acpi-0"
+  label temp1  "CPU_0"
+  label temp2  "CPU_1"
+chip "thinkpad-isa-0000"
+  label fan1   "FAN"   <1>
+  label temp1  "CPU"   <1>
+  label temp2  "APS"   <1>
+  label temp3  "PCM"   <1>
+  label temp4  "GPU"   <1>
+  label temp5  "BAT"   <1>
+  label temp6  "temp6"
+  label temp7  "BAT"   <1>
+  label temp8  "n/a"
+  label temp9  "BUS"   <1>
+  label temp10 "PCI"   <1>
+  label temp11 "PWR"   <1>
+  label temp12 "temp12"
+  label temp13 "temp13"
+  label temp14 "temp14"
+  label temp15 "temp15"
+  label temp16 "temp16"
+----
+
+<1> Pemberian label ini saya dasarkan pada lust yang saya lihat pada link:http://www.thinkwiki.org/wiki/Thermal_Sensors[Thermal Sensors^]
+
+Maka, ketika kita menjalakan *sensors*, sekarang *temp1* dan kawan-kawannya telah memiliki label.
+
+----
+coretemp-isa-0000
+Adapter: ISA adapter
+Core 0:       +55.0°C  (high = +100.0°C, crit = +100.0°C)
+Core 1:       +56.0°C  (high = +100.0°C, crit = +100.0°C)
+
+BAT0-acpi-0
+Adapter: ACPI interface
+in0:          15.19 V
+
+thinkpad-isa-0000
+Adapter: ISA adapter
+FAN:         3402 RPM
+fan2:           0 RPM
+CPU:          +56.0°C
+APS:          +44.0°C
+PCM:          +44.0°C
+GPU:          +52.0°C
+BAT:          +27.0°C
+temp6:            N/A
+BAT:          +35.0°C
+n/a:              N/A
+BUS:          +47.0°C
+PCI:          +47.0°C
+PWR:              N/A
+temp12:           N/A
+temp13:           N/A
+temp14:           N/A
+temp15:           N/A
+temp16:           N/A
+
+acpitz-acpi-0
+Adapter: ACPI interface
+CPU_0:        +56.0°C  (crit = +127.0°C)
+CPU_1:        +56.0°C  (crit = +100.0°C)
+----
+
+Selesai!
+
+.Tips
+[NOTE]
+====
+Ketika menjalankan command **sensors**, maka output akanlangsung ditampilkan sekali.
+Apabila kita ingin output terus diupdate secara periodik, kita dapat menggunakan *watch*
+
+[source,console]
+----
+$ watch sensors
+----
+
+Maka, output akan diupdate setiap 2 detik.
+Untuk keluar, dapat menekan kombinasi keyboard kbd:[Ctrl] + kbd:[c].
+====
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:http://www.thinkwiki.org/wiki/Thermal_Sensors[http://www.thinkwiki.org/wiki/Thermal_Sensors^]
+Diakses tanggal: 2021/02/26
