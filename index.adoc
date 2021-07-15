@@ -30,6 +30,10 @@ link:{{ site.url }}/blog/[more...]
 
 link:{{ site.url }}/note/[more...]
 
+[.panel.mt4]
+icon:info-circle[] *Info*
+The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+
 ////
 == What do I do now?
 
