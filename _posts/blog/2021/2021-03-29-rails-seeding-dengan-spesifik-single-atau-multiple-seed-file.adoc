@@ -9,9 +9,11 @@ Assyaufi, Rizqi Nur
 :page-liquid:
 :page-published: true
 
-== Prerequisite
+====
+*Prerequisite*
 
 `Ruby 3.0.0` `Rails 6.1.3.1`
+====
 
 == Latar Belakang Masalah
 
@@ -28,7 +30,7 @@ Hal ini wajar, karena secara default, saat membuat project baru, Rails menyediak
  db
 │  migrate
 │  schema.rb
-└  seeds.rb  <1>
+└  seeds.rb
  lib
  log
  public

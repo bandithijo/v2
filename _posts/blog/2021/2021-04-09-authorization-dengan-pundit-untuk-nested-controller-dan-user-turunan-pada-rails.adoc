@@ -11,9 +11,11 @@ Assyaufi, Rizqi Nur
 
 Bagaimana cara membuat authorization dengan bantuan gem Pundit pada controller bertingkat? Misal, Authors::Articles. Author merupakan turunan dari User, karean User memiliki lebih dari satu user type. Tujuannya adalah untuk membatasi Author hanya dapat mengedit & menghapus Article miliknya saja.
 
-== Prerequisite
+====
+*Prerequisite*
 
 `Ruby 3.0.1` `Rails 6.1.3.1`
+====
 
 == Target
 

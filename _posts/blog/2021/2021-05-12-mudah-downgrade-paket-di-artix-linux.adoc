@@ -9,8 +9,13 @@ Assyaufi, Rizqi Nur
 :page-liquid:
 :page-published: true
 
-IMPORTANT: Saya, sebagai penulis, *tidak bertanggung jawab* atas segala bentuk kejadian buruk yang menimpa sistem kalian.
+.PERHATIAN
+[IMPORTANT]
+====
+Saya, sebagai penulis, *tidak bertanggung jawab* atas segala bentuk kejadian buruk yang menimpa sistem kalian.
+
 Apabila kalian mengikuti catatan ini, berarti kalian *telah menyetujui* bahwa *segala bentuk risiko atas masalah* yang terjadi karena mengikuti catatan ini, adalah *tanggung jawab kalian sepenuhnya*.
+====
 
 == Latar Belakang Masalah
 
