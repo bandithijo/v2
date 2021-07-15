@@ -1,5 +1,6 @@
 = 404
 :page-permalink: /404
 :page-toc: false
+:page-layout: default-wide
 
 == Page not found! :(

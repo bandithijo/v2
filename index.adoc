@@ -1,6 +1,7 @@
 = Hello, mas Bro!
 :page-title: Hello, mas Bro!
 :page-description: A forkable blog-ready Jekyll site using AsciiDoc
+:page-layout: default-wide
 :page-liquid:
 
 I've successfully set up and deployed an Jekyll website powered by AsciiDoc using the https://github.com/asciidoctor/jekyll-asciidoc-quickstart[*Jekyll AsciiDoc Quickstart*^] project. If everything is in order then changes to the AsciiDoc content will be automatically published to my `gh_pages` branch and hosted via Jekyll and Github.
@@ -15,7 +16,7 @@ Currently, there area two types of post: 1) Blog, basically talking about someth
 
 {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
 {% for post in posts reversed limit: 5 %}
-* link:{{ site.url }}{{ post.url }}[{{ post.title }}] ({{ post.date | date: '%Y-%m-%d' }})
+* link:{{ site.url }}{{ post.url }}[{{ post.title }}] ([.nobr]#{{ post.date | date: '%Y-%m-%d' }}#)
 {% endfor %}
 
 link:{{ site.url }}/blog/[more...]
@@ -24,7 +25,7 @@ link:{{ site.url }}/blog/[more...]
 
 {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
 {% for post in posts reversed limit: 5 %}
-* link:{{ site.url }}{{ post.url }}[{{ post.title }}] ({{ post.date | date: '%Y-%m-%d' }})
+* link:{{ site.url }}{{ post.url }}[{{ post.title }}] ([.nobr]#{{ post.date | date: '%Y-%m-%d' }}#)
 {% endfor %}
 
 link:{{ site.url }}/note/[more...]
