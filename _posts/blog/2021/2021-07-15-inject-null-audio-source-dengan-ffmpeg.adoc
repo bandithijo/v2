@@ -13,25 +13,33 @@ Menginjeksi audio kosong (null) ke dalam video yang tidak memiliki audio source.
 
 == Penyelesaian Masalah
 
-Rumus ffmpegnya bisa seperti ini.
+Formula ffmpegnya bisa seperti ini.
 
 [source,bash]
 ----
-ffmpeg -f lavfi \
--i anullsrc=channel_layout=stereo:sample_rate=44100 \  <1>
+ffmpeg -f lavfi \  <1>
+-i anullsrc=channel_layout=stereo:sample_rate=44100 \  <2>
 -i original_video.mp4 \
 -c:v copy -c:a aac \
 -shortest \
 target_video.mp4
 ----
 
-<1> *anullsrc* adalah aktor utamanya
+<1> Format `-f` gunakan `lavfi`
+<2> *anullsrc* adalah aktor utamanya
 
 ====
 anullsrc:: The null audio source, return unprocessed audio frames. It is mainly useful as a template and to be employed in analysis / debugging tools, or as the source for filters which ignore the input data (for example the sox synth filter).
 
 [.text-right]
 -- man ffmpeg-filters
+====
+
+====
+lavfi:: Libavfilter input virtual device. This input device reads data from the open output pads of a libavfilter filtergraph.
+
+[.text-right]
+-- man ffmpeg-devices
 ====
 
 == Yang saya gunakan
@@ -79,4 +87,6 @@ exit
 == Referensi
 
 . link:https://man.archlinux.org/man/ffmpeg-filters.1#anullsrc[https://man.archlinux.org/man/ffmpeg-filters.1#anullsrc^]
-Diakses tanggal: 2021/07/16
+Diakses tanggal: 2021/07/15
+. link:https://man.archlinux.org/man/ffmpeg-devices.1.en#lavfi[https://man.archlinux.org/man/ffmpeg-devices.1.en#lavfi^]
+Diakses tanggal: 2021/07/15
