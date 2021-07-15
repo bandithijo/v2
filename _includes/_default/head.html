@@ -12,6 +12,10 @@
   <link rel="stylesheet" href="{{ site.url }}/assets/css/coderay.css">
   <link rel="stylesheet" href="{{ site.url }}/assets/css/asciidoctor.css">
   <link rel="icon" href="{{ site.url }}/assets/images/favicon/favicon.png" type="image/png">
-  {% seo title=false %}
-  {% include opengraph.html %}
+
+  {% if jekyll.environment == 'production' %}
+    {% seo title=false %}
+    {% include opengraph.html %}
+    {% include google-analytics.html %}
+  {% endif %}
 </head>
