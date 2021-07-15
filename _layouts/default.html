@@ -71,7 +71,9 @@
   <!-- Main Blog Content -->
   <div class="large-9 columns" role="content">
 
-    <h1>{{ page.title }}</h1>
+    <h1>
+      <a style="text-decoration:none;color:#ba3925" href="{{ site.url }}{{ page.url }}">{{ page.title }}</a>
+    </h1>
 
     {% if page.permalink != page.root and page.permalink != "/blog/" and page.permalink != "/note/" %}
       {% include breadcrumbs.html %}
@@ -173,6 +175,7 @@
 <script src="{{ site.url }}/assets/js/vendor/jquery.js"></script>
 <script src="{{ site.url }}/assets/js/vendor/modernizr.js"></script>
 <script src="{{ site.url }}/assets/js/foundation.min.js"></script>
+<script src="{{ site.url }}/assets/js/headings-permalink.js"></script>
 <script src="{{ site.url }}/assets/js/toc-sidebar.js"></script>
 <script src="{{ site.url }}/assets/js/toc.js"></script>
 <script>
