@@ -16,12 +16,11 @@
   and page.permalink != "/note/"
   and page.permalink != "/404" %}
   <div class="text-center mt3 mb4">***</div>
+  <hr style="border-color:#efefed">
 {% endif %}
 
-<hr style="border-color:#efefed">
-
-<div class="mb3">
-  {% if page.categories == "blog" %}
+{% if page.categories == "blog" %}
+  <div class="mb3">
     <h3>Posts</h3>
     <ul id="posts" class="posts nav">
       {% assign posts = site.posts | where_exp:"page", "page.categories == 'blog'" %}
@@ -30,7 +29,9 @@
       {% endfor %}
     </ul>
     <p><a href="{{ site.url }}/blog/">more...</a></p>
-  {% elsif page.categories == "note" %}
+  </div>
+{% elsif page.categories == "note" %}
+  <div class="mb3">
     <h3>Notes</h3>
     <ul id="posts" class="posts nav">
       {% assign posts = site.posts | where_exp:"page", "page.categories == 'note'" %}
@@ -39,5 +40,5 @@
       {% endfor %}
     </ul>
     <p><a href="{{ site.url }}/note/">more...</a></p>
-  {% endif %}
-</div>
+  </div>
+{% endif %}
