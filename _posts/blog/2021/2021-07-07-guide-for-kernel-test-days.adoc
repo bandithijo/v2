@@ -8,11 +8,11 @@ Giardia
 :page-tags: [fedora, kernel]
 :page-liquid:
 :page-published: false
+:page-layout: default-wide
+:toc:
 
 During *Kernel Test Days*, contributors are asked to run a _Kernel Regression Test_ which will help to detect and troubleshoot any issue with a new kernel version, before wider usage.
 It consist in running a series of tests provided by the https://pagure.io/kernel-tests[Kernel Test Suite]
-
----
 
 The main goal of a Kernel Test Day is to test a new kernel on many different machines as possible, so every new Kernel Test Day is announced some days in advance with a https://fedoramagazine.org/[fedoramagazine] post.
 

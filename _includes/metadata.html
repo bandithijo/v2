@@ -1,0 +1,16 @@
+<div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> {{ page.author | truncate: 23 }}</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:{{ page.email }}"><span style="font-size:0.85em">{{ page.email | truncate: 25 }}</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      {% assign tag_list = page.tags %}
+      {% for tag in tag_list %}
+        <!-- <a href="{{ site.url }}/tags/#{{ tag | downcase | downcase | url_escape | strip | replace: ' ', '-' }}">#{{ tag | downcase }}</a> -->
+        <a href="#">#{{ tag | downcase }}</a>
+      {% endfor %}
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> {{ page.date | date: '%Y-%m-%d' }}</li>
+  </ul>
+</div>

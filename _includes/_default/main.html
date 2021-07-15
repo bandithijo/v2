@@ -9,6 +9,13 @@
   {% include breadcrumbs.html %}
 {% endif %}
 
+
+{% if page.permalink != page.root
+  and page.author != nil
+  and page.layout == "default-wide" %}
+  {% include metadata.html %}
+{% endif %}
+
 {{ content }}
 
 {% if page.permalink != site.root 
