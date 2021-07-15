@@ -8,19 +8,18 @@
 
 {% assign postsByYear = site.posts | group_by_exp:"post", "post.date | date: '%Y'" %}
 {% for year in postsByYear %}
-== icon:calendar[] {{ year.name }}
++++<h2><i class="fa fa-calendar"></i> {{ year.name }}<h2>+++
+++++
+<ul>
     {% for post in year.items %}
         {% if post.categories == 'blog' %}
-            * link:{{ site.url }}{{ post.url }}[{{ post.title }}] [.nobr]#({{ post.date | date: '%Y-%m-%d' }}#)
+            <li>
+            <span data-tooltip aria-haspopup="true" class="has-tip-mod" title="{{ post.excerpt }}">
+            <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+            </span> <span class="nobr">({{ post.date | date: '%Y-%m-%d' }})</span>
+            </li>
         {% endif %}
     {% endfor %}
+</ul>
+++++
 {% endfor %}
-
-////
----
-
-{% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
-{% for post in posts reversed %}
-* link:{{ site.url }}{{ post.url }}[{{ post.title }}] ({{ post.date | date: '%Y-%m-%d' }})
-{% endfor %}
-////
