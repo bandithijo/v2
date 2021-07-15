@@ -1,0 +1,75 @@
+= Injeksi Null Audio Source dengan FFMPEG ke dalam Video
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Injeksi Null Audio Source dengan FFMPEG ke dalam Video
+:page-excerpt: Menginjeksi audio kosong (null) ke dalam video yang tidak memiliki audio source. Cara ini saya pergunakan untuk memanipulasi video yang akan saya kirim ke Telegram, agar tidak terbaca menjadi Gif.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [ffmpeg]
+:page-liquid:
+:page-published: true
+
+Menginjeksi audio kosong (null) ke dalam video yang tidak memiliki audio source. Cara ini saya pergunakan untuk memanipulasi video yang akan saya kirim ke Telegram, agar tidak terbaca menjadi Gif.
+
+== Penyelesaian Masalah
+
+Rumus ffmpegnya bisa seperti ini.
+
+[source,bash,linenums]
+----
+ffmpeg -f lavfi \
+-i anullsrc=channel_layout=stereo:sample_rate=44100 \  <1>
+-i original_video.mp4 \
+-c:v copy -c:a aac \
+-shortest \
+target_video.mp4
+----
+
+<1> *anullsrc* adalah aktor utamanya
+
+== Yang saya gunakan
+
+Karena saya terbiasa menulis Ruby, maka saya buatkan wrapper untuk mengolah attribute dan segala macamnya.
+
+.~/.local/bin/ffmpeg_inject_muted_audio.rb
+[source,ruby,linenums]
+----
+#!/usr/bin/env ruby
+
+# Please wite your dir with ~/ first
+screenrecorder_dir = '~/vid/ScreenRecorder'  <1>
+Dir.chdir(File.expand_path(screenrecorder_dir))
+list_file          = %x(ls -p | grep -v / | grep video)
+files              = list_file.split(" ")
+
+if ARGV[0].nil?
+  original_file    = files.last  <2>
+  target_file      = files.last.split("").insert(-5, 'X').join  <4>
+else
+  original_file    = ARGV[0]     <3>
+  target_file      = original_file.split("").insert(-5, 'X').join  <4>
+end
+
+%x(
+ffmpeg -f lavfi \
+-i anullsrc=channel_layout=stereo:sample_rate=44100 \
+-i #{original_file} \
+-c:v copy -c:a aac \
+-shortest \
+#{target_file}
+)
+
+`notify-send "FFMPEG" "Inject null audio success!" -t 3000`  <5>
+exit
+----
+
+<1> Definisikan direktori dimana hasil video dari ScreenRecorder disimpan
+<2> Secara _default_, apabila menajalankan script tanpa argment, maka proses akan dilakukan pada direktori penyimpanan video
+<3> Apabila terdapat argumen berupa nama file video, maka video tersebut akan diproses
+<4> File hasil, akan ditambahkan akhiran `X`
+<5> Tampilkan notifikasi apabila proses telah selesai
+
+== Referensi
+
+. link:https://man.archlinux.org/man/ffmpeg-filters.1#anullsrc[https://man.archlinux.org/man/ffmpeg-filters.1#anullsrc^]
+Diakses tanggal: 2021/07/16
