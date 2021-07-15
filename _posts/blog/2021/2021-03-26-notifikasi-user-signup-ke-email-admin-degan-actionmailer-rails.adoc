@@ -41,11 +41,11 @@ Perintah ini akan mengenerate file mailers dan juga directory views yang bernama
 │  javascript
 │  jobs
 │  mailers
-│ │  <mark>admin_mailer.rb</mark>
+│ │  admin_mailer.rb   <1>
 │ └  application_mailer.rb
 │  models
 └  views
-  │  <mark>admin_mailer</mark>
+  │  admin_mailer      <1>
   └  layouts
  bin
  config
