@@ -14,8 +14,8 @@ Currently, there area two types of post: 1) Blog, basically talking about someth
 
 === Blog Posts
 
-{% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
-{% for post in posts reversed limit: 5 %}
+{% assign posts = site.posts | where_exp:"page", "page.categories == 'blog'" %}
+{% for post in posts limit: 5 %}
 * link:{{ site.url }}{{ post.url }}[{{ post.title }}] ([.nobr]#{{ post.date | date: '%Y-%m-%d' }}#)
 {% endfor %}
 
@@ -23,8 +23,8 @@ link:{{ site.url }}/blog/[more...]
 
 === Note Posts
 
-{% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
-{% for post in posts reversed limit: 5 %}
+{% assign posts = site.posts | where_exp:"page", "page.categories == 'note'" %}
+{% for post in posts limit: 5 %}
 * link:{{ site.url }}{{ post.url }}[{{ post.title }}] ([.nobr]#{{ post.date | date: '%Y-%m-%d' }}#)
 {% endfor %}
 

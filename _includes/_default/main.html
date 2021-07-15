@@ -24,16 +24,16 @@
   {% if page.categories == "blog" %}
     <h3>Posts</h3>
     <ul id="posts" class="posts nav">
-      {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'blog'" %}
-      {% for post in posts reversed limit: 5 %}
+      {% assign posts = site.posts | where_exp:"page", "page.categories == 'blog'" %}
+      {% for post in posts limit: 5 %}
         <li><a href="{{ site.url }}{{ post.url }}">{{ post.navtitle }}</a></li>
       {% endfor %}
     </ul>
   {% elsif page.categories == "note" %}
     <h3>Notes</h3>
     <ul id="posts" class="posts nav">
-      {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
-      {% for post in posts reversed limit: 5 %}
+      {% assign posts = site.posts | where_exp:"page", "page.categories == 'note'" %}
+      {% for post in posts limit: 5 %}
         <li><a href="{{ site.url }}{{ post.url }}">{{ post.navtitle }}</a></li>
       {% endfor %}
     </ul>
