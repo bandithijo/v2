@@ -341,7 +341,7 @@ class DataPetaController < ApplicationController
 end
 ----
 
-==== Memberikan Delimiter , untuk Ribuan
+=== Memberikan Delimiter , untuk Ribuan
 
 Data *total_cases* tidak memiliki format string berupa delimiter koma (,) untuk memberikan kemudahan dalam membaca satuan ribuan dalam nominal angka.
 
