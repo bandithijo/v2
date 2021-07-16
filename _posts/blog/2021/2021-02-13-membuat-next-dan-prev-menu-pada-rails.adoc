@@ -1,0 +1,136 @@
+= Membuat Go To Next dan Previous Post Menu pada Blog Post di Rails
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Membuat Go To Next dan Previous Post Menu pada Blog Post di Rails
+:page-excerpt: Pasti pernah melihat blog yang memiliki fitur Go to Next dan Previous post? Nah, kita akan membuat fitur yang sama dengan Rail.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [rails]
+:page-liquid:
+:page-published: true
+
+====
+*Prerequisite*
+
+`Ruby 2.7.2` `Rails 6.1.2`
+====
+
+== Latar Belakang Masalah
+
+Catatan kali ini, saya akan membahas Ruby on Rails dari sisi front-end.
+
+Apabila kita memiliki sebuah fitur blog pada web aplikasi yang kita bangun menggunakan Ruby on Rails, mungkin akan cukup praktis kalau kita dapat menavigasikan halaman blog post dengan go to next & previous post pada halaman di mana saat ini kita berada.
+
+image::https://i.postimg.cc/yYhJHBtq/gambar-01.gif[gambar-01,align=center]
+
+Contohnya seperti gambar di atas, bagian yang saya beri kotak merah.
+
+== Pemecahan Masalah
+
+Untuk mengimplementasikan fitur go to next & previous post di atas, sangat mudah sekali.
+
+Kita hanya perlu bermain di Model dan juga View template.
+
+=== ActiveRecord
+
+Misal, saya memiliki sebuah model bernama *article*.
+
+Saya akan membuat business logic pada *article* model, seperti di bawah ini.
+
+.app/models/article.rb
+[source,ruby,linenums]
+----
+class Article < ApplicationRecord
+  belongs_to :user
+
+  # For go to next & prev feature
+  def next
+    Article.where('id > ?', id).order(id: :asc).limit(1).first
+  end
+
+  def prev
+    Article.where('id < ?', id).order(id: :desc).limit(1).first
+  end
+end
+----
+
+Nah, method tersebut tinggal kita gunakan saja.
+
+=== ActionController
+
+Anggaplah controllernya bernama *articles_controller*.
+
+Pada Blog post untuk menampilkan halaman dari artikel biasanya terdapat pada action *show*.
+
+.app/controllers/articles_controller.rb
+[source,ruby,linenums]
+----
+class ArticlesController < ApplicationController
+
+  # ...
+
+  def show
+    @article = Article.find(params[:id])
+  end
+
+  # ...
+
+end
+----
+
+Sekarang tinggal menggunakannya pada view template.
+
+=== ActionView
+
+Mengikuti dari *articles_controller* dengan action *show*, artinya kita akan memiliki susunan dari halaman template seperti ini.
+
+----
+.
+├─ app/
+│  ├─ ...
+│  └─ views/
+│     ├─ articles/
+│     │  ├─ ...
+│     │  └─ <mark>show.html.erb</mark>
+...   ...
+----
+
+Nah, tinggal kita gunakan instance variable dari *@article* yang telah kita definisikan di *articles_controller*.
+
+.app/views/articles/show.html.erb
+[source,eruby,linenums]
+----
+<!-- ... -->
+
+<!-- For go to next & prev feature -->
+<div class="d-flex justify-content-between">
+  <%= link_to "Prev Post", article_path(@article.prev) if @article.prev %>  <1>
+  <%= link_to "Next Post", article_path(@article.next) if @article.next %>  <1>
+</div>
+----
+
+<1> Method *.next* dan *.prev* adalah method yang kita definisikan pada *article* model.
+
+NOTE: Nama class **d-flex** dan **justify-content-between**, berasal dari Bootstrap 4.
+
+Selesai!
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:https://stackoverflow.com/questions/1275963/rails-next-post-and-previous-post-links-in-my-show-view-how-to[stackoverflow.com/questions/1275963/rails-next-post-and-previous-post-links-in-my-show-view-how-to^]
+Diakses tanggal: 2021/02/13
+
+. link:https://gorails.com/forum/setting-up-next-post-and-previous-post[gorails.com/forum/setting-up-next-post-and-previous-post^]
+Diakses tanggal: 2021/02/13
