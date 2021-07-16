@@ -1,0 +1,196 @@
+= Membuat Relasi dengan hanya Salah Satu Type pada Single Table Inheritance Model di Rails
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Membuat Relasi dengan hanya Salah Satu Type pada Single Table Inheritance Model di Rails
+:page-excerpt: Menyambung catatan tentang Single Table Inheritance, kali ini mengenai relasi salah satu type dari model.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [rails, activerecord]
+:page-liquid:
+:page-published: true
+
+====
+*Prerequisite*
+
+`Ruby 3.0.0` `Rails 6.1.2` `PostgreSQL 12.5` `RSpec 4.0.0`
+====
+
+== Latar Belakang Masalah
+
+Catatan kali ini, saya akan membahas Ruby on Rails dari sisi back-end.
+
+Melanjutkan catatan mengenai Single Table Inheritance sebelumnya, yaitu tentang link:/blog/rails-single-table-inheritance-dengan-devise-contoh-2[*Mengenal Single Table Inheritance dengan Devise pada Rails (Contoh 2)*^].
+
+Sekarang saya akan lanjutkan dengan relasi antar type, namun catatan kali ini mencontohkan salah satu type saja.
+
+Misalkan saya memilik model **User** yang memiliki dua type user, yaitu *Developer* dan *Copywriter*.
+
+.users table
+|===
+| id | email | type
+
+| 1  | bayuyuba@gmail.com | Developer
+| 2  | bololoba@gmail.com | Copywriter
+|===
+
+.news table
+|===
+| title | content | user_id
+
+| ... | ... | 2
+|===
+
+Sudah dapat ditebak yaa, tabel news tentu memiliki relasi one to many dengan tabel users.
+
+Karena saya menggunakan STI pada tabel Users, maka saya juga perlu membuat model untuk masing-masing type user (developer dan copywriter).
+
+.app/models/developer.rb
+[source,ruby,linenums]
+----
+class Developer < User
+end
+----
+
+.app/models/copywriter.rb
+[source,ruby,linenums]
+----
+class Copywriter < User
+end
+----
+
+Kita akan mencoba meletakkan method association-nya pada model *User* dan juga model *News*.
+
+.app/models/user.rb
+[source,ruby,linenums]
+----
+class User < ApplicationRecord
+  has_many :news, dependent: :destroy
+end
+----
+
+.app/models/news.rb
+[source,ruby,linenums]
+----
+class News < ApplicationRecord
+  belongs_to :user
+end
+----
+
+Kalau asosiasinya seperti di atas, maka user *Developer* juga dapat membuat *ews*.
+
+[source,ruby]
+----
+irb(main)> user_developer = Developer.first
+=> #<Developer id: 1, email: "bayuyuba@gmail.com", ...
+
+irb(main)> user_developer.news
+=> #<ActiveRecord::Associations::CollectionProxy []>  <1>
+----
+
+<1> User Developer juga memiliki relasi dengan News, hal ini yang akan kita hilangkan
+
+Sedangkan, yang kita inginkan adalah hanya user *Copywriter* yang dapat membuat *News*.
+
+[source,ruby]
+----
+irb(main)> user_copywriter = Copywriter.first
+=> #<Copywriter id: 2, email: "bololoba@gmail.com", ...
+
+irb(main)> user_copywriter.news
+=> #<ActiveRecord::Associations::CollectionProxy []>
+----
+
+Developer juga dapat membuat News karena kita meletakkan association-nya pada model User (`has_many :news`) dan pada model News (`belongs_to :user`). Sedangkan pada model User, terdapat dua type user, yaitu Developer dan Copywriter. Tentu saja kedua type user tersebut jadi memiliki association terhadap model News.
+
+== Pemecahan Masalah
+
+Sudah dapat ditebak yaa, seharusnya kita meletakkan associationnya pada model *Copywriter*, bukan pada model *User*.
+
+Maka, kita perlu menghapus association yang ada pada model *User* dan memindahkannya ke model *Copywriter*.
+
+.app/models/copywriter.rb
+[source,ruby,linenums]
+----
+class Copywriter < User
+  has_many :news, dependent: :destroy, foreign_key: :user_id
+end
+----
+
+Sedangkan association pada model *News* kita akan ganti objectnya ke model *Copywriter*.
+
+.app/models/news.rb
+[source,ruby,linenums]
+----
+class News < ApplicationRecord
+  belongs_to :copywriter, foreign_key: :user_id
+end
+----
+
+Yang menjadi kunci dari association antara model *Copywriter* dengan model *News* di atas adalah `foreign_key: :user_id`.
+
+Sangat perlu untuk didefinisikan, karena model News sebenarnya tidak mengetahui siapa itu Copywriter. Model News hanya mengenal User, nanti model User yang akan memberitahu, bahwa yang si News cari adalah salah satu type user yang dimiliki oleh model User, yaitu Copywriter. 😅
+
+Hal ini karena secara skematik, pada tabel News, kita merelasikan dengan tabel Users. Sedangkan Copywriter tidak memiliki tabel.
+
+.db/schema.rb
+[source,ruby,linenums]
+----
+# ...
+
+  create_table "news", force: :cascade do |t|
+    t.string   "title"
+    t.bigint   "user_id",    null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index    ["user_id"],  name: "index_news_on_user_id"
+  end
+
+# ...
+----
+
+== Pengujian
+
+Kita akan mulai dari Copywriter.
+
+[source,ruby]
+----
+irb(main)> user_copywriter = Copywriter.first
+=> #<Copywriter id: 2, email: "bololoba@gmail.com", ...
+
+irb(main)> user_copywriter.news
+=> #<ActiveRecord::Associations::CollectionProxy []>  <1>
+----
+
+<1> Nah, copywriter *masih* memiliki berasosiasi dengan model News.
+
+Seharusnya model Developer, sudah tidak dapat membuat News.
+
+[source,ruby]
+----
+irb(main)> user_developer = Developer.first
+=> #<Developer id: 1, email: "bayuyuba@gmail.com", ...
+
+irb(main)> user_developer.news
+NoMethodError (undefined method `news' for #<Developer id: 1, email: "bayuyuba@gmail.com", ...">)  <1>
+----
+
+<1> Developer sudah *tidak dapat* membuat News.
+
+Oke, mantap!
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:https://guides.rubyonrails.org/association_basics.html#single-table-inheritance-sti[guides.rubyonrails.org/association_basics.html#single-table-inheritance-sti^]
+Diakses tanggal: 2021/02/17
