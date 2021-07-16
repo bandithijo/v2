@@ -28,6 +28,8 @@ asciidoctor:
     - icons=font
     - hardbreaks-option
     - experimental
+    - table-caption=Tabel
+    - figure-caption=Gambar
 
 feed:
   excerpt_only: true
