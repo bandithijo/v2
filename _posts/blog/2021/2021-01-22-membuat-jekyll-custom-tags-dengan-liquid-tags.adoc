@@ -70,20 +70,20 @@ Seperti ini,
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam neque quod, debitis maxime nostrum quibusdam.
 Harum ullam repudiandae beatae nesciunt ea ipsam nisi? Quasi quae aliquid ratione vel blanditiis vitae.
 
-{% shell_user %}      <1>
+{% raw %}{% shell_user %}      <1>
 sudo pacman -Syu
 sudo pacman -S ruby
-{% endshell_user %}   <1>
+{% endshell_user %}{% endraw %}   <1>
 
 Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla doloribus, labore dicta dolore magnam maiores.
 Inventore expedita minus accusantium deserunt ipsum pariatur magni, cum reiciendis maxime.
 Aperiam incidunt tempora natus?
 
-{% box_info %}     <2>
+{% raw %}{% box_info %}     <2>
 <p markdown=1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex sapiente dicta,<br>
 consequuntur veritatis, ipsum quos, hic dolores alias possimus reiciendis doloremque cupiditate nisi.<br>
 Quaerat adipisci blanditiis sit quos, soluta iste.<p>
-{% endbox_info %}  <2>
+{% endbox_info %}{% endraw %}  <2>
 ----
 
 <1> `shell_user`, adalah custom tag yang saya buat untuk membungkus code block
@@ -92,11 +92,11 @@ Quaerat adipisci blanditiis sit quos, soluta iste.<p>
 Pada contoh di atas, saya menggunakan module *Liquid::Block* untuk membungkus konten yang ingin saya tampilkan.
 
 ----
-{% nama_tag %}
+{% raw %}{% nama_tag %}
 # konten
 # yang ingin ditampilkan
 # bisa dalam bentuk multiline
-{% endnama_tag %}
+{% endnama_tag %}{% endraw %}
 ----
 
 Fitur ini, disebut dengan Liquid Tags. Fitur ini disediakan oleh Jekyll karena Jekyll menggunakan Liquid sebagai bahasa template.
@@ -162,7 +162,7 @@ Kira-kira seperti ini,
 ._posts/blog/2021/2021-01-01-contoh-artikel.md
 [source,markdown,linenums]
 ----
-{% image https://i.postimg.cc/wT7rfFFX/gambar-01.png" | 1 | Ini adalah caption }
+{% raw %}{% image https://i.postimg.cc/wT7rfFFX/gambar-01.png" | 1 | Ini adalah caption }{% endraw %}
 ----
 
 Nah! Lebih sederhana kan?
@@ -230,17 +230,17 @@ Pada tampilan markdownya akan seperti ini:
 ._posts/blog/2021/2021-01-01-contoh-artikel.md
 [source,markdown,linenums]
 ----
-{% shell_user %}
+{% raw %}{% shell_user %}
 sudo pacman -Syy
-{% endshell_user %}
+{% endshell_user %} {% endraw %}
 ----
 
 ._posts/blog/2021/2021-01-01-contoh-artikel.md
 [source,markdown,linenums]
 ----
-{% shell_root %}
+{% raw %}{% shell_root %}
 systemctl start NetworkManager.service
-{% endshell_root %}
+{% endshell_root %}{% endraw %}
 ----
 
 Nah! Sekarang saya akan perlihatkan isi dari plugin *shells.rb*.
@@ -327,13 +327,13 @@ Seperti ini contohnya:
 ._posts/blog/2021/2021-01-01-contoh-artikel.md
 [source,markdown,linenums]
 ----
-{% shell_user %}
+{% raw %}{% shell_user %}
 mkdir project
 cd project
 git clone https://github.com/bandithijo/new_project
 cd new_project
 bundle exec jekyll server
-{% endshell_user %}
+{% endshell_user %}{% endraw %}
 ----
 
 Hasilnya:
@@ -362,10 +362,10 @@ Seperti ini misalnya,
 ._posts/blog/2021/2021-01-01-contoh-artikel.md
 [source,markdown,linenums]
 ----
-{% shell_term $ %}
+{% raw %}{% shell_term $ %}
 sudo pacman -Syu
 sudo pacman -Scc
-{% endshell_term %}
+{% endshell_term %}{% endraw %}
 ----
 
 [source,console]
@@ -379,10 +379,10 @@ Atau,
 ._posts/blog/2021/2021-01-01-contoh-artikel.md
 [source,markdown,linenums]
 ----
-{% shell_term # %}
+{% raw %}{% shell_term # %}
 pacman -Syu
 pacman -Scc
-{% endshell_term %}
+{% endshell_term %}{% endraw %}
 ----
 
 [source,console]
@@ -398,13 +398,13 @@ Atau, dengan parameter warna
 ._posts/blog/2021/2021-01-01-contoh-artikel.md
 [source,markdown,linenums]
 ----
-{% shell_term [arch@iso ~]# | #DC322F %}
+{% raw %}{% shell_term [arch@iso ~]# | #DC322F %}
 mkdir project
 cd project
 git clone https://github.com/bandithijo/new_project
 cd new_project
 bundle exec jekyll server
-{% endshell_term %}
+{% endshell_term %}{% endraw %}
 ----
 
 [source,console]
@@ -472,5 +472,5 @@ Diakses tanggal: 2021/01/22
 . link:https://jekyllrb.com/docs/plugins/your-first-plugin/[jekyllrb.com/docs/plugins/your-first-plugin/^]
 Diakses tanggal: 2021/01/22
 
-. link:https://blog.sverrirs.com/2016/04/custom-jekyll-tags.html[blog.sverrirs.com/2016/04/custom-jekyll-tags.html^]
+. link:https://blog.sverrirs.com/2016/04/custom-jekyll-tags.html[blog.sverrirs.com/2016/04/custom-jekyll-tags.html^](){:target="_blank"}
 Diakses tanggal: 2021/01/25
