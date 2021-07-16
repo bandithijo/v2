@@ -12,7 +12,7 @@ Assyaufi, Rizqi Nur
 ====
 *Prerequisite*
 
-`ruby 2.7.2` `Rails 6.1.1` `Bootstrap 4.6.x`
+`Ruby 2.7.2` `Rails 6.1.1` `Bootstrap 4.6.x`
 ====
 
 == Latar Belakang

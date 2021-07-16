@@ -18,6 +18,8 @@ Agar hal tersebut tidak perlu terjadi --lupa--, saya memutuskan untuk membuat ca
 
 Sekedar pengetahuan, terdapat setidaknya 3 level konfigurasi.
 
+[.overflow-x]
+--
 |===
 | Level  | Keterangan
 
@@ -25,6 +27,7 @@ Sekedar pengetahuan, terdapat setidaknya 3 level konfigurasi.
 | GLOBAL | All repositories of the current user
 | LOCAL  | The curent repository
 |===
+--
 
 Pada catatan ini, saya lebih banyak mencontohkan pada level konfigurasi Global.
 

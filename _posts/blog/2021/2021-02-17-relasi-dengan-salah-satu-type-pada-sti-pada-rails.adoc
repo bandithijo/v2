@@ -12,7 +12,7 @@ Assyaufi, Rizqi Nur
 ====
 *Prerequisite*
 
-`Ruby 3.0.0` `Rails 6.1.2` `PostgreSQL 12.5` `RSpec 4.0.0`
+`Ruby 3.0.0` `Rails 6.1.2`
 ====
 
 == Latar Belakang Masalah
@@ -25,6 +25,8 @@ Sekarang saya akan lanjutkan dengan relasi antar type, namun catatan kali ini me
 
 Misalkan saya memilik model **User** yang memiliki dua type user, yaitu *Developer* dan *Copywriter*.
 
+[.overflow-x]
+--
 .users table
 |===
 | id | email | type
@@ -32,13 +34,17 @@ Misalkan saya memilik model **User** yang memiliki dua type user, yaitu *Develop
 | 1  | bayuyuba@gmail.com | Developer
 | 2  | bololoba@gmail.com | Copywriter
 |===
+--
 
+[.overflow-x]
+--
 .news table
 |===
 | title | content | user_id
 
 | ... | ... | 2
 |===
+--
 
 Sudah dapat ditebak yaa, tabel news tentu memiliki relasi one to many dengan tabel users.
 

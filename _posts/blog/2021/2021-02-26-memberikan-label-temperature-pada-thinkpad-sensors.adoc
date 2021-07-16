@@ -75,6 +75,8 @@ Sayangnya, untuk ThinkPad X61 saya, belum ada keterangan yang jelas mengenai ind
 
 Yang baru terkonfirmasi adalah *temp1*, *temp2*, *temp5*, dan *temp7*.
 
+[.overflow-x]
+--
 |===
 | Props | Location
 
@@ -83,6 +85,7 @@ Yang baru terkonfirmasi adalah *temp1*, *temp2*, *temp5*, dan *temp7*.
 | *temp5* | BAT
 | *temp7* | BAT
 |===
+--
 
 Setelah saya perhatikan, sepertinya, tidak terlalu jauh berbeda dengan milik ThinkPad T60.
 
