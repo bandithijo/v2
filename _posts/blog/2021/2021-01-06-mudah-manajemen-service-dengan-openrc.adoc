@@ -148,22 +148,22 @@ Contoh:
 
 ----
 Runlevel: shutdown
- killprocs                                                            [  stopped  ]
+ killprocs                                                        [  stopped  ]
  ...
  ...
 Runlevel: default
- agetty.tty1                                     [  started 2 day(s) 06:11:21 (0) ]
- agetty.tty2                                     [  started 2 day(s) 06:11:21 (0) ]
+ agetty.tty1                                 [  started 2 day(s) 06:11:21 (0) ]
+ agetty.tty2                                 [  started 2 day(s) 06:11:21 (0) ]
  ...
  ...
 Runlevel: nonetwork
- local                                                                [  started  ]
+ local                                                            [  started  ]
 Runlevel: sysinit
- dmesg                                                                [  started  ]
+ dmesg                                                            [  started  ]
  ...
  ...
 Runlevel: boot
- root                                                                 [  started  ]
+ root                                                             [  started  ]
  ...
  ...
 ----
@@ -195,7 +195,7 @@ Service *sshd* telah berhasil ditambahka ke runlevel *default*.
 
 ----
 Runlevel: default
- sshd                                                                 [  stopped  ]
+ sshd                                                             [  stopped  ]
 ----
 
 Tapi, statusnya masih *stopped*, kita akan jalankan di section selanjutnya.
@@ -219,7 +219,7 @@ $ sudo rc-service sshd start
 ----
 
 ----
-sshd              | * Starting sshd ...                                       [ ok ]
+sshd              | * Starting sshd ...                                  [ ok ]
 ----
 
 [NOTE]
@@ -241,7 +241,7 @@ $ sudo rc-service sshd stop
 ----
 
 ----
-sshd              | * Stopping sshd ...                                       [ ok ]
+sshd              | * Stopping sshd ...                                  [ ok ]
 ----
 
 *Restart Service*
@@ -256,8 +256,8 @@ $ sudo rc-service sshd restart
 ----
 
 ----
-sshd              | * Stopping sshd ...                                       [ ok ]
-sshd              | * Starting sshd ...                                       [ ok ]
+sshd              | * Stopping sshd ...                                  [ ok ]
+sshd              | * Starting sshd ...                                  [ ok ]
 ----
 
 **Status Service**
@@ -418,16 +418,16 @@ $ rc-status
 
 ----
 Runlevel: default
- local                                                                 [  started  ]
- agetty.tty1                                      [  started 2 day(s) 10:15:05 (0) ]
- agetty.tty2                                      [  started 2 day(s) 10:15:05 (0) ]
+ local                                                            [  started  ]
+ agetty.tty1                                 [  started 2 day(s) 10:15:05 (0) ]
+ agetty.tty2                                 [  started 2 day(s) 10:15:05 (0) ]
  ...
  ...
 Dynamic Runlevel: hotplugged
 Dynamic Runlevel: needed/wanted
- virtlogd                                                              [  started  ]
+ virtlogd                                                         [  started  ]
 Dynamic Runlevel: manual
- libvirtd                                                              [  started  ]
+ libvirtd                                                         [  started  ]
 ----
 
 Kalau ingin melihat service status dari semua runlevel, gunakan option `--all`.
