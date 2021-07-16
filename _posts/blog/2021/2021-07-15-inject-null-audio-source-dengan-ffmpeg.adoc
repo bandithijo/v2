@@ -84,6 +84,12 @@ exit
 <4> File hasil, akan ditambahkan akhiran `X`
 <5> Tampilkan notifikasi apabila proses telah selesai
 
+
+[WARNING]
+====
+Script ini harus di jalankan di direktori yang di definisikan di `screenrecorder_dir`.
+====
+
 == Referensi
 
 . link:https://man.archlinux.org/man/ffmpeg-filters.1#anullsrc[https://man.archlinux.org/man/ffmpeg-filters.1#anullsrc^]
