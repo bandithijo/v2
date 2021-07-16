@@ -1,0 +1,105 @@
+= Bootstrap 4 Custom File Input dengan bs-custom-file-input Javascript pada Rails 6
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Bootstrap 4 Custom File Input dengan bs-custom-file-input Javascript pada Rails 6
+:page-excerpt: Bootstrap 4 menyediakan component untuk custom file input, namun component ini memiliki dependensi Javascript library yang bernama bs-custom-file-input. Catatan kali ini, saya akan membahas bagaimana cara memasang bs-custom-file-input pada Rails 6 yang menggunakan Webpacker.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [rails, bootstrap]
+:page-liquid:
+:page-published: true
+
+====
+*Prerequisite*
+
+`Ruby 2.7.2` `Rails 6.1.1` `Bootstrap 4.6` `bs-custom-file-input 1.3.4`
+====
+
+== Latar Belakang Masalah
+
+Catatan kali ini, saya akan membicarakan developing dari sisi front-dend. Yaitu memasang component *Custom File Input* Bootstrap 4 pada Rails 6.
+
+image::https://i.postimg.cc/6Qs5cMW9/gambar-01.png[gambar-01,align=center]
+
+Component ini, dapat teman-teman lihat di sini, link:https://getbootstrap.com/docs/4.6/components/input-group/#custom-file-input[*Components > Custom file input*^].
+
+Seperti yang kita tahu, Rails 6 secara default menggunakan Webpacker untuk mem-packaging dan mem-bundling aset-aset Javascript. Sehingga cara mengkonfigurasi Javascript library tentu akan sedikit berbeda dengan saat kita menggunakan Rails 5 yang menggunakan Sprockets.
+
+== Permasalahan
+
+Component custom file input milik Bootstrap tersebut memerlukan Javascript library yang berama link:https://www.npmjs.com/package/bs-custom-file-input[*bs-custom-file-input*^].
+
+Kalau kita belum memasang library tersebut, maka akan seperti di bawah ini.
+
+image::https://i.postimg.cc/85NkQsf9/gambar-02.gif[gambar-02,align=center]
+
+Dapat dilihat, *nama file* yang kita pilih, tidak tampil di input field.
+
+Nah, ini karena bs-custom-file-input belum dipasang.
+
+== Instalasi
+
+=== Pasang bs-custom-file-input library
+
+Saya memilih menggunakan **yarn** untuk memasang library ini.
+
+[source,console]
+----
+$ yarn add bs-custom-file-input
+----
+
+=== Definisikan pada pack
+
+Kita perlu memanggil library bs-custom-file-input ke dalam pack yang terletak pada *app/javascript/packs/application.js*.
+
+.app/javascript/packs/application.js
+[source,ruby,linenums]
+----
+require("@rails/ujs").start()
+require("turbolinks").start()
+require("@rails/activestorage").start()
+require("channels")
+
+import 'bootstrap'
+import bsCustomFileInput from 'bs-custom-file-input'  <1>
+
+$(document).on('turbolinks:load', function() {
+
+  // for bs-custom-file-input
+  bsCustomFileInput.init()  <2>
+
+})
+----
+
+<1> Baris ke-7, adalah proses import dari bs-custom-file-input library
+<2> baris ke-12, adalah proses inisialisasi, untuk menjalankan library
+
+Kelar!
+
+Hanya seperti ini saja.
+
+Sekarang, seharusnya sudah berhasil memunculkan nama file pada input field.
+
+image::https://i.postimg.cc/YS12sQ0Q/gambar-03.gif[gambar-03,align=center]
+
+Mantap!
+
+== Pesan Penulis
+
+Ngomong-ngomong, kalau masih kesulitan mengintegrasikan Bootstrap 4 dengan Rails 6, dapat membaca catatan saya di sini, link:{{ site.url }}/blog/memasang-bootstrap-pada-rails-menggunakan-yarn[*Memasang Bootstrap 4 pada Rails 6 dengan Yarn*^].
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:https://getbootstrap.com/docs/4.6/components/input-group/[getbootstrap.com/docs/4.6/components/input-group/^]
+Diakses tanggal: 2021/02/05
+
+. link:https://www.npmjs.com/package/bs-custom-file-input[www.npmjs.com/package/bs-custom-file-input^]
+Diakses tanggal: 2021/02/05
