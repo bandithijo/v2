@@ -9,9 +9,6 @@ Assyaufi, Rizqi Nur
 :page-liquid:
 :page-published: true
 
-# Prerequisite
-
-
 ====
 *Prerequisite*
 
@@ -181,7 +178,7 @@ Nah, artinya kita bisa membuat format seperti ini pada controller.
   .where(fetched_at: @last_updated)  <3>
   .map { |n|   <4>
     "'#{n.name}': {fillKey: 'AAA', totalCases: 'n.total_cases'},\n"  <4>
-  }.join  <5>
+  }.join
 ----
 
 <1> Saya mengambil tanggal dari data terakhir.
@@ -194,7 +191,7 @@ Nah, artinya kita bisa membuat format seperti ini pada controller.
 => ["'DKI Jakarta': {fillKey: 'AAA', totalCases: '293825'},\n", "'Jawa Barat': {fillKey: 'AAA', totalCases: '167707'},\n", "'Jawa Tengah': {fillKey: 'AAA', totalCas...
 ----
 
-<5> Saya menggunakan method `.join` untuk membuat array mejadi string yang nantinya, pada view template, akan menggunakan method `raw()` untuk melakukan escaping string.
+Pada baris terakhir, saya menggunakan method `.join` untuk membuat array mejadi string yang nantinya, pada view template, akan menggunakan method `raw()` untuk melakukan escaping string.
 
 [source,ruby]
 ----
