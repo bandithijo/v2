@@ -2,8 +2,8 @@
   <a style="text-decoration:none;color:#ba3925" href="{{ site.url }}{{ page.url }}">{{ page.title }}</a>
 </h1>
 
-{% if page.permalink != page.root 
-  and page.permalink != "/blog/" 
+{% if page.permalink != page.root
+  and page.permalink != "/blog/"
   and page.permalink != "/note/"
   and page.permalink != "/404" %}
   {% include breadcrumbs.html %}
@@ -18,11 +18,20 @@
 
 {{ content }}
 
-{% if page.permalink != site.root 
+{% if page.permalink != site.root
   and page.permalink != "/blog/"
   and page.permalink != "/note/"
   and page.permalink != "/404" %}
   <div class="text-center mt3 mb4">***</div>
+
+  <div class="text-right">
+    {% if page.permalink == "/blog/:title" %}
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/{{ page.categories }}/{{ page.date | date: '%Y' }}/{{ page.date | date: '%Y-%m-%d' }}-{{ page.url | remove: '/blog/' | remove: '.html' }}.adoc"> Edit this post</a>
+    {% elsif page.permalink == "/note/:title" %}
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/{{ page.categories }}/{{ page.date | date: '%Y-%m-%d' }}-{{ page.url | remove: '/note/' | remove: '.html' }}.adoc"> Edit this note</a>
+    {% endif %}
+  </div>
+
   <hr style="border-color:#efefed">
 {% endif %}
 
