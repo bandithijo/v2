@@ -1,0 +1,476 @@
+= Jekyll Custom Tags dengan Liquid Tags
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Jekyll Custom Tags dengan Liquid Tags
+:page-excerpt: Saya sering merasa kekurangan dengan markup yang disediakan oleh Markdown. Terkadang saya harus membuat formula HTML tag sendiri untuk. Namun, hal tersebut malah membuat file markdown post saya tidak rapi. Maka dari itu, saya membuat Jekyll Custom Tag untuk membungkus formula HTML yang saya pergunakan.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [jekll]
+:page-liquid:
+:page-published: true
+
+== Latar Belakang Masalah
+
+Seiring berjalannya waktu, jumlah post di BanditHijo Blog ini semakin banyak.
+
+Saya pun sudah beberapa kali merubah beberapa style untuk beberapa komponen terutama komponen seperti tampilan terminal prompt atau code block. Masih mencari-cari style seperti apa yang pas dan mudah untuk dipahami.
+
+Ketika style baru ditemukan, maka style yang lama juga mau tidak mau harus ikut diubah.
+
+Sangat ribet sekali bukan?
+
+Belum lagi, bentuk dari stylenya adalah HTML yang bercampur dengan Markdown di dalam post.
+
+Misal seperti ini,
+
+._posts/blog/2021/2021-01-01-contoh-artikel.md
+[source,markdown,linenums]
+----
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam neque quod, debitis maxime nostrum quibusdam.
+Harum ullam repudiandae beatae nesciunt ea ipsam nisi? Quasi quae aliquid ratione vel blanditiis vitae.
+
+<pre>                         <1>
+$ <b>sudo pacman -Syu</b>     <1>
+$ <b>sudo pacman -S ruby</b>  <1>
+</pre>                        <1>
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla doloribus, labore dicta dolore magnam maiores.
+Inventore expedita minus accusantium deserunt ipsum pariatur magni, cum reiciendis maxime.
+Aperiam incidunt tempora natus?
+
+<!-- INFORMATION -->
+<div class="blockquote-blue">  <2>
+<div class="blockquote-blue-title"><img src="/assets/img/logo/logo_note.svg">Informasi</div>  <2>
+<p markdown=1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex sapiente dicta,<br>  <2>
+consequuntur veritatis, ipsum quos, hic dolores alias possimus reiciendis doloremque cupiditate nisi.<br>  <2>
+Quaerat adipisci blanditiis sit quos, soluta iste.<p>  <2>
+</div>  <2>
+----
+
+<1> Baris ke 4-7, adalah prompt terminal
+<2> baris ke 14-19, adalah contoh dari quote informasi yang berwarna biru
+
+Nah, yang menjadi masalah adalah,
+
+Bayangkan apabila terdapat ratusan artikel dan kita ingin merubah stylenya.
+
+*Mungkin gak?* Masih mungkin, tapi cukup bikin mumet kepala. 😅
+
+== Apa yang saya inginkan?
+
+Saya ingin menggunakan sesuatu semacam *wadah*, yang apabila ingin merubah stylenya, kita cukup merubah si wadah saja, dan semua yang menggunakan wadah tersebut otomatis ikut berubah juga.
+
+Dan wadah tersebut harus sederhana. Cukup sederhana untuk ditulis dan dibaca.
+
+Seperti ini,
+
+._posts/blog/2021/2021-01-01-contoh-artikel.md
+[source,markdown,linenums]
+----
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam neque quod, debitis maxime nostrum quibusdam.
+Harum ullam repudiandae beatae nesciunt ea ipsam nisi? Quasi quae aliquid ratione vel blanditiis vitae.
+
+{% shell_user %}      <1>
+sudo pacman -Syu
+sudo pacman -S ruby
+{% endshell_user %}   <1>
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla doloribus, labore dicta dolore magnam maiores.
+Inventore expedita minus accusantium deserunt ipsum pariatur magni, cum reiciendis maxime.
+Aperiam incidunt tempora natus?
+
+{% box_info %}     <2>
+<p markdown=1>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex sapiente dicta,<br>
+consequuntur veritatis, ipsum quos, hic dolores alias possimus reiciendis doloremque cupiditate nisi.<br>
+Quaerat adipisci blanditiis sit quos, soluta iste.<p>
+{% endbox_info %}  <2>
+----
+
+<1> `shell_user`, adalah custom tag yang saya buat untuk membungkus code block
+<2> `box_info`, adalah custom tag yang saya buat untuk membungkus quote block
+
+Pada contoh di atas, saya menggunakan module *Liquid::Block* untuk membungkus konten yang ingin saya tampilkan.
+
+----
+{% nama_tag %}
+# konten
+# yang ingin ditampilkan
+# bisa dalam bentuk multiline
+{% endnama_tag %}
+----
+
+Fitur ini, disebut dengan Liquid Tags. Fitur ini disediakan oleh Jekyll karena Jekyll menggunakan Liquid sebagai bahasa template.
+
+Oke, karena keterbatasan ilmu saya saat ini, yang ingin saya catat hanya hal yang dasar saja dalam membuat Liquid tags yang juga digunakan di blog ini.
+
+Mungkin artikel ini akan berkesinambungan seiring bertambahnya teknik yang saya dapatkan.
+
+== Praktik Membuat Liquid Tags
+
+Di Jekyll, saya melihat pada module Tags menggunakan setidaknya *Liquid::Block* dan juga *Liquid::Tags*.
+
+Liquid tags yang disediakan oleh Jekyll, pasti teman-teman pernah menggunakannya.
+
+. *highlight*, menggunakan *Liquid::Block* (lib/jekyll/tags/highlight.rb)
+. *include*, menggunakan *Liquid::Tags* (lib/jekyll/tags/include.rb)
+. *link*, menggunakan *Liquid::Tags* (lib/jekyll/tags/link.rb)
+
+Nah, kita akan mamanfaatkan kedua module ini untuk membuat Liquid tags yang kita perlukan.
+
+Misal, kalau di BanditHijo, saya lebih banyak memerlukan untuk menampilkan *command prompt*, *highlight code*, dan *image*.
+
+Pertama-tama, karena kita menggunakan Jekyll, kita akan menganggap fitur yang kita buat ini sebagai plugin.
+
+Maka kita akan menempatkannya pada direktori *_plugins/*.
+
+----
+.
+├── _plugins/
+│   ├── images.rb
+│   └── shells.rb
+...
+----
+
+Dapat dilihat, kalau saya memiliki beberapa custom plugin yang saya buat untuk memudahkan proses menulis di blog ini.
+
+Ayo kita lihat!
+
+=== Liquid::Tags dengan Parameter
+
+Rasanya, penggunaan module *Liquid::Tags* memang hampir semuanya menggunakan parameter.
+
+==== Image Tag
+
+Saya menggunakannya untuk menghandle image.
+
+Sebelum mengenal Liquid tags, saya menggunakan cara ini untuk memasukkan gambar.
+
+._posts/blog/2021/2021-01-01-contoh-artikel.md
+[source,markdown,linenums]
+----
+![gambar_1]({{ site.lazyload.logo_blank }}){:data-echo="https://i.postimg.cc/wT7rfFFX/gambar-01.png" onerror="imgError(this);"}{:class="myImg"}
+----
+
+Ribet banget yaa.
+
+Saya membuat snippets agar tidak ribet saat akan menggunakannya, namun, tetap saja hal ini membuat markdown file yang kita tulis menjadi kotor.
+
+Saya ingin terlihat lebih rapi tanpa terlalu banyak HTML tag.
+
+Kira-kira seperti ini,
+
+._posts/blog/2021/2021-01-01-contoh-artikel.md
+[source,markdown,linenums]
+----
+{% image https://i.postimg.cc/wT7rfFFX/gambar-01.png" | 1 | Ini adalah caption }
+----
+
+Nah! Lebih sederhana kan?
+
+Berikut ini adalah codenya,
+
+._plugins/shells.rb
+[source,ruby,linenums]
+----
+module Jekyll
+  class Image < Liquid::Tag
+    def initialize(tag_name, input, tokens)
+      super
+      @input = input
+    end
+
+    def render(context)
+      params = split_params(@input)
+      url = params[0].strip
+      num = params[1].strip if params.length > 1
+      cap = params[2].strip if params.length > 2
+
+      output  = "![gambar_#{num}](/assets/img/logo/logo_blank.svg){:data-echo='#{url}' onerror='imgError(this);'}{:class='myImg'}"
+      output += "\n<p class='img-caption' markdown='1'>Gambar #{num} - #{cap}</p>" if params.length == 3
+      output
+    end
+
+    def split_params(params)
+      params.split(' | ')
+    end
+  end
+end
+
+Liquid::Template.register_tag('image', Jekyll::Image)
+----
+
+Blok kode di atas adalah untuk kebutuhan saya.
+
+Tentunya, teman-teman perlu memodifikasi sesuai dengan yang teman-teman butuhkan.
+
+=== Liquid::Block Tanpa Parameter
+
+Untuk membuat Liquid::Block Tanpa Parameter, cukup mudah.
+
+==== Command Prompt
+
+Saya akan contohkan untuk *shells.rb*, yang saya gunakan untuk menyimpan beberapa prompt shell untuk user dan root.
+
+Kalau teman-teman lihat tampilan prompt seperti di bawah ini:
+
+[source,console]
+----
+$ sudo pacman -Syy
+----
+
+[source,console]
+----
+# systemctl start NetworkManager.service
+----
+
+Kedua tampilan prompt di atas, digenerate dari Liquid tags yang berasal dari file plugin *shells.rb* tersebut.
+
+Pada tampilan markdownya akan seperti ini:
+
+._posts/blog/2021/2021-01-01-contoh-artikel.md
+[source,markdown,linenums]
+----
+{% shell_user %}
+sudo pacman -Syy
+{% endshell_user %}
+----
+
+._posts/blog/2021/2021-01-01-contoh-artikel.md
+[source,markdown,linenums]
+----
+{% shell_root %}
+systemctl start NetworkManager.service
+{% endshell_root %}
+----
+
+Nah! Sekarang saya akan perlihatkan isi dari plugin *shells.rb*.
+
+._plugins/shells.rb
+[source,ruby,linenums]
+----
+module Jekyll
+  class ShellRoot < Liquid::Block
+    def render(context)
+      commands = super.split("\n")
+      text  = '<pre>'
+      text += commands[1..].map do |i|
+        "<span class='cmd'># </span><b>#{i}</b><br>"
+      end.join.to_s
+      text += '</pre>'
+      text
+    end
+  end
+
+  class ShellUser < Liquid::Block
+    def render(context)
+      commands = super.split("\n")
+      text  = '<pre>'
+      text += commands[1..].map do |i|
+        "<span class='cmd'>$ </span><b>#{i}</b><br>"
+      end.join.to_s
+      text += '</pre>'
+      text
+    end
+  end
+end
+
+Liquid::Template.register_tag('shell_root',  Jekyll::ShellRoot)
+Liquid::Template.register_tag('shell_user',  Jekyll::ShellUser)
+----
+
+Dapat dilihat bahwa saya membangun sebuah prompt dengan menggunakan pre tag.
+
+----
+<pre>
+<span class="cmd">$ </span>&lt;b>command terminal</b>
+</pre>
+----
+
+Style dari prompt ini adalah:
+
+.assets/css/main.css
+[source,css,linenums]
+----
+/* Untuk box dari command */
+pre {
+    background: #002b36;
+    border-radius: 5px;
+    font-size: 14px;
+    font-family: 'FiraCodeNerdFontComplete-Medium','Roboto Mono', monospace;
+    line-height: 1.45;
+    overflow: auto;
+    padding: 10px;
+}
+
+/* Untuk mewarnai command terminal menjadi kuning */
+pre b {
+    color: #FFCC00;
+}
+
+/* Untuk mendisable selection dari simbol prompt */
+pre span.cmd {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+    -o-user-select: none;
+    -moz-user-select: none;
+}
+----
+
+Fitur dari Liquid tags ini adalah,
+
+1. Setiap baris baru (newline), akan diconvert menjadi 1 baris command (perintah).
+
+Seperti ini contohnya:
+
+._posts/blog/2021/2021-01-01-contoh-artikel.md
+[source,markdown,linenums]
+----
+{% shell_user %}
+mkdir project
+cd project
+git clone https://github.com/bandithijo/new_project
+cd new_project
+bundle exec jekyll server
+{% endshell_user %}
+----
+
+Hasilnya:
+
+[source,console]
+----
+$ mkdir project
+$ cd project
+$ git clone https://github.com/bandithijo/new_project
+$ cd new_project
+$ bundle exec jekyll server
+----
+
+Nah, sederhana kan?
+
+=== Liquid::Block dengan Parameter
+
+Untuk membuat Liquid::Block dengan Parameter, cukup tricky tapi mungkin.
+
+==== Command Prompt
+
+Saya akan contohkan lagi untuk Command Prompt tapi dapat kita definisikan sendiri bentuk dari prompt dan warnanya.
+
+Seperti ini misalnya,
+
+._posts/blog/2021/2021-01-01-contoh-artikel.md
+[source,markdown,linenums]
+----
+{% shell_term $ %}
+sudo pacman -Syu
+sudo pacman -Scc
+{% endshell_term %}
+----
+
+[source,console]
+----
+$ sudo pacman -Syu
+$ sudo pacman -Scc
+----
+
+Atau,
+
+._posts/blog/2021/2021-01-01-contoh-artikel.md
+[source,markdown,linenums]
+----
+{% shell_term # %}
+pacman -Syu
+pacman -Scc
+{% endshell_term %}
+----
+
+[source,console]
+----
+# pacman -Syu
+# pacman -Scc
+----
+
+Saya menggunakan parameter `$` untuk mengindikasikan user biasa dan `#` untuk mengindikasikan root.
+
+Atau, dengan parameter warna
+
+._posts/blog/2021/2021-01-01-contoh-artikel.md
+[source,markdown,linenums]
+----
+{% shell_term [arch@iso ~]# | #DC322F %}
+mkdir project
+cd project
+git clone https://github.com/bandithijo/new_project
+cd new_project
+bundle exec jekyll server
+{% endshell_term %}
+----
+
+[source,console]
+----
+[arch@iso ~]# mkdir project
+[arch@iso ~]# cd project
+[arch@iso ~]# git clone https://github.com/bandithijo/new_project
+[arch@iso ~]# cd new_project
+[arch@iso ~]# bundle exec jekyll server
+----
+
+Jadi lebih fleksible.
+
+Nah! Codenya seperti ini.
+
+._plugins/shells.rb
+[source,ruby,linenums]
+----
+module Jekyll
+  class ShellCommand < Liquid::Block
+    def initialize(tag_name, input, tokens)
+      super
+      @input = input
+    end
+
+    def render(context)
+      params        = split_params(@input)
+      prompt_symbol = params[0]&.strip
+      prompt_color  = params[1]&.strip if params.length > 1
+
+      commands = super.split("\n")
+      output  = '<pre>'
+      output += commands[1..].map do |i|
+        "<span class='cmd' #{"style='color:#{prompt_color};'" unless prompt_color.nil?}>" \
+        "#{prompt_symbol.nil? ? '$' : prompt_symbol} </span><b>#{i}</b><br>"
+      end.join.to_s
+      output += '</pre>'
+      output
+    end
+
+    def split_params(params)
+      params.split(' | ')
+    end
+  end
+end
+
+Liquid::Template.register_tag('shell_term',  Jekyll::ShellCommand)
+----
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:https://jekyllrb.com/docs/liquid/tags/[jekyllrb.com/docs/liquid/tags/^]
+Diakses tanggal: 2021/01/22
+
+. link:https://jekyllrb.com/docs/plugins/your-first-plugin/[jekyllrb.com/docs/plugins/your-first-plugin/^]
+Diakses tanggal: 2021/01/22
+
+. link:https://blog.sverrirs.com/2016/04/custom-jekyll-tags.html[blog.sverrirs.com/2016/04/custom-jekyll-tags.html^]
+Diakses tanggal: 2021/01/25
