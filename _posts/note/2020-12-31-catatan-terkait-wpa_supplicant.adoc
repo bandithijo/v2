@@ -87,8 +87,7 @@ $ ip a s
     link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
 2: eth0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc fq_codel state DOWN group default qlen 1000
     link/ether 00:16:d3:c4:fb:d2 brd ff:ff:ff:ff:ff:ff
-3: <mark>wlan0</mark>: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default
-qlen 1000
+3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
     link/ether 08:11:96:00:00:00 brd ff:ff:ff:ff:ff:ff
 ----
 
@@ -242,6 +241,8 @@ Nah, berarti saya akan menggunakan index ke-*0* untuk mendaftarkan network ini.
 
 Selanjutnya, kita akan mengeset credential untuk network tersebut.
 
+Masukkan SSID,
+
 [source,console]
 ----
 > set_network 0 ssid "bandithijo"
@@ -250,6 +251,8 @@ Selanjutnya, kita akan mengeset credential untuk network tersebut.
 ----
 OK
 ----
+
+Masukkan password dari SSID,
 
 [source,console]
 ----
@@ -445,7 +448,7 @@ $ ip a s wlan0
 ----
 3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
     link/ether 08:11:96:00:00:00 brd ff:ff:ff:ff:ff:ff
-    inet <mark>192.168.1.7</mark>/24 brd 192.168.1.255 scope global dynamic noprefixroute wlan0
+    inet 192.168.1.7/24 brd 192.168.1.255 scope global dynamic noprefixroute wlan0
        valid_lft 86006sec preferred_lft 75206sec
     inet6 fe80::9373:975b:0000:0000/64 scope link
        valid_lft forever preferred_lft forever
@@ -504,12 +507,12 @@ $ tree /etc/wpa_supplicant
 ----
 .
 ├── wpa_cli.sh
-├── <span style="color:red;">wpa_supplicant.conf</span> -> wpa_supplicant-home.conf
-├── <mark>wpa_supplicant-home.conf</mark>
-└── <mark>wpa_supplicant-office.conf</mark>
+├── wpa_supplicant.conf -> wpa_supplicant-home.conf  <1>
+├── wpa_supplicant-home.conf  <1>
+└── wpa_supplicant-office.conf
 ----
 
-Dapat dilihat, saat ini saya sedang menggunakan Wi-Fi di rumah, maka saya menghubungkan symbolic link konfigurasi `-home.conf` dengan `wpa_supplicant.conf`.
+<1> Dapat dilihat, saat ini saya sedang menggunakan Wi-Fi di rumah, maka saya menghubungkan symbolic link konfigurasi `-home.conf` dengan `wpa_supplicant.conf`.
 
 Isi dari file *wpa_supplicant-home.conf* maupun *wpa_supplicant-office.conf*, kira-kira seperti ini:
 
