@@ -9,6 +9,10 @@
   {% include breadcrumbs.html %}
 {% endif %}
 
+<div class="show-for-small-only">
+  {% include _default/sidebar.html %}
+</div>
+
 
 {% if page.permalink != page.root
   and page.author != nil

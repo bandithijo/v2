@@ -3,22 +3,15 @@
 
   {% include metadata.html %}
 
-  {% if page.permalink != "/blog/" and page.permalink != "/note/" and page.toc != false %}
-    <h4>Table of Contents</h4>
-    <div class="toc">
-      {% include toc-sidebar.html html=content %}
-    </div>
-  {% endif %}
+  {% include _sidebar/sidebar-toc.html %}
 
 {% endif %}
 
 {% if page.permalink != page.root 
   and page.permalink != "/404" %}
-  <div class="panel mt2">
-    <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
 
-    <p>
-      The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
-    </p>
+  <div class="show-for-medium-up">
+    {% include _sidebar/sidebar-panels.html %}
   </div>
+
 {% endif %}
