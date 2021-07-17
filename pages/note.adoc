@@ -12,7 +12,11 @@
 {% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'note'" %}
 {% for post in posts reversed %}
     <li>
-    <span data-tooltip aria-haspopup="true" class="has-tip-mod" title="{{ post.excerpt }}">
+    <span data-tooltip
+          aria-haspopup="true"
+          class="has-tip-mod [radius round]"
+          data-options="show_on:large;disable_for_touch:true"
+          title="{{ post.excerpt }}">
     <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
     </span> <span class="nobr">({{ post.date | date: '%Y-%m-%d' }})</span>
     </li>
