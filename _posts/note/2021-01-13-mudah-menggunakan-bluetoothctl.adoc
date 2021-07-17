@@ -1,10 +1,10 @@
-= Mudah Menggunakan Bluetoothctl
+= Catatan Terkait Bluetoothctl
 Assyaufi, Rizqi Nur
 :page-email: bandithijo@gmail.com
-:page-navtitle: Mudah Menggunakan Bluetoothctl
+:page-navtitle: Catatan Terkait Bluetoothctl
 :page-excerpt: Description or excerpt of the page.
-:page-permalink: /blog/:title
-:page-categories: blog
+:page-permalink: /note/:title
+:page-categories: note
 :page-tags: [bluetooth]
 :page-liquid:
 :page-published: true
