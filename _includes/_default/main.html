@@ -13,7 +13,6 @@
   {% include _default/sidebar.html %}
 </div>
 
-
 {% if page.permalink != page.root
   and page.author != nil
   and page.layout == "default-wide" %}
@@ -26,8 +25,10 @@
   and page.permalink != "/blog/"
   and page.permalink != "/note/"
   and page.permalink != "/404" %}
+
   <div class="text-center mt3 mb4">***</div>
 
+  <!-- Edit this article -->
   <div class="text-right">
     {% if page.permalink == "/blog/:title" %}
       <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/{{ page.categories }}/{{ page.date | date: '%Y' }}/{{ page.date | date: '%Y-%m-%d' }}-{{ page.url | remove: '/blog/' | remove: '.html' }}.adoc"> Edit this post</a>
@@ -35,10 +36,12 @@
       <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/{{ page.categories }}/{{ page.date | date: '%Y-%m-%d' }}-{{ page.url | remove: '/note/' | remove: '.html' }}.adoc"> Edit this note</a>
     {% endif %}
   </div>
+  <!-- End Edit this article -->
 
   <hr style="border-color:#efefed">
 {% endif %}
 
+<!-- New post -->
 {% if page.categories == "blog" %}
   <div class="mb3">
     <h3>Posts</h3>
@@ -62,3 +65,11 @@
     <p><a href="{{ site.url }}/note/">more...</a></p>
   </div>
 {% endif %}
+<!-- End New post -->
+
+<!-- Panel only show fo rmobile -->
+<div class="show-for-small-only">
+  <hr style="border-color:#efefed">
+  {% include _sidebar/sidebar-panels.html %}
+</div>
+<!-- End Panel only show fo rmobile -->
