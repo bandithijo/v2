@@ -8,6 +8,7 @@
 
 {% assign postsByYear = site.posts | group_by_exp:"post", "post.date | date: '%Y'" %}
 {% for year in postsByYear %}
+{% unless year.name contains "2000" %}
 +++<h2><i class="fa fa-calendar"></i> {{ year.name }}<h2>+++
 ++++
 <ul>
@@ -38,5 +39,6 @@
         {% endif %}
     {% endfor %}
 </ul>
+{% endunless %}
 ++++
 {% endfor %}
