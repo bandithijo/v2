@@ -14,13 +14,26 @@
     {% for post in year.items %}
         {% if post.categories == 'blog' %}
             <li>
-            <span data-tooltip
-                  aria-haspopup="true"
-                  class="has-tip-mod [radius round]"
-                  data-options="show_on:large;disable_for_touch:true"
-                  title="{{ post.excerpt }}">
-            <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
-            </span> <span class="nobr">({{ post.date | date: '%Y-%m-%d' }})</span>
+                <div class="row post-list">
+                    <div class="medium-10 columns">
+                        <span data-tooltip
+                            aria-haspopup="true"
+                            class="has-tip-mod [radius round]"
+                            data-options="show_on:large;disable_for_touch:true"
+                            title="{{ post.excerpt }}">
+                            <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+                        </span> 
+                        <div>
+                        {% assign tag_list = post.tags %}
+                            {% for tag in tag_list %}
+                            <span class="radius secondary label">#{{ tag | downcase }}</span>
+                        {% endfor %}
+                        </div>
+                    </div>
+                    <div class="medium-2 columns">
+                        <span class="nobr">[{{ post.date | date: '%Y-%m-%d' }}]</span>
+                    </div>
+                </div>
             </li>
         {% endif %}
     {% endfor %}
