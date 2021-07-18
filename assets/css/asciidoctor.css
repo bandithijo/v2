@@ -418,4 +418,4 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 .overflow-x{overflow-x:auto}
 .listingblock>.title{overflow-x:auto}
 .post-list{position:relative;top:-20px}
-.post-list a{color:rgba(0,0,0,.89)}
+.post-list a{color:rgba(0,0,0,.89);text-decoration:none}
