@@ -1,0 +1,37 @@
+= Tentang Penulis
+:page-navtitle: Tentang Penulis
+:page-excerpt: Siapakah penulis?
+:page-permalink: /about/:title
+:page-categories: about
+:page-liquid:
+:page-published: true
+
+== Siapa yang nulis blog?
+
+Assalammualaikum,
+Perkenalkan nama saya *Rizqi Nur Assyaufi*.
+Sesungguhnya, saya bukan siapa-siapa tanpa ilmu yang Allah titipkan kepada saya.
+
+== Mengapa menulis blog?
+
+Dari ilmu yang saya terima, saya meyakini ada hak untuk teman-teman atas ilmu tersebut.
+Karena alasan itulah, saya menulis blog ini.
+
+== Dari kapan kenal GNU/Linux?
+
+Sekitar 2004. Dikenalkan oleh sahabat bernama *Yudo Derajat Baskoro*. Beliaulah orang yang pertama kali berbicara tentang GNU/Linux dan Open Source kepada saya.
+Sejak saat itu, saya aktif menjadi pencicip distro-distro via Live CD. Mulai dari bonus majalah InfoLINUX hingga yang didatangkan dari Belanda oleh Canonical (Ubuntu)
+
+== Sejak kapan mulai migrasi total menggunakan GNU/Linux?
+
+Sekitar Desember 2014. Dengan mesin Macbook Pro 8.1 (Late 2011) yang saya pasangkan Fedora 19.
+
+== Dual boot dengan Windows atau tidak?
+
+Tidak. Single boot.
+
+== Pesan untuk yang mau migrasi ke GNU/Linux
+
+____
+Buruan! Sebelum terlambat.
+____

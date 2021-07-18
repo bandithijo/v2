@@ -1,7 +1,12 @@
 {% if page.permalink != page.root
+  and page.categories != "about"
   and page.author != nil %}
 
-  {% include metadata.html %}
+    {% include metadata.html %}
+
+{% endif %}
+
+{% if page.permalink != page.root %}
 
   {% include _sidebar/sidebar-toc.html %}
 

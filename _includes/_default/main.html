@@ -1,8 +1,11 @@
-<h1>
-  <a style="text-decoration:none;color:#ba3925" href="{{ site.url }}{{ page.url }}">{{ page.title }}</a>
-</h1>
+{% if page.navtitle != nil %}
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="{{ site.url }}{{ page.url }}">{{ page.title }}</a>
+  </h1>
+{% endif %}
 
 {% if page.permalink != page.root
+  and page.permalink != "/about/"
   and page.permalink != "/blog/"
   and page.permalink != "/note/"
   and page.permalink != "/404" %}

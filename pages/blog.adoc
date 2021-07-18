@@ -1,5 +1,5 @@
 = Logs::Blog
-:page-title: Logs::Blog
+:page-navtitle: Logs::Blog
 :page-description: List of my blog post
 :page-permalink: /blog/
 :page-liquid:

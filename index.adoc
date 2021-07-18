@@ -1,5 +1,5 @@
 = Hello, mas Bro!
-:page-title: Hello, mas Bro!
+:page-navtitle: Hello, mas Bro!
 :page-description: A forkable blog-ready Jekyll site using AsciiDoc
 :page-layout: default-wide
 :page-liquid:

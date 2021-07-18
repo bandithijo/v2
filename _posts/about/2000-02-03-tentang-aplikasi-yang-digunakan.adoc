@@ -1,0 +1,22 @@
+= Tentang Aplikasi yang Digunakan
+:page-navtitle: Tentang Aplikasi yang Digunakan
+:page-excerpt: Aplikasi favorit?
+:page-permalink: /about/:title
+:page-categories: about
+:page-liquid:
+:page-published: true
+
+== Browser yang digunakan?
+
+[source,console]
+----
+$ xdg-settings set default-web-browser org.qutebrowser.qutebrowser.desktop
+----
+
+*qutebrowser* adalah peramban web utama yang saya pergunakan. Mulai dari men-_develop_ aplikasi hingga sekedar baca-baca. Semuanya saya lakukan dengan qutebrowser
+
+== Bagaimana kebutuhan Office?
+
+Dokumen yang saya kerjakan, saya kelola, dan saya bawakan sendiri, saya buat dengan *LibreOffice*. Saya sudah menggunakan LibreOffice sejak versi 4.
+
+Dokumen yang berurusan dengan orang lain (dikerjakan bersama), saya menggunakan emulator *kvm/qemu/libvirt* via *virt-manager* untuk memasang Windows.
