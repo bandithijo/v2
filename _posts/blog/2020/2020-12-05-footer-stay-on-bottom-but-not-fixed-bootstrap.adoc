@@ -1,0 +1,88 @@
+= Membuat Footer Stay on Bottom but Not Fixed dengan Bootstrap
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Membuat Footer Stay on Bottom but Not Fixed dengan Bootstrap
+:page-excerpt: Footer yang menempel pada body content memang mengesalkan. Terutama bila content masih sedikit. Maka footer akan menempel pada body dengan sangat manja. Catatan ini adalah solusi bagaimana agar footer tetap berada di bagian paling bawah dari halaman meskipun content yang tersedia masih sedikit.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [bootstrap]
+:page-liquid:
+:page-published: true
+
+== Latar Belakang
+
+Kalian pasti pernah melihat Footer yang manja di sebuah website.
+
+Kira-kira seperti ini contohnya.
+
+image::https://i.postimg.cc/RFGxYSgJ/gambar-01.png[gambar-01,align=center]
+
+Perhatikan kotak berwarna merah.
+
+Footer ini sangat manja karena menempel pada post body.
+
+Saya ingin membuat Footer yang mandiri. Yang akan selalu berada di bagian bawah layar, meskipun body post tidak sebanyak tinggi layar.
+
+Namun, saya juga tidak ingin membuat Footer ini terlalu keras kepala (Fixed), sehingga tetap berada di bawah layar meskipun post content sudah banyak.
+
+Idealnya, Footer yang saya inginkan seperti ini.
+
+image::https://i.postimg.cc/pdHNXh7n/gambar-02.png[gambar-02,align=center]
+
+Meskipun post content hanya sedikit, Footer tetap berada di bagian bawah layar. Dan apabila post content sudah banyak, Footer akan terdorong menghilang bersama post content yang paling bawah.
+
+== Implementasi
+
+Markup HTML nya seperti ini polanya.
+
+[source,html,linenums]
+----
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Footer Anti Manja</title>
+  </head>
+
+  <body class="d-flex flex-column">
+
+    <div id="content">
+      ...
+      ...
+    </div>
+
+    <footer id="footer">
+      ...
+      ...
+    </footer>
+
+  </body>
+</html>
+----
+
+Style nya seperti ini.
+
+[source,css,linenums]
+----
+html,
+body {
+  height: 100%;
+}
+
+#content {
+  flex: 1 0 auto;
+}
+
+#footer {
+  flex-shrink: none;
+}
+----
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
