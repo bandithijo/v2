@@ -19,20 +19,22 @@
 {% endif %}
 
 <!-- Main Page Content and Sidebar -->
-<div class="row">
+<div id="content-wrapper">
+  <div class="row">
 
-  <!-- Main Blog Content -->
-  <div class="large-9 columns" role="content">
-    {% include _default/main.html %}
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      {% include _default/main.html %}
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      {% include _default/sidebar.html %}
+    </aside>
+    <!-- End Sidebar -->
+
   </div>
-  <!-- End Main Content -->
-
-  <!-- Sidebar -->
-  <aside class="large-3 columns show-for-medium-up mt3">
-    {% include _default/sidebar.html %}
-  </aside>
-  <!-- End Sidebar -->
-
 </div>
 <!-- End Main Content and Sidebar -->
 
