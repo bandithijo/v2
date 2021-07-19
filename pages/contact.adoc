@@ -2,17 +2,20 @@
 :page-navtitle: Page::Contact
 :page-description: Contact me
 :page-permalink: /contact/
+:page-layout: default-wide
 :page-liquid:
 
 ---
 
 Jangan sungkan untuk menghubungi saya, apabila ada pertanyaan atau ada penasaran terkait hal-hal yang saya tulis di blog ini.
 
+Gunakan *Subject* dengan prefix `[BNDT]` diikuti dengan isi dari subject.
+
 [.overflow-x]
 --
-[cols="1,3"]
+[cols="1,4"]
 |===
 | *Email* | link:mailto:bandithijo@gmail.com[bandithijo@gmail.com^]
-| *IRC* | bandithijo (libera.chat)
+| *Subject* | [BNDT] Lorem ipsum dolor sit amet
 |===
 --
