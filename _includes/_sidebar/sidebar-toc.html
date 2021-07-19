@@ -1,10 +1,4 @@
-{% if page.permalink != "/blog/"
-  and page.permalink != "/note/"
-  and page.toc != false %}
-
-  <h4>Table of Contents</h4>
-  <div class="toc">
-    {% include toc.html html=content %}
-  </div>
-
-{% endif %}
+<h4>Table of Contents</h4>
+<div class="toc">
+  {% include toc.html html=content %}
+</div>

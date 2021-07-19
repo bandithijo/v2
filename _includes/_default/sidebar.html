@@ -6,7 +6,11 @@
 
 {% endif %}
 
-{% if page.permalink != page.root %}
+{% if page.permalink != page.root
+  and page.permalink != "/about/"
+  and page.permalink != "/blog/"
+  and page.permalink != "/note/"
+  and page.toc != false %}
 
   {% include _sidebar/sidebar-toc.html %}
 
