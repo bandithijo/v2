@@ -27,7 +27,7 @@ Saya dapat dengan mudah berpindah-pindah antar Windows dan Linux.
 
 Misal, saya manfaatkan untuk melihat desain dari web yang sedang saya kerjakan dengan menggunakan Chrome.
 
-image::https://i.postimg.cc/Z0twk4zS/gambar-02.png [gambar-02,align=center]
+image::https://i.postimg.cc/Z0twk4zS/gambar-02.png[gambar-02,align=center]
 
 Kalau saya buka di Laptop saya, akan cukup memakan resource. Maka saya memilih membukanya di Windows, kemudian saya akses dengan remote.
 
