@@ -1,8 +1,7 @@
 = Tentang Penulis
 :page-navtitle: Tentang Penulis
 :page-excerpt: Siapakah penulis?
-:page-permalink: /about/:title
-:page-categories: about
+:page-permalink: /about/:basename
 :page-liquid:
 :page-published: true
 

@@ -8,8 +8,8 @@
 
 ++++
 <ul>
-{% assign posts = site.posts | sort | where_exp:"page", "page.categories == 'about'" %}
-{% for post in posts %}
+{% assign posts = site.pages | where_exp:"page", "page.permalink == '/about/:basename'" %}
+{% for post in posts reversed %}
     <li>
         <div class="row post-list">
             <div class="large-12 columns">

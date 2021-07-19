@@ -1,8 +1,7 @@
 = Tentang Aplikasi yang Digunakan
 :page-navtitle: Tentang Aplikasi yang Digunakan
 :page-excerpt: Aplikasi favorit?
-:page-permalink: /about/:title
-:page-categories: about
+:page-permalink: /about/:basename
 :page-liquid:
 :page-published: true
 

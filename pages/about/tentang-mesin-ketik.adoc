@@ -1,8 +1,7 @@
 = Tentang Mesin Ketik
 :page-navtitle: Tentang Mesin Ketik
 :page-excerpt: Mesin apa yang digunakan?
-:page-permalink: /about/:title
-:page-categories: about
+:page-permalink: /about/:basename
 :page-liquid:
 :page-published: true
 
@@ -10,3 +9,4 @@
 
 *ThinkPad X61*
 
+{{ page.slug }}
