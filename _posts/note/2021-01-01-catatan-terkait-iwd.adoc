@@ -9,7 +9,7 @@ Assyaufi, Rizqi Nur
 :page-liquid:
 :page-published: true
 
-Setelah pada catatan sebelumnya, saya menulis tentang link:{{ site.url }}/blog/mudah-mengkonfigurasi-wifi-dengan-wpa_supplicant[*Mudah Mengkonfigurasi Wi-Fi dengan wpa_supplicant*^].
+Setelah pada catatan sebelumnya, saya menulis tentang link:{{ site.url }}/note/mudah-mengkonfigurasi-wifi-dengan-wpa_supplicant[*Mudah Mengkonfigurasi Wi-Fi dengan wpa_supplicant*^].
 
 Catatan kali ini, saya akan menulis calon penerus dari *wpa_supplicant*, yaitu *iwd*.
 
@@ -294,10 +294,10 @@ Kemudian, kalian akan diminta untuk memasukkan passphrase.
 ----
 station wlan0 connect bandithijo
 Type the network passphrase for bandithijo psk.
-Passphrase: **************
+Passphrase: **************  <1>
 ----
 
-Masukkan password dari SSID. Password akan disensor dengan tanda bintang *.
+<1> Masukkan password dari SSID. Password akan disensor dengan tanda bintang *.
 
 Untuk melihat apakah kita sudah terkoneksi atau belum, gunakna option *show*.
 
@@ -338,13 +338,13 @@ $ ip a s wlan0
 ----
 3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
     link/ether 08:11:96:00:00:00 brd ff:ff:ff:ff:ff:ff
-    inet <mark>192.168.1.7/24</mark> brd 192.168.1.255 scope global dynamic noprefixroute wlan0
+    inet 192.168.1.7/24 brd 192.168.1.255 scope global dynamic noprefixroute wlan0  <1>
        valid_lft 86050sec preferred_lft 75250sec
     inet6 fe80::9373:975b:0000:0000/64 scope link
        valid_lft forever preferred_lft forever
 ----
 
-Nah, dapat dilihat, saya sudah mendapatkan IP address.
+<1> Nah, dapat dilihat, saya sudah mendapatkan IP address.
 
 NOTE: Saya menggunakan *dhcpcd* service.
 
