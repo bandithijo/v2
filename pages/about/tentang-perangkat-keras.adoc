@@ -11,25 +11,24 @@
 
 [.overflow-x]
 --
+[cols="2r,4"]
 |===
-| Arch |	x86_64
+| Arch | x86_64
 | Vendor | Lenovo
-| Model | 	ThinkPad X61 7676A12
+| Model | ThinkPad X61 7676A12
 | Year | 2007
-|===
-
-|===
-| Graphic Driver | Intel Mobile GM965/GL960 Integrated Graphics Controller (primary)
+| Bios | Lenovo BIOS 7NETC2WW (2.22 ) 03/22/2011
+| Motherboard | Lenovo Motherboard 7676A12
+| CPU | Intel Core 2 Duo CPU T7250 @ 2.00GHz
+| Memory | RAM Module 2048MB SODIMM DDR2 667MT/s
+           RAM Module 4096MB SODIMM DDR2 667MT/s
+| GPU | Intel Mobile GM965/GL960 Integrated Graphics Controller
+| Monitor | Lenovo LCD Monitor LEN4000 1024x768 246x184mm 12.1-inch
+| Storage | Intel SSDSC2KF480H6L 480GB
 | Sound | Intel 82801H (ICH8 Family) HD Audio Controller
 | Wireless Card | Intel Centrino Advanced-N 6205 [Taylor Peak]
 | Ethernet Crad | Intel 82566MM Gigabit Network Connection
 | Fingerprint Reader | STMicroelectronics
 | SD Host Contoller | Ricoh Co. Ltd. R5C822 SD/SDIO/MMC/MS/MSPro Host Adapter
-| Monitor | Lenovo LCD Monitor LEN4000 1024x768 246x184mm 12.1-inch
-| Bios | Lenovo BIOS 7NETC2WW (2.22 ) 03/22/2011
-| CPU | Intel Core 2 Duo CPU T7250 @ 2.00GHz
-| Memory | RAM Module 2048MB SODIMM DDR2 667MT/s
-| Motherboard | Lenovo Motherboard 7676A12
-| Storage | Intel SSDSC2KF480H6L 480GB
 |===
 --

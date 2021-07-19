@@ -1,0 +1,18 @@
+= Page::Contact
+:page-navtitle: Page::Contact
+:page-description: Contact me
+:page-permalink: /contact/
+:page-liquid:
+
+---
+
+Jangan sungkan untuk menghubungi saya, apabila ada pertanyaan atau ada penasaran terkait hal-hal yang saya tulis di blog ini.
+
+[.overflow-x]
+--
+[cols="1,3"]
+|===
+| *Email* | link:mailto:bandithijo@gmail.com[bandithijo@gmail.com^]
+| *IRC* | bandithijo (libera.chat)
+|===
+--
