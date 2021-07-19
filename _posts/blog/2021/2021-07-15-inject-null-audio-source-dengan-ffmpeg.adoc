@@ -51,7 +51,7 @@ Karena saya terbiasa menulis Ruby, maka saya buatkan wrapper untuk mengolah attr
 ----
 #!/usr/bin/env ruby
 
-# Please wite your dir with ~/ first
+# Please write your dir with ~/ first
 screenrecorder_dir = '~/vid/ScreenRecorder'  <1>
 Dir.chdir(File.expand_path(screenrecorder_dir))
 list_file          = %x(ls -p | grep -v / | grep video)
