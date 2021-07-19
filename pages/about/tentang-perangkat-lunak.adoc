@@ -1,5 +1,5 @@
-= Tentang Aplikasi yang Digunakan
-:page-navtitle: Tentang Aplikasi yang Digunakan
+= Tentang Perangkat Lunak
+:page-navtitle: Tentang Perangkat Lunak
 :page-excerpt: Aplikasi favorit?
 :page-permalink: /about/:basename
 :page-liquid:

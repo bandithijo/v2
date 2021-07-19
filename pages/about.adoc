@@ -9,7 +9,7 @@
 ++++
 <ul>
 {% assign posts = site.pages | where_exp:"page", "page.permalink == '/about/:basename'" %}
-{% for post in posts reversed %}
+{% for post in posts %}
     <li>
         <div class="row post-list">
             <div class="large-12 columns">
