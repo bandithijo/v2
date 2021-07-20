@@ -1,0 +1,412 @@
+= Mencoba Bermain Container dengan Podman di Fedora
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Mencoba Bermain Container dengan Podman di Fedora
+:page-excerpt: Fedora memiliki tools manajemen container yang sudah dibundle secara default, yaitu Podman. Jadi, sederhananya, tidak perlu memasang Docker lagi untuk memanajemen container.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [podman, container]
+:page-liquid:
+:page-published: true
+
+*Podman* adalah _daemonless container engine_ yang dapat digunakan untuk membuat, mengelola, dan menjalankan *OCI container* di sistem Linux. Cara pakainya kurang lebih sama dengan Docker.
+
+*OCI* adalah _abreviation_ dari _Open Container Initiative_, adalah sebuah proyek Linux Foundation yang dimulai pada Juni 2015 untuk mendesain _open standards_ yang akan digunakan sebagai _operating-system level virtualization_. Secara sederhana, inisiatif ini bertujuan untuk membuat kesepakatan bersama tentang standar spesifikasi dari container: 1) _Runtime Specification_ 2) _Image Specification_. Jadi, meskipun container dibuat oleh provider yang berbeda, tetap dapat digunakan satu sama lain.
+
+== Skenario
+
+Kali ini, saya akan mencoba bermain-main sedikit dengan Podman, dengan menjalankan container PostgreSQL service, menggunakan container image yang dibuat oleh Bitnami.
+
+Saya sudah memiliki PostgreSQL data di sistem Fedora saya `/var/lib/pgsql/data`.
+
+*Saya akan coba melakukan _mounting_ PostgreSQL data yang ada di sistem ke PostgreSQL container*.
+
+----
+ +---------------------------------------------+
+ | Fedora System                               |
+ |                          +----------------+ |
+ |                          | PostgreSQL     | |
+ |                          | Container      | |
+ | +------------+           | +------------+ | |
+ | | PostgreSQL |           | | PostgreSQL | | |
+ | |    Data    |------------>|    Data    | | |
+ | | on System  |           | | on System  | | |
+ | +------------+           | +------------+ | |
+ |                          +----------------+ |
+ |                                             |
+ +---------------------------------------------+
+----
+
+Setelah itu, *saya akan men-_generate_ systemd service untuk PostgreSQL container yang sudah dibuat*.
+
+== Tahapan
+
+=== (1) Konfigurasi PostgreSQL di Fedora System
+
+Install postgresql-server.
+
+[source,console]
+----
+$ sudo dnf install postgresql-server
+----
+
+Lakukan setup untuk menginisialisasi database.
+
+[source,console]
+----
+$ sudo /usr/bin/postgresql-setup --initdb
+----
+
+Jalankan PostgreSQL service, karena saya akan membuat user dan user's database.
+
+[source,console]
+----
+$ sudo systemctl start postgresql.service
+----
+
+Pindah ke postgresql shell.
+
+[source,console]
+----
+$ sudo -iu postgres
+----
+
+Kalau berhasil,
+
+----
+[postgres@fedora-x61 ~]$ _
+----
+
+pass:[*] *fedora-x61* adalah hostname dari laptop saya.
+
+Buat user baru.
+
+[source,console]
+----
+[postgres@fedora-x61 ~]$ createuser --interactive
+----
+
+----
+Enter name of role to add: bandithijo  <1>
+Shall the new role be a superuser? (y/n) y
+----
+
+<1> *Samakan dengan username yang kita gunakan!*
+
+Buat database untuk user yang kita buat.
+
+[source,console]
+----
+[postgres@fedora-x61 ~]$ createdb bandithijo
+----
+
+Kita akan merubah kepemilikan (_owner_) dari database atas nama username kita.
+
+Masuk ke PostgreSQL console.
+
+[source,console]
+----
+[postgres@fedora-x61 ~]$ psql
+----
+
+Kalau berhasil,
+
+----
+postgres=# _
+----
+
+Ganti kepemilikan database atas nama username, dengan query berikut ini.
+
+[source,console]
+----
+postgres=# ALTER DATABASE bandithijo OWNER TO bandithijo;
+----
+
+Tahap membuat user dan database user telah selesai.
+
+Selanjutnya, edit file `/var/lib/pgsql/data/pg_hba.conf`
+
+./var/lib/pgsql/data/pg_hba.conf
+[source,conf,linenums]
+----
+...
+...
+# TYPE  DATABASE        USER            ADDRESS            METHOD
+...
+...
+# IPv4 local connections:
+#host   all             all              127.0.0.1/32      ident  <1>
+host    all             bandithijo       127.0.0.1/32      trust  <2>
+----
+
+<1> Duplicate, dan disable (comments)
+<2> Ganti user `all` menjadi `bandithijo` dengan method `trust`
+
+Kemudian, log out dan log in kembali.
+
+Sekarang, sudah dapat mengakses PostgreSQL console.
+
+[source,console]
+----
+$ psql
+----
+
+----
+psql (13.3)
+Type "help" for help.
+
+bandithijo=# _
+----
+
+=== (2) Kontainerisasi
+
+Saya akan menggunakan image container yang dibuat oleh Bitnami. Alasannya karena, lokasi direktori PostgreSQL data yang disimpan di image container tersebut sama dengan yang ada di Fedora, yaitu di `/var/lib/pgsql/data/`.
+
+WARNING: **Pada tahap ini, saya menggunakan root credential**.
+
+Pulling image container untuk PostgreSQL dari quay.io. Saya akan menggunakan PostgreSQL versi 13.3.0
+
+[source,console]
+----
+# podman pull quay.io/bitnami/postgresql:13.3.0
+----
+
+Karena Bitnami PostgreSQL image container menggunkan user *1001*, maka saya perlu merubah direktori owner dari `/var/lib/pgsql/data`.
+
+[source,console]
+----
+# chown -R 1001:1001 /var/lib/pgsql
+----
+
+Kemudian, saya menjalankan PostgreSQL image container dengan mantra berikut ini,
+
+[source,console]
+----
+$ podman run --name postgresql --net host -v /var/lib/pgsql/data:/bitnami/postgresql/data:Z -e ALLOW_EMPTY_PASSWORD=yes bitnami/postgresql:13.3.0
+----
+
+`-v` adalah _abreviation_ untuk *volume*, saya melakukan _mounting_ direktori PostgreSQL data dari Fedora System ke PostgreSQL data Bitnami image container.
+
+Gunakan `--net host` untuk mendefinisikan bahwa kontainer ini menggunkan network dari host.
+
+Outputnya,
+
+----
+postgresql 07:42:59.65
+postgresql 07:42:59.65 Welcome to the Bitnami postgresql container
+postgresql 07:42:59.66 Subscribe to project updates by watching https://github.com/bitnami/bitnami-docker-postgresql
+postgresql 07:42:59.66 Submit issues and feature requests at https://github.com/bitnami/bitnami-docker-postgresql/issues
+postgresql 07:42:59.66
+postgresql 07:42:59.67 INFO  ==> ** Starting PostgreSQL setup **
+postgresql 07:42:59.71 INFO  ==> Validating settings in POSTGRESQL_* env vars..
+postgresql 07:42:59.72 WARN  ==> You set the environment variable ALLOW_EMPTY_PASSWORD=yes. For safety reasons, do not use this flag in a production environment.
+postgresql 07:42:59.73 INFO  ==> Loading custom pre-init scripts...
+postgresql 07:42:59.74 INFO  ==> Initializing PostgreSQL database...
+postgresql 07:42:59.74 INFO  ==> Cleaning stale /bitnami/postgresql/data/postmaster.pid file
+postgresql 07:42:59.78 INFO  ==> pg_hba.conf file not detected. Generating it...
+postgresql 07:42:59.78 INFO  ==> Generating local authentication configuration
+postgresql 07:42:59.80 INFO  ==> Deploying PostgreSQL with persisted data...
+postgresql 07:42:59.84 INFO  ==> Configuring replication parameters
+postgresql 07:42:59.91 INFO  ==> Configuring fsync
+postgresql 07:42:59.96 INFO  ==> Loading custom scripts...
+postgresql 07:42:59.97 INFO  ==> Enabling remote connections
+postgresql 07:43:00.01 INFO  ==> ** PostgreSQL setup finished! **
+
+postgresql 07:43:00.05 INFO  ==> ** Starting PostgreSQL **
+2021-07-20 07:43:00.134 GMT [1] LOG:  pgaudit extension initialized
+2021-07-20 07:43:00.150 GMT [1] LOG:  starting PostgreSQL 13.3 on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2021-07-20 07:43:00.151 GMT [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2021-07-20 07:43:00.151 GMT [1] LOG:  listening on IPv6 address "::", port 5432
+2021-07-20 07:43:00.156 GMT [1] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2021-07-20 07:43:00.402 GMT [1] LOG:  database system is ready to accept connections  <1>
+----
+
+<1> Berhasil!
+
+Kalau sukses, seharusnya bisa mengakses PostgreSQL console dengan akun *bandithijo*.
+
+Untuk mengakses PostgreSQL console, gunakan mantra,
+
+[source,console]
+----
+# psql -h localhost -p 5432 -U bandithijo
+----
+
+Kalau berhasil,
+
+----
+psql (13.3)
+Type "help" for help.
+
+bandithijo=# _
+----
+
+[TIP]
+====
+Kalau tidak ingin menggunakan `-h localhost`, bisa mendefinisikan environment variable untuk `PGHOST=localhost`.
+
+.$HOME/.bashrc atau $HOME.zshrc
+[source,conf,linenums]
+----
+export PGHOST=localhost
+----
+====
+
+Cek database untuk user *bandithijo*.
+
+[source,console]
+----
+bandithijo=# \l
+----
+
+----
+                                   List of databases
+    Name    |   Owner    | Encoding |   Collate   |    Ctype    |   Access privileges
+------------+------------+----------+-------------+-------------+-----------------------
+ bandithijo | bandithijo | UTF8     | en_US.UTF-8 | en_US.UTF-8 | <1>
+ postgres   | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0  | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |            |          |             |             | postgres=CTc/postgres
+ template1  | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |            |          |             |             | postgres=CTc/postgres
+(4 rows)
+----
+
+<1> Akun *bandithijo* ada.
+
+=== (3) Generate systemd service dari running container
+
+Ini bagian yang saya suka, karena sangat praktis untuk men-generate systemd service dari running container. Hal ini memudahkan saya untuk menghentikan dan menjalankan container.
+
+Pertama, pindah lokasi dulu ke `/etc/systemd/system/`
+
+[source,console]
+----
+# cd /etc/systemd/system
+----
+
+Jalankan mantra untuk men-genereate systemd service dari PostgreSQL image container yang sedang berjalan.
+
+[source,console]
+----
+# podman generate systemd --new --files --name postgresql
+----
+
+`--name postgresql` adalah nama dari image container yang akan dibuatkan systemd service-nya.
+
+Akan dibuatkan file systemd service bernama *container-postgresql.service*.
+
+----
+/etc/systemd/system/container-postgresql.service
+----
+
+Reload systemd daemon.
+
+[source,console]
+----
+# systemctl daemon-reload
+----
+
+Sebelum menjalankan service ini, stop & hapus dulu PostgreSQL image container yang masih running.
+
+[source,console]
+----
+# podman stop postgresql
+# podman rm postgresql
+----
+
+Kemudian, jalankan service yang sudah digenerate.
+
+[source,console]
+----
+# systemctl start container-postgresql.service
+----
+
+Kalau sukses, harusnya sudah dapat masuk ke PostgreSQL console dengan user *bandithijo*.
+
+[source,console]
+----
+$ psql -h localhost -p 5432 -U bandithijo
+----
+
+----
+psql (13.3)
+Type "help" for help.
+
+bandithijo=# _
+----
+
+User database *bandithijo* juga seharusnya masih ada.
+
+[source,console]
+----
+bandithijo=# \l
+----
+
+----
+                                   List of databases
+    Name    |   Owner    | Encoding |   Collate   |    Ctype    |   Access privileges
+------------+------------+----------+-------------+-------------+-----------------------
+ bandithijo | bandithijo | UTF8     | en_US.UTF-8 | en_US.UTF-8 | <1>
+ postgres   | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0  | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |            |          |             |             | postgres=CTc/postgres
+ template1  | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |            |          |             |             | postgres=CTc/postgres
+(4 rows)
+----
+
+*_Selesai!_*
+
+== Tambahan
+
+=== Mengakses PostgreSQL data dari dalam running image container
+
+Kalau kita cek lokasi dari PostgreSQL data, dari dalam PostgreSQL console.
+
+[source,console]
+----
+bandithijo=# SHOW data_directory;
+----
+
+----
+      data_directory
+--------------------------
+ /bitnami/postgresql/data  <1>
+(1 row)
+----
+
+<1> Lokasi PostgreSQL data di dalam image container
+
+Untuk mengakses PostgreSQL data image container yang sedang berjalan, dapat menggunakan mantra berikut,
+
+[source,console]
+----
+$ podman exec -ti postgresql /bin/bash
+----
+
+----
+1001@fedora-x61:/$ _
+----
+
+Kemudian, masuk ke dalam direktori `/bitnami/postgresql/data/`.
+
+[source,console]
+----
+1001@fedora-x61:/$ cd /bitnami/postgresql/data
+----
+
+Isinya akan sama dengan yang ada di system `/var/lib/pgsql/data/`.
+
+----
+base    log           pg_dynshmem    pg_logical    pg_notify    pg_serial     pg_stat      pg_subtrans  pg_twophase  pg_wal   postgresql.auto.conf  postmaster.pid
+global  pg_commit_ts  pg_ident.conf  pg_multixact  pg_replslot  pg_snapshots  pg_stat_tmp  pg_tblspc    PG_VERSION   pg_xact  postmaster.opts
+----
+
+== Referensi
+
+. link:https://podman.io/getting-started/[https://podman.io/getting-started/^]
+Diakses tanggal: 2021/07/19
+
+. link:https://fedoramagazine.org/getting-started-with-podman-in-fedora/[https://fedoramagazine.org/getting-started-with-podman-in-fedora/^]
+Diakses tanggal: 2021/07/19
