@@ -807,17 +807,22 @@ Shall the new role be a superuser? (y/n) y
 postgres=# ALTER DATABASE bandithijo OWNER TO bandithijo;
 ----
 
-Tambahkan pada file `/var/lib/pgsql/data/pg_hba.conf`.
+Tambahkan pada file `/var/lib/pgsql/data/pg_hba.conf`
 
 ./var/lib/pgsql/data/pg_hba.conf
 [source,conf,linenums]
 ----
+
 # TYPE  DATABASE        USER            ADDRESS                 METHOD
 ...
 ...
-#host   all             all              127.0.0.1/32            ident
-host    all             bandithijo       127.0.0.1/32            trust
+# IPv4 local connections:
+#host   all             all              127.0.0.1/32            ident  <1>
+host    all             bandithijo       127.0.0.1/32            trust  <2>
 ----
+
+<1> Saya duplicate, dan disable (comments)
+<2> Saya ganti user `all` menjadi `bandithijo`. Method saya buat `trust`
 
 Or, using another way with Container.
 
@@ -828,14 +833,14 @@ I'll use *bitnami/postgresql* container image from *quay.io*.
 [source,console]
 ----
 # podman pull quay.io/bitnami/postgresql:13.3.0
-podman run --name postgresql --net host -v /var/lib/pgsql/data/userdata:/bitnami/postgresql/data:Z -e ALLOW_EMPTY_PASSWORD=yes bitnami/postgresql:13.3.0
+# podman run --name postgresql --net host -v /var/lib/pgsql/data/userdata:/bitnami/postgresql/data:Z -e ALLOW_EMPTY_PASSWORD=yes bitnami/postgresql:13.3.0
 ----
 
 PostgreSQL container image from Bitnami is set *User: 1001*. So, for the sake convenient purposes,
 
 [source,console]
 ----
-$ sudo chown -R 1001:1001 /var/lib/pgsql
+# chown -R 1001:1001 /var/lib/pgsql
 ----
 
 NOTE: */var/lib/pgsql* is where Fedora put postgresql data.
