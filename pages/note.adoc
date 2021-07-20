@@ -23,7 +23,7 @@
                 </span>
             </div>
             <div class="medium-2 columns">
-                <span class="nobr">[{{ post.date | date: '%Y-%m-%d' }}]</span>
+                <span class="nobr">({{ post.date | date: '%Y-%m-%d' }})</span>
             </div>
         </div>
     </li>
