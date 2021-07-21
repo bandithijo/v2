@@ -17,9 +17,10 @@ Formula ffmpegnya bisa seperti ini.
 
 [source,bash]
 ----
-ffmpeg -f lavfi \  <1>
--i anullsrc=channel_layout=stereo:sample_rate=44100 \  <2>
+ffmpeg \
 -i original_video.mp4 \
+-f lavfi \  <1>
+-i anullsrc \  <2>
 -c:v copy -c:a aac \
 -shortest \
 target_video.mp4
@@ -42,57 +43,15 @@ lavfi:: Libavfilter input virtual device. This input device reads data from the 
 -- man ffmpeg-devices
 ====
 
-== Yang saya gunakan
-
-Karena saya terbiasa menulis Ruby, maka saya buatkan wrapper untuk mengolah attribute dan segala macamnya.
-
-.~/.local/bin/ffmpeg_inject_muted_audio.rb
-[source,ruby,linenums]
-----
-#!/usr/bin/env ruby
-
-# Please write your dir with ~/ first
-screenrecorder_dir = '~/vid/ScreenRecorder'  <1>
-Dir.chdir(File.expand_path(screenrecorder_dir))
-list_file          = %x(ls -p | grep -v / | grep video)
-files              = list_file.split(" ")
-
-if ARGV[0].nil?
-  original_file    = files.last  <2>
-  target_file      = files.last.split("").insert(-5, 'X').join  <4>
-else
-  original_file    = ARGV[0]     <3>
-  target_file      = original_file.split("").insert(-5, 'X').join  <4>
-end
-
-%x(
-ffmpeg -f lavfi \
--i anullsrc=channel_layout=stereo:sample_rate=44100 \
--i #{original_file} \
--c:v copy -c:a aac \
--shortest \
-#{target_file}
-)
-
-`notify-send "FFMPEG" "Inject null audio success!" -t 3000`  <5>
-exit
-----
-
-<1> Definisikan direktori dimana hasil video dari ScreenRecorder disimpan
-<2> Secara _default_, apabila menajalankan script tanpa argment, maka proses akan dilakukan pada direktori penyimpanan video
-<3> Apabila terdapat argumen berupa nama file video, maka video tersebut akan diproses
-<4> File hasil, akan ditambahkan akhiran `X`
-<5> Tampilkan notifikasi apabila proses telah selesai
-
-
-[WARNING]
-====
-Script ini harus di jalankan di direktori yang di definisikan di `screenrecorder_dir`.
-====
+Tinggal diimplementasikan sesukanya.
 
 == Referensi
 
 . link:https://man.archlinux.org/man/ffmpeg-filters.1#anullsrc[https://man.archlinux.org/man/ffmpeg-filters.1#anullsrc^]
 Diakses tanggal: 2021/07/15
+
 . link:https://man.archlinux.org/man/ffmpeg-devices.1.en#lavfi[https://man.archlinux.org/man/ffmpeg-devices.1.en#lavfi^]
 Diakses tanggal: 2021/07/15
+
+. link:https://trac.ffmpeg.org/wiki/Null#anullsrc[https://trac.ffmpeg.org/wiki/Null#anullsrc^]
+Diakses tanggal: 2021/07/19
