@@ -2134,3 +2134,10 @@ Use a single keyboard and mouse to control multiple computers.
 ----
 $ sudo dnf install barrier
 ----
+
+=== Filezilla
+
+[source,console]
+----
+$ sudo dnf install filezilla
+----
