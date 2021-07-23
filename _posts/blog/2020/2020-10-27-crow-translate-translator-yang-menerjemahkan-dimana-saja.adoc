@@ -1,0 +1,114 @@
+= Crow-translate, Translator Online berbasis Qt yang Memiliki Banyak Fitur
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Crow-translate, Translator Online berbasis Qt yang Memiliki Banyak Fitur
+:page-excerpt: Aplikasi translator ini sangat convenient untuk digunakan. Karena kita dapat menerjemahkan kata/kalimat apa saja yang kita temui di desktop, selama kata/kalimat tersebut dapat diseleksi.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [translator]
+:page-liquid:
+:page-published: true
+
+== Latar Belakang
+
+Minggu kemarin, saya baru saja memperkenalkan tentang aplikasi *translate-shell* (artikelnya dapat dibaca link:{{ site.url }}/blog/translate-shell-translator-cli-mudah[di sini^].
+
+Sebenarnya, sebelum memutuskan untuk menggunakan *translate-shell, saya lebih dulu memutuskan untuk menggunakan *crow-translate**. Namun, karena aplikasi ini menggunakan Qt library dan harus melakukan kompilasi terlebih dahulu, saya jadi mengurungkan niat untuk memasang. Karena, beberapa library Qt memerlukan kompilasi terlebih dahulu. Oleh karena itu, kemarin saya memutuskan untuk menggunakan translate-shell terlebih dahulu.
+
+Namun, saya sering mendapati kendala berupa,
+
+----
+[WARNING] Connection timed out. Retrying IPv4 connection.
+----
+
+Saya belum mengerti, apa yang sebenarnya menyebabkan warning ini muncul. Asumsi saya saat ini adalah koneksi internet IndiHome saya.
+
+NOTE: Ternyata, setelah saya coba kulik, masalah tersebut di atas berhubungan dengan variable *user-agent*. Mungkin value dari user-agent yang saya pergunakan sudah tidak lagi valid. Sehingga saya putuskan untuk menghapus, dan masalah "connection timed out" sudah hilang.
+
+Masalah tersebut yang akhirnya mengantarkan saya untuk memutuskan menggunakan crow-translate.
+
+Seingat saya, tahun 2017, saya pernah juga menggunakan crow-translate, namun saat itu prioritas saya adalah mencari kamus yang dapat digunakan secara offline, sehingga saya tidak terlalu memberikan apresiasi dan atensi kepada crow-translate. Saat itu, atensi saya jatuh pada **GoldenDict** (vlognya dapat ditonton link:https://bandithijo.github.io/vlog/review-goldendict-pt1[di sini^]).
+
+== Tentang Crow-translate
+
+Crow-translate adalah translator yang simple dan ringan yang dibuat dengan bahasa C++/Qt yang dapat membantu kita dalam mentranslasikan dan membunyikan (speak) suatu teks menggunakan Google, Yandex, dan Bing translate API.
+
+=== Fitur Unggulan
+
+Berikut ini adalah fitur-fitur unggulan yang dibawa oleh crow-translate:
+
+. Menerjemahkan dan membunyikan teks dari layar atau dari teks yang diseleksi
+. Dapat menerjemahkan 125 bahasa yang berbeda
+. Konsumsi memory resource yang rendah (~20MB)
+. Shortcut yang dapat dikostumisasi dengan bebas
+. Memiliki option-option pada CLI yang kaya
+. D-BUS API
+. Tersedia untuk GNU/Linux & Windows
+
+== Instalasi
+
+Untuk teman-teman yang menggunakan distribusi sistem operasi Arch Linux, paket *crow-translate* dapat ditemukan di AUR (Arch User Repository).
+
+[source,console]
+----
+$ yay -S crow-translate
+----
+
+Untuk yang menggunakan selain Arch Linux, dapat menyesuaikan sendiri yaa.
+
+== Keyboard Shortcut
+
+Kita dapat dengan mudah mengganti keyboard shortcut sesuai dengan pada bagian *setting*.
+
+=== Global
+
+Keyboard shortcut ini dapat kita langsung panggil di dalam desktop --mungkin akan terjadi _collision_ dengan beberapa default keyboard shortcut dengan aplikasi lain.
+
+[.overflow-x]
+--
+|===
+| Key                                             | Deskripsi
+
+| kbd:[Ctrl] + kbd:[Alt] + kbd:[E] | Terjemahkan teks yang diseleksi
+| kbd:[Ctrl] + kbd:[Alt] + kbd:[S] | Bunyikan teks yang diseleksi
+| kbd:[Ctrl] + kbd:[Alt] + kbd:[F] | Bunyikan terjemahan teks yang diseleksi
+| kbd:[Ctrl] + kbd:[Alt] + kbd:[G] | Berhenti membunyikan
+| kbd:[Ctrl] + kbd:[Alt] + kbd:[C] | Tamapilkan window utama
+| kbd:[Ctrl] + kbd:[Alt] + kbd:[O] | Terjemahkan teks di area layar
+|===
+--
+
+=== Di Main Window
+
+[.overflow-x]
+--
+|===
+| Key                                | Deskripsi
+
+| kbd:[Ctrl] + kbd:[Enter]           | Terjemahkan
+| kbd:[Ctrl] + kbd:[R]               | Tukar bahasa
+| kbd:[Ctrl] + kbd:[Q]               | Tutup window
+| kbd:[Ctrl] + kbd:[S]               | Speak source / pause text speaking
+| kbd:[Ctrl] + kbd:[Shift] + kbd:[S] | Speak translation / pause text speaking
+| kbd:[Ctrl] + kbd:[Shift] + kbd:[C] | Salin terjemahan ke Clipboard
+|===
+--
+
+== Demonstrasi
+
+image::https://i.postimg.cc/L8Hwc0zz/gambar-01.gif[gambar-01,align=center]
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:https://github.com/crow-translate/crow-translate[github.com/crow-translate/crow-translate^]
+Diakses tanggal: 2020/10/27
