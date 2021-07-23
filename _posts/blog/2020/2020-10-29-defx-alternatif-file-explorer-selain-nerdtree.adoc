@@ -78,7 +78,7 @@ if exists('g:plugs["defx.nvim"]')
     \ 'show_ignored_files' : 0,
     \ 'toggle'             : 1,              <7>
     \ 'resume'             : 1,              <8>
-    \ 'auto_cd'            : 1,              <10>
+    \ 'auto_cd'            : 1,              <9>
     \ })
 
   call defx#custom#column('icon', {          <10>

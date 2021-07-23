@@ -73,6 +73,7 @@ $ sudo -iu postgres
 
 Kalau berhasil,
 
+[source,console]
 ----
 [postgres@fedora-x61 ~]$ _
 ----
@@ -111,6 +112,7 @@ Masuk ke PostgreSQL console.
 
 Kalau berhasil,
 
+[source,console]
 ----
 postgres=# _
 ----
@@ -245,7 +247,7 @@ bandithijo=# _
 ====
 Kalau tidak ingin menggunakan `-h localhost`, bisa mendefinisikan environment variable untuk `PGHOST=localhost`.
 
-.$HOME/.bashrc atau $HOME.zshrc
+.$HOME/.bashrc atau $HOME/.zshrc
 [source,conf,linenums]
 ----
 export PGHOST=localhost
