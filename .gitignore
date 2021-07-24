@@ -5,3 +5,5 @@
 *.bundle
 Gemfile.lock
 .jekyll-cache
+
+bin/
