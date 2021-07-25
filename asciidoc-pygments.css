@@ -3,15 +3,6 @@ td.linenos .normal { color: inherit; background-color: transparent; padding-left
 span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
 td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
 span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
-
-table.linenotable { border-collapse: separate; border-spacing: 0; margin-bottom: 0; border: 0; background: none }
-table.linenotable td.linenos{ padding:0 }
-table.linenotable td.linenos pre{ padding:0 1em 0 0; color: rgba(0,0,0,.3) }
-table.linenotable td.code { padding: 0 }
-table.linenotable td.code pre { padding: 0 }
-
-pre.pygments.highlight { border-style: solid; border-width: 1px; border-color: #ba3925}
-
 pre.pygments .hll { background-color: #ffffcc }
 pre.pygments { background: #ffffff; }
 pre.pygments .tok-c { color: #008000 } /* Comment */
