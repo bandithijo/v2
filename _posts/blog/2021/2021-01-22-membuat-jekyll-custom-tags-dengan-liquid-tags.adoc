@@ -472,5 +472,5 @@ Diakses tanggal: 2021/01/22
 . link:https://jekyllrb.com/docs/plugins/your-first-plugin/[jekyllrb.com/docs/plugins/your-first-plugin/^]
 Diakses tanggal: 2021/01/22
 
-. link:https://blog.sverrirs.com/2016/04/custom-jekyll-tags.html[blog.sverrirs.com/2016/04/custom-jekyll-tags.html^](){:target="_blank"}
+. link:https://blog.sverrirs.com/2016/04/custom-jekyll-tags.html[blog.sverrirs.com/2016/04/custom-jekyll-tags.html^]
 Diakses tanggal: 2021/01/25
