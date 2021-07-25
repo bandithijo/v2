@@ -25,6 +25,7 @@ asciidoctor:
   attributes:
     - idseparator=_
     - source-highlighter=pygments
+    - pygments-stylesheet!
     - icons=font
     - hardbreaks-option
     - experimental
