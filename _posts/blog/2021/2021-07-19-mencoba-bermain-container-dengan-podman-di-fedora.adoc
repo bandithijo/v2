@@ -184,7 +184,7 @@ Kemudian, saya menjalankan PostgreSQL image container dengan mantra berikut ini,
 
 [source,console]
 ----
-$ podman run --name postgresql --net host -v /var/lib/pgsql/data:/bitnami/postgresql/data:Z -e ALLOW_EMPTY_PASSWORD=yes bitnami/postgresql:13.3.0
+# podman run --name postgresql --net host -v /var/lib/pgsql/data:/bitnami/postgresql/data:Z -e ALLOW_EMPTY_PASSWORD=yes bitnami/postgresql:13.3.0
 ----
 
 `-v` adalah _abreviation_ untuk *volume*, saya melakukan _mounting_ direktori PostgreSQL data dari Fedora System ke PostgreSQL data Bitnami image container.
