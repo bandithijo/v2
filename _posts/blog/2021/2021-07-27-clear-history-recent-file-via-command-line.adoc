@@ -1,0 +1,129 @@
+= Membersihkan History atau Recent Files via Command Line
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Membersihkan History atau Recent Files via Command Line
+:page-excerpt: Sudah bukan rahasia lagi dikalangan GNU/Linux user bahwa menggunakan command line untuk mencapai sesuatu adalah jalan tersingkat dan tercepat. Catatan kali ini, saya akan membersihkan history atau recent file melalui command line.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [misc]
+:page-liquid:
+:page-published: true
+
+[.lead]
+Sudah bukan rahasia lagi dikalangan GNU/Linux user bahwa menggunakan _command line_ untuk mencapai sesuatu adalah jalan tersingkat dan tercepat.
+
+== Latar Belakang Masalah
+
+*Kenapa _recent file_ tidak di-_disable_ aja, bang?*
+
+Karena sangat praktis untuk dapat memanfaatkan file-file yang tersimpan di _recent history_. Namun, di akhir _work hour_ saya ingin membersihkan semuanya, agar lebih rapi.
+
+Kalau menggunakan GNOME, untuk membersihkan _history_ atau _recent files_ dapat melalui *Settings > File History & Trash*, lalu *Clear History...*.
+
+image::https://i.postimg.cc/65qcxt50/gambar-01.png[gambar-01,align=center]
+
+Namun, cara ini tidak cukup praktis bagi pengguna _window manager_ seperti saya yang terbiasa menggunakan Terminal dan memanfaatkan dmenu untuk mencapai tujuan.
+
+== Skenario
+
+. Saya ingin menghapus _recent files_ melalui _command line_.
+
+. Saya ingin menghapus _recent files_ melalui dmenu.
+
+== Pemecahan Masalah
+
+Saya mendapati, _collection_ dari daftar _recent files_ tersimpan pada sebuah file bernama,
+
+----
+$HOME/.local/share/recently-used.xbel
+----
+
+File ini mengikuti spesifikasi *XML 1.0 document, ASCII text*.
+
+.$HOME/.local/share/recently-used.xbel
+[source,xml,linenums]
+----
+<?xml version="1.0" encoding="UTF-8"?>
+<xbel version="1.0"
+      xmlns:bookmark="http://www.freedesktop.org/standards/desktop-bookmarks"
+      xmlns:mime="http://www.freedesktop.org/standards/shared-mime-info"
+>
+  <bookmark href="file:///home/bandithijo/pic/ss/Screenshot_2021-07-27_06-46-16X.png" added="2021-07-26T22:47:12.390127Z" modified="2021-07-26T22:47:12.426438Z" visited="2021-07-26T22:47:12.390134Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="xdg-desktop-portal-gtk" exec="&apos;xdg-desktop-portal-gtk %u&apos;" modified="2021-07-26T22:47:12.426425Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+  <bookmark href="file:///home/bandithijo/pic/ScreenShots/Screenshot_2021-07-27_06-47-28.png" added="2021-07-26T22:47:53.001336Z" modified="2021-07-26T22:47:53.028202Z" visited="2021-07-26T22:47:53.001347Z">
+    <info>
+      <metadata owner="http://freedesktop.org">
+        <mime:mime-type type="image/png"/>
+        <bookmark:applications>
+          <bookmark:application name="xdg-desktop-portal-gtk" exec="&apos;xdg-desktop-portal-gtk %u&apos;" modified="2021-07-26T22:47:53.028188Z" count="2"/>
+        </bookmark:applications>
+      </metadata>
+    </info>
+  </bookmark>
+</xbel>
+----
+
+Dapat dilihat, bahwa terdapat 2 buah _recent files_ yang dapat kita identifikasi dengan mengetahui isi yang terdapat di dalam tag `<bookmark>...</bookmark>`.
+
+. Filename: Screenshot_2021-07-27_06-46-16X.png
+Type: image/png
+
+. Filename: Screenshot_2021-07-27_06-47-28.png
+Type: image/png
+
+Nah, dengan begini, akan lebih mudah untuk menghapusnya.
+
+=== (1) Menghapus recent files melalui command line
+
+Tinggal _echoing_ dengan _string_ kosong saja ke dalam file tersebut.
+
+[source,console]
+----
+$ echo > ~/.local/share/recently-used.xbel
+----
+
+Isi dari file *recently-used.xbel* akan menjadi kosong.
+
+Jangan khawatir! Karena akan terisi kembali sesuai spesifikasi *XML 1.0 document* ketika kita melakukan aktivitas _open file_.
+
+=== (2) Menghapus recent files melalui dmenu
+
+Agar mudah diakses, selain menambahkan command tersebut ke dalam deretan *alias*, saya memilih memanfaatkan dmenu.
+
+Saya buatkan file desktop entry specification. Penamaannya bebas, sesuai selera.
+
+.$HOME/.local/share/applications/clear-recent-file.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=Clear Recent Files  <1>
+Exec=echo > ~/.local/share/recently-used.xbel  <2>
+----
+
+<1> Nilai dari entry keys `Name=`, bebas berikan nama menu sesuai keinginian.
+<2> Nilai dari entry keys `Exec=`, masukkan _command_ untuk menghapus _recent files_ pada tahap pertama di atas.
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html[https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html^]
+Diakses tanggal: 2021/07/27
