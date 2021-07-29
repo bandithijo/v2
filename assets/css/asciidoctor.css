@@ -357,7 +357,7 @@ span.icon>.fa{cursor:default}
 .conum[data-value] *{color:#fff!important}
 .conum[data-value]+b{display:none}
 .conum[data-value]:after{content:attr(data-value)}
-pre .conum[data-value]{position:relative;top:-.125em}
+/* pre .conum[data-value]{position:relative;top:-.125em} */
 b.conum *{color:inherit!important}
 .conum:not([data-value]):empty{display:none}
 h1,h2{letter-spacing:-.01em}
