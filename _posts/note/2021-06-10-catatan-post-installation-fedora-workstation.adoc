@@ -1367,6 +1367,11 @@ Deps
 $ sudo dnf install libXinerama-devel
 ----
 
+[source,console]
+----
+$ $ sudo dnf install xsetroot
+----
+
 ==== pinentry-dmenu (still failed)
 
 Deps
