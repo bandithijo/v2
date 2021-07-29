@@ -1,0 +1,244 @@
+= Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web
+:page-excerpt: Masing-masing web memiliki URL query parameter sendiri-sendiri untuk dapat mengakses fitur pencarian mereka. Kali ini, saya akan memanfaatkan dmenu bersama dengan desktop entry specification untuk membangun menu praktis pencarian pada masing-masing website.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [dmenu]
+:page-liquid:
+:page-published: true
+
+Catatan kali ini, saya akan bermain-main dengan dmenu untuk membuat menu yang dapat digunakan untuk mengakses fitur pencari pada sebuah website sekaligus mem-_passing_ _keyword_ ke dalam halaman pencarian tersebut, sehingga, ketika halaman website terebut terbuka, sudah menampilkan hasil pencarian dari _keyword_ yang diinginkan.
+
+== Banyak Jalan Menuju Jogja
+
+Dikemudian hari, mungkin saya akan melakukan pendekatan yang berbeda dalam mencapai tujuan seperti yang tertulis di judul post ini. Maka dari itu, catatan ini akan menampung beberapa pendekatan yang saya temukan.
+
+=== (1) dmenu + Desktop Entry Specification
+
+Kali ini, saya menggunakan bantuan *Desktop Entry Specification* atau biasa dikenal dengan file *pass:[*].desktop* untuk menyimpan masing-masing URL _query parameter_ dari masing-masing website.
+
+Saya memanfaatkan *Ruby one line of script* (`-e`) yang akan dimasukkan ke dalam value dari `Exec=`.
+
+Polanya seperti ini,
+
+[source,conf,linenums]
+----
+Exec=ruby -e "key=ARGV.join('+');url='https://man.archlinux.org/search?q='+key;%x(xdg-open #{url})" %U
+----
+
+Kalau di-_breakdown_,
+
+[source,conf,linenums]
+----
+Exec=  <1>
+ruby -e  <2>
+"
+key = ARGV.join('+');  <3>
+url = 'https://man.archlinux.org/search?q=' + key;  <4>
+%x(xdg-open #{url})  <5>
+"
+%U  <6>
+----
+
+<1> Merupakan desktop entry keys yang digunakan untuk mengeksekusi perintah menjalankan aplikasi/program
+<2> Merupakan option yang diberikan oleh Ruby interpreter untuk menjalankan sintaks Ruby dalam satu baris
+<3> Pendefinisian variable `key` yang akan diisi dengan value `ARGV` dengan _array of words_. Karena URL _parameter_ tidak mengenal spasi, maka spasi perlu diubah menjadi `+` menggunakan method `join('+')`
+<4> Pendefinisian variable `url` yang akan diisi dengan value URL _query parameter_ dari masing-masing website. Yang valuenya akan diisi dari variabel `key`. Kemudian digabungkan menggunakan operator `+`
+<5> `%x` Adalah method yang disediakan oleh Ruby untuk memanggil _system program_ dan mengembalikan _output_-nya. `#{url}` adalah string interpolation yang akan berisi value dari variable `key` yang akan digunakan sebagai URL parameter oleh `xdg-open`
+<6> Merupakan desktop entry specification argument yang dapat akan di-_passing_ kepada Exec keys sebagai argument saat mengeksekusi perintah. `%U` berarti _a list of URLs_, namun dalam kasus ini, dapat menggunakan `%u`, `%F`, atau `%f`. Argument ini lah yang akan ditangkap oleh `ARGV` dan disimpan ke dalam variable `key`
+
+[WARNING]
+====
+*Kenapa saya menggunakan Ruby?*
+Karena saya terbiasa menggunakan Ruby. Hal ini memberikan saya keuntungan dan kemudahan dalam bermain-main dengan String yang akan digunakan untuk menyimpan URL _query parameter_.
+====
+
+*Cara pakainya*, tinggal panggil dmenu, lalu pilih menu yang sesuai, gunakan kbd:[Tab] untuk _auto completion_, kemudian masukkan _keyword_ yang diinginkan.
+
+Misal, saya memiliki menu dengan nama *Arch:Packages*, dan ingin mencari _keyword_ *libreoffice still*,
+
+----
+DMENU: Arch:Packages libreoffice still
+----
+
+Ketika menekan tombol kbd[:Enter], maka _default browser_ melalui `xdg-open` akan membuka halaman Arch Linux Packages dengan menampilkan hasil pencarian dari _keyword_ "libreoffice still".
+
+Cukup praktis, bukan?!
+
+Saya sudah membuat beberapa menu yang sering saya pergunakan. Diantaranya sebagai berikut:
+
+==== Arch Linux Manual Pages
+
+----
+https://man.archlinux.org/search?q=KEYWORD
+----
+
+.$HOME/.local/share/applications/dmenu-arch-man.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=Arch:Manpage
+Exec=ruby -e "key=ARGV.join('+');url='https://man.archlinux.org/search?q='+key;%x(xdg-open #{url})" %U
+----
+
+==== Arch Wiki
+
+----
+https://wiki.archlinux.org/index.php?search=KEYWORD
+----
+
+.$HOME/.local/share/applications/dmenu-arch-wiki.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=Arch:Wiki
+Exec=ruby -e "key=ARGV.join('+');url='https://wiki.archlinux.org/index.php?search='+key;%x(xdg-open #{url})" %U
+----
+
+==== Arch Linux Packages
+
+----
+https://archlinux.org/packages/?q=KEYWORD
+----
+
+.$HOME/.local/share/applications/dmenu-arch-package.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=Arch:Packages
+Exec=ruby -e "key=ARGV.join('+');url='https://archlinux.org/packages/?q='+key;%x(xdg-open #{url})" %U
+----
+
+==== Arch Linux AUR Packages
+
+----
+https://aur.archlinux.org/packages/?K=KEYWORD
+----
+
+.$HOME/.local/share/applications/dmenu-arch-package-aur.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=Arch:Packages:AUR
+Exec=ruby -e "key=ARGV.join('+');url='https://aur.archlinux.org/packages/?K='+key;%x(xdg-open #{url})" %U
+----
+
+==== DuckduckGo Search
+
+----
+https://duckduckgo.com/?q=KEYWORD
+----
+
+.$HOME/.local/share/applications/dmenu-duckduckgo-search.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=DuckduckGo:Search
+Exec=ruby -e "key=ARGV.join('+');url='https://duckduckgo.com/?q='+key;%x(xdg-open #{url})" %U
+----
+
+==== GitHub Search
+
+----
+https://github.com/search?q=KEYWORD
+----
+
+.$HOME/.local/share/applications/dmenu-github-search.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=GitHub:Search
+Exec=ruby -e "key=ARGV.join('+');url='https://github.com/search?q='+key;%x(xdg-open #{url})" %U
+----
+
+==== Google Search (DuckduckGo Shebang)
+
+----
+https://duckduckgo.com/?q=!g+KEYWORD
+----
+
+.$HOME/.local/share/applications/dmenu-google-search.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=Google:Search
+Exec=ruby -e "key=ARGV.join('+');url='https://duckduckgo.com/?q=!g+'+key;%x(xdg-open #{url})" %U
+----
+
+==== Google Image Search (DuckduckGo Shebang)
+
+----
+https://duckduckgo.com/?q=!gi+KEYWORD
+----
+
+.$HOME/.local/share/applications/dmenu-google-search-image.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=Google:Search:Image
+Exec=ruby -e "key=ARGV.join('+');url='https://duckduckgo.com/?q=!gi+'+key;%x(xdg-open #{url})" %U
+----
+
+==== Google Translate
+
+----
+https://translate.google.com/?sl=auto\&tl=id\&text=KEYWORD
+----
+
+Source language `sl=auto`: Auto
+Translate language `tl=id`: Indonesia
+
+.$HOME/.local/share/applications/dmenu-google-translate.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=Google:Translate
+Exec=ruby -e "key=ARGV.join('+');url='https://translate.google.com/?sl=auto\&tl=id\&text='+key;%x(xdg-open #{url})" %U
+----
+
+==== RubyGems.org
+
+----
+https://rubygems.org/gems/KEYWORD
+----
+
+.$HOME/.local/share/applications/dmenu-rubygems.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=Ruby:Gems
+Exec=ruby -e "gem=ARGV.join('+');url='https://rubygems.org/gems/'+gem;%x(xdg-open #{url})" %U
+----
+
+==== Ruby-Toolbox.com
+
+----
+https://www.ruby-toolbox.com/search?q=KEYWORD
+----
+
+.$HOME/.local/share/applications/dmenu-toolbox.desktop
+[source,conf,linenums]
+----
+[Desktop Entry]
+Name=Ruby:Toolbox
+Exec=ruby -e "gem=ARGV.join('+');url='https://www.ruby-toolbox.com/search?q='+gem;%x(xdg-open #{url})" %U
+----
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
+
+== Referensi
+
+. link:https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html[https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html^]
+Diakses tanggal: 2021/07/29
