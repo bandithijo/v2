@@ -1,7 +1,7 @@
 = Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)
 Assyaufi, Rizqi Nur
 :page-email: bandithijo@gmail.com
-:page-navtitle: Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web
+:page-navtitle: Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)
 :page-excerpt: Masing-masing web memiliki URL query parameter sendiri-sendiri untuk dapat mengakses fitur pencarian mereka. Kali ini, saya akan memanfaatkan dmenu bersama dengan desktop entry specification untuk membangun menu praktis pencarian pada masing-masing website.
 :page-permalink: /blog/:title
 :page-categories: blog
