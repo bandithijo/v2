@@ -2146,3 +2146,10 @@ $ sudo dnf install barrier
 ----
 $ sudo dnf install filezilla
 ----
+
+=== inxi
+
+[source,console]
+----
+$ sudo dnf install inxi
+----
