@@ -130,7 +130,7 @@ OPTIONS='''
 
 == Demonstrasi
 
-image:https://i.postimg.cc/bJ0WGkxX/gambar-01.gif[gambar-01,align=center]
+image::https://i.postimg.cc/K8g9ktb9/gambar-02.gif[gambar-01,align=center]
 
 == Pesan Penulis
 
