@@ -1,0 +1,145 @@
+= Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web
+Assyaufi, Rizqi Nur
+:page-email: bandithijo@gmail.com
+:page-navtitle: Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web
+:page-excerpt: Masing-masing web memiliki URL query parameter sendiri-sendiri untuk dapat mengakses fitur pencarian mereka. Kali ini, saya akan memanfaatkan dmenu.
+:page-permalink: /blog/:title
+:page-categories: blog
+:page-tags: [dmenu]
+:page-liquid:
+:page-published: true
+
+Catatan kali ini, saya akan bermain-main dengan dmenu untuk membuat menu yang dapat digunakan untuk mengakses fitur pencari pada sebuah website sekaligus mem-_passing_ _keyword_ ke dalam halaman pencarian tersebut, sehingga, ketika halaman website terebut terbuka, sudah menampilkan hasil pencarian dari _keyword_ yang diinginkan.
+
+== Banyak Jalan Menuju Jogja
+
+Post ini mungkin merupakan salah satu dari beberapa pendekatan yang saya temukan untuk mencapai tujuan yang sama.
+
+Saya pernah menulis pendekatan yang lain, menggunakan link:{{ site.url }}/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec[*desktop entry specification*^].
+
+Namun kali ini, saya hanya akan mengguanakan *dmenu* dengan bantuan *jq* untuk mem-_parsing_ JSON output.
+
+Saya lebih menyukai pendekatan ini karena lebih praktis. Hanya mengguanakan 1 file untuk mandaftarkan URL _query parameter_.
+
+== dmenu + jq
+
+Saya akan memberikan _script_ ini nama *dmenu-websearch*.
+
+.$HOME/.local/bin/dmenu-websearch
+[source,bash,linenums]
+----
+#!/bin/sh  <1>
+
+# Released under MIT License  <2>
+
+# Copyright (C) 2021 Rizqi Nur Assyaufi <bandithijo@gmail.com>
+
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
+
+MENU="dmenu"  <3>
+
+OPTIONS='''  <4>
+[
+[ "Arch:Manpage",        "https://man.archlinux.org/search?q=" ],
+[ "Arch:Wiki",           "https://wiki.archlinux.org/index.php?search=" ],
+[ "Arch:Packages",       "https://archlinux.org/packages/?q=" ],
+[ "Arch:Packages:AUR",   "https://aur.archlinux.org/packages/?K=" ],
+[ "DuckDuckGo:Search",   "https://duckduckgo.com/?q=" ],
+[ "Google:Search",       "https://duckduckgo.com/?q=!g+" ],
+[ "Google:Search:Image", "https://duckduckgo.com/?q=!gi+" ],
+[ "Google:Translate",    "https://translate.google.com/?sl=auto&tl=id&text=" ],
+[ "Ruby:Gems",           "https://rubygems.org/gems/" ],
+[ "Ruby:Toolbox",        "https://www.ruby-toolbox.com/search?q=" ],
+[ "Twitter:Search",      "https://twitter.com/search?q=" ]
+]
+'''
+
+OBJ_LENGTH=$(echo $OPTIONS | jq length)  <5>
+OBJ_MENU=$(echo $OPTIONS | jq -r ".[][0]" | $MENU -i -p " WebSearch")  <6>
+OBJ_SELECTED=$(echo $OBJ_MENU | cut -d' ' -f1)  <7>
+OBJ_KEYWORDS=$(echo $OBJ_MENU | cut -d' ' -f2- | tr " " "+")  <8>
+
+for i in $(seq 0 $((OBJ_LENGTH - 1))); do  <9>
+    if [ "$OBJ_SELECTED" = "$(echo $OPTIONS | jq -r --arg i $i '.[($i|tonumber)][0]')" ]; then  <10>
+        URLQUERY=$(echo $OPTIONS | jq -r --arg i $i '.[($i|tonumber)][1]')  <11>
+        KEYWORDS=$(echo $OBJ_KEYWORDS)  <12>
+        xdg-open "${URLQUERY}${KEYWORDS}" 2> /dev/null  <13>
+    fi
+done
+----
+
+<1> Shebang! Untuk memanggil shell interpreter, yang defaultnya biasanya dibeberapa distro adalah Bash
+<2> Baris 3 - 23, adalah lisensi yang digunakan
+<3> Variabel `MENU` yang digunakan untuk mendefinisikan menu launcher yang akan digunakan. Saya menggunakan *dmenu*
+<4> Baris 27 - 42, adalah pendeklarasian `OPTIONS` array yang digunakan untuk menampung URL _query parameter_. Dengan urutan element `[prefix_menu, url_query_parameter]`
+<5> Variabel `OBJ_LENGTH` yang digunakan untuk menyimpan nilai panjang/size dari variabel `OPTIONS`
+<6> Variabel `OBJ_MENU` yang akan digunakan untuk menampilkan semua list prefix menu dengan cara melakukan _piping out_ ke variable `MENU` yang bernilai dmenu
+<7> Variabel `OBJ_SELECTED` yang akan menyimpan _prefix menu_ yang terpilih
+<8> Variabel `OBJ_KEYWORDS` yang akan menyimpan atribute _keywords_ yang diinputkan setelah (dibelakang) _prefix menu_ dengan mengubah "spasi" menjadi "+"
+<9> Perulangan ini akan melakukan iterasi secara berurut dimulai dari index ke-0 hingga sepanjang size dari variabel `OBJ_LENGTH` sambil memasukkan nilai iterasinya ke dalam variabel `i`
+<10> Blok pengkondisian untuk melakukan pengecekan, apabila nilai dari `OBJ_SELECTED` sama dengan nilai dari _prefix menu_. Jika benar, maka _statement_ yang ada di dalama blok ini akan dijalankan
+<11> Statement 1, yang merupakan pendefinisian variabel `URLQUERY` yang akan diisi dengan nilai URL _query parameter_
+<12> Statement 2, yang merupakan pendefinisian variabel `KEYWORDS` yang akan diisi dengan nilai _keywords_
+
+=== Menambahkan URL query parameter
+
+Apabila ingin menambahkan URL _query parameter_ tinggal menambahkan ke daftar element `OPTIONS` array.
+
+[source,bash,linenums]
+----
+OPTIONS='''
+[
+[ "Arch:Manpage",        "https://man.archlinux.org/search?q=" ],
+[ "Arch:Wiki",           "https://wiki.archlinux.org/index.php?search=" ],
+[ "Arch:Packages",       "https://archlinux.org/packages/?q=" ],
+[ "Arch:Packages:AUR",   "https://aur.archlinux.org/packages/?K=" ],
+[ "DuckDuckGo:Search",   "https://duckduckgo.com/?q=" ],
+[ "GitHub:Search",       "https://github.com/search?q=" ],  <1>
+[ "Google:Search",       "https://duckduckgo.com/?q=!g+" ],
+[ "Google:Search:Image", "https://duckduckgo.com/?q=!gi+" ],
+[ "Google:Translate",    "https://translate.google.com/?sl=auto&tl=id&text=" ],
+[ "Ruby:Gems",           "https://rubygems.org/gems/" ],
+[ "Ruby:Toolbox",        "https://www.ruby-toolbox.com/search?q=" ],
+[ "Twitter:Search",      "https://twitter.com/search?q=" ]  <2>
+]
+'''
+----
+
+<1> Saya menambahkan URL _query parameter_ untuk pencarian di halaman GitHub
+<2> *Jangan berikan tanda koma `,` pada element terakhir!*
+
+== Project Repository
+
+. link:https://github.com/bandithijo/dmenu-websearch[dmenu-websearch^]
+
+== Demonstrasi
+
+image:https://i.postimg.cc/bJ0WGkxX/gambar-01.gif[gambar-01,align=center]
+
+== Pesan Penulis
+
+Sepertinya, segini dulu yang dapat saya tuliskan.
+
+Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.
+
+Mudah-mudahan dapat bermanfaat.
+
+Terima kasih.
+
+(\^_^)
