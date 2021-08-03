@@ -126,6 +126,14 @@ This systems administrator, tuner, benchmark tool gives you a huge amount of imp
 
 link:http://nmon.sourceforge.net/pmwiki.php[http://nmon.sourceforge.net/pmwiki.php^]
 
+=== s-tui
+
+image::https://i.postimg.cc/tgQ7FjhW/gambar-s-tui.png[gambar-s-ti,align=center]
+
+Stress-Terminal UI, s-tui, monitors CPU temperature, frequency, power and utilization in a graphical way from the terminal.
+
+link:https://github.com/amanusk/s-tui[https://github.com/amanusk/s-tui^]
+
 
 == Disk Monitor
 

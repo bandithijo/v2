@@ -2153,3 +2153,10 @@ $ sudo dnf install filezilla
 ----
 $ sudo dnf install inxi
 ----
+
+=== s-tui
+
+[source,console]
+----
+$ sudo dnf install s-tui
+----
