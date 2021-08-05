@@ -2160,3 +2160,10 @@ $ sudo dnf install inxi
 ----
 $ sudo dnf install s-tui
 ----
+
+=== git-email (git send-email)
+
+[source,console]
+----
+$ sudo dnf install git-email
+----
