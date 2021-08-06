@@ -2167,3 +2167,10 @@ $ sudo dnf install s-tui
 ----
 $ sudo dnf install git-email
 ----
+
+=== v4l2 (video for linux)
+
+[source,console]
+----
+$ sudo dnf install v4l-utils
+----
