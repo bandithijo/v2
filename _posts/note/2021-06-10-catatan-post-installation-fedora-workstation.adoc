@@ -2174,3 +2174,10 @@ $ sudo dnf install git-email
 ----
 $ sudo dnf install v4l-utils
 ----
+
+=== fontforge
+
+[source,console]
+----
+$ sudo dnf install fontforge
+----
