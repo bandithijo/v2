@@ -2188,3 +2188,10 @@ $ sudo dnf install fontforge
 ----
 $ sudo dnf install translate-shell
 ----
+
+=== xdotool
+
+[source,console]
+----
+$ sudo dnf install xdotool
+----
