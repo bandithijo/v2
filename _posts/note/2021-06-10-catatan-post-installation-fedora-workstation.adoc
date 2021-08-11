@@ -2181,3 +2181,10 @@ $ sudo dnf install v4l-utils
 ----
 $ sudo dnf install fontforge
 ----
+
+=== translate-shell
+
+[source,console]
+----
+$ sudo dnf install translate-shell
+----
