@@ -194,6 +194,26 @@ Versi OpenBSD yang baru-baru menyimpan mirror pada */etc/installurl*.
 https://cdn.openbsd.org/pub/OpenBSD
 ----
 
+=== Xorg
+
+./etc/X11/xorg.conf.d/20-intel.conf
+[source,conf,linenums]
+----
+Section "Device"
+    Identifier    "Intel Graphics"
+    Driver        "intel"
+
+    Option        "DRI"          "true"
+
+    Option        "DRI"          "2"
+    Option        "AccellMethod" "uxa"    # Fallback
+
+    #Option        "DRI"          "3"      # DRI 3 is now default
+    #Option        "AccellMethod" "sna"    # Default
+
+    Option        "TearFree"     "true"
+EndSection
+----
 
 == Referensi
 
