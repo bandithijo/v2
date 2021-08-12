@@ -121,14 +121,14 @@ Kemudian, setelah mendapatkan SSID yang kita inginkan, tinggal connect.
 
 [source,console]
 ----
-ifconfig iw0 nwid &lt;network-name> wpakey &lt;passphrase>
+ifconfig iwn0 nwid &lt;network-name> wpakey &lt;passphrase>
 ----
 
 Kemudian, untuk mendapatkan IP address, dapat menggunakan dhcp.
 
 [source,console]
 ----
-# dhcp
+# dhclient iwn0
 ----
 
 === DHCP Server
