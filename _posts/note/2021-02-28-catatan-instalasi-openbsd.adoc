@@ -215,6 +215,14 @@ Section "Device"
 EndSection
 ----
 
+=== Git
+
+[source,console]
+----
+$ doas pkg_add git
+----
+
+
 == Referensi
 
 . link:https://www.openbsdhandbook.com/openbsd_for_linux_users/[openbsdhandbook.com/openbsd_for_linux_users/^]
