@@ -54,6 +54,13 @@ permit persist :wheel
 $ vi
 ----
 
+=== Neovim
+
+[source,console]
+----
+$ doas pkg_add neovim
+----
+
 === Firmware update
 
 Dapat dilakukan dengan:
