@@ -1,11 +1,11 @@
-= Mencoba Bermain Container dengan Podman di Fedora
+= Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)
 Assyaufi, Rizqi Nur
 :page-email: bandithijo@gmail.com
-:page-navtitle: Mencoba Bermain Container dengan Podman di Fedora
+:page-navtitle: Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)
 :page-excerpt: Fedora memiliki tools manajemen container yang sudah dibundle secara default, yaitu Podman. Jadi, sederhananya, tidak perlu memasang Docker lagi untuk memanajemen container.
 :page-permalink: /blog/:title
 :page-categories: blog
-:page-tags: [podman, container]
+:page-tags: [podman, container, postgresql]
 :page-liquid:
 :page-published: true
 
