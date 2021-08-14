@@ -184,6 +184,14 @@ Cara di atas akan meng-enable-kan Display Manager yang --mungkin bernama-- *xeno
 
 Dan ketika kita login, default sessionnya adalah *fvwm* yang merupakan turunan dari *twm*.
 
+Kalau ingin menggunakan dwm,
+
+.$HOME/.xsession
+[source,conf,linenums]
+----
+dwm
+----
+
 === Mirror pkg_add OpenBSD
 
 Versi OpenBSD yang baru-baru menyimpan mirror pada */etc/installurl*.
@@ -222,6 +230,101 @@ EndSection
 $ doas pkg_add git
 ----
 
+=== dwm
+
+[source,console]
+----
+$ git clone https://git.suckless.org/dwm
+----
+
+.$HOME/.xsession
+[source,conf,linenums]
+----
+xsetroot -name " OpenBSD 6.9"
+xcompmgr &
+dwm
+----
+
+=== st
+
+[source,console]
+----
+$ git clone https://git.suckless.org/st
+----
+
+=== dmenu
+
+[source,console]
+----
+$ git clone https://git.suckless.org/dmenu
+----
+
+=== sxhkd
+
+[source,console]
+----
+$ doas pkg_add sxhkd
+----
+
+=== wget
+
+[source,console]
+----
+$ doas pkg_add wget
+----
+
+=== harfbuzz
+
+[source,console]
+----
+$ doas pkg_add harfbuzz
+----
+
+=== Neofetch
+
+[source,console]
+----
+$ doas pkg_add neofetch
+----
+
+=== htop
+
+[source,console]
+----
+$ doas pkg_add htop
+----
+
+=== rofi
+
+[source,console]
+----
+$ doas pkg_add rofi
+----
+
+=== jq
+
+[source,console]
+----
+$ doas pkg_add jq
+----
+
+=== cmake
+
+[source,console]
+----
+$ doas pkg_add cmake
+$ doas pkg_add extra-cmake-modules
+----
+
+=== j4-dmenu-desktop
+
+[source,console]
+----
+$ git clone https://github.com/enkore/j4-dmenu-desktop.git
+$ cmake .
+$ make
+$ sudo make install
+----
 
 == Referensi
 
