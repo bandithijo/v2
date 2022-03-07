@@ -18,7 +18,7 @@ Karena alasan itulah, saya menulis blog ini.
 
 == Dari kapan kenal GNU/Linux?
 
-Sekitar 2004. Dikenalkan oleh sahabat bernama *Yudo Derajat Baskoro*. Beliaulah orang yang pertama kali berbicara tentang GNU/Linux dan Open Source kepada saya.
+Sekitar 2004. Dikenalkan oleh sahabat bernama *Yudo Drajat Baskoro*. Beliaulah orang yang pertama kali berbicara tentang GNU/Linux dan Open Source kepada saya.
 Sejak saat itu, saya aktif menjadi pencicip distro-distro via Live CD. Mulai dari bonus majalah InfoLINUX hingga yang didatangkan dari Belanda oleh Canonical (Ubuntu)
 
 == Sejak kapan mulai migrasi total menggunakan GNU/Linux?
