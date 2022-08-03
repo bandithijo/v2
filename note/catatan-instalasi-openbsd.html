@@ -1,0 +1,879 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catatan Instalasi OpenBSD | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Catatan Instalasi OpenBSD" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Migrasi ke OpenBSD mungkin akan menjadi perjalanan yang panjang dan penuh rintangan. Karena proses migrasi dilakukan diwaktu luang, kemungkinan untuk lupa akan sangat besar. Saya merasa perlu untuk mendokumentasikan catatan, agar tidak lupa begitu saja." />
+<meta property="og:description" content="Migrasi ke OpenBSD mungkin akan menjadi perjalanan yang panjang dan penuh rintangan. Karena proses migrasi dilakukan diwaktu luang, kemungkinan untuk lupa akan sangat besar. Saya merasa perlu untuk mendokumentasikan catatan, agar tidak lupa begitu saja." />
+<link rel="canonical" href="https://bandithijo.dev/v2/note/catatan-instalasi-openbsd" />
+<meta property="og:url" content="https://bandithijo.dev/v2/note/catatan-instalasi-openbsd" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-28T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Catatan Instalasi OpenBSD","dateModified":"2021-02-28T00:00:00+00:00","datePublished":"2021-02-28T00:00:00+00:00","description":"Migrasi ke OpenBSD mungkin akan menjadi perjalanan yang panjang dan penuh rintangan. Karena proses migrasi dilakukan diwaktu luang, kemungkinan untuk lupa akan sangat besar. Saya merasa perlu untuk mendokumentasikan catatan, agar tidak lupa begitu saja.","url":"https://bandithijo.dev/v2/note/catatan-instalasi-openbsd","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/note/catatan-instalasi-openbsd"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Catatan Instalasi OpenBSD"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/note/catatan-instalasi-openbsd">Catatan Instalasi OpenBSD</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/note/">note</a>
+  
+
+  
+    / catatan instalasi openbsd
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#openbsdh</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-02-28</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#troubleshooting">Troubleshooting</a>
+    <ul>
+      <li><a href="#mengakses_root">Mengakses Root</a></li>
+      <li><a href="#root_permission_from_user">Root permission from user</a></li>
+      <li><a href="#text_editor">Text editor</a></li>
+      <li><a href="#neovim">Neovim</a></li>
+      <li><a href="#firmware_update">Firmware update</a></li>
+      <li><a href="#usb_tethering">USB tethering</a></li>
+      <li><a href="#connect_wifi">Connect Wifi</a></li>
+      <li><a href="#dhcp_server">DHCP Server</a></li>
+      <li><a href="#tmux">Tmux</a></li>
+      <li><a href="#starting_x_xenodm">Starting X (Xenodm)</a></li>
+      <li><a href="#mirror_pkg_add_openbsd">Mirror pkg_add OpenBSD</a></li>
+      <li><a href="#xorg">Xorg</a></li>
+      <li><a href="#git">Git</a></li>
+      <li><a href="#dwm">dwm</a></li>
+      <li><a href="#st">st</a></li>
+      <li><a href="#dmenu">dmenu</a></li>
+      <li><a href="#sxhkd">sxhkd</a></li>
+      <li><a href="#wget">wget</a></li>
+      <li><a href="#harfbuzz">harfbuzz</a></li>
+      <li><a href="#neofetch">Neofetch</a></li>
+      <li><a href="#htop">htop</a></li>
+      <li><a href="#rofi">rofi</a></li>
+      <li><a href="#jq">jq</a></li>
+      <li><a href="#cmake">cmake</a></li>
+      <li><a href="#j4_dmenu_desktop">j4-dmenu-desktop</a></li>
+    </ul>
+  </li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Migrasi ke OpenBSD mungkin akan menjadi perjalanan yang panjang dan penuh rintangan. Karena prosesnya yang tidak sekali waktu langsung selesai, namun saya cicil di waktu luang, maka saya merasa perlu untuk mendokumentasikan catatan, agar tidak hilang begitu saja.</p>
+</div>
+<div class="paragraph">
+<p>Saya mempublikasikan catatan untuk teman-teman pembaca Blog BaditHijo, agar dapat sama-sama kita manfaatkan.<br>
+Terima kasih telah menjadi pembaca setia dan menemani saya sampai saat ini.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="troubleshooting">Troubleshooting</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="mengakses_root">Mengakses Root</h3>
+<div class="paragraph">
+<p>Untuk berpindah ke root shell, dapat menggunakan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ su</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Masukkan password root yang dibuat pada saat proses instalasi.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="root_permission_from_user">Root permission from user</h3>
+<div class="paragraph">
+<p><code>doas</code> is preinstalled by default, kita hanya perlu melakukan konfigurasi,</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/doas.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>permit :wheel</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau kita mau user hanya memasukkan password sekali, dan sementara waktu tidak perlu memasukkan password,</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/doas.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>permit persist :wheel</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="text_editor">Text editor</h3>
+<div class="paragraph">
+<p><code>vi</code> is preinstalled by default, jadi kita dapat menggunakan text editor ini untuk sementara sambil menikmati suasana.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ vi</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="neovim">Neovim</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ doas pkg_add neovim</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="firmware_update">Firmware update</h3>
+<div class="paragraph">
+<p>Dapat dilakukan dengan:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ fw_update</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="usb_tethering">USB tethering</h3>
+<div class="paragraph">
+<p>Melihat interface dari usb tethering,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ifconfig</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>...
+
+
+urndis0: flags=8802&lt;BROADCAST,SIMPLEX,MULTICAST&gt; mtu 1500
+        lladdr 0a:12:52:cf:95:21
+        index 5 priority 0 llprio 3</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Biasanya akan bernama <strong>urndis0</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Tinggal kita jalankan,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># dhclient urndis0  <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Nama dari usb interface dapat berbeda.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Kalau berhasil, kita akan mendapatkan IP address.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>urndis0: 192.168.42.224 lease accepted from 192.168.42.129 (6e:45:af:fc:be:9f)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau kita cek dengan <code>ifconfig</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>urndis0: flags=808843&lt;UP,BROADCAST,RUNNING,SIMPLEX,MULTICAST,AUTOCONF4&gt; mtu 1500
+        lladdr d2:58:ec:ab:0c:62
+        index 5 priority 0 llprio 3
+        inet 192.168.42.224 netmask 0xffffff00 broadcast 192.168.42.255</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="connect_wifi">Connect Wifi</h3>
+<div class="paragraph">
+<p>Untuk melakukan scaning, misal wifi interface kita <strong>iwn0</strong>.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+dapat ditebak kalau wireless card saya adalah intel.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Nyalakan interface terlebih dahulu, apabila masih off.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ipconfig iwn0 up</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lakukan scanning terhadap SSID yang tersedia di sekitar.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># ipconfig iwn0 scan</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, setelah mendapatkan SSID yang kita inginkan, tinggal connect.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">ifconfig iwn0 nwid &lt;network-name&gt; wpakey &lt;passphrase&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, untuk mendapatkan IP address, dapat menggunakan dhcp.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># dhclient iwn0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sampai tahap ini, seharusnya sudah dapat terkoneksi ke internet.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dhcp_server">DHCP Server</h3>
+<div class="paragraph">
+<p>Jika ingin mengaktifkan DHCP server service saat startup, dapat menggunakan,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># rcctl enable dhcpd</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Atau untuk mengeset perinterface saja, dapat menggunkan,</p>
+</div>
+<div class="paragraph">
+<p>Misal, untuk etheret interface <strong>em0</strong> dan <strong>iwn0</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># rcctl set dhcpd flags em0 iwn0</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tmux">Tmux</h3>
+<div class="paragraph">
+<p>Sejak OpeBSD 4.6, tmux telah menjadi bagian dari base system, sehingga kita tidak perlu repot-repot memasangnya.</p>
+</div>
+<div class="paragraph">
+<p>Tinggal jalankan tmux di terminal.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ tmux</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="starting_x_xenodm">Starting X (Xenodm)</h3>
+<div class="paragraph">
+<p>The recommended way to run X is with the xenodm(1) display manager. It offers some important security benefits over the traditional startx(1) command.<br>
+If xenodm(1) wasn&#8217;t enabled during installation, it can be done so later like any other system daemon:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># rcctl enable xenodm
+# rcctl start xenodm</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On some platforms, you will need to disable the console getty(8) to use it. <strong>This is not needed on amd64, i386 or macppc</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Cara di atas akan meng-enable-kan Display Manager yang --mungkin bernama-- <strong>xenodm</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Dan ketika kita login, default sessionnya adalah <strong>fvwm</strong> yang merupakan turunan dari <strong>twm</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Kalau ingin menggunakan dwm,</p>
+</div>
+<div class="listingblock">
+<div class="title">$HOME/.xsession</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>dwm</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mirror_pkg_add_openbsd">Mirror pkg_add OpenBSD</h3>
+<div class="paragraph">
+<p>Versi OpenBSD yang baru-baru menyimpan mirror pada <strong>/etc/installurl</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/installurl</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>https://cdn.openbsd.org/pub/OpenBSD</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="xorg">Xorg</h3>
+<div class="listingblock">
+<div class="title">/etc/X11/xorg.conf.d/20-intel.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+  <td class="code"><pre>Section &quot;Device&quot;
+    Identifier    &quot;Intel Graphics&quot;
+    Driver        &quot;intel&quot;
+
+    Option        &quot;DRI&quot;          &quot;true&quot;
+
+    Option        &quot;DRI&quot;          &quot;2&quot;
+    Option        &quot;AccellMethod&quot; &quot;uxa&quot;    # Fallback
+
+    #Option        &quot;DRI&quot;          &quot;3&quot;      # DRI 3 is now default
+    #Option        &quot;AccellMethod&quot; &quot;sna&quot;    # Default
+
+    Option        &quot;TearFree&quot;     &quot;true&quot;
+EndSection</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="git">Git</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ doas pkg_add git</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dwm">dwm</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://git.suckless.org/dwm</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">$HOME/.xsession</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>xsetroot -name &quot; OpenBSD 6.9&quot;
+xcompmgr &amp;
+dwm</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="st">st</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://git.suckless.org/st</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dmenu">dmenu</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://git.suckless.org/dmenu</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sxhkd">sxhkd</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ doas pkg_add sxhkd</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="wget">wget</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ doas pkg_add wget</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="harfbuzz">harfbuzz</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ doas pkg_add harfbuzz</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="neofetch">Neofetch</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ doas pkg_add neofetch</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="htop">htop</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ doas pkg_add htop</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rofi">rofi</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ doas pkg_add rofi</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jq">jq</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ doas pkg_add jq</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cmake">cmake</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ doas pkg_add cmake
+$ doas pkg_add extra-cmake-modules</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="j4_dmenu_desktop">j4-dmenu-desktop</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://github.com/enkore/j4-dmenu-desktop.git
+$ cmake .
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://www.openbsdhandbook.com/openbsd_for_linux_users/" target="_blank" rel="noopener">openbsdhandbook.com/openbsd_for_linux_users/</a></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/note/2021-02-28-catatan-instalasi-openbsd.adoc"> Edit this note</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Notes</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/note/welcome-to-test">Welcome to Test</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation">Catatan Post Installation Fedora Workstation</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-daftar-terminal-tools">Catatan Daftar Terminal Tools</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-git">Catatan Terkait Git</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-vboxmanage">Catatan Terkait VBoxManage</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/note/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#openbsdh</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-02-28</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#troubleshooting">Troubleshooting</a>
+    <ul>
+      <li><a href="#mengakses_root">Mengakses Root</a></li>
+      <li><a href="#root_permission_from_user">Root permission from user</a></li>
+      <li><a href="#text_editor">Text editor</a></li>
+      <li><a href="#neovim">Neovim</a></li>
+      <li><a href="#firmware_update">Firmware update</a></li>
+      <li><a href="#usb_tethering">USB tethering</a></li>
+      <li><a href="#connect_wifi">Connect Wifi</a></li>
+      <li><a href="#dhcp_server">DHCP Server</a></li>
+      <li><a href="#tmux">Tmux</a></li>
+      <li><a href="#starting_x_xenodm">Starting X (Xenodm)</a></li>
+      <li><a href="#mirror_pkg_add_openbsd">Mirror pkg_add OpenBSD</a></li>
+      <li><a href="#xorg">Xorg</a></li>
+      <li><a href="#git">Git</a></li>
+      <li><a href="#dwm">dwm</a></li>
+      <li><a href="#st">st</a></li>
+      <li><a href="#dmenu">dmenu</a></li>
+      <li><a href="#sxhkd">sxhkd</a></li>
+      <li><a href="#wget">wget</a></li>
+      <li><a href="#harfbuzz">harfbuzz</a></li>
+      <li><a href="#neofetch">Neofetch</a></li>
+      <li><a href="#htop">htop</a></li>
+      <li><a href="#rofi">rofi</a></li>
+      <li><a href="#jq">jq</a></li>
+      <li><a href="#cmake">cmake</a></li>
+      <li><a href="#j4_dmenu_desktop">j4-dmenu-desktop</a></li>
+    </ul>
+  </li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

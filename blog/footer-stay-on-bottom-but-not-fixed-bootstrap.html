@@ -1,0 +1,509 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membuat Footer Stay on Bottom but Not Fixed dengan Bootstrap | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Membuat Footer Stay on Bottom but Not Fixed dengan Bootstrap" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Footer yang menempel pada body content memang mengesalkan. Terutama bila content masih sedikit. Maka footer akan menempel pada body dengan sangat manja. Catatan ini adalah solusi bagaimana agar footer tetap berada di bagian paling bawah dari halaman meskipun content yang tersedia masih sedikit." />
+<meta property="og:description" content="Footer yang menempel pada body content memang mengesalkan. Terutama bila content masih sedikit. Maka footer akan menempel pada body dengan sangat manja. Catatan ini adalah solusi bagaimana agar footer tetap berada di bagian paling bawah dari halaman meskipun content yang tersedia masih sedikit." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/footer-stay-on-bottom-but-not-fixed-bootstrap" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/footer-stay-on-bottom-but-not-fixed-bootstrap" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-05T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Membuat Footer Stay on Bottom but Not Fixed dengan Bootstrap","dateModified":"2020-12-05T00:00:00+00:00","datePublished":"2020-12-05T00:00:00+00:00","description":"Footer yang menempel pada body content memang mengesalkan. Terutama bila content masih sedikit. Maka footer akan menempel pada body dengan sangat manja. Catatan ini adalah solusi bagaimana agar footer tetap berada di bagian paling bawah dari halaman meskipun content yang tersedia masih sedikit.","url":"https://bandithijo.dev/v2/blog/footer-stay-on-bottom-but-not-fixed-bootstrap","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/footer-stay-on-bottom-but-not-fixed-bootstrap"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Membuat Footer Stay on Bottom but Not Fixed dengan Bootstrap"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/footer-stay-on-bottom-but-not-fixed-bootstrap">Membuat Footer Stay on Bottom but Not Fixed dengan Bootstrap</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / footer stay on bottom but not fixed bootstrap
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#bootstrap</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-12-05</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#implementasi">Implementasi</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang">Latar Belakang</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kalian pasti pernah melihat Footer yang manja di sebuah website.</p>
+</div>
+<div class="paragraph">
+<p>Kira-kira seperti ini contohnya.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/RFGxYSgJ/gambar-01.png" alt="gambar-01">
+</div>
+</div>
+<div class="paragraph">
+<p>Perhatikan kotak berwarna merah.</p>
+</div>
+<div class="paragraph">
+<p>Footer ini sangat manja karena menempel pada post body.</p>
+</div>
+<div class="paragraph">
+<p>Saya ingin membuat Footer yang mandiri. Yang akan selalu berada di bagian bawah layar, meskipun body post tidak sebanyak tinggi layar.</p>
+</div>
+<div class="paragraph">
+<p>Namun, saya juga tidak ingin membuat Footer ini terlalu keras kepala (Fixed), sehingga tetap berada di bawah layar meskipun post content sudah banyak.</p>
+</div>
+<div class="paragraph">
+<p>Idealnya, Footer yang saya inginkan seperti ini.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/pdHNXh7n/gambar-02.png" alt="gambar-02">
+</div>
+</div>
+<div class="paragraph">
+<p>Meskipun post content hanya sedikit, Footer tetap berada di bagian bawah layar. Dan apabila post content sudah banyak, Footer akan terdorong menghilang bersama post content yang paling bawah.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="implementasi">Implementasi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Markup HTML nya seperti ini polanya.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="html"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td>
+  <td class="code"><pre><span class="doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html&gt;</span>
+  <span class="tag">&lt;head&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Footer Anti Manja<span class="tag">&lt;/title&gt;</span>
+  <span class="tag">&lt;/head&gt;</span>
+
+  <span class="tag">&lt;body</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">d-flex flex-column</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+
+    <span class="tag">&lt;div</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">content</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      ...
+      ...
+    <span class="tag">&lt;/div&gt;</span>
+
+    <span class="tag">&lt;footer</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">footer</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      ...
+      ...
+    <span class="tag">&lt;/footer&gt;</span>
+
+  <span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Style nya seperti ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="css"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td>
+  <td class="code"><pre><span class="tag">html</span>,
+<span class="tag">body</span> {
+  <span class="key">height</span>: <span class="float">100%</span>;
+}
+
+<span class="id">#content</span> {
+  <span class="key">flex</span>: <span class="float">1</span> <span class="float">0</span> <span class="value">auto</span>;
+}
+
+<span class="id">#footer</span> {
+  <span class="key">flex-shrink</span>: <span class="value">none</span>;
+}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2020/2020-12-05-footer-stay-on-bottom-but-not-fixed-bootstrap.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#bootstrap</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-12-05</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#implementasi">Implementasi</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

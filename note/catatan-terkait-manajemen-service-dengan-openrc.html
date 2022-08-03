@@ -1,0 +1,1128 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catatan Terkait Manajemen Service dengan OpenRC | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Catatan Terkait Manajemen Service dengan OpenRC" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Sedikit catatan-catatan kecil dalam memanajemen service dengan OpenRC." />
+<meta property="og:description" content="Sedikit catatan-catatan kecil dalam memanajemen service dengan OpenRC." />
+<link rel="canonical" href="https://bandithijo.dev/v2/note/catatan-terkait-manajemen-service-dengan-openrc" />
+<meta property="og:url" content="https://bandithijo.dev/v2/note/catatan-terkait-manajemen-service-dengan-openrc" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-06T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Catatan Terkait Manajemen Service dengan OpenRC","dateModified":"2021-01-06T00:00:00+00:00","datePublished":"2021-01-06T00:00:00+00:00","description":"Sedikit catatan-catatan kecil dalam memanajemen service dengan OpenRC.","url":"https://bandithijo.dev/v2/note/catatan-terkait-manajemen-service-dengan-openrc","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/note/catatan-terkait-manajemen-service-dengan-openrc"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Catatan Terkait Manajemen Service dengan OpenRC"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/note/catatan-terkait-manajemen-service-dengan-openrc">Catatan Terkait Manajemen Service dengan OpenRC</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/note/">note</a>
+  
+
+  
+    / catatan terkait manajemen service dengan openrc
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#init</a>
+      
+        
+        <a href="#">#openrc</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-01-06</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#cara_penggunaan">Cara Penggunaan</a>
+    <ul>
+      <li><a href="#1_melihat_daftar_service_yang_tersedia_rc_service8">(1) Melihat Daftar Service yang Tersedia; RC-SERVICE(8)</a></li>
+      <li><a href="#2_menambahkan_service_ke_runlevel_rc_update8">(2) Menambahkan Service ke runlevel; RC-UPDATE(8)</a></li>
+      <li><a href="#3_menjalankan_menghentikan_merestart_service_rc_service8">(3) Menjalankan, Menghentikan, Merestart Service; RC-SERVICE(8)</a></li>
+      <li><a href="#4_menghapus_service_dari_runlevel_rc_update8">(4) Menghapus Service dari runlevel; RC-UPDATE(8)</a></li>
+      <li><a href="#5_melihat_service_pada_runlevel_rc_update8">(5) Melihat Service pada runlevel; RC-UPDATE(8)</a></li>
+      <li><a href="#3_melihat_service_status_rc_status8">(3) Melihat Service Status; RC-STATUS(8)</a></li>
+      <li><a href="#7_direktori_config">(7) Direktori Config</a></li>
+    </ul>
+  </li>
+  <li><a href="#head_to_head_table">Head to Head Table</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang">Latar Belakang</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Akhir Desember 2020, saya memigrasikan Arch Linux yang sudah saya pakai sejak April 2020&#8201;&#8212;&#8201;karena Maret 2020, saya bermigrasi ke FreeBSD&#8201;&#8212;&#8201;ke Artix Linux OpenRC.</p>
+</div>
+<div class="paragraph">
+<p>Teman-teman dapat membaca catatan migrasi saya di sini, <a href="https://bandithijo.dev/v2/blog/memigrasikan-arch-ke-artix-openrc" target="_blank" rel="noopener"><strong>Memigrasikan Arch Linux ke Artix Linux (OpenRC)</strong></a>.</p>
+</div>
+<div class="paragraph">
+<p>Menggunakan init system, selain <strong>systemd</strong> merupakan hal yang baru bagi saya. Karena sejak Desember 2014&#8201;&#8212;&#8201;awal migrasi saya menggunakan GNU/Linux dengan distribusi sistem operasi <strong>Fedora Linux</strong>, sudah menggunakan <strong>systemd</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Catatan kali ini saya ingin menyimpan bagaimana cara menggunakan OpenRC dalam memanajemen service.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<strong>Catatan ini bukan merupakan panduan atau tutorial.</strong>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cara_penggunaan">Cara Penggunaan</h2>
+<div class="sectionbody">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Selama proses catatan ini, saya akan menggunakan <strong>sshd</strong> sebagai contoh service.<br>
+Di Artix Linux, paket <strong>openssh</strong> harus dipasang sesuai init yang digunakan.<br>
+Misal, saya menggunakan OpenRC.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo pacman -S openssh openssh-openrc</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="1_melihat_daftar_service_yang_tersedia_rc_service8">(1) Melihat Daftar Service yang Tersedia; RC-SERVICE(8)</h3>
+<div class="listingblock">
+<div class="content">
+<pre>NAME
+     rc-service — locate and run an OpenRC service with the given arguments
+
+DESCRIPTION
+     Service scripts could be in different places on different systems.
+     rc-service locates the specified service and runs it with the given argu‐
+     ments.  If -i, --ifexists is given then rc-service returns 0 even if the
+     service does not exist.  If -I, --ifinactive or -N, --ifnotstarted is given
+     then rc-service returns 0 if the service exists but is in the wrong state.
+
+     If given the -l, --list argument then rc-service will list all available
+     services.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Untuk melihat daftar service apa saja yang tersedia, kita dapat menggunakan perintah,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rc-service -l</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Atau,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rc-service --list</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>acpid
+agetty
+agetty.tty1
+agetty.tty2
+agetty.tty3
+agetty.tty4
+agetty.tty5
+agetty.tty6
+--- dipotong ---
+udev
+udev-settle
+udev-trigger
+urandom
+virtlockd
+virtlogd
+wpa_supplicant
+xinetd</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Atau kombinasikan dengan <strong>grep</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Misal, ingin mencari <strong>wpa_supplicant</strong> service.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rc-service --list | grep wpa_supplicant</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>wpa_supplicant</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="2_menambahkan_service_ke_runlevel_rc_update8">(2) Menambahkan Service ke runlevel; RC-UPDATE(8)</h3>
+<div class="listingblock">
+<div class="content">
+<pre>NAME
+     rc-update — add and remove services to and from a runlevel
+
+DESCRIPTION
+     OpenRC uses named runlevels.  Rather than editing some obscure file or man‐
+     aging a directory of symlinks, rc-update exists to quickly add or delete
+     services to and from from different runlevels.  All services must reside in
+     the /etc/init.d or /usr/local/etc/init.d directories.  They must also be
+     standard OpenRC scripts, meaning they must use openrc-run.
+
+     add service             Add the service to the runlevel or the current one
+                             if none given.  Services added to the boot runlevel
+                             must exist in /etc/init.d.
+
+     delete service          Delete the service from the runlevel or the current
+                             one if none given.
+
+     show                    Show all enabled services and the runlevels they be‐
+                             long to.  If you specify runlevels to show, then
+                             only those will be included in the output.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>runlevel</strong> adalah level dimana service akan dijalankan.</p>
+</div>
+<div class="paragraph">
+<p><strong>runlevel</strong> merupakan direktori yang berlokasi di <strong>/etc/runlevel/</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Terdapat 3 internal runlevel dan 4 user defined runlevel.</p>
+</div>
+<div class="paragraph">
+<p><strong>Internal runlevel</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>sysinit</strong></p>
+</li>
+<li>
+<p><strong>shutdown</strong></p>
+</li>
+<li>
+<p><strong>reboot</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>User Defined runlevel</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>boot</strong>, Starts all system-necessary services for other runlevels</p>
+</li>
+<li>
+<p><strong>default</strong>, Used for day-to-day-operations</p>
+</li>
+<li>
+<p><strong>nonetwork</strong>, Used when no network connectivity is required</p>
+</li>
+<li>
+<p><strong>single</strong>, Single-user mode</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Contoh:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Runlevel: shutdown
+ killprocs                                                    [  stopped  ]
+ ...
+ ...
+Runlevel: default
+ agetty.tty1                             [  started 2 day(s) 06:11:21 (0) ]
+ agetty.tty2                             [  started 2 day(s) 06:11:21 (0) ]
+ ...
+ ...
+Runlevel: nonetwork
+ local                                                        [  started  ]
+Runlevel: sysinit
+ dmesg                                                        [  started  ]
+ ...
+ ...
+Runlevel: boot
+ root                                                         [  started  ]
+ ...
+ ...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Biasanya, service-service yang kita tambahkan, apabila tidak diberikan argument spesifik runlevel apa yang akan digunakan, akan diletakkan di runlevel <strong>default</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Proses menambahkan service ke runlevel ini, mirip dengan proses pada systemd yang menggunakan option <strong>enable</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sudo rc-service add &lt;nama_service&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Misal, saya ingin menjalankan service SSH.</p>
+</div>
+<div class="paragraph">
+<p>Service SSH memiliki service name bernama <strong>sshd</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Cara menambahkan ke runlevel,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-update add sshd</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>* service sshd added to runlevel default</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Service <strong>sshd</strong> telah berhasil ditambahka ke runlevel <strong>default</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Runlevel: default
+ sshd                                                         [  stopped  ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tapi, statusnya masih <strong>stopped</strong>, kita akan jalankan di section selanjutnya.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3_menjalankan_menghentikan_merestart_service_rc_service8">(3) Menjalankan, Menghentikan, Merestart Service; RC-SERVICE(8)</h3>
+<div class="paragraph">
+<p><strong>Kok pakai <code>rc-service</code> lagi?</strong></p>
+</div>
+<div class="paragraph">
+<p>Yak, benar! Selain kita gunakan untuk melihat daftar service, kita juga dapat gunakan untuk memanipulasi service, seperti:</p>
+</div>
+<div class="paragraph">
+<p>Kalau pada systemd, proses ini mirip dengan <strong>start</strong>, <strong>stop</strong>, <strong>reload</strong>, <strong>status</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Start Service</div>
+<div class="content">
+<pre>$ sudo rc-service &lt;nama_service&gt; start</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-service sshd start</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sshd              | * Starting sshd ...                              [ ok ]</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Kita dapat menjalankan service tanpa perlu menambahkan ke dalam runlevel.</p>
+</div>
+<div class="paragraph">
+<p>Kalau kita jalankan tanpa terlebih dulu memasukkannya ke dalam runlevel <strong>default</strong>, maka akan dimasukkan ke runlevel <strong>manual</strong>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Stop Service</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ sudo rc-service &lt;nama_service&gt; stop</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-service sshd stop</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sshd              | * Stopping sshd ...                              [ ok ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Restart Service</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ sudo rc-service &lt;nama_service&gt; restart</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-service sshd restart</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sshd              | * Stopping sshd ...                              [ ok ]
+sshd              | * Starting sshd ...                              [ ok ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Status Service</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sudo rc-service &lt;nama_service&gt; status</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-service sshd status</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>* status: started</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>atau,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>* status: stopped</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="4_menghapus_service_dari_runlevel_rc_update8">(4) Menghapus Service dari runlevel; RC-UPDATE(8)</h3>
+<div class="paragraph">
+<p>Untuk menghapus service dari runlevel, sangat mudah sekali.</p>
+</div>
+<div class="paragraph">
+<p>Biasanya hal ini kita lakukan apabila ada service yang ingin kita hentikan secara permanent.</p>
+</div>
+<div class="paragraph">
+<p>Misalnya, saya tidak memerlukan service SSH untuk berjalan terus menerus. Maka saya akan disable dari runlevel default.</p>
+</div>
+<div class="paragraph">
+<p>Pada systemd, proses ini mirip seperti <strong>disable</strong> service.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>rc-update del &lt;nama_service&gt;</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-update del sshd</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>* service sshd removed from runlevel default</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="5_melihat_service_pada_runlevel_rc_update8">(5) Melihat Service pada runlevel; RC-UPDATE(8)</h3>
+<div class="paragraph">
+<p>Kita dapat gunakan perintah ini untuk melihat service tertentu ada pada runlevel apa saja.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rc-update show</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>          agetty.tty1 |      default
+          agetty.tty2 |      default
+              cgroups |                                 sysinit
+               cronie |      default
+                 dbus |      default
+                devfs |                                 sysinit
+               dhcpcd |      default
+                dmesg |                                 sysinit
+       dnscrypt-proxy |      default
+              elogind | boot
+                 fsck | boot
+---------------------------- dipotong -------------------------
+                 sshd |      default
+                 swap | boot
+               sysctl | boot
+                sysfs |                                 sysinit
+         termencoding | boot
+                  tlp |      default
+                 udev |                                 sysinit
+         udev-trigger |                                 sysinit
+              urandom | boot
+       wpa_supplicant |      default</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kita juga dapat menggunakan untuk melihat service yang ada pada runlevel tertentu, misal runlevel <strong>default</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rc-update show default</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>          agetty.tty1 | default
+          agetty.tty2 | default
+            alsasound | default
+               cronie | default
+                 dbus | default
+               dhcpcd | default
+       dnscrypt-proxy | default
+                local | default
+           postgresql | default
+                 sshd | default
+                  tlp | default
+       wpa_supplicant | default</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3_melihat_service_status_rc_status8">(3) Melihat Service Status; RC-STATUS(8)</h3>
+<div class="listingblock">
+<div class="content">
+<pre>NAME
+     rc-status — show status info about runlevels
+
+DESCRIPTION
+     rc-status gathers and displays information about the status of services in
+     different runlevels.  The default behavior is to show information about the
+     current runlevel and any unassigned services that are not stopped, but any
+     runlevel can be quickly examined.
+
+     If an active service is being supervised by supervise-daemon(8,) the amount
+     of time the daemon has been active along with the number of times it has
+     been respawned in the current respawn period will be displayed.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Option yang tersedia:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>     The options are as follows:
+
+     -a, --all             Show all runlevels and their services.
+
+     -c, --crashed         List all services that have crashed.
+
+     -f, --format          Select a format for the output. Currently, the only
+                           one that can be specified is ini, which outputs in
+                           *.ini format.
+
+     -l, --list            List all defined runlevels.
+
+     -m, --manual          Show all manually started services.
+
+     -r, --runlevel        Print the current runlevel name.
+
+     -S, --supervised      Show all supervised services.
+
+     -s, --servicelist     Show all services.
+
+     -u, --unused          Show services not assigned to any runlevel.
+
+     -C, --nocolor         Disable color output.
+
+     runlevel              Show information only for the named runlevel.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sudah sangat jelas yaa, <strong>rc-status</strong> kita gunakan untuk melihat service status.</p>
+</div>
+<div class="paragraph">
+<p>Kalau kita hanya menjalankan tanpa option, akan ditampilkan runlevel default, manual, hotplugged, needed/wanted.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rc-status</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Runlevel: default
+ local                                                        [  started  ]
+ agetty.tty1                             [  started 2 day(s) 10:15:05 (0) ]
+ agetty.tty2                             [  started 2 day(s) 10:15:05 (0) ]
+ ...
+ ...
+Dynamic Runlevel: hotplugged
+Dynamic Runlevel: needed/wanted
+ virtlogd                                                     [  started  ]
+Dynamic Runlevel: manual
+ libvirtd                                                     [  started  ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau ingin melihat service status dari semua runlevel, gunakan option <code>--all</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="7_direktori_config">(7) Direktori Config</h3>
+<div class="paragraph">
+<p>Untuk file-file konfigurasi dari init script, dapat dilihat pada direktori <strong>/etc/conf.d/</strong></p>
+</div>
+<div class="paragraph">
+<p>Misal,</p>
+</div>
+<div class="paragraph">
+<p>Untuk konfigurasi dari <strong>dnscrypt-proxy</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/conf.d/dnscrypt-proxy</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td>
+  <td class="code"><pre>#rc_use=&quot;tor&quot;
+#DNSCRYPT_PROXY_OPTS=&quot;-config /etc/dnscrypt-proxy/dnscrypt-proxy.toml&quot;
+#DNSCRYPT_PROXY_USER=&quot;dnscrypt&quot;
+#DNSCRYPT_PROXY_GROUP=&quot;dnscrypt&quot;
+DNSCRYPT_PROXY_USER=&quot;root&quot;
+DNSCRYPT_PROXY_GROUP=&quot;root&quot;</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Selayaknya file config, isinya berupa variabel-variabel yang akan digunakan di init script.</p>
+</div>
+<div class="paragraph">
+<p>Kita akan lihat init script dari <strong>dnscrypt-proxy</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/init.d/dnscrypt-proxy</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td>
+  <td class="code"><pre>#!/usr/bin/openrc-run
+# Copyright 1999-2019 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
+command=&quot;/usr/bin/dnscrypt-proxy&quot;
+command_args=&quot;${DNSCRYPT_PROXY_OPTS:--config /etc/dnscrypt-proxy/dnscrypt-proxy.toml}&quot;
+command_user=&quot;${DNSCRYPT_PROXY_USER:-dnscrypt}:${DNSCRYPT_PROXY_GROUP:-dnscrypt}&quot;
+pidfile=&quot;/run/${RC_SVCNAME}.pid&quot;
+retry=&quot;SIGTERM/5/SIGTERM/5/SIGKILL/5&quot;
+start_stop_daemon_args=&quot;--background --make-pidfile&quot;
+
+depend() {
+        use logger net
+        provide dns
+}
+
+# start_pre() {
+#         checkpath -q -d -m 0775 -o &quot;${command_user}&quot; /var/cache/&quot;${RC_SVCNAME}&quot;
+#         checkpath -q -d -m 0775 -o &quot;${command_user}&quot; /var/log/&quot;${RC_SVCNAME}&quot;
+# }</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, teman-teman dapat melihat variabel-variabel pada file config tersebut digunakan pada init script.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="head_to_head_table">Head to Head Table</h2>
+<div class="sectionbody">
+<div class="openblock overflow-x">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">systemd</th>
+<th class="tableblock halign-left valign-top">OpenRC</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">systemctl list-units</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rc-status</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">List running services status</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">systemctl --failed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rc-status --crashed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check failed services</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">systemctl --all</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rc-update -v show</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Display all available services</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">systemctl (start, stop, restart, status) daemon.service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rc-service daemon (start, stop, restart, status)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change service state</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">systemctl (enable, disable) daemon.service</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rc-update (add, del) daemon</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Turn service on or off</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">systemctl daemon-reload</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create or modify configuration</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="paragraph">
+<p>Sumber: <a href="https://wiki.archlinux.org/index.php/OpenRC#Usage" target="_blank" rel="noopener">Arch Wiki: OpenRC - Usage</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://wiki.gentoo.org/wiki/OpenRC" target="_blank" rel="noopener">Gentoo Wiki: OpenRC</a><br>
+Diakses tanggal: 2021/01/06</p>
+</li>
+<li>
+<p><a href="https://wiki.artixlinux.org/Main/OpenRC" target="_blank" rel="noopener">Artix Wiki: OpenRC</a><br>
+Diakses tanggal: 2021/01/06</p>
+</li>
+<li>
+<p><a href="https://wiki.archlinux.org/index.php/OpenRC" target="_blank" rel="noopener">Arch Wiki: OpenRC</a><br>
+Diakses tanggal: 2021/01/06</p>
+</li>
+<li>
+<p><a href="https://github.com/OpenRC/openrc/blob/master/user-guide.md" target="_blank" rel="noopener">GitHub/OpenRC/openrc: OpenRC Users Guide</a><br>
+Diakses tanggal: 2021/01/06</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/note/2021-01-06-catatan-terkait-manajemen-service-dengan-openrc.adoc"> Edit this note</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Notes</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/note/welcome-to-test">Welcome to Test</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation">Catatan Post Installation Fedora Workstation</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-daftar-terminal-tools">Catatan Daftar Terminal Tools</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-git">Catatan Terkait Git</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-vboxmanage">Catatan Terkait VBoxManage</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/note/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#init</a>
+      
+        
+        <a href="#">#openrc</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-01-06</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#cara_penggunaan">Cara Penggunaan</a>
+    <ul>
+      <li><a href="#1_melihat_daftar_service_yang_tersedia_rc_service8">(1) Melihat Daftar Service yang Tersedia; RC-SERVICE(8)</a></li>
+      <li><a href="#2_menambahkan_service_ke_runlevel_rc_update8">(2) Menambahkan Service ke runlevel; RC-UPDATE(8)</a></li>
+      <li><a href="#3_menjalankan_menghentikan_merestart_service_rc_service8">(3) Menjalankan, Menghentikan, Merestart Service; RC-SERVICE(8)</a></li>
+      <li><a href="#4_menghapus_service_dari_runlevel_rc_update8">(4) Menghapus Service dari runlevel; RC-UPDATE(8)</a></li>
+      <li><a href="#5_melihat_service_pada_runlevel_rc_update8">(5) Melihat Service pada runlevel; RC-UPDATE(8)</a></li>
+      <li><a href="#3_melihat_service_status_rc_status8">(3) Melihat Service Status; RC-STATUS(8)</a></li>
+      <li><a href="#7_direktori_config">(7) Direktori Config</a></li>
+    </ul>
+  </li>
+  <li><a href="#head_to_head_table">Head to Head Table</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

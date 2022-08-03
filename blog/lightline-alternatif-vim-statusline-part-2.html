@@ -1,0 +1,863 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lightline, Alternatif Vim Statusline Bagian 2 (feat. Defx, Tagbar) | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Lightline, Alternatif Vim Statusline Bagian 2 (feat. Defx, Tagbar)" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Pembaharuan konfig dari catatan sebelumnya. Kali ini dengan perubahan beberapa komponen untuk Defx dan juga Tagbar." />
+<meta property="og:description" content="Pembaharuan konfig dari catatan sebelumnya. Kali ini dengan perubahan beberapa komponen untuk Defx dan juga Tagbar." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/lightline-alternatif-vim-statusline-part-2" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/lightline-alternatif-vim-statusline-part-2" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-30T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Lightline, Alternatif Vim Statusline Bagian 2 (feat. Defx, Tagbar)","dateModified":"2020-10-30T00:00:00+00:00","datePublished":"2020-10-30T00:00:00+00:00","description":"Pembaharuan konfig dari catatan sebelumnya. Kali ini dengan perubahan beberapa komponen untuk Defx dan juga Tagbar.","url":"https://bandithijo.dev/v2/blog/lightline-alternatif-vim-statusline-part-2","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/lightline-alternatif-vim-statusline-part-2"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Lightline, Alternatif Vim Statusline Bagian 2 (feat. Defx, Tagbar)"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/lightline-alternatif-vim-statusline-part-2">Lightline, Alternatif Vim Statusline Bagian 2 (feat. Defx, Tagbar)</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / lightline alternatif vim statusline part 2
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#vim</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-10-30</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#instalasi">Instalasi</a></li>
+  <li><a href="#konfigurasi">Konfigurasi</a></li>
+  <li><a href="#credit">Credit</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang">Latar Belakang</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Post ini saya tulis sebagai update catatan bagian pertama yang berjudul: &lt;br&gt;<br>
+<a href="https://bandithijo.dev/v2/blog/lightline-alternatif-vim-statusline" target="_blank" rel="noopener"><strong>Lightline, Alternatif Vim Statusline</strong></a>.</p>
+</div>
+<div class="paragraph">
+<p>Saya memutuskan untuk membuat bagian kedua, karena sudah cukup banyak perubahan yang saya tambahkan dari bagian pertama. Terutama pada bagian pengecualian statusline pada Defx buffer.</p>
+</div>
+<div class="paragraph">
+<p><strong>Kenapa ada pengecualian pada Defx?</strong></p>
+</div>
+<div class="paragraph">
+<p>Menurut saya, saya tidak memerlukan statusline yang sangat informatif pada Defx.</p>
+</div>
+<div class="paragraph">
+<p>Agak lucu rasanya, kalau pada Defx, statusline ditampilkan Git branch, line &amp; column poisiton, dll.</p>
+</div>
+<div class="paragraph">
+<p>Maka, pada buffer Defx, Lightline statusline <strong>tidak diperlukan untuk menampilkan status secara lengkap</strong>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="instalasi">Instalasi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Saya menggunakan <strong>vim-plug</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">$HOME/.config/nvim/init.vim</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="vimscript"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>Plug 'itchyny/lightline.vim'</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="konfigurasi">Konfigurasi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Contoh-contoh konfigurasi dapat teman-teman lihat pada halaman GitHub dari Lightline.</p>
+</div>
+<div class="paragraph">
+<p>Saya akan langsung menunjukkan konfigurasi yang saya lakukan pada bagian kedua ini.</p>
+</div>
+<div class="listingblock">
+<div class="title">$HOME/.config/nvim/init.vim</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="vimscript"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92
+93
+94
+95
+96
+97
+98
+99
+100
+101
+102
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131
+132
+133
+134
+135
+136
+137
+138
+139
+140
+141
+142
+143
+144
+145
+146
+147
+148
+149
+150
+151
+152
+153
+154
+155
+156
+157
+158
+159
+160
+161
+162
+163
+164
+165
+166
+167
+168
+169
+170
+171
+172
+173
+174
+175
+176
+177
+178
+179
+180
+181
+182
+183
+184
+185
+186
+187
+188
+189
+</pre></td>
+  <td class="code"><pre>&quot; LightLine
+
+let g:lightline = {
+\   'colorscheme': 'codedark_bandit',
+\   'active': {
+\    'left' : [[ 'mode', 'paste' ],
+\              [ 'gitbranch' ],
+\              [ 'filename' ]],
+\    'right': [[ 'trailing' ],
+\              [ 'lineinfo' ],
+\              [ 'percent' ],
+\              [ 'filetype', 'fileencoding', 'fileformat' ] ]
+\   },
+\   'tab': {
+\     'active'   : ['tabnum'],
+\     'inactive' : ['tabnum']
+\   },
+\   'tabline': {
+\   'left'  : [['buffers']],
+\   'right' : [['string1'], ['string2', 'smarttabs']]
+\   },
+\   'separator': {
+\     'left': '', 'right': ''
+\   },
+\   'subseparator': {
+\   'left': '\u2502', 'right': '\u2502'
+\   },
+\   'component': {
+\     'filename': '%&lt;%{LightlineFileName()}'
+\   },
+\   'component_function': {
+\     'gitbranch'    : 'LightlineFugitive',
+\     'readonly'     : 'LightlineReadonly',
+\     'fileformat'   : 'LightlineFileformat',
+\     'filetype'     : 'LightlineFiletype',
+\     'fileencoding' : 'LightlineFileEncoding',
+\     'lineinfo'     : 'LightlineLineInfo',
+\     'percent'      : 'LightlinePercent',
+\     'mode'         : 'LightlineMode',
+\   },
+\   'component_expand': {
+\     'buffers'   : 'lightline#bufferline#buffers',
+\     'string1'   : 'String1',
+\     'string2'   : 'String2',
+\     'smarttabs' : 'SmartTabsIndicator',
+\     'trailing'  : 'LightlineTrailingWhitespace',
+\   },
+\   'component_type': {
+\   'buffers'  : 'tabsel',
+\   'trailing' : 'warning'
+\   },
+\   'mode_map': {
+\     'n'      : ' N0RMAL',
+\     'i'      : ' INSERT',
+\     'R'      : ' REPLACE',
+\     'v'      : ' VISUAL',
+\     'V'      : ' V-LINE',
+\     &quot;\&lt;C-v&gt;&quot; : ' V-BL0CK',
+\     'c'      : ' COMMAND',
+\     's'      : ' SELECT',
+\     'S'      : ' S-LINE',
+\     &quot;\&lt;C-s&gt;&quot; : ' S-BL0CK',
+\     't'      : ' TERMINAL',
+\   }
+\}
+
+function! LightlineReadonly()
+  return &amp;readonly ? '' : ''
+endfunction
+
+function! LightlineFugitive()
+  if &amp;filetype !=? 'defx' &amp;&amp; &amp;filetype !=? 'tagbar' &amp;&amp; &amp;filetype !=? 'taglist'
+    if exists('*fugitive#head')
+      let branch = fugitive#head()
+      return branch !=# '' ? ' ' . branch : ''
+    endif
+    return fugitive#head()
+  else
+    return ''
+  endif
+endfunction
+
+function! LightlineFileformat()
+  if &amp;filetype !=? 'defx' &amp;&amp; &amp;filetype !=? 'tagbar' &amp;&amp; &amp;filetype !=? 'taglist'
+    return winwidth(0) &gt; 70 ? (&amp;fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) . ' ' : ''
+  else
+    return ''
+  endif
+endfunction
+
+function! LightlineFiletype()
+  if &amp;filetype !=? 'defx' &amp;&amp; &amp;filetype !=? 'tagbar' &amp;&amp; &amp;filetype !=? 'taglist'
+    return winwidth(0) &gt; 70 ? (strlen(&amp;filetype) ? &amp;filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+  else
+    return ''
+  endif
+endfunction
+
+function! LightlineFileEncoding()
+  if &amp;filetype !=? 'defx' &amp;&amp; &amp;filetype !=? 'tagbar' &amp;&amp; &amp;filetype !=? 'taglist'
+    return &amp;fileencoding
+  else
+    return ''
+  endif
+endfunction
+
+function! LightlineLineInfo()
+  if &amp;filetype !=? 'defx' &amp;&amp; &amp;filetype !=? 'tagbar' &amp;&amp; &amp;filetype !=? 'taglist'
+    let current_line = printf('%3s', line('.'))
+    let current_col  = printf('%-3s', col('.'))
+    let lineinfo     = ' ' . current_line . ':' . current_col
+    return lineinfo
+  else
+    return ''
+  endif
+endfunction
+
+function! LightlinePercent()
+  if &amp;filetype !=? 'defx' &amp;&amp; &amp;filetype !=? 'tagbar' &amp;&amp; &amp;filetype !=? 'taglist'
+    return printf(' %3s', (line('.') * 100 / line('$'))) . '%'
+  else
+    return ''
+  endif
+endfunction
+
+function! LightlineFileName()
+  let filename = expand('%')
+  let modified = &amp;modified ? '' : ''
+  let readonly = &amp;readonly
+  if &amp;filetype !=? 'defx' &amp;&amp; &amp;filetype !=? 'tagbar' &amp;&amp; &amp;filetype !=? 'taglist'
+    if filename ==# ''
+      return '[No Name]'
+    endif
+
+    let terms = split(filename, ':')
+    if terms[0] ==# 'term'
+      return '[' . terms[-1] . ']'
+    endif
+
+    return filename . ' ' . (readonly ? '' : modified)
+  else
+    return expand('%:t') ==# '__Tagbar__.1' ? '[tagbar]' :
+         \ expand('%:t') ==# '__Tag_List__' ? '[taglist]' :
+         \ &amp;filetype ==# 'defx' ?  '[defx]' :
+         \ ''
+  endif
+endfunction
+
+function! LightlineMode()
+  return expand('%:t') ==# '__Tagbar__.1' ? ' TAGBAR' :
+       \ expand('%:t') ==# '__Tag_List__' ? ' TAGLIST' :
+       \ &amp;filetype ==# 'defx' ?  ' DEFX' :
+       \ lightline#mode()
+endfunction
+
+function! String1()
+  return ' BANDITHIJO.GITHUB.IO'
+endfunction
+
+function! String2()
+  return 'BUFFERS'
+endfunction
+
+function! SmartTabsIndicator()
+  let tabs = lightline#tab#tabnum(tabpagenr())
+  let tab_total = tabpagenr('$')
+  return tabpagenr('$') &gt; 1 ? ('TABS ' . tabs . '/' . tab_total) : ''
+endfunction
+
+function! LightlineTrailingWhitespace()
+  if &amp;filetype !=? 'defx'
+    let status = lightline#trailing_whitespace#component()
+    return status == 'trailing' ? '!' : ''
+  else
+    return ''
+  endif
+endfunction
+
+&quot; autoreload
+command! LightlineReload call LightlineReload()
+
+function! LightlineReload()
+  call lightline#init()
+  call lightline#colorscheme()
+  call lightline#update()
+endfunction
+
+set showtabline=2  &quot; Show tabline, 2 show, 1 hide
+set guioptions-=e  &quot; Don't use GUI tabline</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Seperti yang dapat dilihat di atas, cukup banyak function yang saya definisikan.</p>
+</div>
+<div class="paragraph">
+<p>Saya membuat function agar lebih leluasa untuk memodifikasi isi dari statusline apabila dirasa tampilan default yang dsediakan kurang mencukupi.</p>
+</div>
+<div class="paragraph">
+<p>Function-function modifikasi ini nantinya ditempatkan pada <code>'component_function': {..}</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="credit">Credit</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Terima kasih kepada mas <a href="https://yeripratama.com/blog/customizing-vim-lightline/" target="_blank" rel="noopener">Yeri</a>, untuk catatan di blognya.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Untuk konfigurasi Lightline milik saya yang lebih terbaru, dapat teman-teman kunjungi <a href="https://github.com/bandithijo/nvimrc/blob/master/plugin-config/lightline.vim" target="_blank" rel="noopener">di sini</a>.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://github.com/itchyny/lightline.vim" target="_blank" rel="noopener">github.com/itchyny/lightline.vim</a><br>
+Diakses tanggal: 2020/10/30</p>
+</li>
+<li>
+<p><a href="https://hagen.dev/kristoffer/dotfiles/commit/c833b54013c7a3522315da362b548595be098a6b">hagen.dev/kristoffer/dotfiles - (nvim) Lightline config</a><br>
+Diakses tanggal: 2020/10/30</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2020/2020-10-30-lightline-alternatif-vim-statusline-part-2.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#vim</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-10-30</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#instalasi">Instalasi</a></li>
+  <li><a href="#konfigurasi">Konfigurasi</a></li>
+  <li><a href="#credit">Credit</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

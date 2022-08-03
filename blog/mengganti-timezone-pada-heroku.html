@@ -1,0 +1,540 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mengganti Zona Waktu pada Heroku | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Mengganti Zona Waktu pada Heroku" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Kamu punya web aplikasi yang dideploy ke Heroku? Dan ternyata zona waktu di Heroku berbeda dengan zona waktu konsumen dari web aplikasi kamu. Pada catatan kali ini, saya akan menunjukkan bagaimana cara mengganti zona waktu pada Heroku." />
+<meta property="og:description" content="Kamu punya web aplikasi yang dideploy ke Heroku? Dan ternyata zona waktu di Heroku berbeda dengan zona waktu konsumen dari web aplikasi kamu. Pada catatan kali ini, saya akan menunjukkan bagaimana cara mengganti zona waktu pada Heroku." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/mengganti-timezone-pada-heroku" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/mengganti-timezone-pada-heroku" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-06T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Mengganti Zona Waktu pada Heroku","dateModified":"2021-02-06T00:00:00+00:00","datePublished":"2021-02-06T00:00:00+00:00","description":"Kamu punya web aplikasi yang dideploy ke Heroku? Dan ternyata zona waktu di Heroku berbeda dengan zona waktu konsumen dari web aplikasi kamu. Pada catatan kali ini, saya akan menunjukkan bagaimana cara mengganti zona waktu pada Heroku.","url":"https://bandithijo.dev/v2/blog/mengganti-timezone-pada-heroku","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/mengganti-timezone-pada-heroku"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Mengganti Zona Waktu pada Heroku"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/mengganti-timezone-pada-heroku">Mengganti Zona Waktu pada Heroku</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / mengganti timezone pada heroku
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#heroku</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-02-06</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang_masalah">Latar Belakang Masalah</a></li>
+  <li><a href="#permasalahan">Permasalahan</a></li>
+  <li><a href="#caranya">Caranya</a>
+    <ul>
+      <li><a href="#set_timezone">Set TimeZone</a></li>
+      <li><a href="#cek_timezone">Cek TimeZone</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang_masalah">Latar Belakang Masalah</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Saya memiliki web aplikasi yang saya bangun dengan Rails menggunakan referensi waktu dengan cara seperti ini,</p>
+</div>
+<div class="listingblock">
+<div class="title">app/helpers/application_helper.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>current_time = <span class="constant">DateTime</span>.now.strftime(<span class="string"><span class="delimiter">'</span><span class="content">%Y-%m-%d</span><span class="delimiter">'</span></span>)</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Variable <code>current_time</code> tersebut yang akan saya jadikan referensi.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="permasalahan">Permasalahan</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>DateTime.now</strong> tersebut akan sangat tergantung dari waktu mesin&#8201;&#8212;&#8201;waktu server.</p>
+</div>
+<div class="paragraph">
+<p>Misal, dalam level development, yang menjadi server adalah laptop saya sendiri, maka variable <strong>current_time</strong> akan berisi waktu dari laptop saya sebagai referensi.</p>
+</div>
+<div class="paragraph">
+<p><strong>Lantas, bagaimana pada level production? Yang servernya berada di luar dari Indonesia, misal seperti Heroku?</strong></p>
+</div>
+<div class="paragraph">
+<p>Tentu saja, current_time akan berisi waktu yang dimiliki oleh Heroku.</p>
+</div>
+<div class="paragraph">
+<p><strong>Apakah kita perlu cara lain untuk mendapatka referensi waktu saat ini?</strong></p>
+</div>
+<div class="paragraph">
+<p>Tidak. Syukurlah, Heroku menyediakan fitur agar kita dapat menentukan current_time berdasarka TimeZone.</p>
+</div>
+<div class="paragraph">
+<p>Jadi kita cukup mendefinisikan zona waktu yang akan kita pakai. Maka web aplikasi yang kita deploy ke Heroku yang entah menggunakan zona waktu bagian mana, akan mengikuti zona waktu yang kita tentukan.</p>
+</div>
+<div class="paragraph">
+<p>Semudah itu.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="caranya">Caranya</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pada catatan ini, saya menggunakan zona waktu <strong>Asia/Makassar</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Saya berasumsi bahwa teman-tema sudah memasang paket <strong>heroku-cli</strong>.<br>
+Tools ini akan kita gunakan untuk berinteraksi dengan Heroku melalui Terminal. Benar-benar sangat memudahkan sekali.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="set_timezone">Set TimeZone</h3>
+<div class="paragraph">
+<p>Buka Terminal emulator kalian dan jalankan,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ heroku config:set TZ=&quot;Asia/Makassar&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tunggu prosesnya hingga selesai.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Setting TZ and restarting ⬢ siaga-covid19... done, v13
+TZ: Asia/Makassar</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, berhasil.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cek_timezone">Cek TimeZone</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ heroku config:get TZ</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hasilnya,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Asia/Makassar</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, kalau sudah sesuai dengan yang kita definisikan, artinya kita telah berhasil.</p>
+</div>
+<div class="paragraph">
+<p>Kalau mau dipastikan lagi kalian dapat membuka Heroku Dashboard, pergi ke web applikasi project directori, pilih tab <strong>Settings</strong>, lalu klik <strong>Reveal Config Vars</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Seharusnya sudah ada variable <strong>TZ</strong> dengan value TimeZone yang kita definisikan.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/wBRt8NC0/gambar-01.png" alt="gambar-01">
+</div>
+</div>
+<div class="paragraph">
+<p>Mantap!</p>
+</div>
+<div class="paragraph">
+<p>Seharusnya, saat ini web aplikasi kita sudah menggunakan TimeZone yang kita definisikan.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://dev.to/paulasantamaria/change-the-timezone-on-a-heroku-app-2b4" target="_blank" rel="noopener">dev.to/paulasantamaria/change-the-timezone-on-a-heroku-app-2b4</a><br>
+Diakses tanggal: 2021/02/06</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2021/2021-02-06-mengganti-timezone-pada-heroku.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#heroku</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-02-06</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang_masalah">Latar Belakang Masalah</a></li>
+  <li><a href="#permasalahan">Permasalahan</a></li>
+  <li><a href="#caranya">Caranya</a>
+    <ul>
+      <li><a href="#set_timezone">Set TimeZone</a></li>
+      <li><a href="#cek_timezone">Cek TimeZone</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

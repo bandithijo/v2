@@ -1,0 +1,781 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catatan Terkait Tmux | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Catatan Terkait Tmux" />
+<meta name="author" content="Assyaufi, Rizqi NUR" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Hal-hal terkait Tmux, cukup banyak sekali yang saya lupakan. Seperti beberapa kombinasi keyboard dan command tertentu. Catatan ini hadir untuk mendokumentasikan beberapa hal terkait Tmux yang sering dan pernah saya pergunakan." />
+<meta property="og:description" content="Hal-hal terkait Tmux, cukup banyak sekali yang saya lupakan. Seperti beberapa kombinasi keyboard dan command tertentu. Catatan ini hadir untuk mendokumentasikan beberapa hal terkait Tmux yang sering dan pernah saya pergunakan." />
+<link rel="canonical" href="https://bandithijo.dev/v2/note/catatan-terkait-tmux" />
+<meta property="og:url" content="https://bandithijo.dev/v2/note/catatan-terkait-tmux" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-31T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi NUR"},"headline":"Catatan Terkait Tmux","dateModified":"2021-03-31T00:00:00+00:00","datePublished":"2021-03-31T00:00:00+00:00","description":"Hal-hal terkait Tmux, cukup banyak sekali yang saya lupakan. Seperti beberapa kombinasi keyboard dan command tertentu. Catatan ini hadir untuk mendokumentasikan beberapa hal terkait Tmux yang sering dan pernah saya pergunakan.","url":"https://bandithijo.dev/v2/note/catatan-terkait-tmux","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/note/catatan-terkait-tmux"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Catatan Terkait Tmux"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi NUR"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/note/catatan-terkait-tmux">Catatan Terkait Tmux</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/note/">note</a>
+  
+
+  
+    / catatan terkait tmux
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi NUR</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#tmux</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-03-31</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#morfologi">Morfologi</a>
+    <ul>
+      <li><a href="#sessions">Sessions</a></li>
+      <li><a href="#windows_tabs">Windows (Tabs)</a></li>
+      <li><a href="#panes">Panes</a></li>
+    </ul>
+  </li>
+  <li><a href="#mappings_keyboard_shortcut">Mappings (Keyboard Shortcut)</a>
+    <ul>
+      <li><a href="#tmux_prefix">Tmux prefix</a></li>
+      <li><a href="#melihat_daftar_keybindings">Melihat daftar keybindings</a></li>
+      <li><a href="#masuk_ke_command_mode">Masuk ke command mode</a></li>
+      <li><a href="#keluarclosedetach_dari_session_yang_sedang_aktif">Keluar/Close/Detach dari session yang sedang aktif</a></li>
+      <li><a href="#memberikanmengganti_nama_session">Memberikan/Mengganti nama session</a></li>
+      <li><a href="#membuat_window_tab_baru">Membuat window (tab) baru</a></li>
+      <li><a href="#memberikanmengganti_nama_window_tab">Memberikan/Mengganti nama window (tab)</a></li>
+    </ul>
+  </li>
+  <li><a href="#command_mode">Command Mode</a>
+    <ul>
+      <li><a href="#membuat_session_baru_dari_dalam_tmux">Membuat session baru dari dalam Tmux</a></li>
+      <li><a href="#membuat_session_baru_dengan_working_directory_dari_dalam_tmux">Membuat session baru dengan working directory dari dalam Tmux</a></li>
+      <li><a href="#mengganti_working_directory_pada_session_yang_sudah_ada_dari_dalam_tmux">Mengganti working directory pada session yang sudah ada dari dalam Tmux</a></li>
+    </ul>
+  </li>
+  <li><a href="#command_line_terminal">Command Line Terminal</a>
+    <ul>
+      <li><a href="#membuat_session_baru_dari_terminal">Membuat session baru dari Terminal</a></li>
+      <li><a href="#membuat_session_baru_dengan_working_directory_dari_terminal">Membuat session baru dengan working directory dari Terminal</a></li>
+      <li><a href="#attachmemasang_kembali_session_yang_sudah_di_detach_dari_terminal">Attach/Memasang kembali session yang sudah di-detach dari Terminal</a></li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Banyak sekali hal-hal terkait Tmux yang terlupakan karena tidak pernah saya catat. Saat diperlukan, saya harus Googling dan mencari kembali. Sangat membuang-buang waktu development.</p>
+</div>
+<div class="paragraph">
+<p>Karena alasan tersebut, saya putuskan untuk mencatat beberapa hal terkait Tmux. Mungkin, teman-teman juga dapat memanfaatkannya.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="morfologi">Morfologi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ibarat sebuah pohon, <strong>session</strong> adalah pokok batangnya, kemudian cabangnya adalah <strong>window</strong> (tab) yang memiliki daun berupa <strong>pane</strong>.</p>
+</div>
+<div class="sect2">
+<h3 id="sessions">Sessions</h3>
+<div class="listingblock">
+<div class="content">
+<pre>- BLOG: 2 windows (attached)
+├─&gt;   0: CANVAS* (1 panes)
+└─&gt; + 1: SERVER- (2 panes)
+- DOJO: 2 windows
+├─&gt;   0: CANVAS* (1 panes)
+└─&gt; + 1: RUN-    (2 panes)
+- PROJEKT: 2 windows
+├─&gt;   0: CANVAS* (1 panes)
+└─&gt; + 1: SERVER- (2 panes)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dapat terlihat, kalau saya memiliki 3 buah session.</p>
+</div>
+<div class="paragraph">
+<p><strong>- BLOG:</strong>, adalah nama dari session.<br>
+Yang memiliki <strong>(attached)</strong> artinya sedang aktif terbuka.</p>
+</div>
+<div class="paragraph">
+<p><strong>0: CANVAS</strong>, adalah nama dari window (bisa juga kita anggap sebagai tab).<br>
+Window tersebut dapat pula kita berikan nama. (1 panes) artinya dalam tab tersebut sedang terbuka 1 buah pane.&lt;br&gt;<br>
+Tanda <strong>*</strong> adalah indikator window yang sedang aktif terbuka (<strong>selected window</strong>).</p>
+</div>
+<div class="paragraph">
+<p><strong>(1 panes)</strong>, adalah jumlah dari pane.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="windows_tabs">Windows (Tabs)</h3>
+<div class="listingblock">
+<div class="content">
+<pre>+-------------------+    +-------------------+    +-------------------+
+|$                  |    |$                  |    |$                  |
+|                   |    |                   |    |                   |
+|                   |    |                   |    |                   |
+|                   |    |                   |    |                   |
+|                   |    |                   |    |                   |
+|-------------------|    |-------------------|    |-------------------|
+|0 0:AA*            |    |0 0:AA 1:BB*       |    |0 0:AA 1:BB 3:CC*  |
++-------------------+    +-------------------+    +-------------------+
+       1 window                2 windows                3 windows</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="panes">Panes</h3>
+<div class="listingblock">
+<div class="content">
+<pre>+-------------------+    +-------------------+    +-------------------+
+|$                  |    |$        |$        |    |$        |$        |
+|                   |    |         |         |    |         |         |
+|                   |    |         |         |    |         |---------|
+|                   |    |         |         |    |         |$        |
+|                   |    |         |         |    |         |         |
+|-------------------|    |-------------------|    |-------------------|
+|0 0:AA*            |    |0 0:AA* 1:BB       |    |0 0:AA* 1:BB 3:CC  |
++-------------------+    +-------------------+    +-------------------+
+       1 pane                   2 panes                  3 panes</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jadi secara garis besar dapat diurutkan seperti ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>server &gt; sessions &gt; windows &gt; panes</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>server</strong> adalah bagian paling luar dari session, tempat dimana session berada.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="mappings_keyboard_shortcut">Mappings (Keyboard Shortcut)</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="tmux_prefix">Tmux prefix</h3>
+<div class="paragraph">
+<p>Default dari Tmux prefix adalah,</p>
+</div>
+<div class="paragraph">
+<p><kbd>Ctrl</kbd> - <kbd>b</kbd></p>
+</div>
+<div class="paragraph">
+<p>Pada catatan ini, apabila di awali dengan kombinasi keyboard tersebut, artinya adalah <strong>Prefix</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="melihat_daftar_keybindings">Melihat daftar keybindings</h3>
+<div class="paragraph">
+<p>Tmux memmiliki banyak sekali keybindings, untuk melihat daftar tersebut,</p>
+</div>
+<div class="paragraph">
+<p><kbd>Ctrl</kbd> - <kbd>b</kbd> <kbd>?</kbd></p>
+</div>
+<div class="paragraph">
+<p>Untuk keluar dari list keybindings,</p>
+</div>
+<div class="paragraph">
+<p><kbd>q</kbd></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="masuk_ke_command_mode">Masuk ke command mode</h3>
+<div class="paragraph">
+<p>Untuk masuk ke Tmux command mode,</p>
+</div>
+<div class="paragraph">
+<p><kbd>Ctrl</kbd> - <kbd>b</kbd> <kbd>:</kbd></p>
+</div>
+<div class="paragraph">
+<p>Kalau berhasil, Tmux akan menampilkan command mode pada Tmux statusbar seperti ini,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">:_</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tinggal kita masukkan command yang ingin di-input-kan.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="keluarclosedetach_dari_session_yang_sedang_aktif">Keluar/Close/Detach dari session yang sedang aktif</h3>
+<div class="paragraph">
+<p>Untuk keluar/detach (melepaskan) session Tmux yang sedang aktif,</p>
+</div>
+<div class="paragraph">
+<p><kbd>Ctrl</kbd> - <kbd>b</kbd> <kbd>d</kbd></p>
+</div>
+<div class="paragraph">
+<p>Tmux akan langsung keluar dan kembali ke prompt Terminal.</p>
+</div>
+<div class="paragraph">
+<p>Tmux session tersebut tidak akan hilang, tapi masih berjalan di background process.</p>
+</div>
+<div class="paragraph">
+<p>Untuk mengakses Tmux session yang kita detach tersebut, gunakan <a href="#attachmemasang-kembali-session-yang-sudah-di-detach-dari-terminal" target="_blank" rel="noopener"><strong>cara ini</strong></a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="memberikanmengganti_nama_session">Memberikan/Mengganti nama session</h3>
+<div class="paragraph">
+<p>Secara default, nama session akan otomatis digenerate secara incremental dalam bentuk integer mulai dari 0.</p>
+</div>
+<div class="paragraph">
+<p>Kita, dapat mengganti nama session dengan cara,</p>
+</div>
+<div class="paragraph">
+<p><kbd>Ctrl</kbd> - <kbd>b</kbd> <kbd>$</kbd></p>
+</div>
+<div class="paragraph">
+<p>Pada command mode, akan tertulis seperti ini,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">(rename-session) 0     <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Ganti <strong>0</strong> dengan nama yang kalian inginkan.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="membuat_window_tab_baru">Membuat window (tab) baru</h3>
+<div class="paragraph">
+<p>Secara default, saat session baru dibuat, hanya akan ada 1 window (tab) yang biasanya bernama <strong>0:zsh</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Kita dapat membuat/manambah window baru dengan cara,</p>
+</div>
+<div class="paragraph">
+<p><kbd>Ctrl</kbd> - <kbd>b</kbd> <kbd>c</kbd></p>
+</div>
+<div class="paragraph">
+<p>Window (tab) baru akan secara otomatis ditambahkan ke bagian akhir dari windows stack.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="memberikanmengganti_nama_window_tab">Memberikan/Mengganti nama window (tab)</h3>
+<div class="paragraph">
+<p>Secara default, nama window akan otomatis diambil dari nama shell yang digunakan.</p>
+</div>
+<div class="paragraph">
+<p>Kita, dapat mengganti nama window dengan cara,</p>
+</div>
+<div class="paragraph">
+<p><kbd>Ctrl</kbd> - <kbd>b</kbd> <kbd>,</kbd></p>
+</div>
+<div class="paragraph">
+<p>Pada command mode, akan tertulis seperti ini,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">(rename-window) zsh     <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Ganti <strong>zsh</strong> dengan nama yang kalian inginkan.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="command_mode">Command Mode</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="membuat_session_baru_dari_dalam_tmux">Membuat session baru dari dalam Tmux</h3>
+<div class="paragraph">
+<p>Untuk membuat session baru dari dalam Tmux,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">:new-session -s &lt;nama_session&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="membuat_session_baru_dengan_working_directory_dari_dalam_tmux">Membuat session baru dengan working directory dari dalam Tmux</h3>
+<div class="paragraph">
+<p>Kalau kita sudah berada di dalam Tmux, namun ingin membuat session lain (session baru yang lain) sambil mendefinisikan WD-nya,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">:new-session -s &lt;nama_session&gt; -c /lokasi/working/directory/baru</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mengganti_working_directory_pada_session_yang_sudah_ada_dari_dalam_tmux">Mengganti working directory pada session yang sudah ada dari dalam Tmux</h3>
+<div class="paragraph">
+<p>Kalau kita sudah terlanjur membuat session baru, namun ingin menganti <em>working directory</em>-nya,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">:attach-session -t &lt;nama_session&gt; -c /lokasi/working/directory/baru</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>-t</strong> adalah <strong>specify target session</strong>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="command_line_terminal">Command Line Terminal</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="membuat_session_baru_dari_terminal">Membuat session baru dari Terminal</h3>
+<div class="paragraph">
+<p>Untuk membuat session baru dari Terminal,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ tmux new-session -s &lt;nama_session&gt;</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>-s</strong> adalah flag option untuk <strong>name the session</strong>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="membuat_session_baru_dengan_working_directory_dari_terminal">Membuat session baru dengan working directory dari Terminal</h3>
+<div class="paragraph">
+<p>Tmux session yang baru dibuat, akan dimulai dari WD (<strong>Working Directory</strong>) dimana session tersebut dibuat.</p>
+</div>
+<div class="paragraph">
+<p>Jadi, kalau kita buat Tmux session pada direktori <strong>~/Desktop</strong>, maka setiap WD dari Tmux window pane yang ada di dalam Tmux session tersebut akan dimulai dari sana.</p>
+</div>
+<div class="paragraph">
+<p>Namun, kita dapat membuat session baru, sambil mendefinisikan lokasi dari WD yang akan digunakan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ tmux new-session -s &lt;nama_session&gt; -c /lokasi/working/directory/baru</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>-c</strong> adalah <strong>specify working directory for the session</strong>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="attachmemasang_kembali_session_yang_sudah_di_detach_dari_terminal">Attach/Memasang kembali session yang sudah di-detach dari Terminal</h3>
+<div class="paragraph">
+<p>Apabila kita memiliki session yang masih aktif di background karena kita melakukan proses <a href="#keluarclosedetach-dari-session-yang-sedang-aktif"><strong>detach</strong></a>.</p>
+</div>
+<div class="paragraph">
+<p>Kita dapat masuk kembali, ke dalam session tersebut dengan cara,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ tmux attach-session -t &lt;nama_session&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kita perlu mengetahui <strong>nama_session</strong> dari session yang akan kita attach.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/note/2021-03-31-catatan-terkait-tmux.adoc"> Edit this note</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Notes</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/note/welcome-to-test">Welcome to Test</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation">Catatan Post Installation Fedora Workstation</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-daftar-terminal-tools">Catatan Daftar Terminal Tools</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-git">Catatan Terkait Git</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-vboxmanage">Catatan Terkait VBoxManage</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/note/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi NUR</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#tmux</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-03-31</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#morfologi">Morfologi</a>
+    <ul>
+      <li><a href="#sessions">Sessions</a></li>
+      <li><a href="#windows_tabs">Windows (Tabs)</a></li>
+      <li><a href="#panes">Panes</a></li>
+    </ul>
+  </li>
+  <li><a href="#mappings_keyboard_shortcut">Mappings (Keyboard Shortcut)</a>
+    <ul>
+      <li><a href="#tmux_prefix">Tmux prefix</a></li>
+      <li><a href="#melihat_daftar_keybindings">Melihat daftar keybindings</a></li>
+      <li><a href="#masuk_ke_command_mode">Masuk ke command mode</a></li>
+      <li><a href="#keluarclosedetach_dari_session_yang_sedang_aktif">Keluar/Close/Detach dari session yang sedang aktif</a></li>
+      <li><a href="#memberikanmengganti_nama_session">Memberikan/Mengganti nama session</a></li>
+      <li><a href="#membuat_window_tab_baru">Membuat window (tab) baru</a></li>
+      <li><a href="#memberikanmengganti_nama_window_tab">Memberikan/Mengganti nama window (tab)</a></li>
+    </ul>
+  </li>
+  <li><a href="#command_mode">Command Mode</a>
+    <ul>
+      <li><a href="#membuat_session_baru_dari_dalam_tmux">Membuat session baru dari dalam Tmux</a></li>
+      <li><a href="#membuat_session_baru_dengan_working_directory_dari_dalam_tmux">Membuat session baru dengan working directory dari dalam Tmux</a></li>
+      <li><a href="#mengganti_working_directory_pada_session_yang_sudah_ada_dari_dalam_tmux">Mengganti working directory pada session yang sudah ada dari dalam Tmux</a></li>
+    </ul>
+  </li>
+  <li><a href="#command_line_terminal">Command Line Terminal</a>
+    <ul>
+      <li><a href="#membuat_session_baru_dari_terminal">Membuat session baru dari Terminal</a></li>
+      <li><a href="#membuat_session_baru_dengan_working_directory_dari_terminal">Membuat session baru dengan working directory dari Terminal</a></li>
+      <li><a href="#attachmemasang_kembali_session_yang_sudah_di_detach_dari_terminal">Attach/Memasang kembali session yang sudah di-detach dari Terminal</a></li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

@@ -1,0 +1,1596 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Migrasi Arch Linux ke Artix Linux (OpenRC) | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Migrasi Arch Linux ke Artix Linux (OpenRC)" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Kamu pengguna Artix Linux dan ingin mencoba Artix Linux dengan init OpenRC? Mudah! Tinggal migrasikan saja. Tidak perlu install ulang." />
+<meta property="og:description" content="Kamu pengguna Artix Linux dan ingin mencoba Artix Linux dengan init OpenRC? Mudah! Tinggal migrasikan saja. Tidak perlu install ulang." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/memigrasikan-arch-ke-artix-openrc" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/memigrasikan-arch-ke-artix-openrc" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-02T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Migrasi Arch Linux ke Artix Linux (OpenRC)","dateModified":"2021-01-02T00:00:00+00:00","datePublished":"2021-01-02T00:00:00+00:00","description":"Kamu pengguna Artix Linux dan ingin mencoba Artix Linux dengan init OpenRC? Mudah! Tinggal migrasikan saja. Tidak perlu install ulang.","url":"https://bandithijo.dev/v2/blog/memigrasikan-arch-ke-artix-openrc","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/memigrasikan-arch-ke-artix-openrc"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Migrasi Arch Linux ke Artix Linux (OpenRC)"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/memigrasikan-arch-ke-artix-openrc">Migrasi Arch Linux ke Artix Linux (OpenRC)</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / memigrasikan arch ke artix openrc
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#artixlinux</a>
+      
+        
+        <a href="#">#archlinux</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-01-02</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#tahapan_migrasi">Tahapan Migrasi</a>
+    <ul>
+      <li><a href="#1_mempersiapkan_pacman_conf_repositori_dan_mirrorlist">(1) Mempersiapkan pacman.conf, repositori dan mirrorlist</a></li>
+      <li><a href="#2_bersihkan_package_cache">(2) Bersihkan Package Cache</a></li>
+      <li><a href="#3_lemahkan_tingkat_keamanan_dari_pacman_sementara">(3) Lemahkan Tingkat Keamanan dari Pacman (Sementara)</a></li>
+      <li><a href="#4_install_artix_pgp_keyring">(4) Install Artix PGP Keyring</a></li>
+      <li><a href="#5_pulihkan_kembali_tingkat_keamanan_dari_pacman">(5) Pulihkan Kembali Tingkat Keamanan dari Pacman</a></li>
+      <li><a href="#6_backup_daftar_daemon_yang_sedang_aktif">(6) Backup Daftar Daemon yang sedang Aktif</a></li>
+      <li><a href="#7_download_artix_packages">(7) Download Artix Packages</a></li>
+      <li><a href="#8_hapus_systemd">(8) Hapus systemd</a></li>
+      <li><a href="#9_install_openrc_init_system">(9) Install OpenRC Init System</a></li>
+      <li><a href="#10_reinstall_paket_paket_dari_arch_repositori">(10) Reinstall Paket-paket dari Arch Repositori</a></li>
+      <li><a href="#11_pasang_init_scripts">(11) Pasang init Scripts</a></li>
+      <li><a href="#12_enable_services">(12) Enable Services</a></li>
+      <li><a href="#13_konfigurasi_networking">(13) Konfigurasi Networking</a>
+        <ul>
+          <li><a href="#traditional_network_interface_namespace">Traditional Network Interface Namespace</a></li>
+          <li><a href="#enable_eth0_interface_on_boot">Enable eth0 Interface on Boot</a></li>
+        </ul>
+      </li>
+      <li><a href="#14_lvm_setup">(14) LVM Setup</a></li>
+      <li><a href="#15_remove_more_systemd_cruft">(15) Remove More systemd Cruft</a></li>
+      <li><a href="#16_update_bootloader_dan_kernel_initramfs">(16) Update Bootloader dan Kernel initramfs</a>
+        <ul>
+          <li><a href="#kernel_initramfs">Kernel initramfs</a></li>
+          <li><a href="#grub">GRUB</a></li>
+        </ul>
+      </li>
+      <li><a href="#17_reinstall_grub">(17) Reinstall GRUB</a>
+        <ul>
+          <li><a href="#default_for_most_setups">Default for most setups</a></li>
+          <li><a href="#legacy_bios">Legacy BIOS</a></li>
+        </ul>
+      </li>
+      <li><a href="#18_reboot">(18) Reboot</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang">Latar Belakang</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Saat saya pertama kali bermigrasi dari macOS dan memutuskan untuk menggunakan GNU/Linux saya pikir tidak ada kontroversi yang terjadi beberapa tahun terakhir. Karena, sejak 2010 saya tidak lagi mengikuti perkembangan dunia GNU/Linux.</p>
+</div>
+<div class="paragraph">
+<p>Ternyata pada tahun 2010, init system yang bernama <strong>systemd</strong> mulai diinisialisasikan.</p>
+</div>
+<div class="paragraph">
+<p>Pada tahun 2011, Fedora yang menjadi distro pertama yang menggunakan systemd secara default.</p>
+</div>
+<div class="paragraph">
+<p>Sepanjang Oktober 2013 - Februari 2014, terjadi perdebatan yang cukup panjang diantara Debian Technical Commitee, untuk memutuskan default init yang akan digunakan pada Debian 8 dengan codename "jessie".</p>
+</div>
+<div class="paragraph">
+<p>Arch Linux sendiri mulai mengadopsi systemd pada Januari 2012. Teman-teman dapat melihat commitnya di sini, <a href="https://git.archlinux.org/svntogit/packages.git/commit/trunk/PKGBUILD?h=packages/systemd&amp;id=982ee75b9cda95d9357e9b80a931f7b52638c42b" target="_blank" rel="noopener">upstream release v38: initial move of systemd into extra</a>. Dan mulai digunakan sebagai default init system pada Oktober 2012.</p>
+</div>
+<div class="paragraph">
+<p>Saya bermigrasi ke GNU/Linux pada Desember 2014. Saat itu belum ngerti dan tahu polemik yang terjadi di komunitas tentang init system ini. Saya masih senang bermain-main karena akhirnya dapat secara serius menggunakan GNU/Linux lagi.</p>
+</div>
+<div class="paragraph">
+<p>Tahun 2020 ini, sudah mulai banyak distribusi sistem operasi yang membundle init system selain systemd secara default, seperti OpenRC, Runit, dan s6.</p>
+</div>
+<div class="paragraph">
+<p>Lantas saya pun juga mulai gatal untuk tidak ikut mencicipi init system tersebut.</p>
+</div>
+<div class="paragraph">
+<p>Maka, Desember 2020 ini saya mulai dengan bermigrasi ke Artix OpenRC langsung dari Arch Linux tanpa perlu install ulang.</p>
+</div>
+<div class="paragraph">
+<p>Berikut ini adalah catatan yang saya simpulkan dari <a href="https://wiki.artixlinux.org/Main/Migration" target="_blank" rel="noopener">Artix Wiki: Migration</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tahapan_migrasi">Tahapan Migrasi</h2>
+<div class="sectionbody">
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Migrasi dari Arch Linux ke Artix Linux <strong>hanya dilakukan oleh advanced users</strong> yang benar-benar mengetahui apa yang mereka lakukan.<br>
+Saya, sebagai penulis, <strong>tidak bertanggung jawab</strong> atas segala bentuk kejadian buruk yang menimpa sistem kalian.<br>
+Apabila kalian mengikuti catatan ini, berarti kalian <strong>telah menyetujui</strong> bahwa <strong>segala bentuk risiko atas masalah</strong> yang terjadi karena mengikuti catatan ini, adalah <strong>tanggung jawab kalian sepenuhnya</strong>.<br>
+<em>Happy Hacking!</em></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Semua perintah di bawah, harus dijalankan sebagai root</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo su</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># _</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="1_mempersiapkan_pacman_conf_repositori_dan_mirrorlist">(1) Mempersiapkan pacman.conf, repositori dan mirrorlist</h3>
+<div class="paragraph">
+<p>Kita akan memodifikasi file <strong>pacman.conf</strong> dan juga <strong>mirrorlist</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Kita akan mendefinisikan mirror di dalam file <strong>pacman.conf</strong> agar menggunakan dua file <strong>mirrorlist</strong>.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>mirrorlist</strong>, yang akan berisi daftar mirror server dari Artix Linux.</p>
+</li>
+<li>
+<p><strong>mirrorlist-arch</strong>, yang akan berisi daftar mirror server dari Arch Linux.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Bang, kok pakai mirrorlist-arch juga?</strong></p>
+</div>
+<div class="paragraph">
+<p>Untuk repo <strong>community</strong> dan <strong>extra</strong>, Artix menggunakan mirror milik Arch.</p>
+</div>
+<div class="paragraph">
+<p>Kira-kira seperti ini kalau saya gambarkan dalam bentuk tabel.</p>
+</div>
+<div class="openblock overflow-x">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Nama Repo</th>
+<th class="tableblock halign-left valign-top">mirrorlist file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">system</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/etc/pacman.d/mirrorlist</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">world</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/etc/pacman.d/mirrorlist</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">galaxy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/etc/pacman.d/mirrorlist</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">extra</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/etc/pacman.d/mirrorlist-arch</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">community</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">/etc/pacman.d/mirrorlist-arch</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="paragraph">
+<p>Rename <strong>pacman.conf</strong> yang lama dengan nama <strong>pacman.confg.arch</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># mv -vf /etc/pacman.conf /etc/pacman.conf.arch</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Download file <strong>pacman.conf</strong> versi Artix Linux dari gittea.artixlinux.org.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># curl https://gitea.artixlinux.org/packagesP/pacman/raw/branch/master/trunk/pacman.conf -o /etc/pacman.conf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Setelah selesai, kita sudah memiliki file <strong>/etc/pacman.conf</strong> versi Artix Linux.</p>
+</div>
+<div class="paragraph">
+<p>Rename <strong>mirrorlist</strong> yang lama dengan nama <strong>mirrorlist-arch</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># mv -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist-arch</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Download file <strong>mirrorlist</strong> yang berisi mirror server dari gittea.artixlinux.org.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># curl https://gitea.artixlinux.org/packagesA/artix-mirrorlist/raw/branch/master/trunk/mirrorlist -o /etc/pacman.d/mirrorlist</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Setelah selesai, kita sudah memiliki file <strong>/etc/pacman.d/mirrorlist</strong> yang berisi daftar mirror server dari Artix Linux.</p>
+</div>
+<div class="paragraph">
+<p>Copy <strong>mirrorlist</strong> yang telah berisi mirror server Artix menjadi <strong>mirrorlist.artix</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># cp -vf /etc/pacman.d/mirrorlist /etc/pacman.d/mirrorlist.artix</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tujuannya sebagai bakcup, apabila ditengah-tengah proses akan ada command yang menghapus mirrorlist. Kita dapat melakukan restorasi dengan cepat tanpa perlu mengunduh kembali.</p>
+</div>
+<div class="paragraph">
+<p>Oke, tahapan persiapan file pacman.conf dan mirrorlist dari Artix Linux telah selesai.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="2_bersihkan_package_cache">(2) Bersihkan Package Cache</h3>
+<div class="paragraph">
+<p>Kita perlu membersihkan semua cache, karena beberapa package yang dimiliki oleh Artix Linux memiliki signature yang berbeda, kondisi ini tentu saja akan menyebabkan pacman memberikan pesan error atau warning.</p>
+</div>
+<div class="paragraph">
+<p>Saya tidak berkeberatan menghapus package cache dan mengunduh ulang package-package tersebut.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -Scc &amp;&amp; pacman -Syy</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3_lemahkan_tingkat_keamanan_dari_pacman_sementara">(3) Lemahkan Tingkat Keamanan dari Pacman (Sementara)</h3>
+<div class="paragraph">
+<p>Untuk menginstall package <code>artix-keyring</code>, kita perlu untuk melemahkan tingkat keamanan yang dimiliki oleh Pacman untuk sementara, hanya selama proses mendaftarkan <strong>master key</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/pacman.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td>
+  <td class="code"><pre>#
+# /etc/pacman.conf
+#
+# See the pacman.conf(5) manpage for option and repository directives
+
+# ...
+# ...
+
+# By default, pacman accepts packages signed by keys that its local keyring
+# trusts (see pacman-key and its man page), as well as unsigned packages.
+#SigLevel    = Required DatabaseOptional
+SigLevel    = Never  <i class="conum" data-value="1"></i><b>(1)</b>
+</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="4_install_artix_pgp_keyring">(4) Install Artix PGP Keyring</h3>
+<div class="paragraph">
+<p>Untuk menginstall <code>artix-keyring</code>, kita harus mendaftarkan <strong>master key</strong> nya secara manual.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -S artix-keyring</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman-key --populate artix</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman-key --lsign-key 95AEC5D0C1E294FC9F82B253573A673A53C01BC2</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="5_pulihkan_kembali_tingkat_keamanan_dari_pacman">(5) Pulihkan Kembali Tingkat Keamanan dari Pacman</h3>
+<div class="paragraph">
+<p>Pulihkan kembali tingkat keamanan dari Pacman sekarang juga, atau kita akan benar-benar lupa bila menundanya nanti.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/pacman.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td>
+  <td class="code"><pre>#
+# /etc/pacman.conf
+#
+# See the pacman.conf(5) manpage for option and repository directives
+
+# ...
+# ...
+
+# By default, pacman accepts packages signed by keys that its local keyring
+# trusts (see pacman-key and its man page), as well as unsigned packages.
+SigLevel    = Required DatabaseOptional  <i class="conum" data-value="1"></i><b>(1)</b>
+</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="6_backup_daftar_daemon_yang_sedang_aktif">(6) Backup Daftar Daemon yang sedang Aktif</h3>
+<div class="paragraph">
+<p>Mungkin teman-teman perlu untuk menyimpan daftar-daftar service daemon yang sedang aktif, agar setelah proses instalasi selesai, kita dapat memasangnya kembali satu-persatu.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># systemctl list-units --state=running | grep -v systemd | awk '{print $1}' | grep service &gt; /root/daemon.list</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Saya memilih menyimpannya di <code>/root/daemon.list</code>.</p>
+</div>
+<div class="paragraph">
+<p>Oke, sekarang kita telah siap untuk melakukan instalasi dari komponen-komponen Artix Linux, serta init script pengganti systemd.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="7_download_artix_packages">(7) Download Artix Packages</h3>
+<div class="paragraph">
+<p>Kita akan mengunduh package <code>base</code> dan <code>base-devel</code> termasuk paket-paket pendukung untuk init yang baru.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -Sw base base-devel openrc-system grub linux linux-headers openrc elogind-openrc netifrc grub mkinitcpio archlinux-mirrorlist net-tools rsync vi lsb-release esysusers etmpfiles</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Perhatikan paket-paket yang dipasang di atas.<br>
+Apakah telah sesuai dengan paket yang teman-teman akan pergunakan?</p>
+</div>
+<div class="paragraph">
+<p>Seperti:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Kernel: <code>linux</code>, <code>linux-headers</code>, karena saya memang menggunakan vanilla kernel</p>
+</li>
+<li>
+<p>Text editor: <code>vi</code>, karena saya tidak menggunakan nano</p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><code>-w</code>, adalah option yang berarti <strong>Download packages only</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Saat tulisan ini dibuat, total package yang saya download sebesar,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Total Download Size:  165.86 MiB</pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Pastikan dalam proses unduh ini, paket-paket tersebut benar-benar telah selesai.<br>
+Kalau ditengah proses tiba-tiba internet kita mati, maka ulangi dengan menjalankan kembali command di atas.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="8_hapus_systemd">(8) Hapus systemd</h3>
+<div class="paragraph">
+<p>Setelah kita selesai mengunduh dan mempersiapkan init pengganti, dalam hal ini adalah OpenRC, kita siap untuk mengirim systemd dan keluarganya untuk dilupakan.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Jawab "yes" untuk semua pertanyaan yang diajukan di bawah.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -Rdd --noconfirm systemd systemd-libs systemd-sysvcompat pacman-mirrorlist dbus</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Proses di atas, akan ikut menghapus file <strong>/etc/pacman.d/mirrorlist</strong>, karena kita perlu menghapus package <strong>pacman-mirrorlist</strong>.<br>
+Tapi jangan khawatir, karena kita telah memiliki backup dari file <strong>mirrorlist</strong> yaitu <strong>mirrorlist.artix</strong>.<br>
+Akan kita kembalikan pada tahap selanjutnya.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># rm -fv /etc/resolv.conf</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Perintah untuk menghapus file <strong>/etc/resolv.conf</strong> di atas, tidak saya jalankan.<br>
+Karena saya mendapatkan DNS secara otomatis dari ISP, apabila saya jalankan perintah untuk menghapus file <strong>/etc/resolv.conf</strong> di atas, maka akan mematikan akses internet saya.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Kembalikan kembali file <strong>mirrorlist</strong> yang terhapus diakibatkan oleh proses di atas (mengapus <code>pacman-mirrorlist</code> package).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># cp -vf /etc/pacman.d/mirrorlist.artix /etc/pacman.d/mirrorlist</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="9_install_openrc_init_system">(9) Install OpenRC Init System</h3>
+<div class="paragraph">
+<p>Sekarang saatnya memasang paket <code>base</code>, <code>base-devel</code>, dan paket-paket OpenRC init yang sebelumnya kita telah download dengan option <code>pacman -Sw</code> di atas.</p>
+</div>
+<div class="paragraph">
+<p>Tapi sebelum itu, karea proses sebelumnya kita telah menghapus paket <strong>pacman-mirrorlist</strong>, kita akan mengembalikan file <strong>mirrorlist</strong> dari file backup yang telah kita buat pada tahap 1.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># cp /etc/pacman.d/mirrorlist.artix /etc/pacman.d/mirrorlist</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, mirrorlist telah pulih, selanjutnya jalankan perintah di bawah untuk memasang paket-paket dasar yang dperlukan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -S base base-devel openrc-system grub linux linux-headers openrc elogind-openrc netifrc grub mkinitcpio archlinux-mirrorlist net-tools rsync vi lsb-release esysusers etmpfiles networkmanager-openrc artix-branding-base</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Perhatikan kembali paket-paket yang dipasang di atas.<br>
+Apakah telah sesuai dengan paket yang teman-teman akan pergunakan?<br>
+Seperti:<br>
+. Kernel: <code>linux</code>, <code>linux-headers</code>, karena saya memang menggunakan vanilla kernel<br>
+. Text editor: <code>vi</code>, karena saya tidak menggunakan nano<br>
+Terdapat paket untuk comprehensive network manager, seperti <code>networkmanager-openrc</code>, saya memilihkan paket ini karena sebagian teman-teman biasanya menggunakan NetworkManager. Meskipun pada panduan Artix Wiki: Migration menggunakan <code>connman</code>.<br>
+Intinya, pasang sesuai yang teman-teman perlukan.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Terdapat paket <code>artix-branding-base</code>, paket ini bertujuan untuk "Base branding for Artix ISOs".<br>
+Intinya, paket ini adalah sebuah script yang mengotomatisasi rebranding segala hal tentang Arch menjadi Artix.<br>
+Contohnya seperti hasil output dari Neofetch yang tidak lagi Arch Linux, melainkan Artix Linux.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Kalau diperhatikan, terdapat paket-paket dengan suffix <code>-openrc</code>.<br>
+Paket-paket tersebut adalah paket yang telah dilakukan modifikasi agar sesuai dengan OpenRC init.<br>
+Selain untuk OpenRC, tersedia juga untuk init lainnya dengan suffix <code>-runit</code> dan <code>-s6</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Kalau ada paket-paket yang belum sempat kita pasang versi <code>-openrc</code> nya, kita bisa pasang nanti setelah proses migrasi selesai.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Tunggu prosesnya hingga selesai.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="10_reinstall_paket_paket_dari_arch_repositori">(10) Reinstall Paket-paket dari Arch Repositori</h3>
+<div class="paragraph">
+<p>Pertama-tama, pastikan locale yang kita gunakan adalah <strong>C</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># export LC_ALL=C</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Saatnya mengganti semua paket-paket Arch dengan paket-paket Artix.</p>
+</div>
+<div class="paragraph">
+<p>Kita akan jalankan masing-masing per level repositori (<code>system</code>, <code>world</code>, <code>galaxy</code>).</p>
+</div>
+<div class="paragraph">
+<p>Satu persatu secara urut.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -Sl system | grep installed | cut -d&quot; &quot; -f2 | pacman -S -</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -Sl world  | grep installed | cut -d&quot; &quot; -f2 | pacman -S -</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -Sl galaxy | grep installed | cut -d&quot; &quot; -f2 | pacman -S -</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tunggu prosesnya hingga selesai.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="11_pasang_init_scripts">(11) Pasang init Scripts</h3>
+<div class="paragraph">
+<p>Kita akan memasang init scripts untuk menggantikan systemd init script.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -S --needed acpid-openrc alsa-utils-openrc autofs-openrc cronie-openrc cups-openrc fuse-openrc haveged-openrc hdparm-openrc openssh-openrc samba-openrc syslog-ng-openrc</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Sesuaikan dengan init service script yang teman-teman gunakan.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Kalau masih ada yang terlewatkan dan belum ingat, kira-kira init apa saja yang kita perlukan, kita dapat memasangnya nanti seiring kita gunakan.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="12_enable_services">(12) Enable Services</h3>
+<div class="paragraph">
+<p>Berdasarkan init scripts yang telah kita install pada langkah 11, kita akan mengenablekannya, agar dijalankan saat sistem startup.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># for daemon in acpid alsasound autofs cronie cupsd fuse haveged hdparm smb sshd syslog-ng; do rc-update add $daemon default; done</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Sesuaikan dengan init script yang teman-teman gunakan.</p>
+</div>
+<div class="paragraph">
+<p>Misal:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Service untuk networking menggunakan <code>NetworkManager</code> atau <code>connman</code>.</p>
+</li>
+<li>
+<p>Apakah menggunakan service <code>dhcpcd</code></p>
+</li>
+<li>
+<p>Dan lain sebagainya</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Saya tidak mengaktifkan service <em>comprehensive network manager</em> seperti <strong>NetworkManager</strong> maupun <strong>connmand</strong>. Melainkan hanya menggunakan <strong>wpa_supplicant</strong> maupun <strong>iwd</strong> dengan <strong>dhcpcd</strong></p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Oh yaa, khusus untuk OpenRC init, kita perlu mengaktifkan <strong>udev</strong> dan <strong>sysinit</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># rc-update add udev sysinit</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="13_konfigurasi_networking">(13) Konfigurasi Networking</h3>
+<div class="sect3">
+<h4 id="traditional_network_interface_namespace">Traditional Network Interface Namespace</h4>
+<div class="paragraph">
+<p>Saya rasa, kita perlu untuk mengembalikan network interface namespace menjadi bentuk <em>traditional network interface namespace</em>.</p>
+</div>
+<div class="paragraph">
+<p>Saya tidak paham apakah langkah ini harus dilakukan, tapi kalau saya pribadi, saya memang sejak awal menggunakan <em>traditional network interface namespace</em>, jadi saya tidak ada masalah dengan langkah ini.</p>
+</div>
+<div class="paragraph">
+<p>Tambahkan <code>net.ifnames=0</code> ke dalam kernel parameter.</p>
+</div>
+<div class="paragraph">
+<p>Karena saya menggunakan GRUB, saya cukup menambahkan pada GRUB config saja.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/default/grub</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+  <td class="code"><pre># GRUB boot loader configuration
+
+GRUB_FORCE_HIDDEN_MENU=&quot;true&quot;
+GRUB_DISABLE_SUBMENU=y
+GRUB_TIMEOUT=5
+GRUB_DEFAULT=saved
+GRUB_SAVEDEFAULT=&quot;true&quot;
+GRUB_DISTRIBUTOR=&quot;Artix&quot;
+GRUB_CMDLINE_LINUX_DEFAULT=&quot;loglevel=3 ... ... ...&quot;
+GRUB_CMDLINE_LINUX=&quot;net.ifnames=0&quot;</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="enable_eth0_interface_on_boot">Enable eth0 Interface on Boot</h4>
+<div class="paragraph">
+<p>Untuk yang menggunakan ehternet, saya pikir perlu untuk mengjalankan langkah ini.</p>
+</div>
+<div class="paragraph">
+<p>Karena saya tidak menggunakan ethernet, dan hanya menggunakan wireless, saya tidak menjalankan langkah ini.</p>
+</div>
+<div class="paragraph">
+<p>OpenRC sendiri memiliki network manager sendiri, bernama <strong>netifrc</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Konfigurasinya ada di,</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/config.d/net</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td>
+  <td class="code"><pre>#...
+#...
+
+##############################################################################
+# INTERFACE HANDLERS
+#
+# We provide two interface handlers presently: ifconfig and iproute2.
+# You need one of these to do any kind of network configuration.
+# For ifconfig support, emerge sys-apps/net-tools
+# For iproute2 support, emerge sys-apps/iproute2
+
+# If you don't specify an interface then we prefer iproute2 if it's installed
+# To prefer ifconfig over iproute2
+#modules=&quot;!iproute2&quot;
+
+# For a static configuration, use something like this
+# (They all do exactly the same thing btw)
+#config_eth0=&quot;192.168.0.2/24&quot;
+#config_eth0=&quot;192.168.0.2 netmask 255.255.255.0&quot;
+
+#...
+#...</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Secara default, <strong>DHCP</strong> akan digunakan kalau kita tidak mengeset <code>config_eth0=</code>.</p>
+</div>
+<div class="paragraph">
+<p>Jadi, saya biarkan saja tidak mengeset apa-apa. Karena saya ingin menggunakan <strong>DHCP</strong> saja.</p>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, kita buat symlink file init script dengan menyesuaikan ethernet interface name yang kita punya. Punya saya <code>eth0</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># ln -s /etc/init.d/net.lo /etc/init.d/net.eth0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian tambahkan servicenya ke boot, agar dijalankan saat proses booting.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># rc-update add net.eth0 boot</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lalu, pasang paket <strong>netifrc</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -S --needed netifrc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Untuk referensi lebih lanjut, teman-teman bisa juga membaca <a href="https://wiki.gentoo.org/wiki/Netifrc" target="_blank" rel="noopener"><strong>Gnome Wiki: Netifrc</strong></a>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="14_lvm_setup">(14) LVM Setup</h3>
+<div class="paragraph">
+<p>Saya tidak menggunakan LVM, jadi saya tidak menjalankan langkah ini.</p>
+</div>
+<div class="paragraph">
+<p>Jika teman-teman menggunakan LVM (<em>Logical Volume Management</em>), kalian harus banget memasang paket <code>lvm2-openrc</code> dan <code>device-mapper-openrc</code>.</p>
+</div>
+<div class="paragraph">
+<p>Jika tidak, logical volume tidak akan aktif saat proses booting.</p>
+</div>
+<div class="paragraph">
+<p>Kedua paket ini adalah bagian dari group <strong>system</strong> init, jadi kemungkinan kalian mungkin sudah memasangnya.</p>
+</div>
+<div class="paragraph">
+<p>Tinggal kalian enable-kan saja.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># rc-update add lvm boot</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># rc-update add device-mapper boot</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="15_remove_more_systemd_cruft">(15) Remove More systemd Cruft</h3>
+<div class="paragraph">
+<p>Kita juga dapat menghapus beberapa script yang digunakan oleh systemd.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># for user in journal journal-gateway timesync network bus-proxy journal-remote journal-upload resolve coredump; do userdel systemd-$user; done</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># rm -vfr /{etc,var/lib}/systemd</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="16_update_bootloader_dan_kernel_initramfs">(16) Update Bootloader dan Kernel initramfs</h3>
+<div class="paragraph">
+<p>Pada tahapan-tahapan sebelumnya, kita telah menginstall kembali <strong>mkinitcpio</strong> dan <strong>grub</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Maka, sebaiknya kita harus mengkonfigurasi ulang.</p>
+</div>
+<div class="sect3">
+<h4 id="kernel_initramfs">Kernel initramfs</h4>
+<div class="paragraph">
+<p>Backup file <strong>mkinitcpio.conf</strong> yang lama.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># mv -vf /etc/mkinitcpio.conf /etc/mkinitcpio.conf.arch</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Salin file <code>.pacnew</code> yang tersedia.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># cp -vf /etc/mkinitcpio.conf.pacnew /etc/mkinitcpio.conf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau tidak ada <code>.pacnew</code>, bisa ambil dari file backup saja.</p>
+</div>
+<div class="paragraph">
+<p>Kalau teman-teman pernah menambahkan konfigurasi tertentu, bisa di copy ke file yang baru.</p>
+</div>
+<div class="paragraph">
+<p>Misal, seperti yang saya lakukan untuk hibernasi, saya menambahkan <code>resume</code> hook.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/mkinitcpio.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td>
+  <td class="code"><pre>#...
+#...
+
+HOOKS=(base udev resume autodetect modconf block filesystems keyboard fsck)
+
+#...
+#...</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Selanjutnya kita recreate kernel initramfs.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># mkinitcpio -p linux</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>linux</code> adalah kernel yang saya gunakan, sesuaikan dengan kernel yang teman-teman gunakan.</p>
+</div>
+<div class="paragraph">
+<p>Atau, kalau teman-teman memiliki banyak kernel, gunakan option <code>-P</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># mkinitcpio -P</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Agar lebih praktis untuk me-recreate semua kernel initramfs.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="grub">GRUB</h4>
+<div class="paragraph">
+<p>Backup file <strong>/etc/default/grub</strong> yang lama.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># mv -vf /etc/default/grub /etc/default/grub.arch</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Salin file <code>.pacnew</code> yang tersedia.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># cp -vf /etc/default/grub.pacnew /etc/default/grub</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau tidak ada <code>.pacnew</code>, bisa ambil dari file backup saja.</p>
+</div>
+<div class="paragraph">
+<p>Kalau teman-teman pernah menambahkan konfigurasi tertentu, bisa di copy ke file yang baru.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/default/grub</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td>
+  <td class="code"><pre># GRUB boot loader configuration
+
+GRUB_DEFAULT=0
+GRUB_TIMEOUT=5
+GRUB_DISTRIBUTOR=&quot;Artix&quot;
+GRUB_CMDLINE_LINUX_DEFAULT=&quot;loglevel=3&quot;
+GRUB_CMDLINE_LINUX=&quot;net.ifnames=0&quot;  <i class="conum" data-value="1"></i><b>(1)</b>
+</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Pada bagian baris ke-7, <code>GRUB_CMDLINE_LINUX=</code>, saya menambahkan option-option yang saya pindahkan dari konfigurasi GRUB yang lama. Teman-teman bisa melihat dari file <code>/etc/default/grub.arch</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Initinya, tambahkan modifikasi atau kernel parameter yang teman-teman gunakan.</p>
+</div>
+<div class="paragraph">
+<p>Kalau sudah jagan lupa diupdate.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># update-grub</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="17_reinstall_grub">(17) Reinstall GRUB</h3>
+<div class="paragraph">
+<p>Untuk <strong>UEFI</strong>.</p>
+</div>
+<div class="sect3">
+<h4 id="default_for_most_setups">Default for most setups</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id=grub</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If not success, <strong>some users reported success with this one</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># grub-install --target=x86_64-efi --efi-directory=esp_mount --bootloader-id=grub</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="legacy_bios">Legacy BIOS</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># grub-install /dev/sdX  <i class="conum" data-value="1"></i><b>(1)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Ganti <strong>sdX</strong> dengan disk name yang teman-teman miliki.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Bukan partition name yaa, tapi <strong>disk name</strong>. Kalau ada numbernya, berarti partition name.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sda     &lt;- Disk name
+└─sda1  &lt;- Partition name</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="18_reboot">(18) Reboot</h3>
+<div class="paragraph">
+<p>Kita tidak lagi dapat melakukan reboot dengna cara yang biasa (cara systemd).</p>
+</div>
+<div class="paragraph">
+<p>Kita dapat melakukan dengan cara memicu <strong>SysRq</strong> kernel.</p>
+</div>
+<div class="paragraph">
+<p>Namun, buat saya lebih mudah dengan memanggil <strong>loginctl</strong> tapi harus dengan user biasa.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># exit</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ loginctl reboot</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ PID1: Received "reboot" from FIFO...
+Starting reboot runlevel
+
+Broadcast message from root@arch.bandithijo.x61 (null)(Sat Jan  2 15:15:15 2021):
+
+The system will reboot now</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Selesai.</p>
+</div>
+<div class="paragraph">
+<p>Setelah reboot, kita sudah akan berada di Artix.</p>
+</div>
+<div class="paragraph">
+<p><strong><em>Good luck!</em></strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://wiki.artixlinux.org/Main/Migration" target="_blank" rel="noopener">wiki.artixlinux.org/Main/Migration</a><br>
+Diakses tanggal: 2021/01/02</p>
+</li>
+<li>
+<p><a href="https://en.wikipedia.org/wiki/Systemd" target="_blank" rel="noopener">en.wikipedia.org/wiki/Systemd</a><br>
+Diakses tanggal: 2021/01/02</p>
+</li>
+<li>
+<p><a href="https://wiki.gentoo.org/wiki/Netifrc" target="_blank" rel="noopener">wiki.gentoo.org/wiki/Netifrc</a><br>
+Diakses tanggal: 2021/01/02</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2021/2021-01-02-memigrasikan-arch-ke-artix-openrc.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#artixlinux</a>
+      
+        
+        <a href="#">#archlinux</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-01-02</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#tahapan_migrasi">Tahapan Migrasi</a>
+    <ul>
+      <li><a href="#1_mempersiapkan_pacman_conf_repositori_dan_mirrorlist">(1) Mempersiapkan pacman.conf, repositori dan mirrorlist</a></li>
+      <li><a href="#2_bersihkan_package_cache">(2) Bersihkan Package Cache</a></li>
+      <li><a href="#3_lemahkan_tingkat_keamanan_dari_pacman_sementara">(3) Lemahkan Tingkat Keamanan dari Pacman (Sementara)</a></li>
+      <li><a href="#4_install_artix_pgp_keyring">(4) Install Artix PGP Keyring</a></li>
+      <li><a href="#5_pulihkan_kembali_tingkat_keamanan_dari_pacman">(5) Pulihkan Kembali Tingkat Keamanan dari Pacman</a></li>
+      <li><a href="#6_backup_daftar_daemon_yang_sedang_aktif">(6) Backup Daftar Daemon yang sedang Aktif</a></li>
+      <li><a href="#7_download_artix_packages">(7) Download Artix Packages</a></li>
+      <li><a href="#8_hapus_systemd">(8) Hapus systemd</a></li>
+      <li><a href="#9_install_openrc_init_system">(9) Install OpenRC Init System</a></li>
+      <li><a href="#10_reinstall_paket_paket_dari_arch_repositori">(10) Reinstall Paket-paket dari Arch Repositori</a></li>
+      <li><a href="#11_pasang_init_scripts">(11) Pasang init Scripts</a></li>
+      <li><a href="#12_enable_services">(12) Enable Services</a></li>
+      <li><a href="#13_konfigurasi_networking">(13) Konfigurasi Networking</a>
+        <ul>
+          <li><a href="#traditional_network_interface_namespace">Traditional Network Interface Namespace</a></li>
+          <li><a href="#enable_eth0_interface_on_boot">Enable eth0 Interface on Boot</a></li>
+        </ul>
+      </li>
+      <li><a href="#14_lvm_setup">(14) LVM Setup</a></li>
+      <li><a href="#15_remove_more_systemd_cruft">(15) Remove More systemd Cruft</a></li>
+      <li><a href="#16_update_bootloader_dan_kernel_initramfs">(16) Update Bootloader dan Kernel initramfs</a>
+        <ul>
+          <li><a href="#kernel_initramfs">Kernel initramfs</a></li>
+          <li><a href="#grub">GRUB</a></li>
+        </ul>
+      </li>
+      <li><a href="#17_reinstall_grub">(17) Reinstall GRUB</a>
+        <ul>
+          <li><a href="#default_for_most_setups">Default for most setups</a></li>
+          <li><a href="#legacy_bios">Legacy BIOS</a></li>
+        </ul>
+      </li>
+      <li><a href="#18_reboot">(18) Reboot</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

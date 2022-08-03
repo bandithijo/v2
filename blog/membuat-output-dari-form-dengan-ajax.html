@@ -1,0 +1,816 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membuat Form&amp;#8217;s Output dengan AJAX | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Membuat Form’s Output dengan AJAX" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Membuat output hasil akan ditampilkan tanpa perlu merefresh halaman. Tentu saja di Ruby on Rails juga dapat mengimplementasikan ini. Kita dapat menggunakan AJAX." />
+<meta property="og:description" content="Membuat output hasil akan ditampilkan tanpa perlu merefresh halaman. Tentu saja di Ruby on Rails juga dapat mengimplementasikan ini. Kita dapat menggunakan AJAX." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/membuat-output-dari-form-dengan-ajax" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/membuat-output-dari-form-dengan-ajax" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-01T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Membuat Form’s Output dengan AJAX","dateModified":"2020-12-01T00:00:00+00:00","datePublished":"2020-12-01T00:00:00+00:00","description":"Membuat output hasil akan ditampilkan tanpa perlu merefresh halaman. Tentu saja di Ruby on Rails juga dapat mengimplementasikan ini. Kita dapat menggunakan AJAX.","url":"https://bandithijo.dev/v2/blog/membuat-output-dari-form-dengan-ajax","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/membuat-output-dari-form-dengan-ajax"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Membuat Form&amp;#8217;s Output dengan AJAX"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/membuat-output-dari-form-dengan-ajax">Membuat Form&#8217;s Output dengan AJAX</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / membuat output dari form dengan ajax
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#rails</a>
+      
+        
+        <a href="#">#ajax</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-12-01</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#pemecahan_masalah">Pemecahan Masalah</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang">Latar Belakang</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tujuannya menggunakan AJAX untuk menampilkan hasil tanpa perlu mereload tempate berulang kali. Cukup sekali panggil dan yang berubah adalah pada bagian hasilnya saja.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="https://i.postimg.cc/5tQfnNtN/gambar-01.png" alt="gambar-01">
+</div>
+<div class="title">Gambar 1. Kotak merah adalah satu-satunya bagian yang berubah, sedangkan bagian lain tidak</div>
+</div>
+<div class="paragraph">
+<p>Cara yang umum, untuk menampilkan output seperti di atas, adalah seperti ini.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/stocks_controller.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td>
+  <td class="code"><pre><span class="keyword">class</span> <span class="class">StocksController</span> &lt; <span class="constant">ApplicationController</span>
+  <span class="keyword">def</span> <span class="function">index</span>
+    <span class="instance-variable">@tracked_stocks</span> = current_user.stocks
+  <span class="keyword">end</span>
+
+  <span class="keyword">def</span> <span class="function">search</span>
+    <span class="keyword">if</span> params[<span class="symbol">:stock</span>].present?
+      <span class="instance-variable">@stock</span> = <span class="constant">Stock</span>.new_lookup(params[<span class="symbol">:stock</span>].upcase)
+      <span class="keyword">if</span> <span class="instance-variable">@stock</span>
+        render <span class="string"><span class="delimiter">'</span><span class="content">users/my_portfolio</span><span class="delimiter">'</span></span>
+      <span class="keyword">else</span>
+        flash[<span class="symbol">:alert</span>] = <span class="string"><span class="delimiter">'</span><span class="content">Please enter a VALID symbol to search</span><span class="delimiter">'</span></span>
+        redirect_to my_portfolio_path
+      <span class="keyword">end</span>
+    <span class="keyword">else</span>
+      flash[<span class="symbol">:alert</span>] = <span class="string"><span class="delimiter">'</span><span class="content">Please enter a symbol to search</span><span class="delimiter">'</span></span>
+      redirect_to my_portfolio_path
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">config/routes.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td>
+  <td class="code"><pre><span class="constant">Rails</span>.application.routes.draw <span class="keyword">do</span>
+  root <span class="string"><span class="delimiter">'</span><span class="content">welcome#index</span><span class="delimiter">'</span></span>
+  devise_for <span class="symbol">:users</span>
+
+  get <span class="string"><span class="delimiter">'</span><span class="content">my_portfolio</span><span class="delimiter">'</span></span>, <span class="key">to</span>: <span class="string"><span class="delimiter">'</span><span class="content">stocks#index</span><span class="delimiter">'</span></span>
+  get <span class="string"><span class="delimiter">'</span><span class="content">search_stock</span><span class="delimiter">'</span></span>, <span class="key">to</span>: <span class="string"><span class="delimiter">'</span><span class="content">stocks#search</span><span class="delimiter">'</span></span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">app/views/stocks/index.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+</pre></td>
+  <td class="code"><pre><span class="tag">&lt;h3&gt;</span>Search Stocks<span class="tag">&lt;/h3&gt;</span>
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> form_tag search_stock_path, <span class="key">method</span>: <span class="symbol">:get</span> <span class="keyword">do</span> <span class="inline-delimiter">%&gt;</span></span>
+  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">input-group</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="inline"><span class="inline-delimiter">&lt;%=</span> text_field_tag <span class="symbol">:stock</span>, params[<span class="symbol">:stock</span>],
+                       <span class="key">class</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">form-control form-control-lg</span><span class="delimiter">&quot;</span></span>,
+                       <span class="key">placeholder</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Stock ticker symbol</span><span class="delimiter">&quot;</span></span>,
+                       <span class="key">onkeyup</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">this.value = this.value.toUpperCase();</span><span class="delimiter">&quot;</span></span>,
+                       <span class="key">autofocus</span>: <span class="predefined-constant">true</span> <span class="inline-delimiter">%&gt;</span></span>
+    <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">input-group-append</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="inline"><span class="inline-delimiter">&lt;%=</span> button_tag <span class="key">type</span>: <span class="symbol">:submit</span>, <span class="key">class</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">btn btn-success</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span> <span class="inline-delimiter">%&gt;</span></span>
+        <span class="inline"><span class="inline-delimiter">&lt;%=</span> fa_icon <span class="string"><span class="delimiter">&quot;</span><span class="content">search 2x</span><span class="delimiter">&quot;</span></span> <span class="inline-delimiter">%&gt;</span></span>
+      <span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span>
+
+<span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">if</span> <span class="instance-variable">@stock</span> <span class="inline-delimiter">%&gt;</span></span>
+  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">alert alert-success</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row d-flex justify-content-between</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col-sm-9 align-self-center</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;strong&gt;</span>Symbol: <span class="tag">&lt;/strong&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="instance-variable">@stock</span>.ticker <span class="inline-delimiter">%&gt;</span></span>
+        <span class="tag">&lt;strong&gt;</span>Name: <span class="tag">&lt;/strong&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="instance-variable">@stock</span>.name <span class="inline-delimiter">%&gt;</span></span>
+        <span class="tag">&lt;strong&gt;</span>Price: <span class="tag">&lt;/strong&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="instance-variable">@stock</span>.last_price <span class="inline-delimiter">%&gt;</span></span>
+      <span class="tag">&lt;/div&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col-sm-3</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">&quot;</span><span class="content">Add to Portfolio</span><span class="delimiter">&quot;</span></span>, stocks_path(<span class="key">user</span>: current_user, <span class="key">ticker</span>: <span class="instance-variable">@stock</span>.ticker),
+                    <span class="key">method</span>: <span class="symbol">:post</span>,
+                    <span class="key">class</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">btn btn-success btn-block mx-2</span><span class="delimiter">&quot;</span></span> <span class="inline-delimiter">%&gt;</span></span>
+      <span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span>
+
+<span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">unless</span> <span class="instance-variable">@tracked_stocks</span>.empty? <span class="inline-delimiter">%&gt;</span></span>
+  <span class="tag">&lt;table</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">table table-borderless table-hover my-3</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;thead&gt;</span>
+      <span class="tag">&lt;tr&gt;</span>
+        <span class="tag">&lt;th&gt;</span>Ticker<span class="tag">&lt;/th&gt;</span>
+        <span class="tag">&lt;th&gt;</span>Name<span class="tag">&lt;/th&gt;</span>
+        <span class="tag">&lt;th&gt;</span>Price<span class="tag">&lt;/th&gt;</span>
+        <span class="tag">&lt;th&gt;</span>Action<span class="tag">&lt;/th&gt;</span>
+      <span class="tag">&lt;/tr&gt;</span>
+    <span class="tag">&lt;/thead&gt;</span>
+    <span class="tag">&lt;tbody&gt;</span>
+      <span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="instance-variable">@tracked_stocks</span>.each <span class="keyword">do</span> |stock| <span class="inline-delimiter">%&gt;</span></span>
+        <span class="tag">&lt;tr&gt;</span>
+          <span class="tag">&lt;td&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> stock.ticker <span class="inline-delimiter">%&gt;</span></span><span class="tag">&lt;/td&gt;</span>
+          <span class="tag">&lt;td&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> stock.name <span class="inline-delimiter">%&gt;</span></span><span class="tag">&lt;/td&gt;</span>
+          <span class="tag">&lt;td&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> stock.last_price <span class="inline-delimiter">%&gt;</span></span><span class="tag">&lt;/td&gt;</span>
+          <span class="tag">&lt;td&gt;</span>'Action Placeholder'<span class="tag">&lt;/td&gt;</span>
+        <span class="tag">&lt;/tr&gt;</span>
+      <span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span>
+    <span class="tag">&lt;/tbody&gt;</span>
+  <span class="tag">&lt;/table&gt;</span>
+<span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Setelah form diinputkan, dan hasil ditampilkan, akan mendapatkan URL seperti ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>http://localhost:3000/search_stock?stock=AMZN&amp;button=</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Apabila kita menginputkan nilai yang lain, maka template akan ikut dirender untuk menampilkan hasil pencarian yang baru.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>http://localhost:3000/search_stock?stock=GOOG&amp;button=</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, pada catatan kali ini, saya akan membuat template dirender sekali saja dan hanya pada bagian yang menampilkan hasil pencarian yang dirender berkali-kali.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pemecahan_masalah">Pemecahan Masalah</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pertama-tama, saya akan merubah output di stocks_controller pada action search menjadi format Javascript.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/stocks_controller.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td>
+  <td class="code"><pre><span class="keyword">class</span> <span class="class">StocksController</span> &lt; <span class="constant">ApplicationController</span>
+  <span class="keyword">def</span> <span class="function">index</span>
+    <span class="instance-variable">@tracked_stocks</span> = current_user.stocks
+  <span class="keyword">end</span>
+
+  <span class="keyword">def</span> <span class="function">search</span>
+    <span class="keyword">if</span> params[<span class="symbol">:stock</span>].present?
+      <span class="instance-variable">@stock</span> = <span class="constant">Stock</span>.new_lookup(params[<span class="symbol">:stock</span>].upcase)
+      <span class="keyword">if</span> <span class="instance-variable">@stock</span>
+        respond_to <span class="keyword">do</span> |format|
+          format.js { render <span class="key">partial</span>: <span class="string"><span class="delimiter">'</span><span class="content">users/result</span><span class="delimiter">'</span></span> }
+        <span class="keyword">end</span>
+      <span class="keyword">else</span>
+        respond_to <span class="keyword">do</span> |format|
+          flash.now[<span class="symbol">:alert</span>] = <span class="string"><span class="delimiter">'</span><span class="content">Please enter a VALID symbol to search</span><span class="delimiter">'</span></span>
+          format.js { render <span class="key">partial</span>: <span class="string"><span class="delimiter">'</span><span class="content">users/result</span><span class="delimiter">'</span></span> }
+        <span class="keyword">end</span>
+      <span class="keyword">end</span>
+    <span class="keyword">else</span>
+      respond_to <span class="keyword">do</span> |format|
+        flash.now[<span class="symbol">:alert</span>] = <span class="string"><span class="delimiter">'</span><span class="content">Please enter a symbol to search</span><span class="delimiter">'</span></span>
+        format.js { render <span class="key">partial</span>: <span class="string"><span class="delimiter">'</span><span class="content">users/result</span><span class="delimiter">'</span></span> }
+      <span class="keyword">end</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, pada bagian view, pisahkan bagian result, menjadi render partial, saya beri nama <code>_result.html.erb</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/stocks/_result.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td>
+  <td class="code"><pre><span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">if</span> stock <span class="inline-delimiter">%&gt;</span></span>
+  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">alert alert-success</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">row d-flex justify-content-between</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col-sm-9 align-self-center</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;strong&gt;</span>Symbol: <span class="tag">&lt;/strong&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> stock.ticker <span class="inline-delimiter">%&gt;</span></span>
+        <span class="tag">&lt;strong&gt;</span>Name: <span class="tag">&lt;/strong&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> stock.name <span class="inline-delimiter">%&gt;</span></span>
+        <span class="tag">&lt;strong&gt;</span>Price: <span class="tag">&lt;/strong&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> stock.last_price <span class="inline-delimiter">%&gt;</span></span>
+      <span class="tag">&lt;/div&gt;</span>
+      <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">col-sm-3</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">&quot;</span><span class="content">Add to Portfolio</span><span class="delimiter">&quot;</span></span>, stocks_path(<span class="key">user</span>: current_user, <span class="key">ticker</span>: stock.ticker),
+                    <span class="key">method</span>: <span class="symbol">:post</span>,
+                    <span class="key">class</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">btn btn-success btn-block mx-2</span><span class="delimiter">&quot;</span></span> <span class="inline-delimiter">%&gt;</span></span>
+      <span class="tag">&lt;/div&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pada bagian yang kita pindahkan (kode di atas) di view <strong>stocks/index.html.erb</strong>, kita ganti dengan <code>&lt;div id=results&gt;</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/stocks/index.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>...
+...
+
+&lt;div id=<span class="string"><span class="delimiter">&quot;</span><span class="content">results</span><span class="delimiter">&quot;</span></span>&gt;&lt;<span class="regexp"><span class="delimiter">/</span><span class="content">div&gt;</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kita akan meletakkan hasil yang diberikan oleh controller pada div denga id=result tersebut.</p>
+</div>
+<div class="paragraph">
+<p>Kita akan atur di dalam file javascript, buat file <strong>_result.js.erb</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/stocks/_result.js.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="js"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>document.querySelector(<span class="string"><span class="delimiter">'</span><span class="content">#results</span><span class="delimiter">'</span></span>).innerHTML = <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;%= escape_javascript(render 'users/result.html', stock: @stock) %&gt;</span><span class="delimiter">&quot;</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Terakhir, tinggal menambahkan asynchronous form pada form pencarian dengan <code>remote: true</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/stocks/index.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td>
+  <td class="code"><pre><span class="tag">&lt;h3&gt;</span>Search Stocks<span class="tag">&lt;/h3&gt;</span>
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> form_tag search_stock_path, <span class="key">remote</span>:<span class="predefined-constant">true</span>, <span class="key">method</span>: <span class="symbol">:get</span> <span class="keyword">do</span> <span class="inline-delimiter">%&gt;</span></span>  <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">input-group</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="inline"><span class="inline-delimiter">&lt;%=</span> text_field_tag <span class="symbol">:stock</span>, params[<span class="symbol">:stock</span>],
+                       <span class="key">class</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">form-control form-control-lg</span><span class="delimiter">&quot;</span></span>,
+                       <span class="key">placeholder</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Stock ticker symbol</span><span class="delimiter">&quot;</span></span>,
+                       <span class="key">onkeyup</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">this.value = this.value.toUpperCase();</span><span class="delimiter">&quot;</span></span>,
+                       <span class="key">autofocus</span>: <span class="predefined-constant">true</span> <span class="inline-delimiter">%&gt;</span></span>
+    <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">input-group-append</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="inline"><span class="inline-delimiter">&lt;%=</span> button_tag <span class="key">type</span>: <span class="symbol">:submit</span>, <span class="key">class</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">btn btn-success</span><span class="delimiter">&quot;</span></span> <span class="keyword">do</span> <span class="inline-delimiter">%&gt;</span></span>
+        <span class="inline"><span class="inline-delimiter">&lt;%=</span> fa_icon <span class="string"><span class="delimiter">&quot;</span><span class="content">search 2x</span><span class="delimiter">&quot;</span></span> <span class="inline-delimiter">%&gt;</span></span>
+      <span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span>
+
+...
+...
+</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hasilnya,</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/fyMDNjBL/gambar-02.gif" alt="gambar-02">
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau diperhatikan pada bagian address bar, alamat tidak berubah. Karena kita tidak merender template lagi untuk menampilkan hasil, namun hanya merubah bagian yang memiliki <code>&lt;div id=results&gt;&lt;/div&gt;</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2020/2020-12-01-membuat-output-dari-form-dengan-ajax.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#rails</a>
+      
+        
+        <a href="#">#ajax</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-12-01</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#pemecahan_masalah">Pemecahan Masalah</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

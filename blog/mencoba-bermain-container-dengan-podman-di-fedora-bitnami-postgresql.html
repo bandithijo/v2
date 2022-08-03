@@ -1,0 +1,956 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql) | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Fedora memiliki tools manajemen container yang sudah dibundle secara default, yaitu Podman. Jadi, sederhananya, tidak perlu memasang Docker lagi untuk memanajemen container." />
+<meta property="og:description" content="Fedora memiliki tools manajemen container yang sudah dibundle secara default, yaitu Podman. Jadi, sederhananya, tidak perlu memasang Docker lagi untuk memanajemen container." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-07-19T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)","dateModified":"2021-07-19T00:00:00+00:00","datePublished":"2021-07-19T00:00:00+00:00","description":"Fedora memiliki tools manajemen container yang sudah dibundle secara default, yaitu Podman. Jadi, sederhananya, tidak perlu memasang Docker lagi untuk memanajemen container.","url":"https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / mencoba bermain container dengan podman di fedora bitnami postgresql
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#podman</a>
+      
+        
+        <a href="#">#container</a>
+      
+        
+        <a href="#">#postgresql</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-07-19</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#skenario">Skenario</a></li>
+  <li><a href="#tahapan">Tahapan</a>
+    <ul>
+      <li><a href="#1_konfigurasi_postgresql_di_fedora_system">(1) Konfigurasi PostgreSQL di Fedora System</a></li>
+      <li><a href="#2_kontainerisasi">(2) Kontainerisasi</a></li>
+      <li><a href="#3_generate_systemd_service_dari_running_container">(3) Generate systemd service dari running container</a></li>
+    </ul>
+  </li>
+  <li><a href="#tambahan">Tambahan</a>
+    <ul>
+      <li><a href="#mengakses_postgresql_data_dari_dalam_running_image_container">Mengakses PostgreSQL data dari dalam running image container</a></li>
+    </ul>
+  </li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Podman</strong> adalah <em>daemonless container engine</em> yang dapat digunakan untuk membuat, mengelola, dan menjalankan <strong>OCI container</strong> di sistem Linux. Cara pakainya kurang lebih sama dengan Docker.</p>
+</div>
+<div class="paragraph">
+<p><strong>OCI</strong> adalah <em>abreviation</em> dari <em>Open Container Initiative</em>, adalah sebuah proyek Linux Foundation yang dimulai pada Juni 2015 untuk mendesain <em>open standards</em> yang akan digunakan sebagai <em>operating-system level virtualization</em>. Secara sederhana, inisiatif ini bertujuan untuk membuat kesepakatan bersama tentang standar spesifikasi dari container: 1) <em>Runtime Specification</em> 2) <em>Image Specification</em>. Jadi, meskipun container dibuat oleh provider yang berbeda, tetap dapat digunakan satu sama lain.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="skenario">Skenario</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kali ini, saya akan mencoba bermain-main sedikit dengan Podman, dengan menjalankan container PostgreSQL service, menggunakan container image yang dibuat oleh Bitnami.</p>
+</div>
+<div class="paragraph">
+<p>Saya sudah memiliki PostgreSQL data di sistem Fedora saya <code>/var/lib/pgsql/data</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Saya akan coba melakukan <em>mounting</em> PostgreSQL data yang ada di sistem ke PostgreSQL container</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre> +---------------------------------------------+
+ | Fedora System                               |
+ |                          +----------------+ |
+ |                          | PostgreSQL     | |
+ |                          | Container      | |
+ | +------------+           | +------------+ | |
+ | | PostgreSQL |           | | PostgreSQL | | |
+ | |    Data    |------------&gt;|    Data    | | |
+ | | on System  |           | | on System  | | |
+ | +------------+           | +------------+ | |
+ |                          +----------------+ |
+ |                                             |
+ +---------------------------------------------+</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Setelah itu, <strong>saya akan men-<em>generate</em> systemd service untuk PostgreSQL container yang sudah dibuat</strong>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tahapan">Tahapan</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="1_konfigurasi_postgresql_di_fedora_system">(1) Konfigurasi PostgreSQL di Fedora System</h3>
+<div class="paragraph">
+<p>Install postgresql-server.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install postgresql-server</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lakukan setup untuk menginisialisasi database.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo /usr/bin/postgresql-setup --initdb</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jalankan PostgreSQL service, karena saya akan membuat user dan user&#8217;s database.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo systemctl start postgresql.service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pindah ke postgresql shell.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo -iu postgres</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau berhasil,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[postgres@fedora-x61 ~]$ _</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>* <strong>fedora-x61</strong> adalah hostname dari laptop saya.</p>
+</div>
+<div class="paragraph">
+<p>Buat user baru.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[postgres@fedora-x61 ~]$ createuser --interactive</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Enter name of role to add: bandithijo  <i class="conum" data-value="1"></i><b>(1)</b>
+Shall the new role be a superuser? (y/n) y</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>Samakan dengan username yang kita gunakan!</strong></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Buat database untuk user yang kita buat.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[postgres@fedora-x61 ~]$ createdb bandithijo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kita akan merubah kepemilikan (<em>owner</em>) dari database atas nama username kita.</p>
+</div>
+<div class="paragraph">
+<p>Masuk ke PostgreSQL console.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[postgres@fedora-x61 ~]$ psql</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau berhasil,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">postgres=# _</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ganti kepemilikan database atas nama username, dengan query berikut ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">postgres=# ALTER DATABASE bandithijo OWNER TO bandithijo;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tahap membuat user dan database user telah selesai.</p>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, edit file <code>/var/lib/pgsql/data/pg_hba.conf</code></p>
+</div>
+<div class="listingblock">
+<div class="title">/var/lib/pgsql/data/pg_hba.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+  <td class="code"><pre>...
+...
+# TYPE  DATABASE        USER            ADDRESS            METHOD
+...
+...
+# IPv4 local connections:
+#host   all             all              127.0.0.1/32      ident  <i class="conum" data-value="1"></i><b>(1)</b>
+host    all             bandithijo       127.0.0.1/32      trust  <i class="conum" data-value="2"></i><b>(2)</b>
+</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Duplicate, dan disable (comments)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Ganti user <code>all</code> menjadi <code>bandithijo</code> dengan method <code>trust</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Kemudian, log out dan log in kembali.</p>
+</div>
+<div class="paragraph">
+<p>Sekarang, sudah dapat mengakses PostgreSQL console.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ psql</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>psql (13.3)
+Type "help" for help.
+
+bandithijo=# _</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="2_kontainerisasi">(2) Kontainerisasi</h3>
+<div class="paragraph">
+<p>Saya akan menggunakan image container yang dibuat oleh Bitnami. Alasannya karena, lokasi direktori PostgreSQL data yang disimpan di image container tersebut sama dengan yang ada di Fedora, yaitu di <code>/var/lib/pgsql/data/</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<strong>Pada tahap ini, saya menggunakan root credential</strong>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Pulling image container untuk PostgreSQL dari quay.io. Saya akan menggunakan PostgreSQL versi 13.3.0</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># podman pull quay.io/bitnami/postgresql:13.3.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Karena Bitnami PostgreSQL image container menggunkan user <strong>1001</strong>, maka saya perlu merubah direktori owner dari <code>/var/lib/pgsql/data</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># chown -R 1001:1001 /var/lib/pgsql</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, saya menjalankan PostgreSQL image container dengan mantra berikut ini,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># podman run --name postgresql --net host -v /var/lib/pgsql/data:/bitnami/postgresql/data:Z -e ALLOW_EMPTY_PASSWORD=yes bitnami/postgresql:13.3.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>-v</code> adalah <em>abreviation</em> untuk <strong>volume</strong>, saya melakukan <em>mounting</em> direktori PostgreSQL data dari Fedora System ke PostgreSQL data Bitnami image container.</p>
+</div>
+<div class="paragraph">
+<p>Gunakan <code>--net host</code> untuk mendefinisikan bahwa kontainer ini menggunkan network dari host.</p>
+</div>
+<div class="paragraph">
+<p>Outputnya,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>postgresql 07:42:59.65
+postgresql 07:42:59.65 Welcome to the Bitnami postgresql container
+postgresql 07:42:59.66 Subscribe to project updates by watching https://github.com/bitnami/bitnami-docker-postgresql
+postgresql 07:42:59.66 Submit issues and feature requests at https://github.com/bitnami/bitnami-docker-postgresql/issues
+postgresql 07:42:59.66
+postgresql 07:42:59.67 INFO  ==&gt; ** Starting PostgreSQL setup **
+postgresql 07:42:59.71 INFO  ==&gt; Validating settings in POSTGRESQL_* env vars..
+postgresql 07:42:59.72 WARN  ==&gt; You set the environment variable ALLOW_EMPTY_PASSWORD=yes. For safety reasons, do not use this flag in a production environment.
+postgresql 07:42:59.73 INFO  ==&gt; Loading custom pre-init scripts...
+postgresql 07:42:59.74 INFO  ==&gt; Initializing PostgreSQL database...
+postgresql 07:42:59.74 INFO  ==&gt; Cleaning stale /bitnami/postgresql/data/postmaster.pid file
+postgresql 07:42:59.78 INFO  ==&gt; pg_hba.conf file not detected. Generating it...
+postgresql 07:42:59.78 INFO  ==&gt; Generating local authentication configuration
+postgresql 07:42:59.80 INFO  ==&gt; Deploying PostgreSQL with persisted data...
+postgresql 07:42:59.84 INFO  ==&gt; Configuring replication parameters
+postgresql 07:42:59.91 INFO  ==&gt; Configuring fsync
+postgresql 07:42:59.96 INFO  ==&gt; Loading custom scripts...
+postgresql 07:42:59.97 INFO  ==&gt; Enabling remote connections
+postgresql 07:43:00.01 INFO  ==&gt; ** PostgreSQL setup finished! **
+
+postgresql 07:43:00.05 INFO  ==&gt; ** Starting PostgreSQL **
+2021-07-20 07:43:00.134 GMT [1] LOG:  pgaudit extension initialized
+2021-07-20 07:43:00.150 GMT [1] LOG:  starting PostgreSQL 13.3 on x86_64-pc-linux-gnu, compiled by gcc (Debian 8.3.0-6) 8.3.0, 64-bit
+2021-07-20 07:43:00.151 GMT [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
+2021-07-20 07:43:00.151 GMT [1] LOG:  listening on IPv6 address "::", port 5432
+2021-07-20 07:43:00.156 GMT [1] LOG:  listening on Unix socket "/tmp/.s.PGSQL.5432"
+2021-07-20 07:43:00.402 GMT [1] LOG:  database system is ready to accept connections  <i class="conum" data-value="1"></i><b>(1)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Berhasil!</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Kalau sukses, seharusnya bisa mengakses PostgreSQL console dengan akun <strong>bandithijo</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Untuk mengakses PostgreSQL console, gunakan mantra,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># psql -h localhost -p 5432 -U bandithijo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau berhasil,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>psql (13.3)
+Type "help" for help.
+
+bandithijo=# _</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Kalau tidak ingin menggunakan <code>-h localhost</code>, bisa mendefinisikan environment variable untuk <code>PGHOST=localhost</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">$HOME/.bashrc atau $HOME/.zshrc</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>export PGHOST=localhost</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Cek database untuk user <strong>bandithijo</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">bandithijo=# \l</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>                                   List of databases
+    Name    |   Owner    | Encoding |   Collate   |    Ctype    |   Access privileges
+------------+------------+----------+-------------+-------------+-----------------------
+ bandithijo | bandithijo | UTF8     | en_US.UTF-8 | en_US.UTF-8 | <i class="conum" data-value="1"></i><b>(1)</b>
+ postgres   | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0  | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |            |          |             |             | postgres=CTc/postgres
+ template1  | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |            |          |             |             | postgres=CTc/postgres
+(4 rows)</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Akun <strong>bandithijo</strong> ada.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3_generate_systemd_service_dari_running_container">(3) Generate systemd service dari running container</h3>
+<div class="paragraph">
+<p>Ini bagian yang saya suka, karena sangat praktis untuk men-generate systemd service dari running container. Hal ini memudahkan saya untuk menghentikan dan menjalankan container.</p>
+</div>
+<div class="paragraph">
+<p>Pertama, pindah lokasi dulu ke <code>/etc/systemd/system/</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># cd /etc/systemd/system</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jalankan mantra untuk men-genereate systemd service dari PostgreSQL image container yang sedang berjalan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># podman generate systemd --new --files --name postgresql</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>--name postgresql</code> adalah nama dari image container yang akan dibuatkan systemd service-nya.</p>
+</div>
+<div class="paragraph">
+<p>Akan dibuatkan file systemd service bernama <strong>container-postgresql.service</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/etc/systemd/system/container-postgresql.service</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Reload systemd daemon.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># systemctl daemon-reload</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sebelum menjalankan service ini, stop &amp; hapus dulu PostgreSQL image container yang masih running.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># podman stop postgresql
+# podman rm postgresql</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, jalankan service yang sudah digenerate.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># systemctl start container-postgresql.service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau sukses, harusnya sudah dapat masuk ke PostgreSQL console dengan user <strong>bandithijo</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ psql -h localhost -p 5432 -U bandithijo</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>psql (13.3)
+Type "help" for help.
+
+bandithijo=# _</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>User database <strong>bandithijo</strong> juga seharusnya masih ada.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">bandithijo=# \l</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>                                   List of databases
+    Name    |   Owner    | Encoding |   Collate   |    Ctype    |   Access privileges
+------------+------------+----------+-------------+-------------+-----------------------
+ bandithijo | bandithijo | UTF8     | en_US.UTF-8 | en_US.UTF-8 | <i class="conum" data-value="1"></i><b>(1)</b>
+ postgres   | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0  | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |            |          |             |             | postgres=CTc/postgres
+ template1  | postgres   | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/postgres          +
+            |            |          |             |             | postgres=CTc/postgres
+(4 rows)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong><em>Selesai!</em></strong></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tambahan">Tambahan</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="mengakses_postgresql_data_dari_dalam_running_image_container">Mengakses PostgreSQL data dari dalam running image container</h3>
+<div class="paragraph">
+<p>Kalau kita cek lokasi dari PostgreSQL data, dari dalam PostgreSQL console.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">bandithijo=# SHOW data_directory;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>      data_directory
+--------------------------
+ /bitnami/postgresql/data  <i class="conum" data-value="1"></i><b>(1)</b>
+(1 row)</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Lokasi PostgreSQL data di dalam image container</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Untuk mengakses PostgreSQL data image container yang sedang berjalan, dapat menggunakan mantra berikut,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ podman exec -ti postgresql /bin/bash</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>1001@fedora-x61:/$ _</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, masuk ke dalam direktori <code>/bitnami/postgresql/data/</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">1001@fedora-x61:/$ cd /bitnami/postgresql/data</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Isinya akan sama dengan yang ada di system <code>/var/lib/pgsql/data/</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>base    log           pg_dynshmem    pg_logical    pg_notify    pg_serial     pg_stat      pg_subtrans  pg_twophase  pg_wal   postgresql.auto.conf  postmaster.pid
+global  pg_commit_ts  pg_ident.conf  pg_multixact  pg_replslot  pg_snapshots  pg_stat_tmp  pg_tblspc    PG_VERSION   pg_xact  postmaster.opts</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://podman.io/getting-started/" target="_blank" rel="noopener">https://podman.io/getting-started/</a><br>
+Diakses tanggal: 2021/07/19</p>
+</li>
+<li>
+<p><a href="https://fedoramagazine.org/getting-started-with-podman-in-fedora/" target="_blank" rel="noopener">https://fedoramagazine.org/getting-started-with-podman-in-fedora/</a><br>
+Diakses tanggal: 2021/07/19</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2021/2021-07-19-mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#podman</a>
+      
+        
+        <a href="#">#container</a>
+      
+        
+        <a href="#">#postgresql</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-07-19</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#skenario">Skenario</a></li>
+  <li><a href="#tahapan">Tahapan</a>
+    <ul>
+      <li><a href="#1_konfigurasi_postgresql_di_fedora_system">(1) Konfigurasi PostgreSQL di Fedora System</a></li>
+      <li><a href="#2_kontainerisasi">(2) Kontainerisasi</a></li>
+      <li><a href="#3_generate_systemd_service_dari_running_container">(3) Generate systemd service dari running container</a></li>
+    </ul>
+  </li>
+  <li><a href="#tambahan">Tambahan</a>
+    <ul>
+      <li><a href="#mengakses_postgresql_data_dari_dalam_running_image_container">Mengakses PostgreSQL data dari dalam running image container</a></li>
+    </ul>
+  </li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

@@ -1,0 +1,720 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Membuat Recovery Partition Artix Linux ISO dengan GRUB2 | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Membuat Recovery Partition Artix Linux ISO dengan GRUB2" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Pada catatan sebelumnya, saya pernah menulis tentang, bagaimana booting ke ISO Linux dari GRUB2. Ternyata, terdapat keterbatasan. Karena ISO berada pada partisi yang sama dengan partisi sistem yang akan direcovery. Sehingga, tidak dapat melakukan intervensi terhadap sistem. Catatan ini adalah modifikasi, ISO diletakkan pada partisi berbeda." />
+<meta property="og:description" content="Pada catatan sebelumnya, saya pernah menulis tentang, bagaimana booting ke ISO Linux dari GRUB2. Ternyata, terdapat keterbatasan. Karena ISO berada pada partisi yang sama dengan partisi sistem yang akan direcovery. Sehingga, tidak dapat melakukan intervensi terhadap sistem. Catatan ini adalah modifikasi, ISO diletakkan pada partisi berbeda." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/membuat-recovery-partition-artix-iso-dengan-grub2" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/membuat-recovery-partition-artix-iso-dengan-grub2" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-03-01T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Membuat Recovery Partition Artix Linux ISO dengan GRUB2","dateModified":"2021-03-01T00:00:00+00:00","datePublished":"2021-03-01T00:00:00+00:00","description":"Pada catatan sebelumnya, saya pernah menulis tentang, bagaimana booting ke ISO Linux dari GRUB2. Ternyata, terdapat keterbatasan. Karena ISO berada pada partisi yang sama dengan partisi sistem yang akan direcovery. Sehingga, tidak dapat melakukan intervensi terhadap sistem. Catatan ini adalah modifikasi, ISO diletakkan pada partisi berbeda.","url":"https://bandithijo.dev/v2/blog/membuat-recovery-partition-artix-iso-dengan-grub2","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/membuat-recovery-partition-artix-iso-dengan-grub2"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Membuat Recovery Partition Artix Linux ISO dengan GRUB2"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/membuat-recovery-partition-artix-iso-dengan-grub2">Membuat Recovery Partition Artix Linux ISO dengan GRUB2</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / membuat recovery partition artix iso dengan grub2
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#artixlinux</a>
+      
+        
+        <a href="#">#grub</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-03-01</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang_masalah">Latar Belakang Masalah</a></li>
+  <li><a href="#pemecahan_masalah">Pemecahan Masalah</a>
+    <ul>
+      <li><a href="#membuat_partisi_recovery">Membuat Partisi Recovery</a></li>
+      <li><a href="#masukkan_file_artix_iso">Masukkan File Artix ISO</a></li>
+      <li><a href="#membuat_grub2_menuentry">Membuat GRUB2 Menuentry</a></li>
+    </ul>
+  </li>
+  <li><a href="#update_grub2">Update GRUB2</a></li>
+  <li><a href="#demonstrasi">Demonstrasi</a></li>
+  <li><a href="#tips">Tips</a>
+    <ul>
+      <li><a href="#menyembunyikan_recovery_partition">Menyembunyikan Recovery Partition</a></li>
+      <li><a href="#memperbaharui_file_iso">Memperbaharui File ISO</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang_masalah">Latar Belakang Masalah</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sebelumnya, saya sudah membuat catatan dengan judul serupa, <a href="https://bandithijo.dev/v2/blog/booting-ke-iso-linux-menggunakan-grub" target="_blank" rel="noopener"><strong>Booting ke Linux ISO menggunakan GRUB2 (Tanpa Bootable FlashDrive) a.k.a RecoveryHD</strong></a>.</p>
+</div>
+<div class="paragraph">
+<p>Namun, ternyata setelah saya gunakan untuk melakukan <strong>arch-chroot</strong>, partisi tidak dapat di-mounting ke <strong>/mnt</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Saya menduga hal ini diakibatkan karena saya menjalankan Arch ISO dari dalam filesystem yang akan saya mounting&#8201;&#8212;&#8201;melakukan mounting ke filesystem yang sudah dimounting oleh Arch ISO. Karena Arch ISO disimpan pada partisi <strong>/dev/sda1</strong>, yaitu pada direktori <strong>/root/iso/archlinux.iso</strong>. Sedangkan, saya ingin memounting <strong>/dev/sda1</strong> ke <strong>/mnt</strong> untuk melakukan arch-chroot.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pemecahan_masalah">Pemecahan Masalah</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dari kasus tersebut, sudah terlihat solusi sederhana yang dapat saya lakukan adalah, membuat partisi sendiri khusus untuk menyimpan file ISO.</p>
+</div>
+<div class="sect2">
+<h3 id="membuat_partisi_recovery">Membuat Partisi Recovery</h3>
+<div class="paragraph">
+<p>Cara untuk membuat partisi, bebas saja, teman-teman dapat menggunakan tools favorit teman-teman.</p>
+</div>
+<div class="paragraph">
+<p>Saya pribadi mengguakan <a href="https://gparted.org/download.php" target="_blank" rel="noopener"><strong>GParted LiveUSB</strong></a> agar lebih mudah dalam mevisualisasikan partisi.</p>
+</div>
+<div class="paragraph">
+<p>Kira-kira, seperti di bawah ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME   FSTYPE   SIZE TYPE LABEL    MOUNTPOINT
+sda           447.1G disk
+├─sda1 ext4   446.1G part ROOT     /
+└─sda2 ext4    1023M part RECOVERY   <i class="conum" data-value="1"></i><b>(1)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Saya membuat partisi <strong>/dev/sda2</strong> sebesar 1 GiB dan saya beri label <strong>RECOVERY</strong> degan filesystem <strong>ext4</strong>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Ukuran partisi hanya 1 GiB karena tujuan saya membuat partisi ini adalah untuk menyimpan file ISO dari Artix Linux Base OpenRC yang hanya sebesar 600an MiB</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="masukkan_file_artix_iso">Masukkan File Artix ISO</h3>
+<div class="paragraph">
+<p>Kemudian, masukkan file Artix Linux ISO ke dalam partisi recovery.</p>
+</div>
+<div class="paragraph">
+<p>Agar tidak ribet karena harus menggunakan root permission, saya akan buat direktori dengan user permission yang akan saya berinama <strong>iso/</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo mkdir iso</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, ubar kepemilikan direktori <strong>iso/</strong> ke user yang kita gunakan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo chown -R bandithijo:bandithijo iso</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, tinggal masukkan Artix Linux ISO ke dalam direktori <strong>iso/</strong> ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>└─ iso
+    └─ artix-base-openrc-20210101-x86_64.iso</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="membuat_grub2_menuentry">Membuat GRUB2 Menuentry</h3>
+<div class="paragraph">
+<p>Selanjutnya, kita perlu membuat menuentry pada GRUB2, untuk mengarahkan boot ke dalam partisi recovery yang di dalamnya sudah berisi Artix Linux ISO.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/grub.d/40_custom</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td>
+  <td class="code"><pre><span class="doctype">#!/bin/sh</span>
+exec tail -n <span class="integer">+3</span> <span class="global-variable">$0</span>
+<span class="comment"># This file provides an easy way to add custom menu entries.  Simply type the</span>
+<span class="comment"># menu entries you want to add after this comment.  Be careful not to change</span>
+<span class="comment"># the 'exec tail' line above.</span>
+
+menuentry <span class="string"><span class="delimiter">&quot;</span><span class="content">ArtixLinux ISO (OpenRC)</span><span class="delimiter">&quot;</span></span> {
+  iso_drv=(hd0,msdos2)   <i class="conum" data-value="1"></i><b>(1)</b>
+  iso_path=<span class="string"><span class="delimiter">&quot;</span><span class="content">/iso/artix-base-openrc-20210101-x86_64.iso</span><span class="delimiter">&quot;</span></span>   <i class="conum" data-value="2"></i><b>(2)</b>
+  export iso_path
+  search --set=root --file <span class="string"><span class="delimiter">&quot;</span><span class="content">$iso_path</span><span class="delimiter">&quot;</span></span>
+  probe -u <span class="global-variable">$root</span> --set=rootuuid
+  export rootuuid
+  loopback loop <span class="string"><span class="delimiter">&quot;</span><span class="content">$iso_drv$iso_path</span><span class="delimiter">&quot;</span></span>
+  root=(loop)
+  configfile <span class="regexp"><span class="delimiter">/</span><span class="content">boot</span><span class="delimiter">/</span></span>grub/loopback.cfg
+  loopback --delete loop
+}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Yang harus diperhatikan!</strong></p>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>iso_drv</strong>, adalah path yang mengarahkan ke partisi yang kita siapkan khusus untuk recovery. <strong>hd0</strong> berarti disk pertama, <strong>msdos2</strong> berarti partisi kedua. (<strong>/dev/sda2</strong>).</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>iso_path</strong>, adalah letak dimana Artix ISO kita letakkan di dalam partisi recovery.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Kedua variable di atas, perlu teman-teman sesuaikan sendiri dengan kondisi sistem yang teman-teman miliki.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="update_grub2">Update GRUB2</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kalau sudah, tinggal update GRUB2.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo update-grub</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Atau,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo grub-mkconfig -o /boot/grub/grub.cfg</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Agar custom menuentry yang baru saja kita buat/modifikasi, digenerate ke dalam GRUB2 menuentry.</p>
+</div>
+<div class="paragraph">
+<p>Mantap!</p>
+</div>
+<div class="paragraph">
+<p>Kalau sudah begini tinggal mencobanya.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="demonstrasi">Demonstrasi</h2>
+<div class="sectionbody">
+<div class="videoblock">
+<div class="content">
+<iframe src="https://www.youtube.com/embed/1WImC1ge40c?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tips">Tips</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="menyembunyikan_recovery_partition">Menyembunyikan Recovery Partition</h3>
+<div class="paragraph">
+<p>Karena kita membuat partisi recovery, otomatis oleh GVFS, partisi ini akan terbaca di File Manager.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/xCzxJx9k/gambar-01.png" alt="gambar-01">
+</div>
+</div>
+<div class="paragraph">
+<p>Untuk menyembunyikan partisi RECOVERY, kita dapat memberikan rules di udev.</p>
+</div>
+<div class="paragraph">
+<p>Recovery partisi saya berada pada <strong>/dev/sda2</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>NAME   FSTYPE   SIZE TYPE LABEL    MOUNTPOINT
+sda           447.1G disk
+├─sda1 ext4   445.1G part ROOT     /
+└─sda2 ext4       2G part RECOVERY  <i class="conum" data-value="1"></i><b>(1)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Blok partisi inilah yang akan saya sembunyikan.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Buat file udev rule dengan text editor favorit teman-teman, dengan root permission.</p>
+</div>
+<div class="paragraph">
+<p>Tambahkan seperti rule di bawah.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/udev/rules.d/99-hide-partitions.rules</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre><span class="constant">KERNEL</span>==<span class="string"><span class="delimiter">&quot;</span><span class="content">sda2</span><span class="delimiter">&quot;</span></span>,<span class="predefined-constant">ENV</span>{<span class="constant">UDISKS_IGNORE</span>}=<span class="string"><span class="delimiter">&quot;</span><span class="content">1</span><span class="delimiter">&quot;</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Setelah itu, jalankan perintah:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo udevadm trigger --verbose</code></pre>
+</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/nrK3TXjp/gambar-02.png" alt="gambar-02">
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, sekarag partisi RECOVERY sudah tidak terlihat.</p>
+</div>
+<div class="paragraph">
+<p>Namun, masih dapat kita lihat pada <code>$ lsblk</code>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="memperbaharui_file_iso">Memperbaharui File ISO</h3>
+<div class="paragraph">
+<p>Kalau ingin memperbaharui file ISO, tinggal dimount saja sengan <strong>udisksctl</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ udisksctl mount -b /dev/sda2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unmount dengan,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ udisksctl unmount -b /dev/sda2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, masukkan ISO baru ke dalam partisi recovery.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://forum.artixlinux.org/index.php/topic,1669.0.html" target="_blank" rel="noopener">forum.artixlinux.org/index.php/topic,1669.0.html</a><br>
+Diakses tanggal: 2021/03/01</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2021/2021-03-01-membuat-recovery-partition-artix-iso-dengan-grub2.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#artixlinux</a>
+      
+        
+        <a href="#">#grub</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-03-01</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang_masalah">Latar Belakang Masalah</a></li>
+  <li><a href="#pemecahan_masalah">Pemecahan Masalah</a>
+    <ul>
+      <li><a href="#membuat_partisi_recovery">Membuat Partisi Recovery</a></li>
+      <li><a href="#masukkan_file_artix_iso">Masukkan File Artix ISO</a></li>
+      <li><a href="#membuat_grub2_menuentry">Membuat GRUB2 Menuentry</a></li>
+    </ul>
+  </li>
+  <li><a href="#update_grub2">Update GRUB2</a></li>
+  <li><a href="#demonstrasi">Demonstrasi</a></li>
+  <li><a href="#tips">Tips</a>
+    <ul>
+      <li><a href="#menyembunyikan_recovery_partition">Menyembunyikan Recovery Partition</a></li>
+      <li><a href="#memperbaharui_file_iso">Memperbaharui File ISO</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

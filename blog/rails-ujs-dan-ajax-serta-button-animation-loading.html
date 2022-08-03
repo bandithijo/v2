@@ -1,0 +1,995 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rails UJS dan AJAX, serta Button Animation Loading | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Rails UJS dan AJAX, serta Button Animation Loading" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Catatan kali ini tentang bagaimana membuat sebuah fitur update value pada sebuah halaman tanpa perlu melakukan refresh halaman. Sekaligus membuat animasi loading pada link/button tersebut." />
+<meta property="og:description" content="Catatan kali ini tentang bagaimana membuat sebuah fitur update value pada sebuah halaman tanpa perlu melakukan refresh halaman. Sekaligus membuat animasi loading pada link/button tersebut." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/rails-ujs-dan-ajax-serta-button-animation-loading" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/rails-ujs-dan-ajax-serta-button-animation-loading" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-04-01T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Rails UJS dan AJAX, serta Button Animation Loading","dateModified":"2021-04-01T00:00:00+00:00","datePublished":"2021-04-01T00:00:00+00:00","description":"Catatan kali ini tentang bagaimana membuat sebuah fitur update value pada sebuah halaman tanpa perlu melakukan refresh halaman. Sekaligus membuat animasi loading pada link/button tersebut.","url":"https://bandithijo.dev/v2/blog/rails-ujs-dan-ajax-serta-button-animation-loading","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/rails-ujs-dan-ajax-serta-button-animation-loading"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Rails UJS dan AJAX, serta Button Animation Loading"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/rails-ujs-dan-ajax-serta-button-animation-loading">Rails UJS dan AJAX, serta Button Animation Loading</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / rails ujs dan ajax serta button animation loading
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#rails</a>
+      
+        
+        <a href="#">#ajax</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-04-01</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#target">Target</a>
+    <ul>
+      <li><a href="#sedikit_tentang_rails_ujs">Sedikit tentang Rails UJS</a></li>
+    </ul>
+  </li>
+  <li><a href="#achievment">Achievment</a>
+    <ul>
+      <li><a href="#membuat_project_baru">Membuat Project Baru</a></li>
+      <li><a href="#generate_scaffold_book">Generate scaffold book</a></li>
+      <li><a href="#run_migration">Run migration</a></li>
+      <li><a href="#run_server">Run server</a></li>
+      <li><a href="#buat_link_publish">Buat link publish</a></li>
+      <li><a href="#buat_routes_untuk_publish">Buat routes untuk publish</a></li>
+      <li><a href="#modifikasi_link_publish">Modifikasi link publish</a></li>
+      <li><a href="#buat_publish_action_pada_books_controller">Buat publish action pada books_controller</a></li>
+      <li><a href="#siapkan_area_tampilan">Siapkan area tampilan</a></li>
+      <li><a href="#buat_file_template_javascript">Buat file template javascript</a></li>
+      <li><a href="#animation_loading_pada_linkbutton">Animation loading pada link/button</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Prerequisite</strong></p>
+</div>
+<div class="paragraph">
+<p><code>Ruby 3.0.0</code> <code>Rails 6.1.3.1</code></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="target">Target</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Memberikan informasi kepada pengguna melalui button atau link bahwa aplikasi sedang memproses inputan dari user.</p>
+</div>
+<div class="paragraph">
+<p>Informasi yang diberikan dapat berupa tulisan "Processing&#8230;&#8203;" atau icon dengan animasi berputar.</p>
+</div>
+<div class="paragraph">
+<p>Sekaligus kita akan menggunakan AJAX, agar data yang baru langsung diload ke bagian yang tertentu dari halaman tanpa perlu refresh.</p>
+</div>
+<div class="sect2">
+<h3 id="sedikit_tentang_rails_ujs">Sedikit tentang Rails UJS</h3>
+<div class="paragraph">
+<p>UJS adalah kependekan dari Unobtursive Javascript. Rails menggunakan UJS untuk menghandle Javascript ke DOM (<em>Document Object Model</em>).</p>
+</div>
+<div class="paragraph">
+<p>Rails sudah menjelaskan dengan sangat bagus mengenai UJS pada <a href="https://guides.rubyonrails.org/working_with_javascript_in_rails.html#unobtrusive-javascript" target="_blank" rel="noopener"><strong>Rails Guides - Working with JavaScript in Rails: Unobtrusive JavaScript</strong></a>.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>We call this 'unobtrusive' JavaScript because we&#8217;re no longer mixing our JavaScript into our HTML. We&#8217;ve properly separated our concerns, making future change easy. We can easily add behavior to any link by adding the data attribute. We can run all of our JavaScript through a minimizer and concatenator. We can serve our entire JavaScript bundle on every page, which means that it&#8217;ll get downloaded on the first page load and then be cached on every page after that. Lots of little benefits really add up.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Sejauh yang saya tahu, untuk memasang UJS pada Rails, kita menggunakan gem yang bernama <strong>jquery-rails</strong> untuk memudahkan integrasi dengan Rails.</p>
+</div>
+<div class="paragraph">
+<p>Kemudian tinggal di importkan saja.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/assets/javascript/application.js</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre><span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span>= require jquery
+<span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span>= require jquery_ujs</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pada Rails 6, sudah di include-kan secara default.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/javascript/packs/application.js</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>require(<span class="string"><span class="delimiter">&quot;</span><span class="content">@rails/ujs</span><span class="delimiter">&quot;</span></span>).start()</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Oke, langsung saja yaa. Kalau masih perlu penjelasan mengenai UJS bisa dicari-cari sendiri.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="achievment">Achievment</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="membuat_project_baru">Membuat Project Baru</h3>
+<div class="paragraph">
+<p>Saya akan membuat project baru dengan nama <strong>demo_rails_ujs</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Saya menggunakan Rails 6.1.3.1 dengan Ruby 3.0.0</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rails new demo_rails_ujs</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="generate_scaffold_book">Generate scaffold book</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rails g scaffold Book name:string description:text published_at:datetime</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run_migration">Run migration</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rails db:migrate</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run_server">Run server</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rails s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dan akses alamat,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>http://localhost:3000/books</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Inputkan buku baru. Masukkan data asal saja.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="buat_link_publish">Buat link publish</h3>
+<div class="paragraph">
+<p>Buka <strong>app/views/books/show.html.erb</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/books/show.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td>
+  <td class="code"><pre><span class="tag">&lt;p</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">notice</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> notice <span class="inline-delimiter">%&gt;</span></span><span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;p&gt;</span>
+  <span class="tag">&lt;strong&gt;</span>Name:<span class="tag">&lt;/strong&gt;</span>
+  <span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="instance-variable">@book</span>.name <span class="inline-delimiter">%&gt;</span></span>
+<span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;p&gt;</span>
+  <span class="tag">&lt;strong&gt;</span>Description:<span class="tag">&lt;/strong&gt;</span>
+  <span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="instance-variable">@book</span>.description <span class="inline-delimiter">%&gt;</span></span>
+<span class="tag">&lt;/p&gt;</span>
+
+<span class="tag">&lt;p&gt;</span>
+  <span class="tag">&lt;strong&gt;</span>Published at:<span class="tag">&lt;/strong&gt;</span>
+  <span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="instance-variable">@book</span>.published_at <span class="inline-delimiter">%&gt;</span></span>
+<span class="tag">&lt;/p&gt;</span>
+
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Publish</span><span class="delimiter">'</span></span>, publish_book_path(<span class="instance-variable">@book</span>) <span class="inline-delimiter">%&gt;</span></span> |    <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Edit</span><span class="delimiter">'</span></span>, edit_book_path(<span class="instance-variable">@book</span>) <span class="inline-delimiter">%&gt;</span></span> |
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Back</span><span class="delimiter">'</span></span>, books_path <span class="inline-delimiter">%&gt;</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Tambahkan <strong>link_to 'Publish'</strong>, seperti pada baris 18.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Nantinya, apabila kita meng-klik link <strong>Publish</strong>, value dari <strong>published_at</strong> akan terupdate sesuai jam saat ini. Tapi tanpa perlu me-refresh halaman.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="buat_routes_untuk_publish">Buat routes untuk publish</h3>
+<div class="listingblock">
+<div class="title">config/routes.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td>
+  <td class="code"><pre><span class="constant">Rails</span>.application.routes.draw <span class="keyword">do</span>
+  resources <span class="symbol">:books</span> <span class="keyword">do</span>
+    member <span class="keyword">do</span>
+      patch <span class="symbol">:publish</span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="modifikasi_link_publish">Modifikasi link publish</h3>
+<div class="paragraph">
+<p>Kalau kita klik link publish saat ini, maka akan muncul pesan error,</p>
+</div>
+<div class="paragraph">
+<p><strong>No route matches [GET] "/books/1/publish"</strong></p>
+</div>
+<div class="paragraph">
+<p>Secara default, link_to memiliki method <strong>:get</strong>, sedangkan yang kita inginkan adalah method <strong>:patch</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Modifikasi lagi link_to publish tersebut.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/books/show.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+</pre></td>
+  <td class="code"><pre><span class="comment">&lt;!-- ... --&gt;</span>
+
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Publish</span><span class="delimiter">'</span></span>, publish_book_path(<span class="instance-variable">@book</span>), <span class="key">method</span>: <span class="symbol">:patch</span> <span class="inline-delimiter">%&gt;</span></span> |   <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Edit</span><span class="delimiter">'</span></span>, edit_book_path(<span class="instance-variable">@book</span>) <span class="inline-delimiter">%&gt;</span></span> |
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Back</span><span class="delimiter">'</span></span>, books_path <span class="inline-delimiter">%&gt;</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Tambahkan attribute <strong>method: :patch</strong>. Attribute ini disediakan oleh Rails yang disebut dengan "Unobtrusive JavaScript" (UJS).</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="buat_publish_action_pada_books_controller">Buat publish action pada books_controller</h3>
+<div class="paragraph">
+<p>Kalau kita klik link publish lagi, maka akan muncul pesan,</p>
+</div>
+<div class="paragraph">
+<p><strong>The action 'publish' could not be found for BooksController</strong></p>
+</div>
+<div class="paragraph">
+<p>Error in imuncul karena belum tersedia action <strong>publish</strong> pada <strong>books_controller.rb</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/books_controller.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td>
+  <td class="code"><pre><span class="keyword">class</span> <span class="class">BooksController</span> &lt; <span class="constant">ApplicationController</span>
+  before_action <span class="symbol">:set_book</span>, <span class="key">only</span>: <span class="symbol"><span class="delimiter">%i[</span><span class="content"> show edit update destroy publish </span><span class="delimiter">]</span></span>  <i class="conum" data-value="1"></i><b>(1)</b>
+
+  <span class="comment"># def index, show, new, edit, dst...</span>
+
+  <span class="comment"># DELETE /books/1 or /books/1.json</span>
+  <span class="keyword">def</span> <span class="function">destroy</span>
+    <span class="instance-variable">@book</span>.destroy
+    respond_to <span class="keyword">do</span> |format|
+      format.html { redirect_to books_url, <span class="key">notice</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Book was successfully destroyed.</span><span class="delimiter">&quot;</span></span> }
+      format.json { head <span class="symbol">:no_content</span> }
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">def</span> <span class="function">publish</span>  <i class="conum" data-value="2"></i><b>(2)</b>
+    <span class="instance-variable">@book</span>.update(<span class="key">published_at</span>: <span class="constant">Time</span>.zone.now)
+  <span class="keyword">end</span>
+
+  private
+    <span class="comment"># Use callbacks to share common setup or constraints between actions.</span>
+    <span class="keyword">def</span> <span class="function">set_book</span>
+      <span class="instance-variable">@book</span> = <span class="constant">Book</span>.find(params[<span class="symbol">:id</span>])
+    <span class="keyword">end</span>
+
+    <span class="comment"># Only allow a list of trusted parameters through.</span>
+    <span class="keyword">def</span> <span class="function">book_params</span>
+      params.require(<span class="symbol">:book</span>).permit(<span class="symbol">:name</span>, <span class="symbol">:description</span>, <span class="symbol">:published_at</span>)
+    <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Pada callbacks <strong>:set_book</strong>, tabahkan <strong>publish</strong>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Buat method <strong>publish</strong>, seperti pada baris 15-17.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Kalau kita, klik tombol <strong>publish</strong> saat ini, yang terjadi pada log adalah,</p>
+</div>
+<div class="paragraph">
+<p>Update berhasil, tapi,</p>
+</div>
+<div class="paragraph">
+<p><strong>No template found for BooksController#publish, rendering head :no_content</strong></p>
+</div>
+<div class="paragraph">
+<p>Tidak ada template untuk menampilkan hasilnya.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="siapkan_area_tampilan">Siapkan area tampilan</h3>
+<div class="paragraph">
+<p>Buka lagi <strong>app/views/books/show.html.erb</strong> dan modifikasi pada bagian output value dari published_at.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/books/show.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td>
+  <td class="code"><pre><span class="comment">&lt;!-- ... --&gt;</span>
+<span class="tag">&lt;p&gt;</span>
+  <span class="tag">&lt;strong&gt;</span>Published at:<span class="tag">&lt;/strong&gt;</span>
+  <span class="tag">&lt;span</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">published-at</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="instance-variable">@book</span>.published_at <span class="inline-delimiter">%&gt;</span></span><span class="tag">&lt;/span&gt;</span>  <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="tag">&lt;/p&gt;</span>
+
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Publish</span><span class="delimiter">'</span></span>, publish_book_path(<span class="instance-variable">@book</span>), <span class="key">method</span>: <span class="symbol">:patch</span>, <span class="key">remote</span>: <span class="predefined-constant">true</span> <span class="inline-delimiter">%&gt;</span></span> |  <i class="conum" data-value="2"></i><b>(2)</b>
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Edit</span><span class="delimiter">'</span></span>, edit_book_path(<span class="instance-variable">@book</span>) <span class="inline-delimiter">%&gt;</span></span> |
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Back</span><span class="delimiter">'</span></span>, books_path <span class="inline-delimiter">%&gt;</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Tambahkan tag span dengan attribute ID seperti pada baris ke 4.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Tambahkan attribute <strong>remote: true</strong> pada <strong>link_to 'Publish'</strong>.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="buat_file_template_javascript">Buat file template javascript</h3>
+<div class="paragraph">
+<p>Karena kita akan menggunakan AJAX, kita akan membuat file view dengan format <strong>.js.erb</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Buat file view template pada <strong>app/views/books/</strong>, dengan nama <strong>publish.js.erb</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Penamaan file ini sesuai dengan nama action yang kita buat pada <strong>books_controller.rb</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Kita akan isi dengan <code>alert();</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/books/publish.js.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>alert(<span class="string"><span class="delimiter">&quot;</span><span class="content">Hello Ruby on Rails!</span><span class="delimiter">&quot;</span></span>);</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Klik link "Publish", dan akan muncul pop up alert.</p>
+</div>
+<div class="paragraph">
+<p>Sekarang kita ganti dengan yang benar.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/books/publish.js.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>document.querySelector(<span class="string"><span class="delimiter">&quot;</span><span class="content">#published-at</span><span class="delimiter">&quot;</span></span>).innerHTML = <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;%= @book.published_at %&gt;</span><span class="delimiter">&quot;</span></span>;</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jadinya akan seperti ini.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/q738nrtH/gambar-01.gif" alt="gambar-01">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="animation_loading_pada_linkbutton">Animation loading pada link/button</h3>
+<div class="paragraph">
+<p>Pada gambar animasi di atas, dapat dilihat ketika link ditekan, tidak ada jeda waktu.</p>
+</div>
+<div class="paragraph">
+<p>Kita tambahkan animasi text untuk memberikan user experience yang lebih baik.</p>
+</div>
+<div class="paragraph">
+<p>Seperti text bertuliskan "Publishing&#8230;&#8203;" ketika link "Publish" di-klik.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/books/show.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+</pre></td>
+  <td class="code"><pre><span class="comment">&lt;!-- ... --&gt;</span>
+
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Publish</span><span class="delimiter">'</span></span>, publish_book_path(<span class="instance-variable">@book</span>), <span class="key">method</span>: <span class="symbol">:patch</span>, <span class="key">remote</span>: <span class="predefined-constant">true</span>, <span class="key">data</span>: { <span class="key">disable_with</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Publishing...</span><span class="delimiter">&quot;</span></span> } <span class="inline-delimiter">%&gt;</span></span> |  <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Edit</span><span class="delimiter">'</span></span>, edit_book_path(<span class="instance-variable">@book</span>) <span class="inline-delimiter">%&gt;</span></span> |
+<span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">'</span><span class="content">Back</span><span class="delimiter">'</span></span>, books_path <span class="inline-delimiter">%&gt;</span></span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Tambahkan atribute <strong>data: { disable_with: "&#8230;&#8203;" }</strong> ke <strong>link_to "Publish"</strong>, seperti pada baris ke 3.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Kemudian, berikan jeda waktu dengan <strong>sleep</strong> pada action <strong>publish</strong> di <strong>books_controller</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/books_controller.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+  <td class="code"><pre><span class="keyword">class</span> <span class="class">BooksController</span> &lt; <span class="constant">ApplicationController</span>
+  before_action <span class="symbol">:set_book</span>, <span class="key">only</span>: <span class="symbol"><span class="delimiter">%i[</span><span class="content"> show edit update destroy publish </span><span class="delimiter">]</span></span>
+
+  <span class="comment"># def index, show, new, edit, dst...</span>
+
+  <span class="keyword">def</span> <span class="function">publish</span>
+    sleep <span class="integer">2</span>
+    <span class="instance-variable">@book</span>.update(<span class="key">published_at</span>: <span class="constant">Time</span>.zone.now)
+  <span class="keyword">end</span>
+
+  private
+
+  <span class="comment"># ...</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hasilnya akan seperti ini,</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/YC3SsyJL/gambar-02.gif" alt="gambar-02">
+</div>
+</div>
+<div class="paragraph">
+<p>Selesai!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://guides.rubyonrails.org/working_with_javascript_in_rails.html#unobtrusive-javascript" target="_blank" rel="noopener">Rails Guides - Working with JavaScript in Rails: Unobtrusive JavaScript</a><br>
+Diakses tanggal: 2021/04/01</p>
+</li>
+<li>
+<p><a href="https://gorails.com/episodes/jquery-ujs-and-ajax" target="_blank" rel="noopener">GoRails - jQuery UJS and AJAX</a><br>
+Diakses tanggal: 2021/04/01</p>
+</li>
+<li>
+<p><a href="https://gorails.com/episodes/button-loading-animations-with-jquery-ujs" target="_blank" rel="noopener">GoRails - Button Loading Animations with jQuery UJS</a><br>
+Diakses tanggal: 2021/04/01</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2021/2021-04-01-rails-ujs-dan-ajax-serta-button-animation-loading.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#rails</a>
+      
+        
+        <a href="#">#ajax</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-04-01</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#target">Target</a>
+    <ul>
+      <li><a href="#sedikit_tentang_rails_ujs">Sedikit tentang Rails UJS</a></li>
+    </ul>
+  </li>
+  <li><a href="#achievment">Achievment</a>
+    <ul>
+      <li><a href="#membuat_project_baru">Membuat Project Baru</a></li>
+      <li><a href="#generate_scaffold_book">Generate scaffold book</a></li>
+      <li><a href="#run_migration">Run migration</a></li>
+      <li><a href="#run_server">Run server</a></li>
+      <li><a href="#buat_link_publish">Buat link publish</a></li>
+      <li><a href="#buat_routes_untuk_publish">Buat routes untuk publish</a></li>
+      <li><a href="#modifikasi_link_publish">Modifikasi link publish</a></li>
+      <li><a href="#buat_publish_action_pada_books_controller">Buat publish action pada books_controller</a></li>
+      <li><a href="#siapkan_area_tampilan">Siapkan area tampilan</a></li>
+      <li><a href="#buat_file_template_javascript">Buat file template javascript</a></li>
+      <li><a href="#animation_loading_pada_linkbutton">Animation loading pada link/button</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

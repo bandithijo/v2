@@ -1,0 +1,604 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catatan Terkait Git | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Catatan Terkait Git" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Catatan ini berisi hal-hal terkait dengan Git. Beberapa hal mungkin terlupakan karean tidak terlalu sering digunakan." />
+<meta property="og:description" content="Catatan ini berisi hal-hal terkait dengan Git. Beberapa hal mungkin terlupakan karean tidak terlalu sering digunakan." />
+<link rel="canonical" href="https://bandithijo.dev/v2/note/catatan-terkait-git" />
+<meta property="og:url" content="https://bandithijo.dev/v2/note/catatan-terkait-git" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-04-08T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Catatan Terkait Git","dateModified":"2021-04-08T00:00:00+00:00","datePublished":"2021-04-08T00:00:00+00:00","description":"Catatan ini berisi hal-hal terkait dengan Git. Beberapa hal mungkin terlupakan karean tidak terlalu sering digunakan.","url":"https://bandithijo.dev/v2/note/catatan-terkait-git","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/note/catatan-terkait-git"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Catatan Terkait Git"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/note/catatan-terkait-git">Catatan Terkait Git</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/note/">note</a>
+  
+
+  
+    / catatan terkait git
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#git</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-04-08</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#konfigurasi">Konfigurasi</a></li>
+  <li><a href="#username_email">Username &amp; Email</a></li>
+  <li><a href="#default_editor">Default editor</a></li>
+  <li><a href="#membuka_git_config_dengan_editor">Membuka git config dengan editor</a></li>
+  <li><a href="#konfigurasi_end_of_line">Konfigurasi End of Line</a></li>
+  <li><a href="#bantuan_untuk_git_config">Bantuan untuk git config</a></li>
+  <li><a href="#tips_trik">Tips &amp; Trik</a>
+    <ul>
+      <li><a href="#melihat_isi_dari_staging_area">Melihat isi dari staging area</a></li>
+    </ul>
+  </li>
+  <li><a href="#remove_dirfile_on_staging_area">Remove dir/file on staging area</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Beberapa perintah Git yang tidak sering saya gunakan, cenderung terlupakan. Saya baru menyadari kalau saya melupakannya ketika ada teman yang bertanya, "Bagaimana mengkonfigurasi A?" Saya pun harus mencari-cari sejenak bagaimana cara saya melakukan "A" saat dulu.</p>
+</div>
+<div class="paragraph">
+<p>Agar hal tersebut tidak perlu terjadi --lupa--, saya memutuskan untuk membuat catatan ini. Mungkin teman-teman yang baru mempelajari atau sudah lama menggunakan Git akan membutuhkannya.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="konfigurasi">Konfigurasi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sekedar pengetahuan, terdapat setidaknya 3 level konfigurasi.</p>
+</div>
+<div class="openblock overflow-x">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Level</th>
+<th class="tableblock halign-left valign-top">Keterangan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SYSTEM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All users</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GLOBAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All repositories of the current user</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LOCAL</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The curent repository</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="paragraph">
+<p>Pada catatan ini, saya lebih banyak mencontohkan pada level konfigurasi Global.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="username_email">Username &amp; Email</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kita perlu untuk mendefinisikan setidaknya <strong>nama</strong> dan <strong>email</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git config --global user.name &quot;Rizqi Nur Assyaufi&quot;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git config --global user.email &quot;bandithijo@gmail.com&quot;</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="default_editor">Default editor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Definisikan text editor favorit kalian.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git config --global core.editor &quot;nvim&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ketika git memerlukan editor, akan menggunakan editor yang kita definisikan.</p>
+</div>
+<div class="paragraph">
+<p>Misalkan pada perintah <code>$ git commit</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="membuka_git_config_dengan_editor">Membuka git config dengan editor</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Selain mengeset config via <code>$ git config</code>, kita juga dapat mengesetnya via file config.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git config --global -e</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">$HOME/.gitconfig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+  <td class="code"><pre>[user]
+  name = Rizqi Nur Assyaufi
+  email = bandithijo@gmail.com
+[core]
+  editor = vim
+[filter &quot;lfs&quot;]
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="konfigurasi_end_of_line">Konfigurasi End of Line</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre># End of line on Windows
+
+  a b c \r \n
+        │   │
+        │   └─&gt; Line Feed
+        │
+        └─────&gt; Carriage Return
+
+
+# End of line on Linux/macOS
+
+  a b c \n
+        │
+        └─&gt; Line Feed</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kita perlu menghandle hal ini agar tidak terjadi issue yang aneh-aneh terkait end of line.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git config --global core.autocrlf input</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jika kamu menggunakan Windows, ganti value <strong>input</strong> menjadi <strong>true</strong>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="bantuan_untuk_git_config">Bantuan untuk git config</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tentu saja untuk membaca manual help dapat menggunakan,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git config --help</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><kbd>Q</kbd> untuk exit.</p>
+</div>
+<div class="paragraph">
+<p>Kalau ingin ringkasannya,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git config -h</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tips_trik">Tips &amp; Trik</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="melihat_isi_dari_staging_area">Melihat isi dari staging area</h3>
+<div class="paragraph">
+<p>Nama lain dari <strong>staging area</strong> adalah <strong>index</strong>, mungkin teman-teman akan menemukan beberapa dokumentasi yang menyebutkan staging area sebagai index.</p>
+</div>
+<div class="paragraph">
+<p>Untuk melihat isi dari staging area,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git ls-files</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="remove_dirfile_on_staging_area">Remove dir/file on staging area</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kasus ini biasanya terjadi apabila kita ingin menghapus dir/file yang sudah terlanjur masuk ke dalam repositori tetap terlambat masuk ke dalam gitignore. Tentu saja, akan diabaikan oleh gitignore, karena dir/file sudah lebih dulu masuk ke dalam repositori.</p>
+</div>
+<div class="paragraph">
+<p>Untuk mengatasinya, kita gunakan,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git rm --cached &lt;nama_dir/file&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/note/2021-04-08-catatan-terkait-git.adoc"> Edit this note</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Notes</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/note/welcome-to-test">Welcome to Test</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation">Catatan Post Installation Fedora Workstation</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-daftar-terminal-tools">Catatan Daftar Terminal Tools</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-git">Catatan Terkait Git</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-vboxmanage">Catatan Terkait VBoxManage</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/note/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#git</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-04-08</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#konfigurasi">Konfigurasi</a></li>
+  <li><a href="#username_email">Username &amp; Email</a></li>
+  <li><a href="#default_editor">Default editor</a></li>
+  <li><a href="#membuka_git_config_dengan_editor">Membuka git config dengan editor</a></li>
+  <li><a href="#konfigurasi_end_of_line">Konfigurasi End of Line</a></li>
+  <li><a href="#bantuan_untuk_git_config">Bantuan untuk git config</a></li>
+  <li><a href="#tips_trik">Tips &amp; Trik</a>
+    <ul>
+      <li><a href="#melihat_isi_dari_staging_area">Melihat isi dari staging area</a></li>
+    </ul>
+  </li>
+  <li><a href="#remove_dirfile_on_staging_area">Remove dir/file on staging area</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

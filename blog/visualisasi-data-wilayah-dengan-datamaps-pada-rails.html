@@ -1,0 +1,1315 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Visualisasi Data Wilayah dengan Datamaps pada Rails | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Visualisasi Data Wilayah dengan Datamaps pada Rails" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Mungkin teman-teman pernah melihat interaktif peta yang memvisualisasikan data tertentu, misal data jumlah penduduk setiap provinsi yang ditampilkan dalam bentuk peta. Catata ini kita akan membahas bagaimana membuat hal tersebut dengan datamaps Javascript library pada Rails." />
+<meta property="og:description" content="Mungkin teman-teman pernah melihat interaktif peta yang memvisualisasikan data tertentu, misal data jumlah penduduk setiap provinsi yang ditampilkan dalam bentuk peta. Catata ini kita akan membahas bagaimana membuat hal tersebut dengan datamaps Javascript library pada Rails." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/visualisasi-data-wilayah-dengan-datamaps-pada-rails" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/visualisasi-data-wilayah-dengan-datamaps-pada-rails" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-07T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Visualisasi Data Wilayah dengan Datamaps pada Rails","dateModified":"2021-02-07T00:00:00+00:00","datePublished":"2021-02-07T00:00:00+00:00","description":"Mungkin teman-teman pernah melihat interaktif peta yang memvisualisasikan data tertentu, misal data jumlah penduduk setiap provinsi yang ditampilkan dalam bentuk peta. Catata ini kita akan membahas bagaimana membuat hal tersebut dengan datamaps Javascript library pada Rails.","url":"https://bandithijo.dev/v2/blog/visualisasi-data-wilayah-dengan-datamaps-pada-rails","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/visualisasi-data-wilayah-dengan-datamaps-pada-rails"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Visualisasi Data Wilayah dengan Datamaps pada Rails"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/visualisasi-data-wilayah-dengan-datamaps-pada-rails">Visualisasi Data Wilayah dengan Datamaps pada Rails</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / visualisasi data wilayah dengan datamaps pada rails
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#rails</a>
+      
+        
+        <a href="#">#javascript</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-02-07</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#permasalahan">Permasalahan</a></li>
+  <li><a href="#pemecahan_masalah">Pemecahan Masalah</a>
+    <ul>
+      <li><a href="#actioncontroller">ActionController</a></li>
+      <li><a href="#mengkonversi_nama_provinsi_ke_kode_provinsi">Mengkonversi Nama Provinsi ke Kode Provinsi</a></li>
+      <li><a href="#mengklasifikasi_total_cases_berdasaran_warna">Mengklasifikasi total_cases Berdasaran Warna</a></li>
+      <li><a href="#memberikan_delimiter_untuk_ribuan">Memberikan Delimiter , untuk Ribuan</a></li>
+      <li><a href="#actionview">ActionView</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Prerequisite</strong></p>
+</div>
+<div class="paragraph">
+<p><code>Ruby 2.7.2</code> <code>Rails 6.1.1</code> <code>Datamaps 0.5.9</code></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="latar_belakang">Latar Belakang</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Misalkan saya memiliki sebuah data peta sebaran kasus kumulativ COVID-19 seluruh provinsi di Indonesia.</p>
+</div>
+<div class="openblock overflow-x">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">fetched_at</th>
+<th class="tableblock halign-left valign-top">name</th>
+<th class="tableblock halign-left valign-top">total_cases</th>
+<th class="tableblock halign-left valign-top">total_recovered</th>
+<th class="tableblock halign-left valign-top">total_deaths</th>
+<th class="tableblock halign-left valign-top">active_cases</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-02-07</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DKI Jakarta</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">293825</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">265291</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4573</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">23961</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-02-07</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jawa Barat</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">167707</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">134255</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2039</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">31413</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-02-07</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jawa Tengah</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">135552</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">86400</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5646</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">43506</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-02-07</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jawa Timur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">117851</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">103219</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8152</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6480</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2021-02-07</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Jawa Timur</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">117851</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">103219</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8152</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6480</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8230;&#8203;</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="paragraph">
+<p>Saya ingin membuat sebuah visualisasi data peta Indonesia yang terbagi-bagi berdasarkan wilayah provinsi. Kemudian pada masing-masing provinsi tersebut menampilkan data total kasus (total_cases).</p>
+</div>
+<div class="paragraph">
+<p>Kira-kira ilustrasinya seperti ini:</p>
+</div>
+<div style="overflow:auto;">
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.idn.min.js'></script>
+
+<div id="container1" style="position: relative; width: 890px; height: 400px; margin: 0 auto;"></div>
+
+<script type="text/javascript">
+//basic map config with custom fills, mercator projection
+var map = new Datamap({
+scope: 'idn',
+element: document.getElementById('container1'),
+setProjection: function (element) {
+var projection = d3.geo.mercator()
+.center([120, -5])
+.rotate([0, 0])
+.scale(4000 / 4)
+var path = d3.geo.path()
+.projection(projection);
+return {path: path, projection: projection};
+},
+fills: {
+defaultFill: '#dddddd',
+'AAA': '#DB1836',
+'BBB': '#F15A23',
+'CCC': '#F89A1C',
+'DDD': '#FFD500',
+'EEE': '#C1D737',
+'FFF': '#44B549',
+'GGG': '#0EB049',
+'HHH': '#016533',
+},
+data: {
+'ID.AC': {fillKey: 'AAA', totalCases: '12.345'},
+'ID.BA': {fillKey: 'AAA', totalCases: '12.345'},
+'ID.BT': {fillKey: 'AAA', totalCases: '12.345'},
+'ID.BE': {fillKey: 'BBB', totalCases: '12.345'},
+'ID.JK': {fillKey: 'BBB', totalCases: '12.345'},
+'ID.YO': {fillKey: 'BBB', totalCases: '12.345'},
+'ID.GO': {fillKey: 'CCC', totalCases: '12.345'},
+'ID.JA': {fillKey: 'CCC', totalCases: '12.345'},
+'ID.JR': {fillKey: 'CCC', totalCases: '12.345'},
+'ID.JT': {fillKey: 'DDD', totalCases: '12.345'},
+'ID.JI': {fillKey: 'DDD', totalCases: '12.345'},
+'ID.KB': {fillKey: 'DDD', totalCases: '12.345'},
+'ID.KS': {fillKey: 'EEE', totalCases: '12.345'},
+'ID.KT': {fillKey: 'EEE', totalCases: '12.345'},
+'ID.KI': {fillKey: 'EEE', totalCases: '12.345'},
+'ID.KU': {fillKey: 'CCC', totalCases: '12.345'},
+'ID.BB': {fillKey: 'CCC', totalCases: '12.345'},
+'ID.KR': {fillKey: 'CCC', totalCases: '12.345'},
+'ID.LA': {fillKey: 'FFF', totalCases: '12.345'},
+'ID.MU': {fillKey: 'FFF', totalCases: '12.345'},
+'ID.MA': {fillKey: 'FFF', totalCases: '12.345'},
+'ID.NB': {fillKey: 'GGG', totalCases: '12.345'},
+'ID.NT': {fillKey: 'GGG', totalCases: '12.345'},
+'ID.IB': {fillKey: 'GGG', totalCases: '12.345'},
+'ID.PA': {fillKey: 'HHH', totalCases: '12.345'},
+'ID.RI': {fillKey: 'HHH', totalCases: '12.345'},
+'ID.SR': {fillKey: 'HHH', totalCases: '12.345'},
+'ID.SE': {fillKey: 'FFF', totalCases: '12.345'},
+'ID.ST': {fillKey: 'FFF', totalCases: '12.345'},
+'ID.SG': {fillKey: 'FFF', totalCases: '12.345'},
+'ID.SW': {fillKey: 'FFF', totalCases: '12.345'},
+'ID.SB': {fillKey: 'GGG', totalCases: '12.345'},
+'ID.SL': {fillKey: 'GGG', totalCases: '12.345'},
+'ID.SU': {fillKey: 'GGG', totalCases: '12.345'}
+},
+geographyConfig: {
+popupTemplate: function(geo, data) {
+return ['<div class="hoverinfo"><strong>',
+geo.properties.name + '</strong><br>Kasus (Kulumatif)',
+': ' + data.totalCases,
+'</div>'].join('');
+}
+}
+});
+</script>
+</div>
+<div class="paragraph">
+<p>Visualisasi peta di atas menggunakan bantuan <strong>datamaps</strong> yang menggunakan <strong>D3.js</strong> library.</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Datamaps</dt>
+<dd>
+<p>is intended to provide some data visualizations based on geographical data. It&#8217;s <strong>SVG-based</strong>, can scale to any screen size, and includes everything inside of 1 script file. It heavily relies on the amazing <strong>D3.js</strong> library.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="permasalahan">Permasalahan</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bagaimana caranya menghubungkan data yang ada di database Rails, dengan datamaps.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pemecahan_masalah">Pemecahan Masalah</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kalau kita lihat pada bagian <code>data: {&#8230;&#8203;}</code>,</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/data_peta/index.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td>
+  <td class="code"><pre><span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span> ...
+
+    <span class="key">fills</span>: {
+      <span class="key">defaultFill</span>: <span class="string"><span class="delimiter">'</span><span class="content">#dddddd</span><span class="delimiter">'</span></span>,
+      <span class="key"><span class="delimiter">'</span><span class="content">AAA</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#DB1836</span><span class="delimiter">'</span></span>,
+      <span class="key"><span class="delimiter">'</span><span class="content">BBB</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#F15A23</span><span class="delimiter">'</span></span>,
+      <span class="key"><span class="delimiter">'</span><span class="content">CCC</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#F89A1C</span><span class="delimiter">'</span></span>,
+      <span class="key"><span class="delimiter">'</span><span class="content">DDD</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#FFD500</span><span class="delimiter">'</span></span>,
+      <span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span> ...
+    },
+    <span class="key">data</span>: {
+      <span class="key"><span class="delimiter">'</span><span class="content">ID.AC</span><span class="delimiter">'</span></span>: {<span class="key">fillKey</span>: <span class="string"><span class="delimiter">'</span><span class="content">AAA</span><span class="delimiter">'</span></span>, <span class="key">totalCases</span>: <span class="string"><span class="delimiter">'</span><span class="content">12.345</span><span class="delimiter">'</span></span>},
+      <span class="key"><span class="delimiter">'</span><span class="content">ID.BA</span><span class="delimiter">'</span></span>: {<span class="key">fillKey</span>: <span class="string"><span class="delimiter">'</span><span class="content">BBB</span><span class="delimiter">'</span></span>, <span class="key">totalCases</span>: <span class="string"><span class="delimiter">'</span><span class="content">12.345</span><span class="delimiter">'</span></span>},
+      <span class="key"><span class="delimiter">'</span><span class="content">ID.BT</span><span class="delimiter">'</span></span>: {<span class="key">fillKey</span>: <span class="string"><span class="delimiter">'</span><span class="content">CCC</span><span class="delimiter">'</span></span>, <span class="key">totalCases</span>: <span class="string"><span class="delimiter">'</span><span class="content">12.345</span><span class="delimiter">'</span></span>},
+      <span class="key"><span class="delimiter">'</span><span class="content">ID.BE</span><span class="delimiter">'</span></span>: {<span class="key">fillKey</span>: <span class="string"><span class="delimiter">'</span><span class="content">DDD</span><span class="delimiter">'</span></span>, <span class="key">totalCases</span>: <span class="string"><span class="delimiter">'</span><span class="content">12.345</span><span class="delimiter">'</span></span>},
+      <span class="regexp"><span class="delimiter">/</span><span class="delimiter">/</span></span> ...
+    },</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Data contohnya seperti di atas.</p>
+</div>
+<div class="paragraph">
+<p>Kita akan mengganti data statis tersebut dengan data yang ada di database yang kita miliki.</p>
+</div>
+<div class="sect2">
+<h3 id="actioncontroller">ActionController</h3>
+<div class="paragraph">
+<p>Kalau melihat format data di atas pada baris 12-15, <code>data: {&#8230;&#8203;}</code> tersebut memiliki format persatuan data, seperti ini:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="javascript"><span class="string"><span class="delimiter">'</span><span class="content">ID.AC</span><span class="delimiter">'</span></span>: {<span class="key">fillKey</span>: <span class="string"><span class="delimiter">'</span><span class="content">AAA</span><span class="delimiter">'</span></span>, <span class="key">totalCases</span>: <span class="string"><span class="delimiter">'</span><span class="content">12.345</span><span class="delimiter">'</span></span>},</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, artinya kita bisa membuat format seperti ini pada controller.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/data_peta_controller.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td>
+  <td class="code"><pre><span class="instance-variable">@last_updated</span>     = <span class="constant">Province</span>.last.fetched_at  <i class="conum" data-value="1"></i><b>(1)</b>
+<span class="instance-variable">@cumulative_cases</span> = <span class="constant">Province</span>.select(<span class="symbol">:name</span>, <span class="symbol">:total_cases</span>)  <i class="conum" data-value="2"></i><b>(2)</b>
+  .where(<span class="key">fetched_at</span>: <span class="instance-variable">@last_updated</span>)  <i class="conum" data-value="3"></i><b>(3)</b>
+  .map { |n|   <i class="conum" data-value="4"></i><b>(4)</b>
+    <span class="string"><span class="delimiter">&quot;</span><span class="content">'</span><span class="inline"><span class="inline-delimiter">#{</span>n.name<span class="inline-delimiter">}</span></span><span class="content">': {fillKey: 'AAA', totalCases: 'n.total_cases'},</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>  <i class="conum" data-value="4"></i><b>(4)</b>
+  }.join</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Saya mengambil tanggal dari data terakhir.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Saya memanggil Object Province dan melakukan SELECT terhadap field yang diperlukan saja, yaitu field <code>:nama</code> dan <code>:total_cases</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Saya hanya mengambil data pada tanggal paling baru di database yang saya simpan pada variable @last_updated.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Saya melakukan mapping agar value yang dikembalikan dalam bentuk array.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby">=&gt; [<span class="string"><span class="delimiter">&quot;</span><span class="content">'DKI Jakarta': {fillKey: 'AAA', totalCases: '293825'},</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">'Jawa Barat': {fillKey: 'AAA', totalCases: '167707'},</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">'Jawa Tengah': {fillKey: 'AAA', totalCas...</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pada baris terakhir, saya menggunakan method <code>.join</code> untuk membuat array mejadi string yang nantinya, pada view template, akan menggunakan method <code>raw()</code> untuk melakukan escaping string.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby">=&gt; <span class="string"><span class="delimiter">&quot;</span><span class="content">'DKI Jakarta': {fillKey: 'AAA', totalCases: '293825'},</span><span class="char">\n</span><span class="content">'Jawa Barat': {fillKey: 'AAA', totalCases: '167707'},</span><span class="char">\n</span><span class="content">'Jawa Tengah': {fillKey: 'AAA', totalCases: '1355...</span></span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mengkonversi_nama_provinsi_ke_kode_provinsi">Mengkonversi Nama Provinsi ke Kode Provinsi</h3>
+<div class="paragraph">
+<p>Kalau teman-teman perhatikan, bagian nama provinsi dan <code>fillKey:</code> masih belum sesuai dengan format yang diperlukan.</p>
+</div>
+<div class="paragraph">
+<p>Karena nama provinsi harus berupa kode ISO format dari provinsi tersebut,</p>
+</div>
+<div class="paragraph">
+<p>Misal untuk Aceh berarti kodenya adalah <code>ID.AC</code>.</p>
+</div>
+<div class="paragraph">
+<p>Lantas, kita perlu melakukan konversi terhadap data <code>:name</code> terlebih dahulu.</p>
+</div>
+<div class="paragraph">
+<p>Caranya mudah, saya tinggal buatkan sebuah method baru yang saya beri nama,</p>
+</div>
+<div class="paragraph">
+<p><code>convert_name_to_province_code(province_name)</code>.</p>
+</div>
+<div class="paragraph">
+<p>Agar controller saya tetap bersih, saya akan menggunakan controller concern saja.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/concerns/convert_name_to_province_code.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+</pre></td>
+  <td class="code"><pre><span class="keyword">module</span> <span class="class">ConvertProvNameToProvCode</span>
+  <span class="keyword">def</span> <span class="function">convert_name_to_province_code</span>(province_name)
+    provinces = {
+      <span class="string"><span class="delimiter">'</span><span class="content">Aceh</span><span class="delimiter">'</span></span>                       =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.AC</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Bali</span><span class="delimiter">'</span></span>                       =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.BA</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Banten</span><span class="delimiter">'</span></span>                     =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.BT</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Bengkulu</span><span class="delimiter">'</span></span>                   =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.BE</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">DKI Jakarta</span><span class="delimiter">'</span></span>                =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.JK</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Daerah Istimewa Yogyakarta</span><span class="delimiter">'</span></span> =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.YO</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Gorontalo</span><span class="delimiter">'</span></span>                  =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.GO</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Jambi</span><span class="delimiter">'</span></span>                      =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.JA</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Jawa Barat</span><span class="delimiter">'</span></span>                 =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.JR</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Jawa Tengah</span><span class="delimiter">'</span></span>                =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.JT</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Jawa Timur</span><span class="delimiter">'</span></span>                 =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.JI</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Kalimantan Barat</span><span class="delimiter">'</span></span>           =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.KB</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Kalimantan Selatan</span><span class="delimiter">'</span></span>         =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.KS</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Kalimantan Tengah</span><span class="delimiter">'</span></span>          =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.KT</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Kalimantan Timur</span><span class="delimiter">'</span></span>           =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.KI</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Kalimantan Utara</span><span class="delimiter">'</span></span>           =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.KU</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Kepulauan Bangka Belitung</span><span class="delimiter">'</span></span>  =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.BB</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Kepulauan Riau</span><span class="delimiter">'</span></span>             =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.KR</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Lampung</span><span class="delimiter">'</span></span>                    =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.LA</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Maluku</span><span class="delimiter">'</span></span>                     =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.MA</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Maluku Utara</span><span class="delimiter">'</span></span>               =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.MU</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Nusa Tenggara Barat</span><span class="delimiter">'</span></span>        =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.NB</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Nusa Tenggara Timur</span><span class="delimiter">'</span></span>        =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.NT</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Papua</span><span class="delimiter">'</span></span>                      =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.PA</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Papua Barat</span><span class="delimiter">'</span></span>                =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.IB</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Riau</span><span class="delimiter">'</span></span>                       =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.RI</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Sulawesi Barat</span><span class="delimiter">'</span></span>             =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.SR</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Sulawesi Selatan</span><span class="delimiter">'</span></span>           =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.SE</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Sulawesi Tengah</span><span class="delimiter">'</span></span>            =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.ST</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Sulawesi Tenggara</span><span class="delimiter">'</span></span>          =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.SG</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Sulawesi Utara</span><span class="delimiter">'</span></span>             =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.SW</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Sumatera Barat</span><span class="delimiter">'</span></span>             =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.SB</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Sumatera Selatan</span><span class="delimiter">'</span></span>           =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.SL</span><span class="delimiter">'</span></span>,
+      <span class="string"><span class="delimiter">'</span><span class="content">Sumatera Utara</span><span class="delimiter">'</span></span>             =&gt; <span class="string"><span class="delimiter">'</span><span class="content">ID.SU</span><span class="delimiter">'</span></span>
+    }
+
+    provinces[province_name] <span class="keyword">if</span> provinces.include? province_name
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Oke, setelah jadi, tinggal di-include-kan ke data_peta_controller.rb.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/data_peta_controller.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td>
+  <td class="code"><pre><span class="keyword">class</span> <span class="class">DataPetaController</span> &lt; <span class="constant">ApplicationController</span>
+  include <span class="constant">ConvertProvNameToProvCode</span>
+
+  <span class="keyword">def</span> <span class="function">index</span>
+    <span class="comment"># ...</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mengklasifikasi_total_cases_berdasaran_warna">Mengklasifikasi total_cases Berdasaran Warna</h3>
+<div class="paragraph">
+<p>Selanjutnya kita perlu mengklasifikasi jumlah dari <code>total_cases</code> ke dalam format warna yang tersedia.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>'AAA': '#DB1836'
+'BBB': '#F15A23'
+'CCC': '#F89A1C'
+'DDD': '#FFD500'
+'EEE': '#C1D737'
+'FFF': '#44B549'
+'GGG': '#0EB049'
+'HHH': '#016533'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Anggaplah 'AAA' adalah yang paling banyak dan 'HHH' yang paling sedikit.</p>
+</div>
+<div class="paragraph">
+<p>Saya akan menggunakan controller concern lagi yang saya beri nama,</p>
+</div>
+<div class="paragraph">
+<p><code>convert_total_cases_to_code(total_cases)</code></p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/concerns/convert_total_cases_to_code.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td>
+  <td class="code"><pre><span class="keyword">module</span> <span class="class">ConvertTotalCasesToCode</span>
+  <span class="keyword">def</span> <span class="function">convert_total_cases_to_code</span>(total_cases)
+    <span class="keyword">case</span> total_cases
+    <span class="keyword">when</span> <span class="integer">200_000</span>..<span class="integer">300_000</span>
+      <span class="string"><span class="delimiter">'</span><span class="content">AAA</span><span class="delimiter">'</span></span>
+    <span class="keyword">when</span> <span class="integer">150_000</span>..<span class="integer">200_000</span>
+      <span class="string"><span class="delimiter">'</span><span class="content">BBB</span><span class="delimiter">'</span></span>
+    <span class="keyword">when</span> <span class="integer">90_000</span>..<span class="integer">150_000</span>
+      <span class="string"><span class="delimiter">'</span><span class="content">CCC</span><span class="delimiter">'</span></span>
+    <span class="keyword">when</span> <span class="integer">70_000</span>..<span class="integer">90_000</span>
+      <span class="string"><span class="delimiter">'</span><span class="content">DDD</span><span class="delimiter">'</span></span>
+    <span class="keyword">when</span> <span class="integer">50_000</span>..<span class="integer">70_000</span>
+      <span class="string"><span class="delimiter">'</span><span class="content">EEE</span><span class="delimiter">'</span></span>
+    <span class="keyword">when</span> <span class="integer">30_000</span>..<span class="integer">50_000</span>
+      <span class="string"><span class="delimiter">'</span><span class="content">FFF</span><span class="delimiter">'</span></span>
+    <span class="keyword">when</span> <span class="integer">10_000</span>..<span class="integer">30_000</span>
+      <span class="string"><span class="delimiter">'</span><span class="content">GGG</span><span class="delimiter">'</span></span>
+    <span class="keyword">when</span> <span class="integer">100</span>..<span class="integer">10_000</span>
+      <span class="string"><span class="delimiter">'</span><span class="content">HHH</span><span class="delimiter">'</span></span>
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Oke, setelah jadi, tinggal di-include-kan ke data_peta_controller.rb.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/data_peta_controller.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+  <td class="code"><pre><span class="keyword">class</span> <span class="class">DataPetaController</span> &lt; <span class="constant">ApplicationController</span>
+  include <span class="constant">ConvertProvNameToProvCode</span>
+  include <span class="constant">ConvertTotalCasesToCode</span>
+
+  <span class="keyword">def</span> <span class="function">index</span>
+    <span class="comment"># ...</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="memberikan_delimiter_untuk_ribuan">Memberikan Delimiter , untuk Ribuan</h3>
+<div class="paragraph">
+<p>Data <strong>total_cases</strong> tidak memiliki format string berupa delimiter koma (,) untuk memberikan kemudahan dalam membaca satuan ribuan dalam nominal angka.</p>
+</div>
+<div class="paragraph">
+<p>Rails sudah menyediakan helper method untuk menghandle ini namun adanya di view template yang disediakan oleh ActionView yang bernama <code>number_with_delimiter(number, options = {})</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Apakah bisa digunakan di Controller?</strong></p>
+</div>
+<div class="paragraph">
+<p>Kalau tidak ada, apakah kita perlu membuat sendiri?</p>
+</div>
+<div class="paragraph">
+<p><strong>Apakah di ActionController ada juga method helper yang sama?</strong></p>
+</div>
+<div class="paragraph">
+<p>Mudahnya tinggal kita include saja <code>ActionView::Helpers::NumberHelper</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/data_peta_controller.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td>
+  <td class="code"><pre><span class="keyword">class</span> <span class="class">DataPetaController</span> &lt; <span class="constant">ApplicationController</span>
+  include <span class="constant">ConvertProvNameToProvCode</span>
+  include <span class="constant">ConvertTotalCasesToCode</span>
+  include <span class="constant">ActionView</span>::<span class="constant">Helpers</span>::<span class="constant">NumberHelper</span>
+
+  <span class="keyword">def</span> <span class="function">index</span>
+    <span class="comment"># ...</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Selanjutnya tinggal kita gunakan pada object query yang sudah kita racik sebelumnya.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/controllers/data_peta_controller.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+  <td class="code"><pre><span class="keyword">class</span> <span class="class">DataPetaController</span> &lt; <span class="constant">ApplicationController</span>
+  include <span class="constant">ConvertProvNameToProvCode</span>
+  include <span class="constant">ConvertTotalCasesToCode</span>
+  include <span class="constant">ActionView</span>::<span class="constant">Helpers</span>::<span class="constant">NumberHelper</span>
+
+  <span class="keyword">def</span> <span class="function">index</span>
+    <span class="instance-variable">@last_updated</span>     = <span class="constant">Province</span>.last.fetched_at
+    <span class="instance-variable">@cumulative_cases</span> = <span class="constant">Province</span>.select(<span class="symbol">:name</span>, <span class="symbol">:total_cases</span>)
+      .where(<span class="key">fetched_at</span>: <span class="instance-variable">@last_updated</span>)
+      .map { |n|
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">'</span><span class="inline"><span class="inline-delimiter">#{</span>convert_name_to_province_code(n.name)<span class="inline-delimiter">}</span></span><span class="content">': {fillKey: '</span><span class="inline"><span class="inline-delimiter">#{</span>convert_total_cases_to_code(n.total_cases)<span class="inline-delimiter">}</span></span><span class="content">', totalCases: '</span><span class="inline"><span class="inline-delimiter">#{</span>number_with_delimiter(n.total_cases, <span class="key">delimiter</span>: <span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span>)<span class="inline-delimiter">}</span></span><span class="content">'},</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>
+      }.join
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Instance variable <code>@cumulative_cases</code> inilah yang akan kita gunakan pada view template.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="actionview">ActionView</h3>
+<div class="paragraph">
+<p>Setelah selesai membuat object query di controller, selanjutnya tinggal kita gunakan di view template.</p>
+</div>
+<div class="paragraph">
+<p>Tapi sebelumnya, kita perlu untuk menyiapkan beberapa Javascript library yang akan diperlukan oleh datamaps.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js" target="_blank" rel="noopener"><strong>d3.min.js</strong></a></p>
+</li>
+<li>
+<p><a href="https://cdnjs.cloudflare.com/ajax/libs/topojson/1.6.9/topojson.min.js" target="_blank" rel="noopener"><strong>topojson.min.js</strong></a></p>
+</li>
+<li>
+<p><a href="https://cdnjs.cloudflare.com/ajax/libs/datamaps/0.5.9/datamaps.idn.min.js" target="_blank" rel="noopener"><strong>datamaps.idn.min.js</strong></a>, saya menggunakan datamaps wilayah Indonesia.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Kita akan letakkan pada direktori <strong>vendor/assets/javascripts/</strong> saja.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>.
+├─ app/
+├─ bin/
+├─ config/
+├─ db/
+├─ lib/
+├─ log/
+├─ node_modules/
+├─ public/
+├─ spec/
+├─ storage/
+├─ tmp/
+├─ vendor/
+│   └─ assets/
+│      └─ javascripts/
+│         ├─ &lt;mark&gt;d3.min.js&lt;/mark&gt;
+│         ├─ &lt;mark&gt;topojson.min.js&lt;/mark&gt;
+│         └─ &lt;mark&gt;datamaps.idn.min.js&lt;/mark&gt;
+│
+├─ Gemfile
+...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Buatkan struktur seperti di atas.</p>
+</div>
+<div class="paragraph">
+<p>Kemudian, kita akan masukkan kepada daftar assets precompile, di <strong>config/initializers/assets.rb</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">config/initializers/assets.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="lang"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+  <td class="code"><pre># Be sure to restart your server when you modify this file.
+
+# ...
+
+# Precompile additional assets.
+# application.js, application.css, and all non-JS/CSS in the app/assets
+# folder are already added.
+Rails.application.config.assets.precompile += %w(  <i class="conum" data-value="1"></i><b>(1)</b>
+  d3.min.js topojson.min.js datamaps.idn.min.js    <i class="conum" data-value="1"></i><b>(1)</b>
+)                                                  <i class="conum" data-value="1"></i><b>(1)</b>
+</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Tambahkan seperti pada baris 8, 9, 10.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Mantap!</p>
+</div>
+<div class="paragraph">
+<p>Sekarang kita lanjut ke view template.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/data_peta/index.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+</pre></td>
+  <td class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">container px-0 pt-2 pb-5 mt-5</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">style</span>=<span class="string"><span class="delimiter">&quot;</span><span class="key">overflow-y</span>: <span class="value">auto</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="inline"><span class="inline-delimiter">&lt;%=</span> javascript_include_tag <span class="string"><span class="delimiter">'</span><span class="content">d3.min</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>             <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="inline"><span class="inline-delimiter">&lt;%=</span> javascript_include_tag <span class="string"><span class="delimiter">'</span><span class="content">topojson.min</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>       <i class="conum" data-value="1"></i><b>(1)</b>
+  <span class="inline"><span class="inline-delimiter">&lt;%=</span> javascript_include_tag <span class="string"><span class="delimiter">'</span><span class="content">datamaps.idn.min</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>   <i class="conum" data-value="1"></i><b>(1)</b>
+
+  <span class="tag">&lt;div</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">container1</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">style</span>=<span class="string"><span class="delimiter">&quot;</span><span class="key">position</span>: <span class="value">relative</span>; <span class="key">width</span>: <span class="float">1100px</span>; <span class="key">height</span>: <span class="float">400px</span>; <span class="key">margin</span>: <span class="float">0</span> <span class="value">auto</span>;<span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span>
+
+  <span class="tag">&lt;script</span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">text/javascript</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+<span class="inline">    <span class="comment">//basic map config with custom fills, mercator projection</span>
+    <span class="keyword">var</span> map = <span class="keyword">new</span> Datamap({
+      <span class="key">scope</span>: <span class="string"><span class="delimiter">'</span><span class="content">idn</span><span class="delimiter">'</span></span>,
+      <span class="key">element</span>: document.getElementById(<span class="string"><span class="delimiter">'</span><span class="content">container1</span><span class="delimiter">'</span></span>),
+      <span class="function">setProjection</span>: <span class="keyword">function</span> (element) {
+        <span class="keyword">var</span> projection = d3.geo.mercator()
+          .center([<span class="integer">115</span>, -<span class="integer">5</span>])
+          .rotate([<span class="integer">0</span>, <span class="integer">0</span>])
+          .scale(<span class="integer">3900</span> / <span class="integer">3</span>)
+        <span class="keyword">var</span> path = d3.geo.path()
+          .projection(projection);
+        <span class="keyword">return</span> {<span class="key">path</span>: path, <span class="key">projection</span>: projection};
+      },
+      <span class="key">fills</span>: {
+        <span class="key">defaultFill</span>: <span class="string"><span class="delimiter">'</span><span class="content">#dddddd</span><span class="delimiter">'</span></span>,
+        <span class="key"><span class="delimiter">'</span><span class="content">AAA</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#DB1836</span><span class="delimiter">'</span></span>,
+        <span class="key"><span class="delimiter">'</span><span class="content">BBB</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#F15A23</span><span class="delimiter">'</span></span>,
+        <span class="key"><span class="delimiter">'</span><span class="content">CCC</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#F89A1C</span><span class="delimiter">'</span></span>,
+        <span class="key"><span class="delimiter">'</span><span class="content">DDD</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#FFD500</span><span class="delimiter">'</span></span>,
+        <span class="key"><span class="delimiter">'</span><span class="content">EEE</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#C1D737</span><span class="delimiter">'</span></span>,
+        <span class="key"><span class="delimiter">'</span><span class="content">FFF</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#44B549</span><span class="delimiter">'</span></span>,
+        <span class="key"><span class="delimiter">'</span><span class="content">GGG</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#0EB049</span><span class="delimiter">'</span></span>,
+        <span class="key"><span class="delimiter">'</span><span class="content">HHH</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">#016533</span><span class="delimiter">'</span></span>,
+      },
+      <span class="key">data</span>: {
+        </span><span class="inline"><span class="inline-delimiter">&lt;%=</span> raw <span class="instance-variable">@cumulative_cases</span> <span class="inline-delimiter">%&gt;</span></span>  <i class="conum" data-value="2"></i><b>(2)</b>
+      },
+      geographyConfig: {
+        popupTemplate: function(geo, data) {
+          return ['<span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">hoverinfo</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;strong&gt;</span>',
+            geo.properties.name + '<span class="tag">&lt;/strong&gt;</span><span class="tag">&lt;br&gt;</span>Kasus (Kulumatif)',
+            ': ' + data.totalCases,
+            '<span class="tag">&lt;/div&gt;</span>'].join('');
+        }
+      }
+    });
+  <span class="tag">&lt;/script&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Baris 2, 3, 4, adalah cara memanggil Javascript library yang kita masukkan ke dalam direktori vendor sebelumnya.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Baris 34, adalah cara memanggil instance variable <code>@cumulative_cases</code> yang telah kita buat object querynya di <strong>app/controllers/data_peta_controller.rb</strong>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Selesai!</p>
+</div>
+<div class="paragraph">
+<p>Hanya seperti itu saja.</p>
+</div>
+<div class="paragraph">
+<p>Apabila dirasa ada yan kurang pas, teman-teman bisa memodifikiasi dan memperbaiki sesuai keinginan.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://github.com/markmarkoh/datamaps" target="_blank" rel="noopener">github.com/markmarkoh/datamaps</a><br>
+Diakses tanggal: 2021/02/07</p>
+</li>
+<li>
+<p><a href="http://datamaps.github.io/" target="_blank" rel="noopener">http://datamaps.github.io/</a><br>
+Diakses tanggal: 2021/02/07</p>
+</li>
+<li>
+<p><a href="https://github.com/d3/d3" target="_blank" rel="noopener">github.com/d3/d3</a><br>
+Diakses tanggal: 2021/02/07</p>
+</li>
+<li>
+<p><a href="https://api.rubyonrails.org/classes/ActionView/Helpers/NumberHelper.html#method-i-number_with_delimiter" target="_blank" rel="noopener">api.rubyonrails.org/classes/ActionView/Helpers/NumberHelper.html#method-i-number_with_delimiter</a><br>
+Diakses tanggal: 2021/02/07</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2021/2021-02-07-visualisasi-data-wilayah-dengan-datamaps-pada-rails.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#rails</a>
+      
+        
+        <a href="#">#javascript</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-02-07</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#permasalahan">Permasalahan</a></li>
+  <li><a href="#pemecahan_masalah">Pemecahan Masalah</a>
+    <ul>
+      <li><a href="#actioncontroller">ActionController</a></li>
+      <li><a href="#mengkonversi_nama_provinsi_ke_kode_provinsi">Mengkonversi Nama Provinsi ke Kode Provinsi</a></li>
+      <li><a href="#mengklasifikasi_total_cases_berdasaran_warna">Mengklasifikasi total_cases Berdasaran Warna</a></li>
+      <li><a href="#memberikan_delimiter_untuk_ribuan">Memberikan Delimiter , untuk Ribuan</a></li>
+      <li><a href="#actionview">ActionView</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

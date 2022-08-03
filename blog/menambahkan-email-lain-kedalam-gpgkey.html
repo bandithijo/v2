@@ -1,0 +1,1085 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menambahkan Secondary Email ke dalam GPG Key | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Menambahkan Secondary Email ke dalam GPG Key" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Memiliki email yang banyak tidak berarti juga memiliki GPG key yang banyak. Kita dapat membuat alias untuk masing-masing email agar menggunakan GPG key kita yang sudah ada. Simak caranya di catatan berikut ini. Mudah banget!" />
+<meta property="og:description" content="Memiliki email yang banyak tidak berarti juga memiliki GPG key yang banyak. Kita dapat membuat alias untuk masing-masing email agar menggunakan GPG key kita yang sudah ada. Simak caranya di catatan berikut ini. Mudah banget!" />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/menambahkan-email-lain-kedalam-gpgkey" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/menambahkan-email-lain-kedalam-gpgkey" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-11T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Menambahkan Secondary Email ke dalam GPG Key","dateModified":"2020-12-11T00:00:00+00:00","datePublished":"2020-12-11T00:00:00+00:00","description":"Memiliki email yang banyak tidak berarti juga memiliki GPG key yang banyak. Kita dapat membuat alias untuk masing-masing email agar menggunakan GPG key kita yang sudah ada. Simak caranya di catatan berikut ini. Mudah banget!","url":"https://bandithijo.dev/v2/blog/menambahkan-email-lain-kedalam-gpgkey","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/menambahkan-email-lain-kedalam-gpgkey"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Menambahkan Secondary Email ke dalam GPG Key"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/menambahkan-email-lain-kedalam-gpgkey">Menambahkan Secondary Email ke dalam GPG Key</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / menambahkan email lain kedalam gpgkey
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#gpg</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-12-11</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#permasalahan">Permasalahan</a></li>
+  <li><a href="#pemecahan_masalah">Pemecahan Masalah</a>
+    <ul>
+      <li><a href="#1_identifikasi_gpg_secret_key_yang_kita_miliki">(1) Identifikasi GPG Secret Key yang Kita Miliki</a>
+        <ul>
+          <li><a href="#key_id_format">Key ID Format</a></li>
+          <li><a href="#fingerprit">Fingerprit</a></li>
+        </ul>
+      </li>
+      <li><a href="#2_edit_gpg_key_untuk_menambahkan_email_lain">(2) Edit GPG Key untuk Menambahkan Email Lain</a></li>
+    </ul>
+  </li>
+  <li><a href="#tambahan">Tambahan</a>
+    <ul>
+      <li><a href="#gpg_shell_help">GPG shell, Help!</a></li>
+      <li><a href="#menghapus_uid">Menghapus uid</a></li>
+      <li><a href="#memilih_primary_uid">Memilih Primary uid</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang">Latar Belakang</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Maksud dari judul catatan ini adalah, menambahkan Email lain --email milik kita yang berbeda alamat, bisa lebih dari satu email-- ke dalam satu GPG key yang sama --GPG key yang sudah pernah kita buat sebelumnya.</p>
+</div>
+<div class="paragraph">
+<p>Mungkin teman-teman, belum mengetahui apa itu GPG key? Bisa terlebih dahulu melihat catatan kecil yang pernah saya tulis di sini, <a href="https://bandithijo.dev/v2/blog/generate-gpg-key" target="_blank" rel="noopener">"<strong>Generate Private dan Public GPG Key Sendiri</strong>"</a>.</p>
+</div>
+<div class="paragraph">
+<p>Baru-baru ini saya memiliki kasus harus mengirim email dengan alamat email yang lain --alamat email yang saya gunakan untuk bekerja.</p>
+</div>
+<div class="paragraph">
+<p>Dalam berkirim email, biasanya untuk memberikan jaminan bahwa email yang kita kirim adalah benar email yang kita tulis, tidak cukup dari alamat email saja.</p>
+</div>
+<div class="paragraph">
+<p>Seperti halnya di dunia nyata, kalau kita berkirim surat, alamat email ibarat kop header dari surat.</p>
+</div>
+<div class="paragraph">
+<p><strong>Lantas, bagian mana yang menandakan bahwa surat tersebut adalah surat yang dibuat oleh si pengirim?</strong></p>
+</div>
+<div class="paragraph">
+<p>Yak betul! Pada bagian "signature".</p>
+</div>
+<div class="paragraph">
+<p>Email pun juga demikian. Kita perlu memberikan tanda tangan (signature) agar email tersebut memiliki nilai otentik yang dapat dipertanggungjawabkan keasliannya.</p>
+</div>
+<div class="paragraph">
+<p><strong>Signature seperti apa yang kita berika pada email?</strong></p>
+</div>
+<div class="paragraph">
+<p>Apakah seperti pada surat, kita menuliskan nama pembuat surat dan memasukkan gambar tanda tangan pada bagian paling bawah email.</p>
+</div>
+<div class="paragraph">
+<p>Mungkin bisa. Tapi bukan signature seperti ini yang saya maksudkan.</p>
+</div>
+<div class="paragraph">
+<p>Namun, signature yang saya maksudkan adalah signature digital berupa GPG key. Signature yang yang juga digunakan dalam pemaketan aplikasi --yang pakai AUR pasti paham.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="permasalahan">Permasalahan</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Saya sudah memiliki GPG key, yang menggunakan email sebelumnya.</p>
+</div>
+<div class="paragraph">
+<p><strong>Apakah bisa, saya mendaftarkan email-email saya yang lain ke dalam GPG key yang saya gunakan saat ini?</strong></p>
+</div>
+<div class="paragraph">
+<p>Bisa. Sangat bisa.</p>
+</div>
+<div class="paragraph">
+<p>GPG memang sudah dirancang untuk menyimpan banyak alias.</p>
+</div>
+<div class="paragraph">
+<p>Alias, dalam hal ini adalah alamat-alamat email kita yang lain.</p>
+</div>
+<div class="paragraph">
+<p>Saya akan berikan ilustrasi agar lebih mudah dipahami.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ gpg --list-public-keys</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>pub   rsa4096 2014-10-22 [SC] [expires: 2021-10-29]
+      A4CBEA7974898599195E4FEC46EC46F39F3E2EF1  <i class="conum" data-value="1"></i><b>(1)</b>
+uid           [ unknown] Remi Gacogne &lt;rgacogne@archlinux.org&gt;
+sub   rsa4096 2014-10-22 [E] [expires: 2021-10-29]
+
+pub   rsa2048 2011-09-20 [SC]
+      ABAF11C65A2970B130ABE3C479BE3E4300411886  <i class="conum" data-value="1"></i><b>(1)</b>
+uid           [ unknown] Linus Torvalds &lt;torvalds@kernel.org&gt;
+uid           [ unknown] Linus Torvalds &lt;torvalds@linux-foundation.org&gt;
+sub   rsa2048 2011-09-20 [E]
+
+pub   rsa4096 2014-09-05 [SC]
+      C100346676634E80C940FB9E9C02FF419FECBE16  <i class="conum" data-value="1"></i><b>(1)</b>
+uid           [ unknown] Morten Linderud &lt;morten@linderud.pw&gt;
+uid           [ unknown] Morten Linderud &lt;mcfoxax@gmail.com&gt;
+uid           [ unknown] Morten Linderud &lt;foxboron@archlinux.org&gt;
+uid           [ unknown] Morten Linderud &lt;morten.linderud@fribyte.uib.no&gt;
+uid           [ unknown] Morten Linderud &lt;morten.linderud@student.uib.no&gt;
+sub   rsa4096 2014-09-05 [E]
+sub   rsa4096 2018-11-13 [S]
+sub   rsa4096 2018-11-26 [A]
+
+pub   rsa4096 2011-11-07 [SC] [expires: 2021-12-30]
+      E240B57E2C4630BA768E2F26FC1B547C8D8172C8  <i class="conum" data-value="1"></i><b>(1)</b>
+uid           [ unknown] Levente Polyak (anthraxx) &lt;levente@leventepolyak.net&gt;
+uid           [ unknown] Levente Polyak &lt;Z3r0.0x00@gmail.com&gt;
+uid           [ unknown] Levente Polyak &lt;anthraxx@archlinux.org&gt;
+uid           [ unknown] Levente Polyak &lt;anthraxx@hamburg.ccc.de&gt;
+uid           [ unknown] Levente Polyak &lt;levente@leventepolyak.de&gt;
+uid           [ unknown] Levente Polyak (Jabber/XMPP only) &lt;anthraxx@jabber.ccc.de&gt;
+sub   rsa4096 2011-11-07 [E] [expires: 2021-12-30]
+
+pub   rsa4096 2014-05-22 [SC] [expires: 2021-12-18]
+      903BAB73640EB6D65533EFF3468F122CE8162295  <i class="conum" data-value="1"></i><b>(1)</b>
+uid           [ unknown] Santiago Torres-Arias &lt;santiago@archlinux.org&gt;
+uid           [ unknown] Santiago Torres &lt;torresariass@gmail.com&gt;
+uid           [ unknown] Santiago Torres-Arias &lt;santiago@nyu.edu&gt;
+sub   rsa4096 2014-05-22 [E]</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Perhatikan, terdapat 5 fingerprint yang saya tampilkan di atas.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Yaitu:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Remi Gacogne&lt;br&gt;A4CBEA7974898599195E4FEC46EC46F39F3E2EF1</p>
+</li>
+<li>
+<p>Linux Torvalds&lt;br&gt;ABAF11C65A2970B130ABE3C479BE3E4300411886</p>
+</li>
+<li>
+<p>Morten Linderud&lt;br&gt;C100346676634E80C940FB9E9C02FF419FECBE16</p>
+</li>
+<li>
+<p>Levente Polyak&lt;br&gt;E240B57E2C4630BA768E2F26FC1B547C8D8172C8</p>
+</li>
+<li>
+<p>Santiago Torres&lt;br&gt;903BAB73640EB6D65533EFF3468F122CE8162295</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>4 diantaranya, memiliki lebih dari 1 email dalam 1 GPG key.</p>
+</div>
+<div class="paragraph">
+<p>Nah, gimana? Sudah kebayang kan?</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Dengan begini, kita <strong>tidak perlu membuat banyak GPG key untuk masing-masing email yang kita memiliki</strong>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pemecahan_masalah">Pemecahan Masalah</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Bagaimana cara membuat GPG key yang dapat menyimpan banyak email, sepeti di atas?</strong></p>
+</div>
+<div class="paragraph">
+<p>Sangat mudah.</p>
+</div>
+<div class="paragraph">
+<p>Ikuti langkah-langkahnya sebagai berikut ini.</p>
+</div>
+<div class="sect2">
+<h3 id="1_identifikasi_gpg_secret_key_yang_kita_miliki">(1) Identifikasi GPG Secret Key yang Kita Miliki</h3>
+<div class="paragraph">
+<p>GPG adalah pasangan kunci (<em>key pairs</em>), <strong>public key</strong> dan <strong>private key</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Kunci yang kita publikasikan, adalah kunci publik (<em>public key</em>).</p>
+</div>
+<div class="paragraph">
+<p>Sedangkan, kunci yang kita simpan adalah kunci private (<em>private key</em>).</p>
+</div>
+<div class="paragraph">
+<p>Private key ini lah yang kita gunakan untuk membuka paket --apa saja yang dienkripsi dengan GPG public key-- milik kita.</p>
+</div>
+<div class="paragraph">
+<p>Untuk mengecek daftar GPG private key, atau ada juga yang menyebut dengan istilah <strong>secret key</strong>, kita gunakan perintah,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ gpg --list-secret-keys</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nanti akan keluar GPG key yang merupakan secret key (private key).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/home/bandithijo/.gnupg/pubring.kbx
+-----------------------------------
+sec   rsa4096 2018-08-11 [SC] [expires: 2021-12-30]
+      AE706A616B252A6822635041560691E942A02F91
+uid           [ultimate] Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;
+ssb   rsa4096 2018-08-11 [E] [expires: 2021-12-30]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Terlihat, kalau saya baru memiliki 1 email di dalam GPG key ini.</p>
+</div>
+<div class="paragraph">
+<p>Sepintas tampilannya mirip dengan public key. Tapi jangan bingung, seperti yang saya katakan tadi di awal. GPG merupakan pasangan kunci.</p>
+</div>
+<div class="paragraph">
+<p>Artinya, kunci yang tampil tersebut, memili <strong>private key</strong> dan <strong>public key</strong> di sistem kita --karena kita sendiri yang buat.</p>
+</div>
+<div class="paragraph">
+<p>Kalau teman-teman pernah membuat (men-<em>generate</em>) lebih dari 1 kunci, tentunya tampilannya tidak hanya satu saja.</p>
+</div>
+<div class="paragraph">
+<p>Catat atau copy fingerprint yang berupa Hex-string dari GPG secret key yang ingin ditambahkan email lain.</p>
+</div>
+<div class="paragraph">
+<p>Contohnya seperti milik saya,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>AE706A616B252A6822635041560691E942A02F91</pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="key_id_format">Key ID Format</h4>
+<div class="paragraph">
+<p>Selain menggunakan fingerprit seperti di atas, kita juga dapat menggunakan key id.</p>
+</div>
+<div class="paragraph">
+<p>Terdapat beberapa keterangan tentang key id.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sec =&gt; 'SECret key'
+ssb =&gt; 'Secret SuBkey'
+pub =&gt; 'PUBlic key'
+sub =&gt; 'public SUBkey'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Untuk melihat key id yang kita miliki, kita dapat melihat dengan setidaknya 4 format.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>0xshort</p>
+</li>
+<li>
+<p>short</p>
+</li>
+<li>
+<p>0xlong</p>
+</li>
+<li>
+<p>long</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ gpg --keyid-format 0xshort -K</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/home/bandithijo/.gnupg/pubring.kbx
+-----------------------------------
+sec   rsa4096/0x66666666 2018-08-11 [SC] [expires: 2021-12-30]  <i class="conum" data-value="1"></i><b>(1)</b>
+      AE706A616B252A6822635041560691E942A02F91
+uid           [ultimate] Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;
+ssb   rsa4096/0x99999999 2018-08-11 [E] [expires: 2021-12-30]   <i class="conum" data-value="2"></i><b>(2)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><strong>0x66666666</strong> adalah bentuk dari SECret key id.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><strong>0x99999999</strong> adalah bentuk dari Secret SuBkey.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Tinggal disesuaikan saja format yang diperlukan, apakah <strong>0xshort</strong>, <strong>short</strong>, <strong>0xlong</strong>, dan <strong>long</strong>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="fingerprit">Fingerprit</h4>
+<div class="paragraph">
+<p>Untuk menampilkan fingerprint, kita dapat menambahkan option <code>--fingerprint</code>, baik untuk melihat public key ataupu private key.</p>
+</div>
+<div class="paragraph">
+<p>Misal, untuk melihat key id kita sendiri dengan format <code>0xshort</code> dan <code>--fingerprint</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ gpg --keyid-format 0xshort -K --fingerprint</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/home/bandithijo/.gnupg/pubring.kbx
+-----------------------------------
+sec   rsa4096/&lt;mark&gt;0x66666666&lt;/mark&gt; 2018-08-11 [SC] [expires: 2021-12-30]
+      Key fingerprint = &lt;mark&gt;AE70 6A61 6B25 2A68 2263  5041 5606 91E9 42A0 2F91&lt;/mark&gt;
+uid           [ultimate] Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;
+ssb   rsa4096/&lt;mark&gt;0x99999999&lt;/mark&gt; 2018-08-11 [E] [expires: 2021-12-30]</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="2_edit_gpg_key_untuk_menambahkan_email_lain">(2) Edit GPG Key untuk Menambahkan Email Lain</h3>
+<div class="paragraph">
+<p>Untuk menambahkan email lain, kita gunakan option, <code>--edit-key</code> diikuti dengan keyID.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>gpg --edit-key &amp;lt;key_id&amp;gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Misal,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ gpg --edit-key AE706A616B252A6822635041560691E942A02F91</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nanti, kita akan dibawa masuk ke GPG shell. Ditandai dengan tampilnya GPG shell prompt seperti di bawah.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; _</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dan teman-teman dapat memperhatikan, dibagian atasnya terdapat semacam MOTD (<em>message of the day</em>), yang berisi informasi tertentu, seperti ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>gpg (GnuPG) 2.2.24; Copyright (C) 2020 Free Software Foundation, Inc.
+This is free software: you are free to change and redistribute it.
+There is NO WARRANTY, to the extent permitted by law.
+
+Secret key is available.
+
+sec  rsa4096/6666666666666666
+     created: 2018-08-11  expires: 2021-12-30  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/9999999999999999
+     created: 2018-08-11  expires: 2021-12-30  usage: E
+[ultimate] (1)  Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;
+
+gpg&gt; _</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, masukkan perintah <code>adduid</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; adduid</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ikuti pertanyaan-pertanyaan yang diajukan,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Real name: &lt;span style="font-weight:bold;color:#FFCC00;"&gt;Rizqi Nur Assyaufi&lt;/span&gt;
+Email address: &lt;span style="font-weight:bold;color:#FFCC00;"&gt;rizqiassyaufi@gmail.com&lt;/span&gt;
+Comment:
+You selected this USER-ID:
+"Rizqi Nur Assyaufi &lt;rizqilassyaufi@gmail.com&gt;"
+
+Change (N)ame, (C)omment, (E)mail or (O)kay/(Q)uit? o</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau berhasil nanti email yang baru ditambahkan, akan masuk ke dalam list.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sec  rsa4096/6666666666666666
+     created: 2018-08-11  expires: 2021-11-30  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/9999999999999999
+     created: 2018-08-11  expires: 2021-11-30  usage: E
+[ultimate] (1)  Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;
+[ unknown] (2). Rizqi Nur Assyaufi &lt;rizqiassyaufi@gmail.com&gt;
+
+gpg&gt; _</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lalu, masukkan <code>save</code> untuk save dan quit.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; save</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, lakukan verifikasi, untuk melihat apakah sudah berhasil atau belum.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ gpg --list-secret-keys</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>/home/bandithijo/.gnupg/pubring.kbx
+-----------------------------------
+sec   rsa4096 2018-08-11 [SC] [expires: 2021-12-30]
+      AE706A616B252A6822635041560691E942A02F91
+uid           [ultimate] Rizqi Nur Assyaufi &lt;rizqinurassyaufi@gmail.com&gt;
+uid           [ultimate] Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;
+ssb   rsa4096 2018-08-11 [E] [expires: 2021-12-30]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mantap!</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tambahan">Tambahan</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="gpg_shell_help">GPG shell, Help!</h3>
+<div class="paragraph">
+<p>Untuk meminta bantuan pada GPG shell, gunaka perintah,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; help</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="menghapus_uid">Menghapus uid</h3>
+<div class="paragraph">
+<p>Bagaimana cara menghapus email (uid) yang sudah tidak kita gunakan lagi?</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; list</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sec  rsa4096/6666666666666666
+     created: 2018-08-11  expires: 2021-12-30  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/9999999999999999
+     created: 2018-08-11  expires: 2021-12-30  usage: E
+[ultimate] (1). Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;
+[ultimate] (2)  Rizqi Nur Assyaufi &lt;rizqiassyaufi@gmail.com&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Misal, saya ingin menghapus uid ke-2, dengam alamat email <a href="mailto:rizqiassyaufi@gmail.com">rizqiassyaufi@gmail.com</a>.</p>
+</div>
+<div class="paragraph">
+<p>Gunakan perintah <code>uid &lt;id&gt;</code> untuk memilih uid yang dimakdudkan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; uid 2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nanti, akan ada tanda bintang <code>*</code> pada uid yang telah terpilih.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sec  rsa4096/6666666666666666
+     created: 2018-08-11  expires: 2021-12-30  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/9999999999999999
+     created: 2018-08-11  expires: 2021-12-30  usage: E
+[ultimate] (1). Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;
+[ultimate] (2)* Rizqi Nur Assyaufi &lt;rizqiassyaufi@gmail.com&gt;  <i class="conum" data-value="1"></i><b>(1)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Perhatikan, pada uid 2, terdapat tanda <code>*</code>, artinya uid 2 telah kita tandai.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Kemudian, gunakan perintah <code>deluid</code> untuk menghapus uid terpilih.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; deluid</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Really remove this user ID? (y/N) &lt;span style="font-weight:bold;color:#FFCC00;"&gt;y&lt;/span&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Masukkan <code>y</code>, dan uid terpilih akan dihapus dari list.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="memilih_primary_uid">Memilih Primary uid</h3>
+<div class="paragraph">
+<p>Kalau kita memiliki lebih dari satu uid, tentunya kita perlu memilih uid mana yang menjadi uid primary.</p>
+</div>
+<div class="paragraph">
+<p>Hal ini dapat dengan mudah kita lakukan menggunakan perintah <code>primary</code>.</p>
+</div>
+<div class="paragraph">
+<p>Misal,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; list</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sec  rsa4096/6666666666666666
+     created: 2018-08-11  expires: 2021-12-30  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/9999999999999999
+     created: 2018-08-11  expires: 2021-12-30  usage: E
+[ultimate] (1). Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+[ultimate] (2)  Rizqi Nur Assyaufi &lt;rizqiassyaufi@gmail.com&gt;</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Terlihat, uid 1 adalah primary dari tanda <code>.</code> yang ada disebelah uid (1).</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Untuk mengubah uid 2 menjadi primary, sebelumnya, marking dulu uid yang ingin dijadikan primary.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; uid 2</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sec  rsa4096/6666666666666666
+     created: 2018-08-11  expires: 2021-12-30  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/9999999999999999
+     created: 2018-08-11  expires: 2021-12-30  usage: E
+[ultimate] (1). Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;
+[ultimate] (2)* Rizqi Nur Assyaufi &lt;rizqiassyaufi@gmail.com&gt;  <i class="conum" data-value="1"></i><b>(1)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>uid 2 akan memiliki marking <code>*</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, jalankan perintah,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; primary</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sec  rsa4096/6666666666666666
+     created: 2018-08-11  expires: 2021-12-30  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/9999999999999999
+     created: 2018-08-11  expires: 2021-12-30  usage: E
+[ultimate] (1)  Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+[ultimate] (2)* Rizqi Nur Assyaufi &lt;rizqiassyaufi@gmail.com&gt;</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Tanda <code>.</code> pada uid 1 menghilang. Artinya primary sudah berpindah.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Lalu jalankan <code>save</code> untuk save dan quit.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">gpg&gt; save</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lakukan verifikasi,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ gpg --list-secret-keys</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sec  rsa4096/6666666666666666
+     created: 2018-08-11  expires: 2021-12-30  usage: SC
+     trust: ultimate      validity: ultimate
+ssb  rsa4096/9999999999999999
+     created: 2018-08-11  expires: 2021-12-30  usage: E
+[ultimate] (1). Rizqi Nur Assyaufi &lt;rizqiassyaufi@gmail.com&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+[ultimate] (2)  Rizqi Nur Assyaufi &lt;bandithijo@gmail.com&gt;</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Posisi primary akan selalu berada di uid 1.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Nah, sekarang email <a href="mailto:rizqiassyaufi@gmail.com">rizqiassyaufi@gmail.com</a> sudah menjadi primary.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://redmine.dicelab.net/projects/instructibels/wiki/Adding_Secondary_Email_Addresses_to_GPG_Keys" target="_blank" rel="noopener">Redmine - Adding Secondary Email Addresses to GPG Keys</a><br>
+Diakses tanggal: 2020/12/11</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2020/2020-12-11-menambahkan-email-lain-kedalam-gpgkey.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#gpg</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-12-11</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#permasalahan">Permasalahan</a></li>
+  <li><a href="#pemecahan_masalah">Pemecahan Masalah</a>
+    <ul>
+      <li><a href="#1_identifikasi_gpg_secret_key_yang_kita_miliki">(1) Identifikasi GPG Secret Key yang Kita Miliki</a>
+        <ul>
+          <li><a href="#key_id_format">Key ID Format</a></li>
+          <li><a href="#fingerprit">Fingerprit</a></li>
+        </ul>
+      </li>
+      <li><a href="#2_edit_gpg_key_untuk_menambahkan_email_lain">(2) Edit GPG Key untuk Menambahkan Email Lain</a></li>
+    </ul>
+  </li>
+  <li><a href="#tambahan">Tambahan</a>
+    <ul>
+      <li><a href="#gpg_shell_help">GPG shell, Help!</a></li>
+      <li><a href="#menghapus_uid">Menghapus uid</a></li>
+      <li><a href="#memilih_primary_uid">Memilih Primary uid</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

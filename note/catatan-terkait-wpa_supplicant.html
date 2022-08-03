@@ -1,0 +1,1327 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catatan Terkait wpa_supplicant | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Catatan Terkait wpa_supplicant" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Saya tidak lagi menggunakan comprehensive network manager seperti NetworkManager atau ConnMan. Terhubung ke jaringan juga hanya dengan Wi-Fi. Maka, saya putuskan untuk menghapus NetworkManager dan hanya menggunakan wpa_supplicant. Ternyata tidak semengerikan yang saya bayangkan. wpa_supplicant juga memiliki interaktif shell yang bernama wpa_cli. Sangat memudahkan untuk digunakan sebagai manajemen tools jaringan konektifitas Wi-Fi." />
+<meta property="og:description" content="Saya tidak lagi menggunakan comprehensive network manager seperti NetworkManager atau ConnMan. Terhubung ke jaringan juga hanya dengan Wi-Fi. Maka, saya putuskan untuk menghapus NetworkManager dan hanya menggunakan wpa_supplicant. Ternyata tidak semengerikan yang saya bayangkan. wpa_supplicant juga memiliki interaktif shell yang bernama wpa_cli. Sangat memudahkan untuk digunakan sebagai manajemen tools jaringan konektifitas Wi-Fi." />
+<link rel="canonical" href="https://bandithijo.dev/v2/note/catatan-terkait-wpa_supplicant" />
+<meta property="og:url" content="https://bandithijo.dev/v2/note/catatan-terkait-wpa_supplicant" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-12-31T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Catatan Terkait wpa_supplicant","dateModified":"2020-12-31T00:00:00+00:00","datePublished":"2020-12-31T00:00:00+00:00","description":"Saya tidak lagi menggunakan comprehensive network manager seperti NetworkManager atau ConnMan. Terhubung ke jaringan juga hanya dengan Wi-Fi. Maka, saya putuskan untuk menghapus NetworkManager dan hanya menggunakan wpa_supplicant. Ternyata tidak semengerikan yang saya bayangkan. wpa_supplicant juga memiliki interaktif shell yang bernama wpa_cli. Sangat memudahkan untuk digunakan sebagai manajemen tools jaringan konektifitas Wi-Fi.","url":"https://bandithijo.dev/v2/note/catatan-terkait-wpa_supplicant","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/note/catatan-terkait-wpa_supplicant"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Catatan Terkait wpa_supplicant"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/note/catatan-terkait-wpa_supplicant">Catatan Terkait wpa_supplicant</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/note/">note</a>
+  
+
+  
+    / catatan terkait wpa_supplicant
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#wireless</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-12-31</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#apa_itu_wap_supplicant">Apa itu wap_supplicant</a></li>
+  <li><a href="#instalasi">Instalasi</a></li>
+  <li><a href="#konfigurasi">Konfigurasi</a>
+    <ul>
+      <li><a href="#kenali_wireless_interface_yang_digunakan">Kenali Wireless Interface yang Digunakan</a></li>
+      <li><a href="#menjalankan_service">Menjalankan Service</a></li>
+      <li><a href="#1_menggunakan_wpa_cli">(1) Menggunakan wpa_cli</a>
+        <ul>
+          <li><a href="#bantuan">Bantuan</a></li>
+          <li><a href="#scanning">Scanning</a></li>
+          <li><a href="#melihat_hasil_scan">Melihat Hasil Scan</a></li>
+          <li><a href="#mendaftarkan_network">Mendaftarkan Network</a></li>
+          <li><a href="#melihat_daftar_network_yang_tersimpan">Melihat Daftar Network yang Tersimpan</a></li>
+          <li><a href="#untuk_terhubung_dengan_network">Untuk Terhubung dengan Network</a></li>
+          <li><a href="#simpan_hasil_konfigurasi">Simpan Hasil Konfigurasi</a></li>
+          <li><a href="#keluar_dari_wpa_cli">Keluar dari wpa_cli</a></li>
+          <li><a href="#disconnect">Disconnect</a></li>
+        </ul>
+      </li>
+      <li><a href="#2_menggunakan_wpa_passphrase">(2) Menggunakan wpa_passphrase</a></li>
+    </ul>
+  </li>
+  <li><a href="#penggunaan_yang_lebih_advanced">Penggunaan yang Lebih Advanced</a></li>
+  <li><a href="#tambahan">Tambahan</a>
+    <ul>
+      <li><a href="#bagaimana_saya_menggunakan_wpa_supplicant">Bagaimana Saya Menggunakan wpa_supplicant?</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Saya baru menyadari kalau saya ternyata lebih sering menggunakan koneksi wireless ketimbang menggunakan kabel. Artinya, NetworkManager yang saya pergunakan sebagai network manager yang memiliki banyak sekali fitur yang dapat memudahkan kita untuk mengkonfigurasi segala sesuatu tentang jaringan, hanya saya pergunakan salah satu sari sekian banyak fiturnya.</p>
+</div>
+<div class="paragraph">
+<p>Hal ini mulai terasa kurang efisien buat saya. Terlebih lagi, NetworkManager ini mungkin sebenarnya hanya layer tambahan yang digunakan untuk memudahkan dalam mengkonfigurasi wireless networking yang menggunakan <strong>wpa_supplicant</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Lantas, karena saya lebih banyak menggunakan wireless network ketimbang ethernet, maka saya memutuskan untuk hanya menggunkan <strong>wpa_supplicant</strong> dalam menghandle konektifitas dengan Wi-Fi.</p>
+</div>
+<div class="paragraph">
+<p>Saya terinspirasi ketika berpindah dari Arch Linux ke Artix Linux. Dan membaca Arch Wiki, pada bagian yang ini <a href="https://wiki.archlinux.org/index.php/Network_configuration/Wireless#Utilities" target="_blank" rel="noopener"><strong>Network configuration/Wireless &gt; Options</strong></a>.</p>
+</div>
+<div class="paragraph">
+<p>Pada Arch Wiki disebutkan,</p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Just like other network interfaces, the wireless ones are controlled with ip from the <a href="https://archlinux.org/packages/?name=iproute2" target="_blank" rel="noopener">iproute2</a> package.</p>
+</div>
+<div class="paragraph">
+<p>Managing a wireless connection requires a basic set of tools.</p>
+</div>
+<div class="paragraph">
+<p><strong>Either use a <a href="https://wiki.archlinux.org/index.php/Network_configuration#Network_managers" target="_blank" rel="noopener">network manager</a> or use one of the following directly</strong>.</p>
+</div>
+</div>
+</div>
+<div class="openblock overflow-x">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 14.2858%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Software</th>
+<th class="tableblock halign-left valign-top">Package</th>
+<th class="tableblock halign-left valign-top">WEXT</th>
+<th class="tableblock halign-left valign-top">nl80211</th>
+<th class="tableblock halign-left valign-top">WEP</th>
+<th class="tableblock halign-left valign-top">WPA/WPA2</th>
+<th class="tableblock halign-left valign-top">ArchISO</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wireless_tools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wireless_tools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">iw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">iw</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wpa Supplicant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">wpa_supplicant</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">iwd</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">iwd</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Yes</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="paragraph">
+<p>* <strong>wireless_tools</strong> sudah <em>deprecated</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="apa_itu_wap_supplicant">Apa itu wap_supplicant</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Secara sederhana wpa_supplicant adalah tools yang dapat kita pergunakan untuk meminta/me-request otentikasi ke jaringan. Awalan <strong>wpa_</strong> menandakan bahwa tools ini mendukung WPA. Tidak hanya WPA, tapi juga WEP dan WPA2.</p>
+</div>
+<div class="paragraph">
+<p><strong>WPA2 itu apa, bang?</strong></p>
+</div>
+<div class="paragraph">
+<p>Adalah kependekan dari <strong>Wi-Fi Protected Access II</strong>, adalah standar yang digunakan untuk menetapkan keamanan untuk jaringan wireless. WPA2 ini hadir untuk menggantikan WEP yang sudah deprecated (usang).</p>
+</div>
+<div class="paragraph">
+<p>wpa_supplicant sangat cocok digunakan untuk desktop, laptop, maupun embedded system.</p>
+</div>
+<div class="paragraph">
+<p>Yok, tanpa berlama-lama, langsung saja kita pasang.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="instalasi">Instalasi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pasang dulu paket <strong>wpa_supplicant</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo pacman -S wpa_supplicant</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau kita memasang paket ini, kita akan mendapatkan:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>wpa_supplicant</code> (main program)</p>
+</li>
+<li>
+<p><code>wpa_passphrase</code> (passphrase tool)</p>
+</li>
+<li>
+<p><code>wpa_cli</code> (front-end cli)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Kita juga dapat memasang package <a href="https://aur.archlinux.org/packages/wpa_supplicant_gui/" target="_blank" rel="noopener"><strong>wpa_supplicant_gui</strong></a> <code>wpa_gui</code>, untuk yang lebih senang berinteraksi dengan aplikasi GUI.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="konfigurasi">Konfigurasi</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="kenali_wireless_interface_yang_digunakan">Kenali Wireless Interface yang Digunakan</h3>
+<div class="paragraph">
+<p>Pertama-tama, periksa dulu nama wireless interface yang teman-teman gunakan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ip a s</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+2: eth0: &lt;NO-CARRIER,BROADCAST,MULTICAST,UP&gt; mtu 1500 qdisc fq_codel state DOWN group default qlen 1000
+    link/ether 00:16:d3:c4:fb:d2 brd ff:ff:ff:ff:ff:ff
+3: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 08:11:96:00:00:00 brd ff:ff:ff:ff:ff:ff</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Punya saya bernama <code>wlan0</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Kalau teman-teman ingin menggunakan <strong>Traditional Network Interface Name</strong> seperti <code>wlan0</code>, kalian dapat mengunjungi catatan saya <a href="https://bandithijo.dev/v2/blog/mengembalikan-nama-interface-ke-raditional-interface-name" target="_blank" rel="noopener"><strong>Mengembalikan Nama Interface Menjadi Traditional Interface Name (eth0, wlan0, etc.)</strong></a>.<br>
+Tapi, <strong>saya tidak merekomendasikan</strong> yaa.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, untuk terhubung dengan network yang ada, kita dapat menggunakan 2 cara.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Menggunakan <code>wpa_cli</code></p>
+</li>
+<li>
+<p>Menggunakan <code>wpa_passphrase</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="menjalankan_service">Menjalankan Service</h3>
+<div class="paragraph">
+<p>Sebelum dapat menggunakan <strong>wpa_supplicant</strong>, kita perlu untuk menjalankan wpa_supplicant daemon terlebih dahulu.</p>
+</div>
+<div class="paragraph">
+<p>Umumnya, menggunakan systemd service.</p>
+</div>
+<div class="listingblock">
+<div class="title">systemd</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo systemctl start wpa_supplicant.service</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">OpenRC</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-service wpa_supplicant start</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Atau, kita juga dapat menjalankan daemon secara langsung.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo wpa_supplicant -B -i nama_interface -c /etc/wpa_supplicant/wpa_supplicant.conf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>-B</code>, untuk <em>run daemon in the background</em>.</p>
+</div>
+<div class="paragraph">
+<p><code>-i</code>, untuk mendefinisikan nama interface.</p>
+</div>
+<div class="paragraph">
+<p><code>-c</code>, untuk mendefinisikan lokasi dari wpa_supplicant.conf.</p>
+</div>
+<div class="paragraph">
+<p>Ganti <em>nama_interface</em> dengan yang teman-teman pergunakan.</p>
+</div>
+<div class="paragraph">
+<p>Cara di atas, biasanya saya lakukan untuk debugging, apabila saya memiliki file konfigurasi selain file konfigurasi default.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="1_menggunakan_wpa_cli">(1) Menggunakan wpa_cli</h3>
+<div class="paragraph">
+<p>Terlebih dahulu kita harus menambahkan sedikit konfigurasi agar dapat menyimpan config dari wpa_cli.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudoedit /etc/wpa_supplicant/wpa_supplicant.conf</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>ctrl_interface=/run/wpa_supplicant
+update_config=1</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau sudah ada, tidak perlu diubah-ubah.</p>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, kita akan gunakan <strong>wpa_cli</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo wpa_cli</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>wpa_cli v2.9
+Copyright (c) 2004-2019, Jouni Malinen &lt;j@w1.fi&gt; and contributors
+
+This software may be distributed under the terms of the BSD license.
+See README for more details.
+
+Selected interface 'wlan0'
+
+Interactive mode
+
+&gt; _</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Di dalam shell ini, kita dapat memanfaatkan auto completion untuk perintah-perintah yang tersedia menggunakan tombol <kbd>Tab</kbd>.</p>
+</div>
+<div class="sect3">
+<h4 id="bantuan">Bantuan</h4>
+<div class="paragraph">
+<p>Seperti biasa, untuk melihat ketersediaan command yang ada, kita dapat menggunakan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; help</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="scanning">Scanning</h4>
+<div class="paragraph">
+<p>Untuk melakukan pencarian nama network yang ada di sekitar kita.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; scan</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>OK
+&lt;3&gt;CTRL-EVENT-SCAN-STARTED
+&lt;3&gt;CTRL-EVENT-SCAN-RESULTS
+&lt;3&gt;WPS-AP-AVAILABLE</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="melihat_hasil_scan">Melihat Hasil Scan</h4>
+<div class="paragraph">
+<p>Untuk melihat hasil yang telah di-scan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; scan_results</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bssid / frequency / signal level / flags / ssid
+00:67:62:78:91:40       2462    -49     [WPA-PSK-CCMP][WPA2-PSK-CCMP][ESS]                      KIKEL
+60:18:88:00:00:00       2432    -61     [WPA-PSK-CCMP][WPA2-PSK-CCMP][WPS][ESS]                 bandithijo
+fc:a6:cd:be:d8:b0       2462    -88     [WPA-PSK-CCMP][WPA2-PSK-CCMP][ESS]                      SALSHA
+e8:01:8d:ae:fb:00       2437    -86     [WPA-PSK-CCMP][WPA2-PSK-CCMP][ESS]                      SIHOMBING
+88:c3:97:6d:44:37       2462    -89     [WPA-PSK-CCMP+TKIP][WPA2-PSK-CCMP+TKIP][WPS][ESS]       SURYA</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mendaftarkan_network">Mendaftarkan Network</h4>
+<div class="paragraph">
+<p>Saya ingin mendaftarkan network baru degan SSID bernama <strong>bandithijo</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Namun, kita perlu mengambil nomor index&#8201;&#8212;&#8201;ibarat nomor antrian.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; add_network</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>0</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, berarti saya akan menggunakan index ke-<strong>0</strong> untuk mendaftarkan network ini.</p>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, kita akan mengeset credential untuk network tersebut.</p>
+</div>
+<div class="paragraph">
+<p>Masukkan SSID,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; set_network 0 ssid &quot;bandithijo&quot;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>OK</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Masukkan password dari SSID,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; set_network 0 psk &quot;passwordinirahasiasekali&quot;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>OK</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Kalau SSID nya tanpa password, kalian dapat menggantinya dengan:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; set_network 0 ssid &quot;bandithijo&quot;
+&gt; set_network 0 key_mgmt NONE</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<strong>Kalau terjadi kesalahan input, tinggal jalankan perintah yang sama dengan nilai yang benar</strong>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="melihat_daftar_network_yang_tersimpan">Melihat Daftar Network yang Tersimpan</h4>
+<div class="paragraph">
+<p>Untuk melihat daftar network yang pernah didaftarkan, gunakan perintah:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; list_networks</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>network id / ssid / bssid / flags
+0       bandithijo      any     [TEMP-DISABLED]</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="untuk_terhubung_dengan_network">Untuk Terhubung dengan Network</h4>
+<div class="paragraph">
+<p>Dapat dilihat, pada network index ke-0, saya telah berhasil menyimpan konfigurasi untuk network <strong>bandithijo</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Untuk terkoneksi dengan network tersebut, kita gunakan perintah:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; select_network 0</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>OK</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Atau,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; enable_network 0</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>OK</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau berhasil, outputnya akan seperti ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;3&gt;CTRL-EVENT-SSID-REENABLED id=0 ssid="bandithijo"
+&lt;3&gt;CTRL-EVENT-SCAN-STARTED
+&lt;3&gt;CTRL-EVENT-SCAN-RESULTS
+&lt;3&gt;WPS-AP-AVAILABLE
+&lt;3&gt;SME: Trying to authenticate with 60:18:88:00:00:00 (SSID='bandithijo' freq=2432 MHz)
+&lt;3&gt;Trying to associate with 60:18:88:00:00:00 (SSID='bandithijo' freq=2432 MHz)
+&lt;3&gt;Associated with 60:18:88:00:00:00
+&lt;3&gt;CTRL-EVENT-SUBNET-STATUS-UPDATE status=0
+&lt;3&gt;WPA: Key negotiation completed with 60:18:88:00:00:00 [PTK=CCMP GTK=CCMP]
+&lt;3&gt;CTRL-EVENT-CONNECTED - Connection to 60:18:88:00:00:00 completed [id=0 id_str=]
+&lt;3&gt;CTRL-EVENT-REGDOM-CHANGE init=CORE type=WORLD</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mantap, coba test <code>$ ip a s</code>, untuk melihat apakah wireless interface yang kita gunakan telah mendapatkan IP address atau belum. Seharusnya pada tahap ini, sudah mendapatkan IP address.</p>
+</div>
+<div class="paragraph">
+<p>Kalau sudah, laukan test koneksi dengan <code>ping</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="simpan_hasil_konfigurasi">Simpan Hasil Konfigurasi</h4>
+<div class="paragraph">
+<p>Sebelum keluar, jangan lupa untuk menyimpan hasil konfigurasi.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; save_config</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>OK</pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="keluar_dari_wpa_cli">Keluar dari wpa_cli</h4>
+<div class="paragraph">
+<p>Untuk keluar, kita dapat menggunakan perintah.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; quit</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="disconnect">Disconnect</h4>
+<div class="paragraph">
+<p>Untuk disconnect dari jaringan, masuk lagi ke <strong>wpa_cli</strong>, dan jalankan printah:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">&gt; disconnect</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>OK
+&lt;3&gt;CTRL-EVENT-DISCONNECTED bssid=60:18:88:00:00:00 reason=3 locally_generated=1
+&lt;3&gt;CTRL-EVENT-REGDOM-CHANGE init=CORE type=WORLD</pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="2_menggunakan_wpa_passphrase">(2) Menggunakan wpa_passphrase</h3>
+<div class="paragraph">
+<p>Metode ini dapat kita gunakan untuk terkoneksi secara cepat ke SSID apabila kita sudah tahu nama SSID dan passwordnya.</p>
+</div>
+<div class="paragraph">
+<p>Sebenarnya <code>wpa_passphrase</code> ini digunakan untuk mengenerate konfigurasi minimal yang dapat kita gunakan ke konfigurasi wpa_supplicant.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ wpa_passphrase bandithijo iniadalahpassword</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>network={
+        ssid="bandithijo"
+        #psk="iniadalahpassword"
+        psk=de91478f405cc6685267c972844591e1adfde34e5e74c525c44b0b5e3e16a968
+}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kita bisa copy dan masukkan ke dalam <strong>/etc/wpa_supplicant/wpa_supplicant.conf</strong> untuk konfigurasi yang lebih persistent.</p>
+</div>
+<div class="paragraph">
+<p>Atau dengan cara mengkombinasikan dengan perintah wpa_supplicant.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Pastikan <strong>wpa_supplicant belum berjalan</strong> di process maupun di service.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ sudo wpa_supplicant -B -i interface -c &lt;(wpa_passphrase MYSSID passphrase)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Misal,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ sudo wpa_supplicant -B -i wlan0 -c &lt;(wpa_passphrase bandithijo iniadalahpassword)</pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Namun, karena proses substitusi, kita tidak dapat menjalankan proses ini dengan <strong>sudo</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Successfully initialized wpa_supplicant
+Failed to open config file '/dev/fd/63', error: No such file or directory
+Failed to read or parse configuration '/dev/fd/63'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kita perlu menggunakan <strong>root shell</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo su</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># wpa_supplicant -B -i wlan0 -c &lt;(wpa_passphrase bandithijo iniadalahpassword)</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Successfully initialized wpa_supplicant</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Nah, mantap!</p>
+</div>
+<div class="paragraph">
+<p>Sekarang seharusnya wireless interface sudah mendapatkan IP address.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ip a s wlan0</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>3: wlan0: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 08:11:96:00:00:00 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.7/24 brd 192.168.1.255 scope global dynamic noprefixroute wlan0
+       valid_lft 86006sec preferred_lft 75206sec
+    inet6 fe80::9373:975b:0000:0000/64 scope link
+       valid_lft forever preferred_lft forever</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, dapat dilihat, saya sudah mendapatkan IP address.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Saya menggunakan <strong>dhcpcd</strong> service.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Sekarang coba tes koneksi internet dengan ping.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ping archlinux.org</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>PING archlinux.org (95.217.163.246) 56(84) bytes of data.
+64 bytes from archlinux.org (95.217.163.246): icmp_seq=1 ttl=52 time=226 ms
+64 bytes from archlinux.org (95.217.163.246): icmp_seq=2 ttl=52 time=215 ms
+64 bytes from archlinux.org (95.217.163.246): icmp_seq=3 ttl=52 time=246 ms
+
+--- archlinux.org ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2000ms
+rtt min/avg/max/mdev = 215.292/228.954/245.752/12.631 ms</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mantap! Kita telah berhasil terhubung ke internet.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="penggunaan_yang_lebih_advanced">Penggunaan yang Lebih Advanced</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Untuk konfigurasi dan penggunaan yang lebih advanced, teman-teman dapat membaca sendiri di Arch Wiki.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://wiki.archlinux.org/index.php/Wpa_supplicant#Advanced_usage" target="_blank" rel="noopener"><strong>wpa_supplicant: Advanced usage</strong></a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tambahan">Tambahan</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="bagaimana_saya_menggunakan_wpa_supplicant">Bagaimana Saya Menggunakan wpa_supplicant?</h3>
+<div class="paragraph">
+<p>Kalau saya, karena tidak banyak berpindah2 tempat, saya memilih menggunakan service untuk menjalankan <strong>wpa_supplicant</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Saat ini saya sudah menggunakan <strong>OpenRC</strong>. Secara default, service akan membaca file <code>/etc/wpa_supplicant/wpa_supplicant.conf</code>.</p>
+</div>
+<div class="paragraph">
+<p>Namun, saya ingin lebih fleksible, saya buat file <strong>wpa_supplicant.conf</strong> ini menjadi symbolic link dari beberapa file configurasi yang tergantung dari tempat.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Rumah</p>
+</li>
+<li>
+<p>Kantor</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Misal seperti ini,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ tree /etc/wpa_supplicant</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>.
+├── wpa_cli.sh
+├── wpa_supplicant.conf -&gt; wpa_supplicant-home.conf  <i class="conum" data-value="1"></i><b>(1)</b>
+├── wpa_supplicant-home.conf  <i class="conum" data-value="1"></i><b>(1)</b>
+└── wpa_supplicant-office.conf</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Dapat dilihat, saat ini saya sedang menggunakan Wi-Fi di rumah, maka saya menghubungkan symbolic link konfigurasi <code>-home.conf</code> dengan <code>wpa_supplicant.conf</code>.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Isi dari file <strong>wpa_supplicant-home.conf</strong> maupun <strong>wpa_supplicant-office.conf</strong>, kira-kira seperti ini:</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/wpa_supplicant/wpa_supplicant-home.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+  <td class="code"><pre>ctrl_interface=/run/wpa_supplicant
+update_config=1
+
+network={
+  ssid=&quot;bandithijo&quot;
+  #psk=&quot;iniadalahpassword&quot;
+  psk=de91478f405cc6685267c972844591e1adfde34e5e74c525c44b0b5e3e16a968
+}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hanya berbeda di SSD dan passphrase.</p>
+</div>
+<div class="paragraph">
+<p>Untuk berganti-ganti symbolic link, saya mengunakan cara seperti ini:</p>
+</div>
+<div class="listingblock">
+<div class="title">Home</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo ln -sf /etc/wpa_supplicant/wpa_supplicant-home.conf /etc/wpa_supplicant/wpa_supplicant.conf</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Office</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo ln -sf /etc/wpa_supplicant/wpa_supplicant-office.conf /etc/wpa_supplicant/wpa_supplicant.conf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Setelah file konfigurasi siap, tinggal jalankan service dari <strong>wpa_supplicant</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Misal, pada <strong>OpenRC</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Tambahkan ke dalam service default yang akan dijalankan ketika sistem startup.</p>
+</div>
+<div class="paragraph">
+<p>* Tidak perlu menggunakan <strong>default</strong> juga bisa.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-update add wpa_supplicant default</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>* service wpa_supplicant added to runlevel default</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lihat, apakah sudah masuk daftar status list.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rc-status --all</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Runlevel: default
+ cronie                                                                [  started  ]
+ wpa_supplicant                                                        [  stopped  ]
+ dhcpcd                                                                [  started  ]
+ alsasound                                                             [  started  ]
+ dbus                                                                  [  started  ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tinggal di-start saja.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-service wpa_supplicant start</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>wpa_supplicant    | * Starting WPA Supplicant Daemon ...
+wpa_supplicant    |Successfully initialized wpa_supplicant                    [ ok ]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Mantap, sekarang seharusnya kita sudah dapat terhubung dengan jaringan.</p>
+</div>
+<div class="paragraph">
+<p>Untuk systemd, mohon maaf saya belum sempat mencoba menggunakan systemd. Kemungkin hanya perlu menjalankan service dari wpa_supplicant.service seperti biasa. Silahkan merujuk ke Arch Wiki.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://wiki.archlinux.org/index.php/Wpa_supplicant" target="_blank" rel="noopener">wiki.archlinux.org/index.php/Wpa_supplicant</a><br>
+Diakses tanggal: 2020/12/31</p>
+</li>
+<li>
+<p><a href="https://wiki.archlinux.org/index.php/Network_configuration/Wireless#Utilities" target="_blank" rel="noopener">wiki.archlinux.org/index.php/Network_configuration/Wireless#Utilities</a><br>
+Diakses tanggal: 2020/12/31</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/note/2020-12-31-catatan-terkait-wpa_supplicant.adoc"> Edit this note</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Notes</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/note/welcome-to-test">Welcome to Test</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation">Catatan Post Installation Fedora Workstation</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-daftar-terminal-tools">Catatan Daftar Terminal Tools</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-git">Catatan Terkait Git</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-vboxmanage">Catatan Terkait VBoxManage</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/note/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#wireless</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-12-31</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#apa_itu_wap_supplicant">Apa itu wap_supplicant</a></li>
+  <li><a href="#instalasi">Instalasi</a></li>
+  <li><a href="#konfigurasi">Konfigurasi</a>
+    <ul>
+      <li><a href="#kenali_wireless_interface_yang_digunakan">Kenali Wireless Interface yang Digunakan</a></li>
+      <li><a href="#menjalankan_service">Menjalankan Service</a></li>
+      <li><a href="#1_menggunakan_wpa_cli">(1) Menggunakan wpa_cli</a>
+        <ul>
+          <li><a href="#bantuan">Bantuan</a></li>
+          <li><a href="#scanning">Scanning</a></li>
+          <li><a href="#melihat_hasil_scan">Melihat Hasil Scan</a></li>
+          <li><a href="#mendaftarkan_network">Mendaftarkan Network</a></li>
+          <li><a href="#melihat_daftar_network_yang_tersimpan">Melihat Daftar Network yang Tersimpan</a></li>
+          <li><a href="#untuk_terhubung_dengan_network">Untuk Terhubung dengan Network</a></li>
+          <li><a href="#simpan_hasil_konfigurasi">Simpan Hasil Konfigurasi</a></li>
+          <li><a href="#keluar_dari_wpa_cli">Keluar dari wpa_cli</a></li>
+          <li><a href="#disconnect">Disconnect</a></li>
+        </ul>
+      </li>
+      <li><a href="#2_menggunakan_wpa_passphrase">(2) Menggunakan wpa_passphrase</a></li>
+    </ul>
+  </li>
+  <li><a href="#penggunaan_yang_lebih_advanced">Penggunaan yang Lebih Advanced</a></li>
+  <li><a href="#tambahan">Tambahan</a>
+    <ul>
+      <li><a href="#bagaimana_saya_menggunakan_wpa_supplicant">Bagaimana Saya Menggunakan wpa_supplicant?</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

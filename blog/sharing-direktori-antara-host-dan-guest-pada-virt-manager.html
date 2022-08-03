@@ -1,0 +1,832 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sharing Direktori Antara Host Linux dan Guest Windows pada Virt-Manager/KVM/Qemu | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Sharing Direktori Antara Host Linux dan Guest Windows pada Virt-Manager/KVM/Qemu" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Memiliki akses Home direktori yang dimiliki oleh Host dari dalam Guest, sangat memudahkan sekali untuk proses tukar menukar data. Tidak perlu repot-repot harus menggunakan aplikasi semacam Filezilla, scp, atau semacamnya. Semuanya cukup dilakukan dengan File Explorer di Linux dan Explorer Guest Windows." />
+<meta property="og:description" content="Memiliki akses Home direktori yang dimiliki oleh Host dari dalam Guest, sangat memudahkan sekali untuk proses tukar menukar data. Tidak perlu repot-repot harus menggunakan aplikasi semacam Filezilla, scp, atau semacamnya. Semuanya cukup dilakukan dengan File Explorer di Linux dan Explorer Guest Windows." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/sharing-direktori-antara-host-dan-guest-pada-virt-manager" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/sharing-direktori-antara-host-dan-guest-pada-virt-manager" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-05-06T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Sharing Direktori Antara Host Linux dan Guest Windows pada Virt-Manager/KVM/Qemu","dateModified":"2021-05-06T00:00:00+00:00","datePublished":"2021-05-06T00:00:00+00:00","description":"Memiliki akses Home direktori yang dimiliki oleh Host dari dalam Guest, sangat memudahkan sekali untuk proses tukar menukar data. Tidak perlu repot-repot harus menggunakan aplikasi semacam Filezilla, scp, atau semacamnya. Semuanya cukup dilakukan dengan File Explorer di Linux dan Explorer Guest Windows.","url":"https://bandithijo.dev/v2/blog/sharing-direktori-antara-host-dan-guest-pada-virt-manager","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/sharing-direktori-antara-host-dan-guest-pada-virt-manager"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Sharing Direktori Antara Host Linux dan Guest Windows pada Virt-Manager/KVM/Qemu"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/sharing-direktori-antara-host-dan-guest-pada-virt-manager">Sharing Direktori Antara Host Linux dan Guest Windows pada Virt-Manager/KVM/Qemu</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / sharing direktori antara host dan guest pada virt manager
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#virtmanager</a>
+      
+        
+        <a href="#">#kvm</a>
+      
+        
+        <a href="#">#qemu</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-05-06</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang_masalah">Latar Belakang Masalah</a></li>
+  <li><a href="#pemecahan_masalah">Pemecahan Masalah</a>
+    <ul>
+      <li><a href="#pasang_samba">Pasang Samba</a></li>
+      <li><a href="#jalankan_samba_service">Jalankan Samba Service</a></li>
+      <li><a href="#buat_samba_user">Buat Samba User</a></li>
+      <li><a href="#membuat_virtual_network">Membuat Virtual Network</a></li>
+      <li><a href="#attach_vm_dengan_virtual_network">Attach VM dengan Virtual Network</a></li>
+      <li><a href="#buat_network_location_di_guest_os">Buat Network Location di Guest OS</a></li>
+    </ul>
+  </li>
+  <li><a href="#demo">Demo</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#terima_kasih">Terima Kasih</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang_masalah">Latar Belakang Masalah</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Saat membuat VM baru pada virt-manager, biasanya sharing Home direktori antara Host OS --dalam hal ini adalah GNU/Linux-- dan Guest OS --dalam hal ini adalah Windows-- tidak langsung tersedia. Kita perlu mengkonfigurasi secara manual.</p>
+</div>
+<div class="paragraph">
+<p><strong>Bang, yang seperti apa sih "Sharing Home Direktori" itu?</strong></p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/VkvRMH60/gambar-04.png" alt="gambar-04">
+</div>
+</div>
+<div class="paragraph">
+<p>Bisa dilihat di <strong>My Computer</strong>, pada kategori <strong>Network Location</strong> seperti yang saya kotakin merah.</p>
+</div>
+<div class="paragraph">
+<p>Kalau kita buka, isinya adalah Home direktori dari Host OS.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pemecahan_masalah">Pemecahan Masalah</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Untu memecahkan masalah di atas, teradapat beberapa prasyarat yang harus terpenuhi, diantaranya:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Mengaktifkan Samba service pada Host OS</p>
+</li>
+<li>
+<p>Perlu membuat virtual network yang dapat diakses oleh Host OS (Bridge)</p>
+</li>
+<li>
+<p>Menambahkan "Network Location" pada Guest OS yang dialamatkan pada IP address Host OS</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Oke, saya akan jabarkan langkah-langkah di atas.</p>
+</div>
+<div class="sect2">
+<h3 id="pasang_samba">Pasang Samba</h3>
+<div class="paragraph">
+<p>Pasang Samba dulu apabila belum terinstal.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo pacman -S samba</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau di Artix Linux, ikutkan dengan paket initnya, misal untuk OpenRC.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo pacman -S samba samba-openrc</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="jalankan_samba_service">Jalankan Samba Service</h3>
+<div class="paragraph">
+<p>Sebelum dapat digunakan, tentunya Samba service harus dijalankan terlebih dahulu.</p>
+</div>
+<div class="paragraph">
+<p><strong>systemd</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo systemctl start smb</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>OpenRC</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-service smb start</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="buat_samba_user">Buat Samba User</h3>
+<div class="paragraph">
+<p>Buat Samba user terlebih dahulu, saya merekomendasikan, agar mudah diingat, buat Samba user dengan credential yang sama dengan Guest OS yang digunakan.</p>
+</div>
+<div class="paragraph">
+<p>Misal, di Guest OS (Windows), saya memiliki user:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>username: bandithijo
+password: hijobandit</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sekarang, buat Samba user,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ smbpasswd -a bandithijo</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>New SMB password:
+Retype new SMB password:</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Sekedar catatan saja, agar tidak perlu repot-repot mencari-cari.<br>
+<strong>Mengganti Password</strong><br>
+<code>$ smbpasswd bandithijo</code><br>
+<strong>Menghapus Samba User</strong><br>
+<code>$ smbpasswd -x bandithijo</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="membuat_virtual_network">Membuat Virtual Network</h3>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Harap dimaklumi, karena saya tidak begitu mahir dengan Networking. 😄
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<strong>Virtual Network yang dibuat harus memiliki network yang sama dengan Host OS</strong>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Misal, Host OS memiliki IP address, 192.168.1.7/24, artinya Host OS berada pada network 192.168.1.0/24 dengan jumlah IP address yang tersedia adalah 254. Mulai dari rentang 192.168.1.2 - 192.168.1.254</p>
+</div>
+<div class="paragraph">
+<p>Kita akan mengambil sebagian IP address yang tersedia tersebut.</p>
+</div>
+<div class="paragraph">
+<p>Misal, dari ip 192.168.1.100 dengan netmask /28.</p>
+</div>
+<div class="paragraph">
+<p>Untuk membuat Virtual Network, buka menu <strong>Edit &gt; Connection Details</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Pergi ke tab <strong>Virtual Networks</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Tambahkan network baru dengan menu <strong>+</strong> di pojok kiri bawah.</p>
+</div>
+<div class="paragraph">
+<p>Nanti akan terbuka window seperti di bawah ini.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/pLrwTCMq/gambar-01.png" alt="gambar-01">
+</div>
+</div>
+<div class="paragraph">
+<p>Isi bagian-bagian yang saya kotak merah.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>Name: network-bridge
+Mode: NAT
+IPv5:
+  Network: 192.168.1.100/28</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lalu tekan <strong>Finish</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Nanti virt-manager secara pintar, akan mengalokasikan IP address yang tersedia untuk kita gunakan.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/QxQQ7ZhM/gambar-02.png" alt="gambar-02">
+</div>
+</div>
+<div class="paragraph">
+<p>Dapat dilihat pada gambar di atas, kita mendapatkan network 192.168.1.96/28, dengan alokasi IP address yang dapat kita gunakan pada rentang 192.168.1.104 - 192.168.1.110</p>
+</div>
+<div class="paragraph">
+<p>Jadi, nanti ketika kita membuat Vitual Machine, IP address yang akan diambil dari rentang tersebut apabila kita gunakan Virtual Network <strong>network-bridge</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="attach_vm_dengan_virtual_network">Attach VM dengan Virtual Network</h3>
+<div class="paragraph">
+<p>Anggaplah kita sudah memiliki Virtual Machine yang berisi Windows.</p>
+</div>
+<div class="paragraph">
+<p>Pasang/attach Network Interface Controller (NIC) dengan Virtual Network yang kita buat di atas dengan nama <strong>network-bridge</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Seperti ini ilustrasinya,</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/qM1f4YSN/gambar-03.png" alt="gambar-03">
+</div>
+</div>
+<div class="paragraph">
+<p>Dapat dilihat pada gambar di atas, Virtual Machine saya mendapatkan IP address 192.168.1.105, yang mana IP address ini masih dalam rentang yang kita bahas di atas (.104 - .110).</p>
+</div>
+<div class="paragraph">
+<p>Karena Virtual Machinve (Guest OS) memiliki IP yang berada pada rentang Host OS, maka keduaya dapat saling berkomunikasi.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>Host  OS IP Address : 192.168.1.7
+Guest OS IP Address : 192.168.1.105</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Coba lakukan pengetesan dengan mengirimkan sinyal <strong>ping</strong>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Host OS (Linux) ping ke Guest OS (Windows)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ping -c 3 192.168.1.105</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>PING 192.168.1.105 (192.168.1.105) 56(84) bytes of data.
+64 bytes from 192.168.1.105: icmp_seq=1 ttl=128 time=0.312 ms
+64 bytes from 192.168.1.105: icmp_seq=2 ttl=128 time=0.341 ms
+64 bytes from 192.168.1.105: icmp_seq=3 ttl=128 time=0.353 ms
+
+--- 192.168.1.105 ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 2016ms
+rtt min/avg/max/mdev = 0.312/0.335/0.353/0.017 ms</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Di sisi lain,</p>
+</div>
+<div class="paragraph">
+<p><strong>Guest OS (Windows) ping ke Host OS (Linux)</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">C:\&gt; ping 192.168.1.7</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>Microsoft Windows [Version 6.1.7601]
+Copyright (c) 2009 Microsoft Corporation.  All rights reserved.
+
+C:\Users\bandithijo&gt;ping 192.168.1.7
+
+Pinging 192.168.1.7 with 32 bytes of data:
+Reply from 192.168.1.7: bytes=32 time=1ms TTL=64
+Reply from 192.168.1.7: bytes=32 time&lt;1ms TTL=64
+Reply from 192.168.1.7: bytes=32 time&lt;1ms TTL=64
+Reply from 192.168.1.7: bytes=32 time&lt;1ms TTL=64
+
+Ping statistics for 192.168.1.7:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 0ms, Maximum = 1ms, Average = 0ms</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Oke, kita sudah punya network yang sesuai dengan prasyarat yang ditentukan.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="buat_network_location_di_guest_os">Buat Network Location di Guest OS</h3>
+<div class="paragraph">
+<p>Buka Guest OS --dalam hal ini adalah Windows, kemudian buka <strong>My Computer</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Klik kanan dan pilih <strong>Add a network location</strong>.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/63NkcGyZ/gambar-05.png" alt="gambar-05">
+</div>
+</div>
+<div class="paragraph">
+<p>Next-next aja, sampai ketemu halaman seperti di bawah ini.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/j2MBRgv6/gambar-06.png" alt="gambar-06">
+</div>
+</div>
+<div class="paragraph">
+<p>Isi dengan format seperti yang saya kotakin merah.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>\\192.168.1.7\bandithijo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dapat dilihat bahwa formulanya adalah,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>\\host_ip_address\host_username</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Halaman selanjutnya adalah memberikan nama,</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/CLKWc0Lc/gambar-07.png" alt="gambar-07">
+</div>
+</div>
+<div class="paragraph">
+<p><strong><em>Finish!</em></strong></p>
+</div>
+<div class="paragraph">
+<p>Kalau berhasil, akan ada Home dari Host OS di my computer.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/VkvRMH60/gambar-04.png" alt="gambar-04">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Bang, saya tidak mau Home direktori yang dishare, tapi direktori tertentu. Bisa tidak?</strong> Tetu saja, Bisa!</p>
+</div>
+<div class="paragraph">
+<p>Misal, direktori yang mau dishare ada di <strong>/home/bandithijo/Documents/</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Tinggal buat saja locationnya seperti ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>\\192.168.1.7\bandithijo\Documents</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hasilnya,</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/MHpr30xn/gambar-08.png" alt="gambar-08">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="demo">Demo</h2>
+<div class="sectionbody">
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/NfCPpGDp/gambar-09.gif" alt="gambar-09">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="terima_kasih">Terima Kasih</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Arya Pramudika</strong>, atas informasi membuat Virtual Network Bridge.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://wiki.archlinux.org/title/Samba" target="_blank" rel="noopener">wiki.archlinux.org/title/Samba</a><br>
+Diakses tanggal: 2021/05/06</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2021/2021-05-06-sharing-direktori-antara-host-dan-guest-pada-virt-manager.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#virtmanager</a>
+      
+        
+        <a href="#">#kvm</a>
+      
+        
+        <a href="#">#qemu</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-05-06</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang_masalah">Latar Belakang Masalah</a></li>
+  <li><a href="#pemecahan_masalah">Pemecahan Masalah</a>
+    <ul>
+      <li><a href="#pasang_samba">Pasang Samba</a></li>
+      <li><a href="#jalankan_samba_service">Jalankan Samba Service</a></li>
+      <li><a href="#buat_samba_user">Buat Samba User</a></li>
+      <li><a href="#membuat_virtual_network">Membuat Virtual Network</a></li>
+      <li><a href="#attach_vm_dengan_virtual_network">Attach VM dengan Virtual Network</a></li>
+      <li><a href="#buat_network_location_di_guest_os">Buat Network Location di Guest OS</a></li>
+    </ul>
+  </li>
+  <li><a href="#demo">Demo</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#terima_kasih">Terima Kasih</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

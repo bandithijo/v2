@@ -1,0 +1,3438 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catatan Post Installation Fedora Workstation | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Catatan Post Installation Fedora Workstation" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Catatan ini merupakan kumpulan proses instalasi package dan beberapa konfigurasi yang saya lakukan setelah melakukan proses instalasi Fedora Workstation." />
+<meta property="og:description" content="Catatan ini merupakan kumpulan proses instalasi package dan beberapa konfigurasi yang saya lakukan setelah melakukan proses instalasi Fedora Workstation." />
+<link rel="canonical" href="https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation" />
+<meta property="og:url" content="https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-10T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Catatan Post Installation Fedora Workstation","dateModified":"2021-06-10T00:00:00+00:00","datePublished":"2021-06-10T00:00:00+00:00","description":"Catatan ini merupakan kumpulan proses instalasi package dan beberapa konfigurasi yang saya lakukan setelah melakukan proses instalasi Fedora Workstation.","url":"https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Catatan Post Installation Fedora Workstation"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation">Catatan Post Installation Fedora Workstation</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/note/">note</a>
+  
+
+  
+    / catatan post installation fedora workstation
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#fedora</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-06-10</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#pre_install">Pre Install</a>
+    <ul>
+      <li><a href="#verify_your_download_with_checksum_files">Verify your download with CHECKSUM files.</a></li>
+    </ul>
+  </li>
+  <li><a href="#packages">Packages</a>
+    <ul>
+      <li><a href="#enable_fastest_mirror_and_delta_rpm">Enable fastest mirror and Delta RPM</a></li>
+      <li><a href="#update_system">Update system</a></li>
+      <li><a href="#enable_rpmfusion_repository">Enable RPMFusion Repository</a></li>
+      <li><a href="#install_gnome_tweak_tool">Install gnome-tweak-tool</a></li>
+      <li><a href="#install_vim">Install Vim</a></li>
+      <li><a href="#install_downgrade_package_sample_fprintd">Install downgrade package (sample: fprintd)</a></li>
+      <li><a href="#exlude_some_packages">Exlude some packages</a></li>
+      <li><a href="#htop">Htop</a></li>
+      <li><a href="#iftop">Iftop</a></li>
+      <li><a href="#iperf">iperf</a></li>
+      <li><a href="#neofetch">Neofetch</a></li>
+      <li><a href="#nmon">Nmon</a></li>
+      <li><a href="#nethogs">Nethogs</a></li>
+      <li><a href="#lm_sensors">LM Sensors</a></li>
+      <li><a href="#sound_converter">Sound Converter</a></li>
+      <li><a href="#audacity">Audacity</a></li>
+      <li><a href="#audacious">Audacious</a></li>
+      <li><a href="#pass">Pass</a></li>
+      <li><a href="#change_zsh_to_your_shell">Change ZSH to your shell</a></li>
+      <li><a href="#arandr">Arandr</a></li>
+      <li><a href="#git_svn">GIT-SVN</a></li>
+      <li><a href="#tig">TIG</a></li>
+      <li><a href="#git_credential_libsecret">Git-Credential-Libsecret</a></li>
+      <li><a href="#ssh_askpass">SSH AskPass</a></li>
+      <li><a href="#glances">Glances</a></li>
+      <li><a href="#wavemon">Wavemon</a></li>
+      <li><a href="#transmission_daemon">Transmission Daemon</a></li>
+      <li><a href="#youtube_dl">Youtube-DL</a></li>
+      <li><a href="#newsboat_rss_reader">Newsboat (RSS Reader)</a></li>
+      <li><a href="#ranger_file_manager">Ranger File Manager</a></li>
+      <li><a href="#samba">Samba</a></li>
+      <li><a href="#install_opus_audio_codec">Install Opus Audio Codec</a></li>
+      <li><a href="#virt_manager_libvirt">Virt-Manager (libvirt)</a></li>
+      <li><a href="#chromium_browser">Chromium browser</a></li>
+      <li><a href="#chromedriver">Chromedriver</a></li>
+      <li><a href="#google_chrome">Google Chrome</a></li>
+      <li><a href="#codec_from_rpmfusion">Codec from RPMFusion</a></li>
+      <li><a href="#another_audio_video_support">Another audio video support</a></li>
+      <li><a href="#install_ffmpeg">Install FFMPEG</a></li>
+      <li><a href="#tor">Tor</a></li>
+      <li><a href="#handbrake">HandBrake</a></li>
+      <li><a href="#mpv">MPV</a></li>
+      <li><a href="#dnscrypt_proxy">DNSCrypt-Proxy</a></li>
+      <li><a href="#adwaita_qt5_theme">Adwaita-Qt5 theme</a></li>
+      <li><a href="#qt5ct">Qt5Ct</a></li>
+      <li><a href="#change_default_cursor_on_lightdm">Change default cursor on lightdm</a></li>
+      <li><a href="#change_default_cursor_on_gdm">Change default cursor on GDM</a></li>
+      <li><a href="#neovim_nightly_build">Neovim Nightly (build)</a></li>
+      <li><a href="#postgresql">PostgreSQL</a></li>
+      <li><a href="#ruby_or_rails_developer">Ruby or Rails Developer</a></li>
+      <li><a href="#build_advcmp">Build ADVCMP</a></li>
+      <li><a href="#tlp">TLP</a></li>
+      <li><a href="#email_backend">Email Backend</a></li>
+      <li><a href="#neomutt">Neomutt</a></li>
+      <li><a href="#rdp">RDP</a></li>
+      <li><a href="#qutebrowser">Qutebrowser</a></li>
+      <li><a href="#rofi">Rofi</a></li>
+      <li><a href="#rofi_calc">Rofi-Calc</a></li>
+      <li><a href="#lazygit">LazyGit</a></li>
+      <li><a href="#seahorse">Seahorse</a></li>
+      <li><a href="#crow_translate">Crow translate</a></li>
+      <li><a href="#libva_intel_driver">libva-intel-driver</a></li>
+      <li><a href="#inkscape">Inkscape</a></li>
+      <li><a href="#weechat_build">WeeChat (build)</a></li>
+      <li><a href="#weechat_matrix">WeeChat-Matrix</a></li>
+      <li><a href="#flameshot">Flameshot</a></li>
+      <li><a href="#optipng">Optipng</a></li>
+      <li><a href="#scrot">Scrot</a></li>
+      <li><a href="#maim">Maim</a></li>
+      <li><a href="#changeswap_pipewire_with_pulseaudio">Change/Swap Pipewire with Pulseaudio</a></li>
+      <li><a href="#pamixer">Pamixer</a></li>
+      <li><a href="#dconf_gconf_editor">DConf &amp; GConf Editor</a></li>
+      <li><a href="#hexchat">HexChat</a></li>
+      <li><a href="#gping">Gping</a></li>
+      <li><a href="#prettyping">PrettyPing</a></li>
+      <li><a href="#dunst">Dunst</a></li>
+      <li><a href="#telegram_tg">Telegram TG</a></li>
+      <li><a href="#simplescreenrecorder">SimpleScreenRecorder</a></li>
+      <li><a href="#ps_mem">ps_mem</a></li>
+      <li><a href="#how_to_disable_gnome_software_autostart">How to disable Gnome Software autostart</a></li>
+      <li><a href="#pavucontrol">Pavucontrol</a></li>
+      <li><a href="#gcolor2">GColor2</a></li>
+      <li><a href="#suckless">Suckless</a>
+        <ul>
+          <li><a href="#st">st</a></li>
+          <li><a href="#dwm">dwm</a></li>
+          <li><a href="#pinentry_dmenu_still_failed">pinentry-dmenu (still failed)</a></li>
+          <li><a href="#sxiv">sxiv</a></li>
+        </ul>
+      </li>
+      <li><a href="#telegram_desktop">Telegram Desktop</a></li>
+      <li><a href="#hide_desktop_icon_on_application_list">Hide desktop icon on Application List</a></li>
+      <li><a href="#flatpak_via_flathub_remote">Flatpak via Flathub Remote</a></li>
+      <li><a href="#gromit_mpx">Gromit-MPX</a></li>
+      <li><a href="#center_window_in_gnome">Center window in GNOME</a></li>
+      <li><a href="#polybar">Polybar</a></li>
+      <li><a href="#feh">Feh</a></li>
+      <li><a href="#sxhkd">SXHKD</a></li>
+      <li><a href="#j4_dmenu_desktop_dmenu_wrapper">j4-dmenu-desktop (dmenu wrapper)</a></li>
+      <li><a href="#xcompmgr">XCompmgr</a></li>
+      <li><a href="#picom">Picom</a></li>
+      <li><a href="#xbacklight">XBacklight</a></li>
+      <li><a href="#udiskie">Udiskie</a></li>
+      <li><a href="#abduco">Abduco</a></li>
+      <li><a href="#dtach">dtach</a></li>
+      <li><a href="#lxappearance">LXappearance</a></li>
+      <li><a href="#unclutter_xfixes">unclutter-xfixes</a></li>
+      <li><a href="#calibre">Calibre</a></li>
+      <li><a href="#system_config_printer">System Config Printer</a></li>
+      <li><a href="#ppd_from_foomatic_db">PPD from foomatic-db</a></li>
+      <li><a href="#xsane_scanner">XSane (Scanner)</a></li>
+      <li><a href="#gparted">Gparted</a></li>
+      <li><a href="#numix_solarized_theme_build">Numix Solarized Theme Build</a></li>
+      <li><a href="#aria2">Aria2</a></li>
+      <li><a href="#mate_polkit">Mate Polkit</a></li>
+      <li><a href="#lxpolkit">LXpolkit</a></li>
+      <li><a href="#p7zip">P7Zip</a></li>
+      <li><a href="#screenkey">Screenkey</a></li>
+      <li><a href="#development_group_packages">Development Group Packages</a></li>
+      <li><a href="#docker">Docker</a></li>
+      <li><a href="#kbbi_qt">KBBI-Qt</a></li>
+      <li><a href="#zathura">Zathura</a></li>
+      <li><a href="#kamus">Kamus</a></li>
+      <li><a href="#thunderbird">Thunderbird</a></li>
+      <li><a href="#gucharmap_character_map">Gucharmap (Character Map)</a></li>
+      <li><a href="#dragon_drag_and_drop_helper">Dragon (drag and drop helper)</a></li>
+      <li><a href="#zoom_meeting_client">Zoom Meeting Client</a></li>
+      <li><a href="#ffmulticonverter">ffmulticonverter</a></li>
+      <li><a href="#handbrake_2">HandBrake</a></li>
+      <li><a href="#x11vnc">x11vnc</a></li>
+      <li><a href="#discord">Discord</a></li>
+      <li><a href="#slack">Slack</a></li>
+      <li><a href="#pdf_arranger">PDF Arranger</a></li>
+      <li><a href="#master_pdf_editor_4">Master PDF Editor 4</a></li>
+      <li><a href="#intel_gpu_tools">Intel GPU Tools</a></li>
+      <li><a href="#autocutsel">Autocutsel</a></li>
+      <li><a href="#xzoom">XZoom</a></li>
+      <li><a href="#minder_mind_mapping">Minder (mind mapping)</a></li>
+      <li><a href="#taskell_kanban_board">Taskell (Kanban Board)</a></li>
+      <li><a href="#showhide_grub_menu">Show/Hide GRUB Menu</a></li>
+      <li><a href="#zeal">Zeal</a></li>
+      <li><a href="#xinput">xinput</a></li>
+      <li><a href="#gthumb_image_viewer_editor_organizer">gThumb (image viewer, editor, organizer)</a></li>
+      <li><a href="#speedtest_cli">Speedtest CLI</a></li>
+      <li><a href="#spotify">Spotify</a></li>
+      <li><a href="#rpkg">rpkg</a></li>
+      <li><a href="#asciidoc">asciidoc</a></li>
+      <li><a href="#tmux">Tmux</a></li>
+      <li><a href="#emacs">Emacs</a></li>
+      <li><a href="#wireshark">Wireshark</a></li>
+      <li><a href="#scrcpy">Scrcpy</a></li>
+      <li><a href="#faketime">Faketime</a></li>
+      <li><a href="#sc_spreadsheet_calculator">sc (Spreadsheet Calculator)</a></li>
+      <li><a href="#barrier">Barrier</a></li>
+      <li><a href="#filezilla">Filezilla</a></li>
+      <li><a href="#inxi">inxi</a></li>
+      <li><a href="#s_tui">s-tui</a></li>
+      <li><a href="#git_email_git_send_email">git-email (git send-email)</a></li>
+      <li><a href="#v4l2_video_for_linux">v4l2 (video for linux)</a></li>
+      <li><a href="#fontforge">fontforge</a></li>
+      <li><a href="#translate_shell">translate-shell</a></li>
+      <li><a href="#xdotool">xdotool</a></li>
+      <li><a href="#xorg">Xorg</a></li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Saya memutuskan untuk mengkategorikan catatan ini sebagai "note" dan bukan sebagai "blog" karena kemungkinan saya akan terus memperbaharui isinya seiring dengan berjalannya waktu pemakaian apabila saya menemukan paket-paket yang menarik.</p>
+</div>
+<div class="paragraph">
+<p>Selain itu, memiliki sebuah catatan "perjalanan" akan <strong>menumbuhkan rasa percaya diri untuk terus maju ke depan</strong>. Karena, apabila gagal, kita tidak takut untuk memulai lagi dari awal. Ataupun, kita dapat dengan mudah memulai percabangan untuk awal baru yang lain.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pre_install">Pre Install</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="verify_your_download_with_checksum_files">Verify your download with CHECKSUM files.</h3>
+<div class="paragraph">
+<p>Setelah mengunduh file ISO, lakukan verifikasi untuk menguji keamanan dan integritas file ISO yang telah didownload.</p>
+</div>
+<div class="paragraph">
+<p>Langkah awal, import Fedora&#8217;s GPG key(s).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ curl https://getfedora.org/static/fedora.gpg | gpg --import</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 12543  100 12543    0     0  10945      0  0:00:01  0:00:01 --:--:-- 10945
+gpg: key 1161AE6945719A39: public key "Fedora (34) &lt;fedora-34-primary@fedoraproject.org&gt;" imported
+gpg: key 49FD77499570FF31: public key "Fedora (33) &lt;fedora-33-primary@fedoraproject.org&gt;" imported
+gpg: key 6C13026D12C944D0: public key "Fedora (32) &lt;fedora-32-primary@fedoraproject.org&gt;" imported
+gpg: key 50CB390B3C3359C4: public key "Fedora (31) &lt;fedora-31-primary@fedoraproject.org&gt;" imported
+gpg: key 7BB90722DBBDCF7C: public key "Fedora (iot 2019) &lt;fedora-iot-2019@fedoraproject.org&gt;" imported
+gpg: key 21EA45AB2F86D6A1: public key "Fedora EPEL (8) &lt;epel@fedoraproject.org&gt;" imported
+gpg: key 6A2FAEA2352C64E5: public key "Fedora EPEL (7) &lt;epel@fedoraproject.org&gt;" imported
+gpg: key 3B49DF2A0608B895: public key "EPEL (6) &lt;epel@fedoraproject.org&gt;" imported
+gpg: Total number processed: 8
+gpg:               imported: 8</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dapat dilihat, kita telah berhasil mengimport 8 public keys.</p>
+</div>
+<div class="paragraph">
+<p>Kemudian, download file <strong>CHECKSUM</strong> dari yang dapat kita download di halaman ini, <a href="https://getfedora.org/en/security/" target="_blank" rel="noopener"><strong>di sini</strong></a>. Download file CHECKSUM yang sesuai dengan file ISO yang teman-teman gunakan.</p>
+</div>
+<div class="paragraph">
+<p>Kemudian, verifikasi file CHECKSUM tersebut.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>$ gpg --verify-files *-CHECKSUM</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ gpg --verify-files Fedora-Workstation-34-1.2-x86_64-CHECKSUM</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>gpg: Signature made Sat 24 Apr 2021 03:37:01 AM WITA
+gpg:                using RSA key 8C5BA6990BDB26E19F2A1A801161AE6945719A39
+gpg: Good signature from "Fedora (34) &lt;fedora-34-primary@fedoraproject.org&gt;" [unknown]
+gpg: WARNING: This key is not certified with a trusted signature!
+gpg:          There is no indication that the signature belongs to the owner.
+Primary key fingerprint: 8C5B A699 0BDB 26E1 9F2A  1A80 1161 AE69 4571 9A39</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>CHECKSUM harus memiliki keterangan "Good signature"dari salah satu key.</p>
+</div>
+<div class="paragraph">
+<p>Letakkan file ISO (*.iso) dengan file checksum (*-CHECKSUM) pada direktori yang sama.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>├─ Fedora-Workstation-34-1.2-x86_64-CHECKSUM
+└─ Fedora-Workstation-Live-x86_64-34-1.2.iso</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, lakukan pengecekan checksum terhadap file ISO yang telah kita download.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>sha256sum -c *-CHECKSUM</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sha256sum -c Fedora-Workstation-34-1.2-x86_64-CHECKSUM</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Fedora-Workstation-Live-x86_64-34-1.2.iso: OK
+sha256sum: WARNING: 19 lines are improperly formatted</pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Abaikan saja warning 19 lines are improperly formated, hal ini terjadi karena di dalam file *-CHECKSUM tersebut juga terdapat PGP Signature. Coba komentar saja baris-baris selain SHA256SUM valuenya (termasuk blankline), maka warningnya akan <span class="line-through">berkurang</span> hilang.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="packages">Packages</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="enable_fastest_mirror_and_delta_rpm">Enable fastest mirror and Delta RPM</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://www.linuxsec.org/2020/03/menggunakan-fastest-mirror-di-fedora.html" target="_blank" rel="noopener">https://www.linuxsec.org/2020/03/menggunakan-fastest-mirror-di-fedora.html</a></p>
+</div>
+<div class="paragraph">
+<p>Edit file <code>/etc/dnf/dnf.conf</code>, lalu tambahkan baris,</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/dnf/dnf.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+</pre></td>
+  <td class="code"><pre>[main]
+...
+...
+...
+fastestmirror=True
+deltarpm=true</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, tambahkan "kode negara" <code>&amp;country=ID</code> di belakang meta link repository yang ada di <code>/etc/yum.repos.d/</code>.</p>
+</div>
+<div class="paragraph">
+<p>Repository utamanya adalah <code>fedora-updates.repo</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/yum.repos.d/fedora-updates.repo</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td>
+  <td class="code"><pre>[updates]
+...
+metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-f$releasever&amp;arch=$basearch&amp;country=ID
+...
+...
+
+[updates-debuginfo]
+...
+metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-debug-f$releasever&amp;arch=$basearch&amp;country=ID
+...
+...
+
+[updates-source]
+...
+metalink=https://mirrors.fedoraproject.org/metalink?repo=updates-released-debug-f$releasever&amp;arch=$basearch&amp;country=ID
+...
+...</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="update_system">Update system</h3>
+<div class="paragraph">
+<p>Lakukan refresh dan update repository dengan perintah,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf upgrade --refresh</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<strong>dnf update</strong> dan <strong>dnf upgrade</strong> sama, namun konvensi terbaru sudah menggunakan <strong>dnf upgrade</strong>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enable_rpmfusion_repository">Enable RPMFusion Repository</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/" target="_blank" rel="noopener">https://docs.fedoraproject.org/en-US/quick-docs/setup_rpmfusion/</a></p>
+</div>
+<div class="paragraph">
+<p><strong>Free Repository</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Nonfrere Repository</strong></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enabling Appstream data from the RPM Fusion repositories (GNOME)</p>
+</div>
+<div class="paragraph">
+<p>This procedure describes how to install the Appstream data provided by the RPM Fusion software repositories.</p>
+</div>
+<div class="paragraph">
+<p>Prerequisites:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>You have internet access.</p>
+</li>
+<li>
+<p>You are using the Gnome desktop environment.</p>
+</li>
+<li>
+<p>You have the RPMFusion repositories installed</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Procedure:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf group update core</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="install_gnome_tweak_tool">Install gnome-tweak-tool</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install gnome-tweak-tool</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="install_vim">Install Vim</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install vim</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="install_downgrade_package_sample_fprintd">Install downgrade package (sample: fprintd)</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://unix.stackexchange.com/a/408511" target="_blank" rel="noopener">https://unix.stackexchange.com/a/408511</a></p>
+</div>
+<div class="paragraph">
+<p>Saya harus mendowngrade paket <strong>fprintd</strong> dikarenakan fingerprint device yang ada di laptop saya (ThinkPad X61 keluaran tahun 2007), tidak dapat berfungsi pada fprintd versi 1.0. Setidaknya saya memerlukan versi 0.9.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf downgrade --releasever=31 fprintd</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exlude_some_packages">Exlude some packages</h3>
+<div class="paragraph">
+<p>Edit file <code>/etc/dnf/dnf.conf</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/dnf/dnf.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+</pre></td>
+  <td class="code"><pre>[main]
+...
+...
+...
+exclude=fprintd fprintd-pam libfprint</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="htop">Htop</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install htop</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="iftop">Iftop</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install iftop</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="iperf">iperf</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install iperf</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="neofetch">Neofetch</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install w3m-img</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install neofetch</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nmon">Nmon</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install nmon</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="nethogs">Nethogs</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install nethogs</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lm_sensors">LM Sensors</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install lm_sensors</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sound_converter">Sound Converter</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install soundconverter</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="audacity">Audacity</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install audacity</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="audacious">Audacious</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install audacious</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pass">Pass</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install pass</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="change_zsh_to_your_shell">Change ZSH to your shell</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install zsh
+$ sudo dnf install util-linux-user
+$ chsh -s $(which zsh)</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="arandr">Arandr</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install arandr</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="git_svn">GIT-SVN</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install git-svn</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tig">TIG</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install tig</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="git_credential_libsecret">Git-Credential-Libsecret</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://discussion.fedoraproject.org/t/attention-git-credential-libsecret-for-storing-git-passwords-in-the-gnome-keyring-is-now-an-extra-package/18275" target="_blank" rel="noopener">https://discussion.fedoraproject.org/t/attention-git-credential-libsecret-for-storing-git-passwords-in-the-gnome-keyring-is-now-an-extra-package/18275</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install git-credential-libsecret</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">$HOME/.gitconfig</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>...
+
+[credential]
+        helper = /usr/libexec/git-core/git-credential-libsecret</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ssh_askpass">SSH AskPass</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install lxqt-openssh-askpass</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Saya memilih menggunakan versi <strong>lxqt-openssh-askpass.x86_64</strong>, daripada versi <strong>openssh-askpass.x86_64</strong> dan <strong>x11-ssh-askpass.x86_64</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="glances">Glances</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install glances</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="wavemon">Wavemon</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install wavemon</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="transmission_daemon">Transmission Daemon</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install transmission-daemon</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="youtube_dl">Youtube-DL</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install youtube-dl</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="newsboat_rss_reader">Newsboat (RSS Reader)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install newsboat</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ranger_file_manager">Ranger File Manager</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install ranger
+$ sudo dnf install python3-devel
+$ sudo dnf install libX11-devel
+$ sudo dnf install libXext-devel
+$ pip install ueberzug</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install mediainfo
+$ sudo dnf install highlight
+$ sudo dnf install atool
+$ sudo dnf install bsdtar
+$ sudo dnf install unrar
+$ sudo dnf install p7zip
+$ sudo dnf install odt2txt</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="samba">Samba</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://docs.fedoraproject.org/en-US/quick-docs/samba/" target="_blank" rel="noopener">https://docs.fedoraproject.org/en-US/quick-docs/samba/</a></p>
+</div>
+<div class="paragraph">
+<p>Install dan enable samba service.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install samba
+$ sudo systemctl enable smb --now
+$ firewall-cmd --get-active-zones
+$ sudo firewall-cmd --permanent --zone=FedoraWorkstation --add-service=samba
+$ sudo firewall-cmd --reload</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Membuat user samba.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo smbpasswd -a bandithijo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Install samba support for file manager gui.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install gvfs-smb</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="install_opus_audio_codec">Install Opus Audio Codec</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libogg
+$ sudo dnf install opus-tools</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>(RPMFusion - Nonfree)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install audacious-plugins-freeworld-ffaudio</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="virt_manager_libvirt">Virt-Manager (libvirt)</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://fedoramagazine.org/full-virtualization-system-on-fedora-workstation-30/" target="_blank" rel="noopener">https://fedoramagazine.org/full-virtualization-system-on-fedora-workstation-30/</a></p>
+</div>
+<div class="paragraph">
+<p>Sumber: <a href="https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/" target="_blank" rel="noopener">https://docs.fedoraproject.org/en-US/quick-docs/getting-started-with-virtualization/</a></p>
+</div>
+<div class="paragraph">
+<p>Cek apakah CPU spport untuk virtualization,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ egrep '^flags.*(vmx|svm)' /proc/cpuinfo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau tidak menampilkan apapun, berarti CPU yang kamu gunakan tidak mendukung fitur virtualization.</p>
+</div>
+<div class="paragraph">
+<p>Cek group package untuk virtualization.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ dnf groupinfo virtualization</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Install dengan cara,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install @virtualization</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Alternatively, to install the mandatory, default, and optional packages, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf group install --with-optional virtualization</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Verifikasi KVM kernel module berhasil diload.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ lsmod | grep kvm</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Edit file <code>/etc/libvirt/libvirtd.conf</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo vi /etc/libvirt/libvirtd.conf</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Set the domain socket group ownership to libvirt.</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/libvirt/libvirtd.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>...
+unix_sock_group = &quot;libvirt&quot;
+...</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Adjust the UNIX socket permissions for the R/W socket</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/libvirt/libvirtd.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>...
+unix_sock_rw_perms = &quot;0770&quot;
+...</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add user to libvirt gorup</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo usermod -a -G libvirt $(whoami)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This adds the current user to the group. You must log out and log in to apply the changes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="chromium_browser">Chromium browser</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install chromium
+$ sudo dnf install chromium-libs-media-freeworld</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If Chromium can&#8217;t play video, replace chromium with chromium-freeworld by RPMFusion.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf swap chromium chromium-freeworld</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="chromedriver">Chromedriver</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install chromedriver</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="google_chrome">Google Chrome</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://docs.fedoraproject.org/en-US/quick-docs/installing-chromium-or-google-chrome-browsers/#installing-chrome" target="_blank" rel="noopener">https://docs.fedoraproject.org/en-US/quick-docs/installing-chromium-or-google-chrome-browsers/#installing-chrome</a></p>
+</div>
+<div class="paragraph">
+<p>Click the following link: <a href="https://www.google.com/chrome/browser/desktop/index.html" target="_blank" rel="noopener">https://www.google.com/chrome/browser/desktop/index.html</a></p>
+</div>
+<div class="paragraph">
+<p>Click on Download Chrome and select Fedora 64 or 32 bits download and install the repo.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install google-chrome-stable_current_x86_64.rpm</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enabling Chromium plugins (<strong>under construction</strong>).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ rpm2cpio ./google-chrome-stable_current_x86_64.rpm | cpio -idmv</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="codec_from_rpmfusion">Codec from RPMFusion</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/" target="_blank" rel="noopener">https://docs.fedoraproject.org/en-US/quick-docs/assembly_installing-plugins-for-playing-movies-and-music/</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install gstreamer1-plugins-{bad-\*,good-\*,base} gstreamer1-plugin-openh264 gstreamer1-libav --exclude=gstreamer1-plugins-bad-free-devel
+$ sudo dnf install lame\* --exclude=lame-devel
+$ sudo dnf group upgrade --with-optional Multimedia</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="another_audio_video_support">Another audio video support</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install ffmpegthumbnailer
+$ sudo dnf install rpmfusion-free-obsolete-packages</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="install_ffmpeg">Install FFMPEG</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install ffmpeg
+$ sudo dnf install ffmpeg-libs
+$ sudo dnf install compat-ffmpeg28</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tor">Tor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install tor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="handbrake">HandBrake</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install handbrake</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mpv">MPV</h3>
+<div class="paragraph">
+<p>(RPMFusion - Free)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install mpv
+$ sudo dnf install celluloid</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>User script that may help you steroid your mpv.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://github.com/jonniek/mpv-playlistmanager" target="_blank" rel="noopener">mpv-playlistmanager</a></p>
+</li>
+<li>
+<p><a href="https://github.com/cvzi/mpv-youtube-download" target="_blank" rel="noopener">mpv-youtube-download</a></p>
+</li>
+<li>
+<p><a href="https://github.com/jgreco/mpv-youtube-quality" target="_blank" rel="noopener">mpv-youtube-quality</a></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Manual Build</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install ffmpeg-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ./bootstrap.py
+$ ./waf configure
+$ ./waf
+$ sudo ./waf install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dnscrypt_proxy">DNSCrypt-Proxy</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://wiki.archlinux.org/title/Systemd-resolved#Manually" target="_blank" rel="noopener">https://wiki.archlinux.org/title/Systemd-resolved#Manually</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install dnscrypt-proxy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Create file <code>/etc/systemd/resolved.conf.d/dns_servers.conf</code></p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/systemd/resolved.conf.d/dns_servers.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>[Resolve]
+DNS=127.0.0.1
+Domains=~.</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, restart systemd-resolved service</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo systemctl restart systemd-resolved.conf</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adwaita_qt5_theme">Adwaita-Qt5 theme</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install adwaita-qt5</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="qt5ct">Qt5Ct</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install qt5ct</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="change_default_cursor_on_lightdm">Change default cursor on lightdm</h3>
+<div class="paragraph">
+<p>Change value of <code>/usr/share/icons/default/index.theme</code></p>
+</div>
+<div class="listingblock">
+<div class="title">/usr/share/icons/default/index.theme</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>[Icon Theme]
+Inherits=ComixCursors-Opaque-White</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="change_default_cursor_on_gdm">Change default cursor on GDM</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://wiki.archlinux.org/title/GDM#Changing_the_cursor_theme" target="_blank" rel="noopener">https://wiki.archlinux.org/title/GDM#Changing_the_cursor_theme</a></p>
+</div>
+<div class="paragraph">
+<p>GDM disregards GNOME cursor theme settings and it also ignores the cursor theme set according to the XDG specification. To change the cursor theme used in GDM, either create the following keyfile</p>
+</div>
+<div class="listingblock">
+<div class="title">/etc/dconf/db/gdm.d/10-cursor-settings</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+</pre></td>
+  <td class="code"><pre>[org/gnome/desktop/interface]
+cursor-theme='theme-name'</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And then recompile the GDM database or alternatively log in to the GDM user and execute the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ gsettings set org.gnome.desktop.interface cursor-theme 'theme-name'</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="neovim_nightly_build">Neovim Nightly (build)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install cmake
+$ sudo dnf install gcc-c++
+$ sudo dnf install luajit-devel
+$ sudo dnf install libtool
+$ sudo dnf install libvterm-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install nodejs
+$ sudo dnf install python3-neovim</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ cd ~/.local/src
+$ git clone https://github.com/neovim/neovim.git
+$ cd neovim
+$ make CMAKE_BUILD_TYPE=RelWithDebInfo -j3
+$ sudo make install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For plugins,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install ripgrep</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="postgresql">PostgreSQL</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install postgresql-server</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo /usr/bin/postgresql-setup --initdb</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo systemctl start postgresql.service</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo -iu postgres</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[postgres@fedora-x61 ~]$ createuser --interactive</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Enter name of role to add: bandithijo
+Shall the new role be a superuser? (y/n) y</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[postgres@fedora-x61 ~]$ createdb bandithijo</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[postgres@fedora-x61 ~]$ psql</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">postgres=# ALTER DATABASE bandithijo OWNER TO bandithijo;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Tambahkan pada file <code>/var/lib/pgsql/data/pg_hba.conf</code></p>
+</div>
+<div class="listingblock">
+<div class="title">/var/lib/pgsql/data/pg_hba.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td>
+  <td class="code"><pre>
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+...
+...
+# IPv4 local connections:
+#host   all             all              127.0.0.1/32            ident  <i class="conum" data-value="1"></i><b>(1)</b>
+host    all             bandithijo       127.0.0.1/32            trust  <i class="conum" data-value="2"></i><b>(2)</b>
+</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Saya duplicate, dan disable (comments)</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Saya ganti user <code>all</code> menjadi <code>bandithijo</code>. Method saya buat <code>trust</code></td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Or, using another way with Container.</p>
+</div>
+<div class="paragraph">
+<p>Since, Fedora has built in container utility named as <strong>Podman</strong>. So, I decided to use this tool than using Docker.</p>
+</div>
+<div class="paragraph">
+<p>I&#8217;ll use <strong>bitnami/postgresql</strong> container image from <strong>quay.io</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># podman pull quay.io/bitnami/postgresql:13.3.0
+# podman run --name postgresql --net host -v /var/lib/pgsql/data/userdata:/bitnami/postgresql/data:Z -e ALLOW_EMPTY_PASSWORD=yes bitnami/postgresql:13.3.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>PostgreSQL container image from Bitnami is set <strong>User: 1001</strong>. So, for the sake convenient purposes,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># chown -R 1001:1001 /var/lib/pgsql</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>/var/lib/pgsql</strong> is where Fedora put postgresql data.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Generate systemd unit file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># podman generate systemd --new --files --name postgresql
+# mv container-postgresql.service /etc/systemd/system
+# systemctl daemon-reload</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Stop and remove postgresql running container.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># podman stop postgresql
+# podman rm postgresql</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it! Now you&#8217;re able to start and check the status of running container with systemct start and status.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ruby_or_rails_developer">Ruby or Rails Developer</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install openssl-devel
+$ sudo dnf install libpq-devel
+$ sudo dnf install libxml2-devel
+$ sudo dnf install libxslt-devel
+$ sudo dnf install readline-devel</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Reinstall all your ruby with rbenv (remove and install).
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build_advcmp">Build ADVCMP</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/jarun/advcpmv" target="_blank" rel="noopener">https://github.com/jarun/advcpmv</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install patch</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ wget http://ftp.gnu.org/gnu/coreutils/coreutils-8.32.tar.xz
+$ tar xvJf coreutils-8.32.tar.xz
+$ cd coreutils-8.32/
+$ wget https://raw.githubusercontent.com/jarun/advcpmv/master/advcpmv-0.8-8.32.patch
+$ patch -p1 -i advcpmv-0.8-8.32.patch
+$ ./configure
+$ make</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tlp">TLP</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install tlp</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf copr enable suhanc/tp_smapi
+$ sudo dnf install tp_smapi</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="email_backend">Email Backend</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install isync
+$ sudo dnf install msmtp</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="neomutt">Neomutt</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf copr enable chriscowleyunix/neomutt</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Manual Build</strong></p>
+</div>
+<div class="paragraph">
+<p>Sumber: <a href="https://neomutt.org/dev/build/build" target="_blank" rel="noopener">https://neomutt.org/dev/build/build</a></p>
+</div>
+<div class="paragraph">
+<p>Deps</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libidn-devel
+$ sudo dnf install gpgme-devel
+$ sudo dnf install notmuch-devel
+$ sudo dnf install sqlite-devel
+$ sudo dnf install cyrus-sasl-devel
+$ sudo dnf install tokyocabinet-devel
+$ sudo dnf install tokyocabinet
+$ sudo dnf install urlview</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ./configure --ssl --lua --notmuch --gpgme --gss --autocrypt --sqlite --sasl --mixmaster --fmemopen --homespool --tokyocabinet --locales-fix
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rdp">RDP</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install freerdp</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="qutebrowser">Qutebrowser</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install qutebrowser</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Install Breave adblock,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ pip install adblock</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian, update list dengan <code>:adblock-update</code>.</p>
+</div>
+<div class="paragraph">
+<p>Additional hints,<br>
+Sumber: <a href="https://github.com/qutebrowser/qutebrowser/blob/master/doc/install.asciidoc#on-fedora" target="_blank" rel="noopener">https://github.com/qutebrowser/qutebrowser/blob/master/doc/install.asciidoc#on-fedora</a></p>
+</div>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>Fedora only ships free software in the repositories. To be able to play videos with proprietary codecs with QtWebEngine, you will need to install an additional package from the RPM Fusion Free repository.</p>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install qt5-qtwebengine-freeworld</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rofi">Rofi</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install rofi</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rofi_calc">Rofi-Calc</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/svenstaro/rofi-calc" target="_blank" rel="noopener">https://github.com/svenstaro/rofi-calc</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install qalculate</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Manual Build</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install rofi-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ autoreconf -i
+$ mkdir build
+$ cd build/
+$ ../configure
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lazygit">LazyGit</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf copr enable atim/lazygit
+$ sudo dnf install lazygit</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="seahorse">Seahorse</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install seahorse</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="crow_translate">Crow translate</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/crow-translate/crow-translate" target="_blank" rel="noopener">https://github.com/crow-translate/crow-translate</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install extra-cmake-modules
+$ sudo dnf install qt5-qtbase-devel
+$ sudo dnf install qt5-qtx11extras-devel
+$ sudo dnf install qt5-qtmultimedia-devel
+$ sudo dnf install tesseract-devel
+$ sudo dnf install libSM-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ mkdir build
+$ cd build
+$ cmake ..
+$ cmake --build .</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="libva_intel_driver">libva-intel-driver</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libva-intel-driver</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="inkscape">Inkscape</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install inkscape</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="weechat_build">WeeChat (build)</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/weechat/weechat" target="_blank" rel="noopener">https://github.com/weechat/weechat</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install gnutls-devel
+$ sudo dnf install perl-ExtUtils-Embed
+$ sudo dnf install libgcrypt-devel
+$ sudo dnf install libcurl-devel
+$ sudo dnf install ncurses-devel
+$ sudo dnf install aspell-devel
+$ sudo dnf install php-devel
+$ sudo dnf install lua-devel
+$ sudo dnf install tcl-devel
+$ sudo dnf install guile-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ mkdir build
+$ cd build
+$ cmake ..
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau masih ada warning error perihal language, bisa menggunakan,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ccmake ..</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Lalu set <strong>OFF</strong> untuk language support yang tidak ingin disertakan atau yang menyebabkan error.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="weechat_matrix">WeeChat-Matrix</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/poljar/weechat-matrix" target="_blank" rel="noopener">https://github.com/poljar/weechat-matrix</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libolm-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://github.com/poljar/weechat-matrix.git
+$ cd weechat-matrix
+$ pip install -r requirements.txt</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau kamu sudah pernah mengkonfigurasi weechat, tinggal jalankan,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ make install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Selanjutnya tinggal membuat plugin matrix menjadi autostart ketika weechat dijalankan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ cd ~/.weechat/python/autoload
+$ ln -s ../matrix.py ~/.weechat/python/autoload</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="flameshot">Flameshot</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install flameshot</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="optipng">Optipng</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install optipng</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scrot">Scrot</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/resurrecting-open-source-projects/scrot" target="_blank" rel="noopener">https://github.com/resurrecting-open-source-projects/scrot</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install autoconf-archive
+$ sudo dnf install imlib2-devel
+$ sudo dnf install libtool
+$ sudo dnf install libXcomposite-devel
+$ sudo dnf install libXfixes-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://github.com/resurrecting-open-source-projects/scrot.git
+$ cd scrot</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ./autogen.sh
+$ ./configure
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="maim">Maim</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install maim</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="changeswap_pipewire_with_pulseaudio">Change/Swap Pipewire with Pulseaudio</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://fedoraproject.org/wiki/Changes/DefaultPipeWire#Upgrade.2Fcompatibility_impact" target="_blank" rel="noopener">https://fedoraproject.org/wiki/Changes/DefaultPipeWire#Upgrade.2Fcompatibility_impact</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf swap --allowerasing pipewire-pulseaudio pulseaudio</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Install PulseAudio sound server utilities</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install pulseaudio-utils</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pamixer">Pamixer</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://copr.fedorainfracloud.org/coprs/opuk/pamixer/" target="_blank" rel="noopener">https://copr.fedorainfracloud.org/coprs/opuk/pamixer/</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf copr enable opuk/pamixer
+$ sudo dnf install pamixer</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Atau manual build (my recomended).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install boost-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://github.com/cdemoulins/pamixer.git
+$ make</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dconf_gconf_editor">DConf &amp; GConf Editor</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install dconf-editor
+$ sudo dnf install gconf-editor</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hexchat">HexChat</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install hexchat</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Install adwaita-gtk2-theme for fix issue theme,</p>
+</div>
+<div class="paragraph">
+<p>Sumber: <a href="https://bugzilla.redhat.com/show_bug.cgi?id=1963223" target="_blank" rel="noopener">https://bugzilla.redhat.com/show_bug.cgi?id=1963223</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install adwaita-gtk2-theme</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gping">Gping</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/orf/gping" target="_blank" rel="noopener">https://github.com/orf/gping</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf copr enable atim/gping
+$ sudo dnf install gping</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="prettyping">PrettyPing</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/denilsonsa/prettyping" target="_blank" rel="noopener">https://github.com/denilsonsa/prettyping</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install prettyping</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dunst">Dunst</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install dunst</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="telegram_tg">Telegram TG</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/paul-nameless/tg.git" target="_blank" rel="noopener">https://github.com/paul-nameless/tg.git</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install tdlib
+$ pip install python-telegram
+$ pip install .</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="simplescreenrecorder">SimpleScreenRecorder</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install simplescreenrecorder</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ps_mem">ps_mem</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install ps_mem</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="how_to_disable_gnome_software_autostart">How to disable Gnome Software autostart</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://forums.fedoraforum.org/showthread.php?315410-How-to-disable-Gnome-Software-autostart" target="_blank" rel="noopener">https://forums.fedoraforum.org/showthread.php?315410-How-to-disable-Gnome-Software-autostart</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo systemctl disable packagekit.service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Disable <code>download-updates</code> of Gnome Software with dcof-editor.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[org/gnome/software]
+download-updates=false</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Disable autostart gnome-software service.</p>
+</div>
+<div class="paragraph">
+<p>Sumber: <a href="https://askubuntu.com/questions/959353/disable-gnome-software-from-loading-at-startup" target="_blank" rel="noopener">https://askubuntu.com/questions/959353/disable-gnome-software-from-loading-at-startup</a></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Copy of the <code>/etc/xdg/autostart/gnome-software-service.desktop</code> file to the <code>~/.config/autostart/</code> directory.</p>
+</li>
+<li>
+<p>Open the copied <code>.desktop</code> file with a text editor and remove the <code>NoDisplay=true</code></p>
+</li>
+<li>
+<p>Now GNOME Software should appear in your Startup Applications list. Disable it. Alternatively, you may append an <code>X-GNOME-Autostart-enabled=false</code></p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pavucontrol">Pavucontrol</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install pavucontrol</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gcolor2">GColor2</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install gcolor2</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="suckless">Suckless</h3>
+<div class="sect3">
+<h4 id="st">st</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libXft-devel</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For Emoji support,</p>
+</div>
+<div class="paragraph">
+<p>Sumber: <a href="https://copr.fedorainfracloud.org/coprs/linuxredneck/libXft-bgra/" target="_blank" rel="noopener">https://copr.fedorainfracloud.org/coprs/linuxredneck/libXft-bgra/</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf copr enable linuxredneck/libXft-bgra
+$ sudo rpm -e --nodeps libXft-2.3.3-6.fc34.x86_64 libXft-devel-2.3.3-6.fc34.x86_64
+$ sudo dnf install libXft-bgra</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add <code>libXft</code> to <code>exclude=</code> package on <code>/etc/dnf/dnf.conf</code>.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="dwm">dwm</h4>
+<div class="paragraph">
+<p>Deps</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libXinerama-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ $ sudo dnf install xsetroot</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="pinentry_dmenu_still_failed">pinentry-dmenu (still failed)</h4>
+<div class="paragraph">
+<p>Deps</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libassuan-devel</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="sxiv">sxiv</h4>
+<div class="paragraph">
+<p>Deps</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install imlib2-devel
+$ sudo dnf install libexif-devel
+$ sudo dnf install giflib-devel
+$ sudo dnf install libXft-bgra-devel</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="telegram_desktop">Telegram Desktop</h3>
+<div class="paragraph">
+<p>(RPMFusion - Free)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install telegram-desktop</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="hide_desktop_icon_on_application_list">Hide desktop icon on Application List</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://wiki.archlinux.org/title/desktop_entries#Hide_desktop_entries" target="_blank" rel="noopener">https://wiki.archlinux.org/title/desktop_entries#Hide_desktop_entries</a></p>
+</div>
+<div class="paragraph">
+<p>Firstly, copy the desktop entry file in question to <code>~/.local/share/applications</code> to avoid your changes being overwritten.</p>
+</div>
+<div class="paragraph">
+<p>Then, to hide the entry in all environments, open the desktop entry file in a text editor and add the following line: <code>NoDisplay=true</code>.</p>
+</div>
+<div class="paragraph">
+<p>To hide the entry in a specific desktop, add the following line to the desktop entry file: <code>NotShowIn=desktop-name</code>.</p>
+</div>
+<div class="paragraph">
+<p>where desktop-name can be option such as <code>GNOME</code>, <code>Xfce</code>, <code>KDE</code> etc.</p>
+</div>
+<div class="paragraph">
+<p>A desktop entry can be hidden in more than desktop at once - simply separate the desktop names with a semi-colon.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="flatpak_via_flathub_remote">Flatpak via Flathub Remote</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gromit_mpx">Gromit-MPX</h3>
+<div class="paragraph">
+<p>(Flatpak - Flathub)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ flatpak install flathub net.christianbeier.Gromit-MPX</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="center_window_in_gnome">Center window in GNOME</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://www.reddit.com/r/gnome/comments/aaqy2p/center_windows_in_gnome/" target="_blank" rel="noopener">https://www.reddit.com/r/gnome/comments/aaqy2p/center_windows_in_gnome/</a></p>
+</div>
+<div class="paragraph">
+<p>By: carmanaughty</p>
+</div>
+<div class="paragraph">
+<p>For a keyboard shortcut, there&#8217;s a dconf key under <code>/org/gnome/desktop/wm/keybindings</code> which is <code>move-to-center</code> and it should be empty. Change that to whatever you want (for instance, I use ['&lt;Super&gt;&lt;Control&gt;&lt;Shift&gt;Home']).</p>
+</div>
+<div class="paragraph">
+<p>By: [deleted]</p>
+</div>
+<div class="paragraph">
+<p>Its also in GNOME Tweaks. It is under "Windows" &#8594; "Center New Windows".</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="polybar">Polybar</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install polybar</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="feh">Feh</h3>
+<div class="paragraph">
+<p>Image viewer and cataloguer.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install feh</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sxhkd">SXHKD</h3>
+<div class="paragraph">
+<p>Simple HotKey Daemon.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install sxhkd</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="j4_dmenu_desktop_dmenu_wrapper">j4-dmenu-desktop (dmenu wrapper)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install j4-dmenu-desktop</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="xcompmgr">XCompmgr</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libXcomposite-devel
+$ sudo dnf install libXdamage-devel</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="picom">Picom</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install meson
+$ sudo dnf install libev-devel
+$ sudo dnf install xcb-util-renderutil-devel
+$ sudo dnf install xcb-util-image-devel
+$ sudo dnf install pixman-devel
+$ sudo dnf install uthash-devel
+$ sudo dnf install libconfig-devel
+$ sudo dnf install dbus-devel</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="xbacklight">XBacklight</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install xbacklight</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="udiskie">Udiskie</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install udiskie</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="abduco">Abduco</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install abduco</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dtach">dtach</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/crigler/dtach" target="_blank" rel="noopener">https://github.com/crigler/dtach</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install dtach</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lxappearance">LXappearance</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install lxappearance</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="unclutter_xfixes">unclutter-xfixes</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/Airblader/unclutter-xfixes" target="_blank" rel="noopener">https://github.com/Airblader/unclutter-xfixes</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf intall libXi-devel
+$ sudo dnf install asciidoc</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://github.com/Airblader/unclutter-xfixes.git
+$ cd unclutter-xfixes
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="calibre">Calibre</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install calibre</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="system_config_printer">System Config Printer</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install system-config-printer</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ppd_from_foomatic_db">PPD from foomatic-db</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install foomatic-db
+$ sudo dnf install foomatic-db-ppds</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="xsane_scanner">XSane (Scanner)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install xsane</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gparted">Gparted</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install gparted</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="numix_solarized_theme_build">Numix Solarized Theme Build</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install sassc
+$ sudo dnf install gdk-pixbuf2-devel</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Saya memiliki Codedark.colors</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo make THEME=Codedark install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Install dependensi numix theme,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install numix-gtk-theme</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aria2">Aria2</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install aria2</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ pip install &quot;aria2p[tui]&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="mate_polkit">Mate Polkit</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install mate-polkit</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="lxpolkit">LXpolkit</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install lxpolkit</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="p7zip">P7Zip</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install p7zip</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="screenkey">Screenkey</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install screenkey</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="development_group_packages">Development Group Packages</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf group install &quot;Development Tools&quot;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="docker">Docker</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://developer.fedoraproject.org/tools/docker/docker-installation.html" target="_blank" rel="noopener">https://developer.fedoraproject.org/tools/docker/docker-installation.html</a></p>
+</div>
+<div class="paragraph">
+<p>Install the <code>docker-ce</code> package using the Docker repository:</p>
+</div>
+<div class="paragraph">
+<p>To install the dnf-plugins-core package (which provides the commands to manage your DNF repositories) and set up the stable repository.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install dnf-plugins-core</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To add the <code>docker-ce</code> repository</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To install the docker engine. The Docker daemon relies on a OCI compliant runtime (invoked via the containerd daemon) as its interface to the Linux kernel namespaces, cgroups, and SELinux.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install docker-ce docker-ce-cli containerd.io</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Afterwards you need to enable the backward compatability for Cgroups. Docker Engine on Linux relies on control groups (cgroups). A cgroup limits an application to a specific set of resources. Control groups allow Docker Engine to share available hardware resources to containers and optionally enforce limits and constraints.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo grubby --update-kernel=ALL --args=&quot;systemd.unified_cgroup_hierarchy=0&quot;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You must reboot after running the command for the changes to take effect</p>
+</div>
+<div class="paragraph">
+<p>To start the Docker service use:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo systemctl start docker</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can verify that Docker was correctly installed and is running by running the Docker hello-world image.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo docker run hello-world</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Why can’t I use docker command as a non root user, by default?</div>
+<div class="paragraph">
+<p>The Docker daemon binds to a Unix socket instead of a TCP port. By default that Unix socket is owned by the user <code>root</code> and other users can access it with <code>sudo</code>. For this reason, Docker daemon always runs as the <code>root</code> user.</p>
+</div>
+<div class="paragraph">
+<p>You can either <a href="http://www.projectatomic.io/blog/2015/08/why-we-dont-let-non-root-users-run-docker-in-centos-fedora-or-rhel" target="_blank" rel="noopener">set up sudo</a>.</p>
+</div>
+<div class="paragraph">
+<p>Or you can create a Unix group called <code>docker</code> and add users to it. When the Docker daemon starts, it makes the ownership of the Unix socket read/writable by the <code>docker</code> group.</p>
+</div>
+<div class="paragraph">
+<p><strong>Warning</strong>: The <code>docker</code> group is equivalent to the <code>root</code> user; For details on how this impacts security in your system, see <a href="https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface" target="_blank" rel="noopener">Docker Daemon Attack Surface</a> for details.</p>
+</div>
+<div class="paragraph">
+<p>To create the <code>docker</code> group and add your user:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo groupadd docker
+$ sudo gpasswd -a ${USER} docker
+$ sudo systemctl restart docker
+$ newgrp docker</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You have to log out and log back in (or restart Docker daemon and use <code>newgrp</code> command as mentioned here) for these changes to take effect. Then you can verify if your changes were successful by running Docker without <code>sudo</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kbbi_qt">KBBI-Qt</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/bgli/kbbi-qt" target="_blank" rel="noopener">https://github.com/bgli/kbbi-qt</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install qt5-qtbase-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://github.com/bgli/kbbi-qt.git
+$ cd kbbi-qt
+$ qmake-qt5 KBBI-Qt.pro
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="zathura">Zathura</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install zathura
+$ sudo dnf install zathura-pdf-mupdf</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="kamus">Kamus</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/abihf/kamus" target="_blank" rel="noopener">https://github.com/abihf/kamus</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install vala
+$ sudo dnf install libvala-devel
+$ sudo dnf install gtk3-devel
+$ sudo dnf install libgee-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ ./configure
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="thunderbird">Thunderbird</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install thunderbird</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gucharmap_character_map">Gucharmap (Character Map)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install gucharmap</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="dragon_drag_and_drop_helper">Dragon (drag and drop helper)</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/mwh/dragon.git" target="_blank" rel="noopener">https://github.com/mwh/dragon.git</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://github.com/mwh/dragon.git
+$ cd dragon
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="zoom_meeting_client">Zoom Meeting Client</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux#h_825b50ac-ad15-44a8-9959-28c97e4803ef" target="_blank" rel="noopener">https://support.zoom.us/hc/en-us/articles/204206269-Installing-or-updating-Zoom-on-Linux#h_825b50ac-ad15-44a8-9959-28c97e4803ef</a></p>
+</div>
+<div class="paragraph">
+<p>Sumber: <a href="https://tecadmin.net/install-zoom-client-on-fedora/" target="_blank" rel="noopener">https://tecadmin.net/install-zoom-client-on-fedora/</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ wget https://zoom.us/client/latest/zoom_x86_64.rpm
+$ sudo dnf localinstall zoom_x86_64.rpm</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="ffmulticonverter">ffmulticonverter</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install ffmulticonverter</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="handbrake_2">HandBrake</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install HandBrake-gui</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="x11vnc">x11vnc</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install x11vnc</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="discord">Discord</h3>
+<div class="paragraph">
+<p>(RPMFusion - NonFree)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install discord</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="slack">Slack</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://slack.com/intl/en-id/downloads/linux" target="_blank" rel="noopener">https://slack.com/intl/en-id/downloads/linux</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ wget https://downloads.slack-edge.com/linux_releases/slack-4.17.0-0.1.fc21.x86_64.rpm
+$ sudo dnf localinstall slack-4.17.0-0.1.fc21.x86_64.rpm</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pdf_arranger">PDF Arranger</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install pdfarranger</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="master_pdf_editor_4">Master PDF Editor 4</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://www.linuxuprising.com/2019/04/download-master-pdf-editor-4-for-linux.html" target="_blank" rel="noopener">https://www.linuxuprising.com/2019/04/download-master-pdf-editor-4-for-linux.html</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ wget http://code-industry.net/public/master-pdf-editor-4.3.89_qt5.x86_64.rpm
+$ sudo dnf localinstall master-pdf-editor-4.3.89_qt5.x86_64.rpm</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="intel_gpu_tools">Intel GPU Tools</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install igt-gpu-tools</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="autocutsel">Autocutsel</h3>
+<div class="paragraph">
+<p>Sumber: <a href="http://www.nongnu.org/autocutsel/" target="_blank" rel="noopener">http://www.nongnu.org/autocutsel/</a></p>
+</div>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/sigmike/autocutsel" target="_blank" rel="noopener">https://github.com/sigmike/autocutsel</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libXaw-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://github.com/sigmike/autocutsel
+$ cd autocutsel
+$ ./bootstrap
+$ ./configure
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="xzoom">XZoom</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://copr.fedorainfracloud.org/coprs/bgstack15/stackrpms/" target="_blank" rel="noopener">https://copr.fedorainfracloud.org/coprs/bgstack15/stackrpms/</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf copr enable bgstack15/stackrpms
+$ sudo dnf install xzoom</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="minder_mind_mapping">Minder (mind mapping)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install minder</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="taskell_kanban_board">Taskell (Kanban Board)</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/smallhadroncollider/taskell" target="_blank" rel="noopener">https://github.com/smallhadroncollider/taskell</a></p>
+</div>
+<div class="paragraph">
+<p>Command-line Kanban board/task manager with support for Trello boards and GitHub projects</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install ncurses-compat-libs</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="showhide_grub_menu">Show/Hide GRUB Menu</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://fedoraproject.org/wiki/Changes/HiddenGrubMenu" target="_blank" rel="noopener">https://fedoraproject.org/wiki/Changes/HiddenGrubMenu</a></p>
+</div>
+<div class="paragraph">
+<p>On systems with only a single OS installed, the grub menu does not offer any useful functionality, so we should hide it by default.</p>
+</div>
+<div class="paragraph">
+<p>This new auto-hide functionality will be automatically enabled on new Fedora Workstation installs. This can be disabled by running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo grub2-editenv - unset menu_auto_hide</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="zeal">Zeal</h3>
+<div class="paragraph">
+<p>Offline documentation browser inspired by Dash</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install zeal</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="xinput">xinput</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install xinput</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gthumb_image_viewer_editor_organizer">gThumb (image viewer, editor, organizer)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install gthumb</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="speedtest_cli">Speedtest CLI</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install speedtest-cli</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="spotify">Spotify</h3>
+<div class="paragraph">
+<p>(Flatpak - Flathub)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ flatpak install flathub com.spotify.Client</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rpkg">rpkg</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://pagure.io/rpkg-util" target="_blank" rel="noopener">https://pagure.io/rpkg-util</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install rpkg</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="asciidoc">asciidoc</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install asciidoc</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ gem install asciidoctor
+$ gem install asciidoctor-pdf --pre
+$ gem install pygments.rb</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tmux">Tmux</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/tmux/tmux" target="_blank" rel="noopener">https://github.com/tmux/tmux</a></p>
+</div>
+<div class="paragraph">
+<p>Manual build</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libevent-devel</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://github.com/tmux/tmux.git
+$ cd tmux
+$ sh autogen.sh
+$ ./configure
+$ make
+$ sudo make install</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Fedora repo</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf instal tmux</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="emacs">Emacs</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install emacs</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="wireshark">Wireshark</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://fedoramagazine.org/how-to-install-wireshark-fedora/" target="_blank" rel="noopener">https://fedoramagazine.org/how-to-install-wireshark-fedora/</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install wireshark</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Add user ke dalam group <strong>wireshark</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo usermod -a -G wireshark bandithijo</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Perlu restart
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scrcpy">Scrcpy</h3>
+<div class="paragraph">
+<p>Sumber: <a href="https://github.com/Genymobile/scrcpy" target="_blank" rel="noopener">https://github.com/Genymobile/scrcpy</a></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install SDL2-devel
+$ sudo dnf install android-tools</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git clone https://github.com/Genymobile/scrcpy
+$ cd scrcpy
+$ ./install_release.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When a new release is out, update the repo and reinstall:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ git pull
+$ ./install_release.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To uninstall:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo ninja -Cbuild-auto uninstall</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="faketime">Faketime</h3>
+<div class="paragraph">
+<p>Manipulate system time per process for testing purposes.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install libfaketime</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sc_spreadsheet_calculator">sc (Spreadsheet Calculator)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install sc</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="barrier">Barrier</h3>
+<div class="paragraph">
+<p>Use a single keyboard and mouse to control multiple computers.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install barrier</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="filezilla">Filezilla</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install filezilla</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="inxi">inxi</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install inxi</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="s_tui">s-tui</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install s-tui</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="git_email_git_send_email">git-email (git send-email)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install git-email</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="v4l2_video_for_linux">v4l2 (video for linux)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install v4l-utils</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="fontforge">fontforge</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install fontforge</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="translate_shell">translate-shell</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install translate-shell</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="xdotool">xdotool</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo dnf install xdotool</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="xorg">Xorg</h3>
+<div class="listingblock">
+<div class="title">/etc/X11/xorg.conf.d/20-intel.conf</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="conf"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+  <td class="code"><pre>Section &quot;Device&quot;
+    Identifier    &quot;Intel Graphics&quot;
+    Driver        &quot;intel&quot;
+
+    Option        &quot;DRI&quot;          &quot;true&quot;
+
+    Option        &quot;DRI&quot;          &quot;2&quot;
+    Option        &quot;AccellMethod&quot; &quot;uxa&quot;    # Fallback
+
+    #Option        &quot;DRI&quot;          &quot;3&quot;      # DRI 3 is now default
+    #Option        &quot;AccellMethod&quot; &quot;sna&quot;    # Default
+
+    Option        &quot;TearFree&quot;     &quot;true&quot;
+EndSection</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/note/2021-06-10-catatan-post-installation-fedora-workstation.adoc"> Edit this note</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Notes</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/note/welcome-to-test">Welcome to Test</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation">Catatan Post Installation Fedora Workstation</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-daftar-terminal-tools">Catatan Daftar Terminal Tools</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-git">Catatan Terkait Git</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-vboxmanage">Catatan Terkait VBoxManage</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/note/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#fedora</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-06-10</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#pre_install">Pre Install</a>
+    <ul>
+      <li><a href="#verify_your_download_with_checksum_files">Verify your download with CHECKSUM files.</a></li>
+    </ul>
+  </li>
+  <li><a href="#packages">Packages</a>
+    <ul>
+      <li><a href="#enable_fastest_mirror_and_delta_rpm">Enable fastest mirror and Delta RPM</a></li>
+      <li><a href="#update_system">Update system</a></li>
+      <li><a href="#enable_rpmfusion_repository">Enable RPMFusion Repository</a></li>
+      <li><a href="#install_gnome_tweak_tool">Install gnome-tweak-tool</a></li>
+      <li><a href="#install_vim">Install Vim</a></li>
+      <li><a href="#install_downgrade_package_sample_fprintd">Install downgrade package (sample: fprintd)</a></li>
+      <li><a href="#exlude_some_packages">Exlude some packages</a></li>
+      <li><a href="#htop">Htop</a></li>
+      <li><a href="#iftop">Iftop</a></li>
+      <li><a href="#iperf">iperf</a></li>
+      <li><a href="#neofetch">Neofetch</a></li>
+      <li><a href="#nmon">Nmon</a></li>
+      <li><a href="#nethogs">Nethogs</a></li>
+      <li><a href="#lm_sensors">LM Sensors</a></li>
+      <li><a href="#sound_converter">Sound Converter</a></li>
+      <li><a href="#audacity">Audacity</a></li>
+      <li><a href="#audacious">Audacious</a></li>
+      <li><a href="#pass">Pass</a></li>
+      <li><a href="#change_zsh_to_your_shell">Change ZSH to your shell</a></li>
+      <li><a href="#arandr">Arandr</a></li>
+      <li><a href="#git_svn">GIT-SVN</a></li>
+      <li><a href="#tig">TIG</a></li>
+      <li><a href="#git_credential_libsecret">Git-Credential-Libsecret</a></li>
+      <li><a href="#ssh_askpass">SSH AskPass</a></li>
+      <li><a href="#glances">Glances</a></li>
+      <li><a href="#wavemon">Wavemon</a></li>
+      <li><a href="#transmission_daemon">Transmission Daemon</a></li>
+      <li><a href="#youtube_dl">Youtube-DL</a></li>
+      <li><a href="#newsboat_rss_reader">Newsboat (RSS Reader)</a></li>
+      <li><a href="#ranger_file_manager">Ranger File Manager</a></li>
+      <li><a href="#samba">Samba</a></li>
+      <li><a href="#install_opus_audio_codec">Install Opus Audio Codec</a></li>
+      <li><a href="#virt_manager_libvirt">Virt-Manager (libvirt)</a></li>
+      <li><a href="#chromium_browser">Chromium browser</a></li>
+      <li><a href="#chromedriver">Chromedriver</a></li>
+      <li><a href="#google_chrome">Google Chrome</a></li>
+      <li><a href="#codec_from_rpmfusion">Codec from RPMFusion</a></li>
+      <li><a href="#another_audio_video_support">Another audio video support</a></li>
+      <li><a href="#install_ffmpeg">Install FFMPEG</a></li>
+      <li><a href="#tor">Tor</a></li>
+      <li><a href="#handbrake">HandBrake</a></li>
+      <li><a href="#mpv">MPV</a></li>
+      <li><a href="#dnscrypt_proxy">DNSCrypt-Proxy</a></li>
+      <li><a href="#adwaita_qt5_theme">Adwaita-Qt5 theme</a></li>
+      <li><a href="#qt5ct">Qt5Ct</a></li>
+      <li><a href="#change_default_cursor_on_lightdm">Change default cursor on lightdm</a></li>
+      <li><a href="#change_default_cursor_on_gdm">Change default cursor on GDM</a></li>
+      <li><a href="#neovim_nightly_build">Neovim Nightly (build)</a></li>
+      <li><a href="#postgresql">PostgreSQL</a></li>
+      <li><a href="#ruby_or_rails_developer">Ruby or Rails Developer</a></li>
+      <li><a href="#build_advcmp">Build ADVCMP</a></li>
+      <li><a href="#tlp">TLP</a></li>
+      <li><a href="#email_backend">Email Backend</a></li>
+      <li><a href="#neomutt">Neomutt</a></li>
+      <li><a href="#rdp">RDP</a></li>
+      <li><a href="#qutebrowser">Qutebrowser</a></li>
+      <li><a href="#rofi">Rofi</a></li>
+      <li><a href="#rofi_calc">Rofi-Calc</a></li>
+      <li><a href="#lazygit">LazyGit</a></li>
+      <li><a href="#seahorse">Seahorse</a></li>
+      <li><a href="#crow_translate">Crow translate</a></li>
+      <li><a href="#libva_intel_driver">libva-intel-driver</a></li>
+      <li><a href="#inkscape">Inkscape</a></li>
+      <li><a href="#weechat_build">WeeChat (build)</a></li>
+      <li><a href="#weechat_matrix">WeeChat-Matrix</a></li>
+      <li><a href="#flameshot">Flameshot</a></li>
+      <li><a href="#optipng">Optipng</a></li>
+      <li><a href="#scrot">Scrot</a></li>
+      <li><a href="#maim">Maim</a></li>
+      <li><a href="#changeswap_pipewire_with_pulseaudio">Change/Swap Pipewire with Pulseaudio</a></li>
+      <li><a href="#pamixer">Pamixer</a></li>
+      <li><a href="#dconf_gconf_editor">DConf &amp; GConf Editor</a></li>
+      <li><a href="#hexchat">HexChat</a></li>
+      <li><a href="#gping">Gping</a></li>
+      <li><a href="#prettyping">PrettyPing</a></li>
+      <li><a href="#dunst">Dunst</a></li>
+      <li><a href="#telegram_tg">Telegram TG</a></li>
+      <li><a href="#simplescreenrecorder">SimpleScreenRecorder</a></li>
+      <li><a href="#ps_mem">ps_mem</a></li>
+      <li><a href="#how_to_disable_gnome_software_autostart">How to disable Gnome Software autostart</a></li>
+      <li><a href="#pavucontrol">Pavucontrol</a></li>
+      <li><a href="#gcolor2">GColor2</a></li>
+      <li><a href="#suckless">Suckless</a>
+        <ul>
+          <li><a href="#st">st</a></li>
+          <li><a href="#dwm">dwm</a></li>
+          <li><a href="#pinentry_dmenu_still_failed">pinentry-dmenu (still failed)</a></li>
+          <li><a href="#sxiv">sxiv</a></li>
+        </ul>
+      </li>
+      <li><a href="#telegram_desktop">Telegram Desktop</a></li>
+      <li><a href="#hide_desktop_icon_on_application_list">Hide desktop icon on Application List</a></li>
+      <li><a href="#flatpak_via_flathub_remote">Flatpak via Flathub Remote</a></li>
+      <li><a href="#gromit_mpx">Gromit-MPX</a></li>
+      <li><a href="#center_window_in_gnome">Center window in GNOME</a></li>
+      <li><a href="#polybar">Polybar</a></li>
+      <li><a href="#feh">Feh</a></li>
+      <li><a href="#sxhkd">SXHKD</a></li>
+      <li><a href="#j4_dmenu_desktop_dmenu_wrapper">j4-dmenu-desktop (dmenu wrapper)</a></li>
+      <li><a href="#xcompmgr">XCompmgr</a></li>
+      <li><a href="#picom">Picom</a></li>
+      <li><a href="#xbacklight">XBacklight</a></li>
+      <li><a href="#udiskie">Udiskie</a></li>
+      <li><a href="#abduco">Abduco</a></li>
+      <li><a href="#dtach">dtach</a></li>
+      <li><a href="#lxappearance">LXappearance</a></li>
+      <li><a href="#unclutter_xfixes">unclutter-xfixes</a></li>
+      <li><a href="#calibre">Calibre</a></li>
+      <li><a href="#system_config_printer">System Config Printer</a></li>
+      <li><a href="#ppd_from_foomatic_db">PPD from foomatic-db</a></li>
+      <li><a href="#xsane_scanner">XSane (Scanner)</a></li>
+      <li><a href="#gparted">Gparted</a></li>
+      <li><a href="#numix_solarized_theme_build">Numix Solarized Theme Build</a></li>
+      <li><a href="#aria2">Aria2</a></li>
+      <li><a href="#mate_polkit">Mate Polkit</a></li>
+      <li><a href="#lxpolkit">LXpolkit</a></li>
+      <li><a href="#p7zip">P7Zip</a></li>
+      <li><a href="#screenkey">Screenkey</a></li>
+      <li><a href="#development_group_packages">Development Group Packages</a></li>
+      <li><a href="#docker">Docker</a></li>
+      <li><a href="#kbbi_qt">KBBI-Qt</a></li>
+      <li><a href="#zathura">Zathura</a></li>
+      <li><a href="#kamus">Kamus</a></li>
+      <li><a href="#thunderbird">Thunderbird</a></li>
+      <li><a href="#gucharmap_character_map">Gucharmap (Character Map)</a></li>
+      <li><a href="#dragon_drag_and_drop_helper">Dragon (drag and drop helper)</a></li>
+      <li><a href="#zoom_meeting_client">Zoom Meeting Client</a></li>
+      <li><a href="#ffmulticonverter">ffmulticonverter</a></li>
+      <li><a href="#handbrake_2">HandBrake</a></li>
+      <li><a href="#x11vnc">x11vnc</a></li>
+      <li><a href="#discord">Discord</a></li>
+      <li><a href="#slack">Slack</a></li>
+      <li><a href="#pdf_arranger">PDF Arranger</a></li>
+      <li><a href="#master_pdf_editor_4">Master PDF Editor 4</a></li>
+      <li><a href="#intel_gpu_tools">Intel GPU Tools</a></li>
+      <li><a href="#autocutsel">Autocutsel</a></li>
+      <li><a href="#xzoom">XZoom</a></li>
+      <li><a href="#minder_mind_mapping">Minder (mind mapping)</a></li>
+      <li><a href="#taskell_kanban_board">Taskell (Kanban Board)</a></li>
+      <li><a href="#showhide_grub_menu">Show/Hide GRUB Menu</a></li>
+      <li><a href="#zeal">Zeal</a></li>
+      <li><a href="#xinput">xinput</a></li>
+      <li><a href="#gthumb_image_viewer_editor_organizer">gThumb (image viewer, editor, organizer)</a></li>
+      <li><a href="#speedtest_cli">Speedtest CLI</a></li>
+      <li><a href="#spotify">Spotify</a></li>
+      <li><a href="#rpkg">rpkg</a></li>
+      <li><a href="#asciidoc">asciidoc</a></li>
+      <li><a href="#tmux">Tmux</a></li>
+      <li><a href="#emacs">Emacs</a></li>
+      <li><a href="#wireshark">Wireshark</a></li>
+      <li><a href="#scrcpy">Scrcpy</a></li>
+      <li><a href="#faketime">Faketime</a></li>
+      <li><a href="#sc_spreadsheet_calculator">sc (Spreadsheet Calculator)</a></li>
+      <li><a href="#barrier">Barrier</a></li>
+      <li><a href="#filezilla">Filezilla</a></li>
+      <li><a href="#inxi">inxi</a></li>
+      <li><a href="#s_tui">s-tui</a></li>
+      <li><a href="#git_email_git_send_email">git-email (git send-email)</a></li>
+      <li><a href="#v4l2_video_for_linux">v4l2 (video for linux)</a></li>
+      <li><a href="#fontforge">fontforge</a></li>
+      <li><a href="#translate_shell">translate-shell</a></li>
+      <li><a href="#xdotool">xdotool</a></li>
+      <li><a href="#xorg">Xorg</a></li>
+    </ul>
+  </li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

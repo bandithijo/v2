@@ -1,0 +1,7 @@
+@font-face {
+  font-family: "mplus Nerd Font";
+
+  src: url("../fonts/mplus/mplus-1mn-medium-nerd-font-complete.woff2") format("woff2"); /* Modern Browsers */
+  font-weight: normal;
+  font-style: normal;
+}

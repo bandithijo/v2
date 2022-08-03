@@ -1,0 +1,626 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crow-translate, Translator Online berbasis Qt yang Memiliki Banyak Fitur | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Crow-translate, Translator Online berbasis Qt yang Memiliki Banyak Fitur" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Aplikasi translator ini sangat convenient untuk digunakan. Karena kita dapat menerjemahkan kata/kalimat apa saja yang kita temui di desktop, selama kata/kalimat tersebut dapat diseleksi." />
+<meta property="og:description" content="Aplikasi translator ini sangat convenient untuk digunakan. Karena kita dapat menerjemahkan kata/kalimat apa saja yang kita temui di desktop, selama kata/kalimat tersebut dapat diseleksi." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/crow-translate-translator-yang-menerjemahkan-dimana-saja" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/crow-translate-translator-yang-menerjemahkan-dimana-saja" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-10-27T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Crow-translate, Translator Online berbasis Qt yang Memiliki Banyak Fitur","dateModified":"2020-10-27T00:00:00+00:00","datePublished":"2020-10-27T00:00:00+00:00","description":"Aplikasi translator ini sangat convenient untuk digunakan. Karena kita dapat menerjemahkan kata/kalimat apa saja yang kita temui di desktop, selama kata/kalimat tersebut dapat diseleksi.","url":"https://bandithijo.dev/v2/blog/crow-translate-translator-yang-menerjemahkan-dimana-saja","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/crow-translate-translator-yang-menerjemahkan-dimana-saja"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Crow-translate, Translator Online berbasis Qt yang Memiliki Banyak Fitur"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/crow-translate-translator-yang-menerjemahkan-dimana-saja">Crow-translate, Translator Online berbasis Qt yang Memiliki Banyak Fitur</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / crow translate translator yang menerjemahkan dimana saja
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#translator</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-10-27</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#tentang_crow_translate">Tentang Crow-translate</a>
+    <ul>
+      <li><a href="#fitur_unggulan">Fitur Unggulan</a></li>
+    </ul>
+  </li>
+  <li><a href="#instalasi">Instalasi</a></li>
+  <li><a href="#keyboard_shortcut">Keyboard Shortcut</a>
+    <ul>
+      <li><a href="#global">Global</a></li>
+      <li><a href="#di_main_window">Di Main Window</a></li>
+    </ul>
+  </li>
+  <li><a href="#demonstrasi">Demonstrasi</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang">Latar Belakang</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Minggu kemarin, saya baru saja memperkenalkan tentang aplikasi <strong>translate-shell</strong> (artikelnya dapat dibaca <a href="https://bandithijo.dev/v2/blog/translate-shell-translator-cli-mudah" target="_blank" rel="noopener">di sini</a>.</p>
+</div>
+<div class="paragraph">
+<p>Sebenarnya, sebelum memutuskan untuk menggunakan <strong>translate-shell, saya lebih dulu memutuskan untuk menggunakan *crow-translate</strong>*. Namun, karena aplikasi ini menggunakan Qt library dan harus melakukan kompilasi terlebih dahulu, saya jadi mengurungkan niat untuk memasang. Karena, beberapa library Qt memerlukan kompilasi terlebih dahulu. Oleh karena itu, kemarin saya memutuskan untuk menggunakan translate-shell terlebih dahulu.</p>
+</div>
+<div class="paragraph">
+<p>Namun, saya sering mendapati kendala berupa,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[WARNING] Connection timed out. Retrying IPv4 connection.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Saya belum mengerti, apa yang sebenarnya menyebabkan warning ini muncul. Asumsi saya saat ini adalah koneksi internet IndiHome saya.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Ternyata, setelah saya coba kulik, masalah tersebut di atas berhubungan dengan variable <strong>user-agent</strong>. Mungkin value dari user-agent yang saya pergunakan sudah tidak lagi valid. Sehingga saya putuskan untuk menghapus, dan masalah "connection timed out" sudah hilang.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Masalah tersebut yang akhirnya mengantarkan saya untuk memutuskan menggunakan crow-translate.</p>
+</div>
+<div class="paragraph">
+<p>Seingat saya, tahun 2017, saya pernah juga menggunakan crow-translate, namun saat itu prioritas saya adalah mencari kamus yang dapat digunakan secara offline, sehingga saya tidak terlalu memberikan apresiasi dan atensi kepada crow-translate. Saat itu, atensi saya jatuh pada <strong>GoldenDict</strong> (vlognya dapat ditonton <a href="https://bandithijo.github.io/vlog/review-goldendict-pt1" target="_blank" rel="noopener">di sini</a>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="tentang_crow_translate">Tentang Crow-translate</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Crow-translate adalah translator yang simple dan ringan yang dibuat dengan bahasa C++/Qt yang dapat membantu kita dalam mentranslasikan dan membunyikan (speak) suatu teks menggunakan Google, Yandex, dan Bing translate API.</p>
+</div>
+<div class="sect2">
+<h3 id="fitur_unggulan">Fitur Unggulan</h3>
+<div class="paragraph">
+<p>Berikut ini adalah fitur-fitur unggulan yang dibawa oleh crow-translate:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Menerjemahkan dan membunyikan teks dari layar atau dari teks yang diseleksi</p>
+</li>
+<li>
+<p>Dapat menerjemahkan 125 bahasa yang berbeda</p>
+</li>
+<li>
+<p>Konsumsi memory resource yang rendah (~20MB)</p>
+</li>
+<li>
+<p>Shortcut yang dapat dikostumisasi dengan bebas</p>
+</li>
+<li>
+<p>Memiliki option-option pada CLI yang kaya</p>
+</li>
+<li>
+<p>D-BUS API</p>
+</li>
+<li>
+<p>Tersedia untuk GNU/Linux &amp; Windows</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="instalasi">Instalasi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Untuk teman-teman yang menggunakan distribusi sistem operasi Arch Linux, paket <strong>crow-translate</strong> dapat ditemukan di AUR (Arch User Repository).</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ yay -S crow-translate</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Untuk yang menggunakan selain Arch Linux, dapat menyesuaikan sendiri yaa.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="keyboard_shortcut">Keyboard Shortcut</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kita dapat dengan mudah mengganti keyboard shortcut sesuai dengan pada bagian <strong>setting</strong>.</p>
+</div>
+<div class="sect2">
+<h3 id="global">Global</h3>
+<div class="paragraph">
+<p>Keyboard shortcut ini dapat kita langsung panggil di dalam desktop --mungkin akan terjadi <em>collision</em> dengan beberapa default keyboard shortcut dengan aplikasi lain.</p>
+</div>
+<div class="openblock overflow-x">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Deskripsi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>E</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Terjemahkan teks yang diseleksi</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>S</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bunyikan teks yang diseleksi</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>F</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bunyikan terjemahan teks yang diseleksi</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>G</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Berhenti membunyikan</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>C</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tamapilkan window utama</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>Alt</kbd> + <kbd>O</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Terjemahkan teks di area layar</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="di_main_window">Di Main Window</h3>
+<div class="openblock overflow-x">
+<div class="content">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Key</th>
+<th class="tableblock halign-left valign-top">Deskripsi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>Enter</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Terjemahkan</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>R</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tukar bahasa</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>Q</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tutup window</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>S</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Speak source / pause text speaking</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Speak translation / pause text speaking</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>C</kbd></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Salin terjemahan ke Clipboard</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="demonstrasi">Demonstrasi</h2>
+<div class="sectionbody">
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/L8Hwc0zz/gambar-01.gif" alt="gambar-01">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://github.com/crow-translate/crow-translate" target="_blank" rel="noopener">github.com/crow-translate/crow-translate</a><br>
+Diakses tanggal: 2020/10/27</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2020/2020-10-27-crow-translate-translator-yang-menerjemahkan-dimana-saja.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#translator</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2020-10-27</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#tentang_crow_translate">Tentang Crow-translate</a>
+    <ul>
+      <li><a href="#fitur_unggulan">Fitur Unggulan</a></li>
+    </ul>
+  </li>
+  <li><a href="#instalasi">Instalasi</a></li>
+  <li><a href="#keyboard_shortcut">Keyboard Shortcut</a>
+    <ul>
+      <li><a href="#global">Global</a></li>
+      <li><a href="#di_main_window">Di Main Window</a></li>
+    </ul>
+  </li>
+  <li><a href="#demonstrasi">Demonstrasi</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

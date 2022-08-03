@@ -1,0 +1,1209 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jekyll Custom Tags dengan Liquid Tags | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Jekyll Custom Tags dengan Liquid Tags" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Saya sering merasa kekurangan dengan markup yang disediakan oleh Markdown. Terkadang saya harus membuat formula HTML tag sendiri untuk. Namun, hal tersebut malah membuat file markdown post saya tidak rapi. Maka dari itu, saya membuat Jekyll Custom Tag untuk membungkus formula HTML yang saya pergunakan." />
+<meta property="og:description" content="Saya sering merasa kekurangan dengan markup yang disediakan oleh Markdown. Terkadang saya harus membuat formula HTML tag sendiri untuk. Namun, hal tersebut malah membuat file markdown post saya tidak rapi. Maka dari itu, saya membuat Jekyll Custom Tag untuk membungkus formula HTML yang saya pergunakan." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/membuat-jekyll-custom-tags-dengan-liquid-tags" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/membuat-jekyll-custom-tags-dengan-liquid-tags" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-22T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Jekyll Custom Tags dengan Liquid Tags","dateModified":"2021-01-22T00:00:00+00:00","datePublished":"2021-01-22T00:00:00+00:00","description":"Saya sering merasa kekurangan dengan markup yang disediakan oleh Markdown. Terkadang saya harus membuat formula HTML tag sendiri untuk. Namun, hal tersebut malah membuat file markdown post saya tidak rapi. Maka dari itu, saya membuat Jekyll Custom Tag untuk membungkus formula HTML yang saya pergunakan.","url":"https://bandithijo.dev/v2/blog/membuat-jekyll-custom-tags-dengan-liquid-tags","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/membuat-jekyll-custom-tags-dengan-liquid-tags"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Jekyll Custom Tags dengan Liquid Tags"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/membuat-jekyll-custom-tags-dengan-liquid-tags">Jekyll Custom Tags dengan Liquid Tags</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / membuat jekyll custom tags dengan liquid tags
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#jekll</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-01-22</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang_masalah">Latar Belakang Masalah</a></li>
+  <li><a href="#apa_yang_saya_inginkan">Apa yang saya inginkan?</a></li>
+  <li><a href="#praktik_membuat_liquid_tags">Praktik Membuat Liquid Tags</a>
+    <ul>
+      <li><a href="#liquidtags_dengan_parameter">Liquid::Tags dengan Parameter</a>
+        <ul>
+          <li><a href="#image_tag">Image Tag</a></li>
+        </ul>
+      </li>
+      <li><a href="#liquidblock_tanpa_parameter">Liquid::Block Tanpa Parameter</a>
+        <ul>
+          <li><a href="#command_prompt">Command Prompt</a></li>
+        </ul>
+      </li>
+      <li><a href="#liquidblock_dengan_parameter">Liquid::Block dengan Parameter</a>
+        <ul>
+          <li><a href="#command_prompt_2">Command Prompt</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div class="sect1">
+<h2 id="latar_belakang_masalah">Latar Belakang Masalah</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Seiring berjalannya waktu, jumlah post di BanditHijo Blog ini semakin banyak.</p>
+</div>
+<div class="paragraph">
+<p>Saya pun sudah beberapa kali merubah beberapa style untuk beberapa komponen terutama komponen seperti tampilan terminal prompt atau code block. Masih mencari-cari style seperti apa yang pas dan mudah untuk dipahami.</p>
+</div>
+<div class="paragraph">
+<p>Ketika style baru ditemukan, maka style yang lama juga mau tidak mau harus ikut diubah.</p>
+</div>
+<div class="paragraph">
+<p>Sangat ribet sekali bukan?</p>
+</div>
+<div class="paragraph">
+<p>Belum lagi, bentuk dari stylenya adalah HTML yang bercampur dengan Markdown di dalam post.</p>
+</div>
+<div class="paragraph">
+<p>Misal seperti ini,</p>
+</div>
+<div class="listingblock">
+<div class="title">_posts/blog/2021/2021-01-01-contoh-artikel.md</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="markdown"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td>
+  <td class="code"><pre>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam neque quod, debitis maxime nostrum quibusdam.
+Harum ullam repudiandae beatae nesciunt ea ipsam nisi? Quasi quae aliquid ratione vel blanditiis vitae.
+
+&lt;pre&gt;                         <i class="conum" data-value="1"></i><b>(1)</b>
+$ &lt;b&gt;sudo pacman -Syu&lt;/b&gt;     <i class="conum" data-value="1"></i><b>(1)</b>
+$ &lt;b&gt;sudo pacman -S ruby&lt;/b&gt;  <i class="conum" data-value="1"></i><b>(1)</b>
+&lt;/pre&gt;                        <i class="conum" data-value="1"></i><b>(1)</b>
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla doloribus, labore dicta dolore magnam maiores.
+Inventore expedita minus accusantium deserunt ipsum pariatur magni, cum reiciendis maxime.
+Aperiam incidunt tempora natus?
+
+&lt;!-- INFORMATION --&gt;
+&lt;div class=&quot;blockquote-blue&quot;&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+&lt;div class=&quot;blockquote-blue-title&quot;&gt;&lt;img src=&quot;/assets/img/logo/logo_note.svg&quot;&gt;Informasi&lt;/div&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+&lt;p markdown=1&gt;Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex sapiente dicta,&lt;br&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+consequuntur veritatis, ipsum quos, hic dolores alias possimus reiciendis doloremque cupiditate nisi.&lt;br&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+Quaerat adipisci blanditiis sit quos, soluta iste.&lt;p&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+&lt;/div&gt;  <i class="conum" data-value="2"></i><b>(2)</b>
+</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Baris ke 4-7, adalah prompt terminal</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>baris ke 14-19, adalah contoh dari quote informasi yang berwarna biru</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Nah, yang menjadi masalah adalah,</p>
+</div>
+<div class="paragraph">
+<p>Bayangkan apabila terdapat ratusan artikel dan kita ingin merubah stylenya.</p>
+</div>
+<div class="paragraph">
+<p><strong>Mungkin gak?</strong> Masih mungkin, tapi cukup bikin mumet kepala. 😅</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="apa_yang_saya_inginkan">Apa yang saya inginkan?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Saya ingin menggunakan sesuatu semacam <strong>wadah</strong>, yang apabila ingin merubah stylenya, kita cukup merubah si wadah saja, dan semua yang menggunakan wadah tersebut otomatis ikut berubah juga.</p>
+</div>
+<div class="paragraph">
+<p>Dan wadah tersebut harus sederhana. Cukup sederhana untuk ditulis dan dibaca.</p>
+</div>
+<div class="paragraph">
+<p>Seperti ini,</p>
+</div>
+<div class="listingblock">
+<div class="title">_posts/blog/2021/2021-01-01-contoh-artikel.md</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="markdown"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td>
+  <td class="code"><pre>Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam neque quod, debitis maxime nostrum quibusdam.
+Harum ullam repudiandae beatae nesciunt ea ipsam nisi? Quasi quae aliquid ratione vel blanditiis vitae.
+
+{% shell_user %}      <i class="conum" data-value="1"></i><b>(1)</b>
+sudo pacman -Syu
+sudo pacman -S ruby
+{% endshell_user %}   <i class="conum" data-value="1"></i><b>(1)</b>
+
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla doloribus, labore dicta dolore magnam maiores.
+Inventore expedita minus accusantium deserunt ipsum pariatur magni, cum reiciendis maxime.
+Aperiam incidunt tempora natus?
+
+{% box_info %}     <i class="conum" data-value="2"></i><b>(2)</b>
+&lt;p markdown=1&gt;Lorem ipsum, dolor sit amet consectetur adipisicing elit. Ex sapiente dicta,&lt;br&gt;
+consequuntur veritatis, ipsum quos, hic dolores alias possimus reiciendis doloremque cupiditate nisi.&lt;br&gt;
+Quaerat adipisci blanditiis sit quos, soluta iste.&lt;p&gt;
+{% endbox_info %}  <i class="conum" data-value="2"></i><b>(2)</b>
+</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td><code>shell_user</code>, adalah custom tag yang saya buat untuk membungkus code block</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td><code>box_info</code>, adalah custom tag yang saya buat untuk membungkus quote block</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Pada contoh di atas, saya menggunakan module <strong>Liquid::Block</strong> untuk membungkus konten yang ingin saya tampilkan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>{% nama_tag %}
+# konten
+# yang ingin ditampilkan
+# bisa dalam bentuk multiline
+{% endnama_tag %}</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Fitur ini, disebut dengan Liquid Tags. Fitur ini disediakan oleh Jekyll karena Jekyll menggunakan Liquid sebagai bahasa template.</p>
+</div>
+<div class="paragraph">
+<p>Oke, karena keterbatasan ilmu saya saat ini, yang ingin saya catat hanya hal yang dasar saja dalam membuat Liquid tags yang juga digunakan di blog ini.</p>
+</div>
+<div class="paragraph">
+<p>Mungkin artikel ini akan berkesinambungan seiring bertambahnya teknik yang saya dapatkan.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="praktik_membuat_liquid_tags">Praktik Membuat Liquid Tags</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Di Jekyll, saya melihat pada module Tags menggunakan setidaknya <strong>Liquid::Block</strong> dan juga <strong>Liquid::Tags</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Liquid tags yang disediakan oleh Jekyll, pasti teman-teman pernah menggunakannya.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>highlight</strong>, menggunakan <strong>Liquid::Block</strong> (lib/jekyll/tags/highlight.rb)</p>
+</li>
+<li>
+<p><strong>include</strong>, menggunakan <strong>Liquid::Tags</strong> (lib/jekyll/tags/include.rb)</p>
+</li>
+<li>
+<p><strong>link</strong>, menggunakan <strong>Liquid::Tags</strong> (lib/jekyll/tags/link.rb)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Nah, kita akan mamanfaatkan kedua module ini untuk membuat Liquid tags yang kita perlukan.</p>
+</div>
+<div class="paragraph">
+<p>Misal, kalau di BanditHijo, saya lebih banyak memerlukan untuk menampilkan <strong>command prompt</strong>, <strong>highlight code</strong>, dan <strong>image</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Pertama-tama, karena kita menggunakan Jekyll, kita akan menganggap fitur yang kita buat ini sebagai plugin.</p>
+</div>
+<div class="paragraph">
+<p>Maka kita akan menempatkannya pada direktori <strong>_plugins/</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>.
+├── _plugins/
+│   ├── images.rb
+│   └── shells.rb
+...</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dapat dilihat, kalau saya memiliki beberapa custom plugin yang saya buat untuk memudahkan proses menulis di blog ini.</p>
+</div>
+<div class="paragraph">
+<p>Ayo kita lihat!</p>
+</div>
+<div class="sect2">
+<h3 id="liquidtags_dengan_parameter">Liquid::Tags dengan Parameter</h3>
+<div class="paragraph">
+<p>Rasanya, penggunaan module <strong>Liquid::Tags</strong> memang hampir semuanya menggunakan parameter.</p>
+</div>
+<div class="sect3">
+<h4 id="image_tag">Image Tag</h4>
+<div class="paragraph">
+<p>Saya menggunakannya untuk menghandle image.</p>
+</div>
+<div class="paragraph">
+<p>Sebelum mengenal Liquid tags, saya menggunakan cara ini untuk memasukkan gambar.</p>
+</div>
+<div class="listingblock">
+<div class="title">_posts/blog/2021/2021-01-01-contoh-artikel.md</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="markdown"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>![gambar_1](){:data-echo=&quot;https://i.postimg.cc/wT7rfFFX/gambar-01.png&quot; onerror=&quot;imgError(this);&quot;}{:class=&quot;myImg&quot;}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ribet banget yaa.</p>
+</div>
+<div class="paragraph">
+<p>Saya membuat snippets agar tidak ribet saat akan menggunakannya, namun, tetap saja hal ini membuat markdown file yang kita tulis menjadi kotor.</p>
+</div>
+<div class="paragraph">
+<p>Saya ingin terlihat lebih rapi tanpa terlalu banyak HTML tag.</p>
+</div>
+<div class="paragraph">
+<p>Kira-kira seperti ini,</p>
+</div>
+<div class="listingblock">
+<div class="title">_posts/blog/2021/2021-01-01-contoh-artikel.md</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="markdown"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+</pre></td>
+  <td class="code"><pre>{% image https://i.postimg.cc/wT7rfFFX/gambar-01.png&quot; | 1 | Ini adalah caption }</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah! Lebih sederhana kan?</p>
+</div>
+<div class="paragraph">
+<p>Berikut ini adalah codenya,</p>
+</div>
+<div class="listingblock">
+<div class="title">_plugins/shells.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td>
+  <td class="code"><pre><span class="keyword">module</span> <span class="class">Jekyll</span>
+  <span class="keyword">class</span> <span class="class">Image</span> &lt; <span class="constant">Liquid</span>::<span class="constant">Tag</span>
+    <span class="keyword">def</span> <span class="function">initialize</span>(tag_name, input, tokens)
+      <span class="keyword">super</span>
+      <span class="instance-variable">@input</span> = input
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">render</span>(context)
+      params = split_params(<span class="instance-variable">@input</span>)
+      url = params[<span class="integer">0</span>].strip
+      num = params[<span class="integer">1</span>].strip <span class="keyword">if</span> params.length &gt; <span class="integer">1</span>
+      cap = params[<span class="integer">2</span>].strip <span class="keyword">if</span> params.length &gt; <span class="integer">2</span>
+
+      output  = <span class="string"><span class="delimiter">&quot;</span><span class="content">![gambar_</span><span class="inline"><span class="inline-delimiter">#{</span>num<span class="inline-delimiter">}</span></span><span class="content">](/assets/img/logo/logo_blank.svg){:data-echo='</span><span class="inline"><span class="inline-delimiter">#{</span>url<span class="inline-delimiter">}</span></span><span class="content">' onerror='imgError(this);'}{:class='myImg'}</span><span class="delimiter">&quot;</span></span>
+      output += <span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="content">&lt;p class='img-caption' markdown='1'&gt;Gambar </span><span class="inline"><span class="inline-delimiter">#{</span>num<span class="inline-delimiter">}</span></span><span class="content"> - </span><span class="inline"><span class="inline-delimiter">#{</span>cap<span class="inline-delimiter">}</span></span><span class="content">&lt;/p&gt;</span><span class="delimiter">&quot;</span></span> <span class="keyword">if</span> params.length == <span class="integer">3</span>
+      output
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">split_params</span>(params)
+      params.split(<span class="string"><span class="delimiter">'</span><span class="content"> | </span><span class="delimiter">'</span></span>)
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="constant">Liquid</span>::<span class="constant">Template</span>.register_tag(<span class="string"><span class="delimiter">'</span><span class="content">image</span><span class="delimiter">'</span></span>, <span class="constant">Jekyll</span>::<span class="constant">Image</span>)</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Blok kode di atas adalah untuk kebutuhan saya.</p>
+</div>
+<div class="paragraph">
+<p>Tentunya, teman-teman perlu memodifikasi sesuai dengan yang teman-teman butuhkan.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="liquidblock_tanpa_parameter">Liquid::Block Tanpa Parameter</h3>
+<div class="paragraph">
+<p>Untuk membuat Liquid::Block Tanpa Parameter, cukup mudah.</p>
+</div>
+<div class="sect3">
+<h4 id="command_prompt">Command Prompt</h4>
+<div class="paragraph">
+<p>Saya akan contohkan untuk <strong>shells.rb</strong>, yang saya gunakan untuk menyimpan beberapa prompt shell untuk user dan root.</p>
+</div>
+<div class="paragraph">
+<p>Kalau teman-teman lihat tampilan prompt seperti di bawah ini:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo pacman -Syy</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># systemctl start NetworkManager.service</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kedua tampilan prompt di atas, digenerate dari Liquid tags yang berasal dari file plugin <strong>shells.rb</strong> tersebut.</p>
+</div>
+<div class="paragraph">
+<p>Pada tampilan markdownya akan seperti ini:</p>
+</div>
+<div class="listingblock">
+<div class="title">_posts/blog/2021/2021-01-01-contoh-artikel.md</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="markdown"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>{% shell_user %}
+sudo pacman -Syy
+{% endshell_user %}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">_posts/blog/2021/2021-01-01-contoh-artikel.md</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="markdown"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+</pre></td>
+  <td class="code"><pre>{% shell_root %}
+systemctl start NetworkManager.service
+{% endshell_root %}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah! Sekarang saya akan perlihatkan isi dari plugin <strong>shells.rb</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">_plugins/shells.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td>
+  <td class="code"><pre><span class="keyword">module</span> <span class="class">Jekyll</span>
+  <span class="keyword">class</span> <span class="class">ShellRoot</span> &lt; <span class="constant">Liquid</span>::<span class="constant">Block</span>
+    <span class="keyword">def</span> <span class="function">render</span>(context)
+      commands = <span class="keyword">super</span>.split(<span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>)
+      text  = <span class="string"><span class="delimiter">'</span><span class="content">&lt;pre&gt;</span><span class="delimiter">'</span></span>
+      text += commands[<span class="integer">1</span>..].map <span class="keyword">do</span> |i|
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;span class='cmd'&gt;# &lt;/span&gt;&lt;b&gt;</span><span class="inline"><span class="inline-delimiter">#{</span>i<span class="inline-delimiter">}</span></span><span class="content">&lt;/b&gt;&lt;br&gt;</span><span class="delimiter">&quot;</span></span>
+      <span class="keyword">end</span>.join.to_s
+      text += <span class="string"><span class="delimiter">'</span><span class="content">&lt;/pre&gt;</span><span class="delimiter">'</span></span>
+      text
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+
+  <span class="keyword">class</span> <span class="class">ShellUser</span> &lt; <span class="constant">Liquid</span>::<span class="constant">Block</span>
+    <span class="keyword">def</span> <span class="function">render</span>(context)
+      commands = <span class="keyword">super</span>.split(<span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>)
+      text  = <span class="string"><span class="delimiter">'</span><span class="content">&lt;pre&gt;</span><span class="delimiter">'</span></span>
+      text += commands[<span class="integer">1</span>..].map <span class="keyword">do</span> |i|
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;span class='cmd'&gt;$ &lt;/span&gt;&lt;b&gt;</span><span class="inline"><span class="inline-delimiter">#{</span>i<span class="inline-delimiter">}</span></span><span class="content">&lt;/b&gt;&lt;br&gt;</span><span class="delimiter">&quot;</span></span>
+      <span class="keyword">end</span>.join.to_s
+      text += <span class="string"><span class="delimiter">'</span><span class="content">&lt;/pre&gt;</span><span class="delimiter">'</span></span>
+      text
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="constant">Liquid</span>::<span class="constant">Template</span>.register_tag(<span class="string"><span class="delimiter">'</span><span class="content">shell_root</span><span class="delimiter">'</span></span>,  <span class="constant">Jekyll</span>::<span class="constant">ShellRoot</span>)
+<span class="constant">Liquid</span>::<span class="constant">Template</span>.register_tag(<span class="string"><span class="delimiter">'</span><span class="content">shell_user</span><span class="delimiter">'</span></span>,  <span class="constant">Jekyll</span>::<span class="constant">ShellUser</span>)</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dapat dilihat bahwa saya membangun sebuah prompt dengan menggunakan pre tag.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;pre&gt;
+&lt;span class="cmd"&gt;$ &lt;/span&gt;&amp;lt;b&gt;command terminal&lt;/b&gt;
+&lt;/pre&gt;</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Style dari prompt ini adalah:</p>
+</div>
+<div class="listingblock">
+<div class="title">assets/css/main.css</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="css"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td>
+  <td class="code"><pre><span class="comment">/* Untuk box dari command */</span>
+<span class="tag">pre</span> {
+    <span class="key">background</span>: <span class="color">#002b36</span>;
+    <span class="key">border-radius</span>: <span class="float">5px</span>;
+    <span class="key">font-size</span>: <span class="float">14px</span>;
+    <span class="key">font-family</span>: <span class="string"><span class="delimiter">'</span><span class="content">FiraCodeNerdFontComplete-Medium</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">Roboto Mono</span><span class="delimiter">'</span></span>, <span class="value">monospace</span>;
+    <span class="key">line-height</span>: <span class="float">1.45</span>;
+    <span class="key">overflow</span>: <span class="value">auto</span>;
+    <span class="key">padding</span>: <span class="float">10px</span>;
+}
+
+<span class="comment">/* Untuk mewarnai command terminal menjadi kuning */</span>
+<span class="tag">pre</span> <span class="tag">b</span> {
+    <span class="key">color</span>: <span class="color">#FFCC00</span>;
+}
+
+<span class="comment">/* Untuk mendisable selection dari simbol prompt */</span>
+<span class="tag">pre</span> <span class="tag">span</span><span class="class">.cmd</span> {
+    <span class="key">user-select</span>: <span class="value">none</span>;
+    <span class="key">-webkit-user-select</span>: <span class="value">none</span>;
+    <span class="key">-ms-user-select</span>: <span class="value">none</span>;
+    <span class="key">-webkit-touch-callout</span>: <span class="value">none</span>;
+    <span class="key">-o-user-select</span>: <span class="value">none</span>;
+    <span class="key">-moz-user-select</span>: <span class="value">none</span>;
+}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Fitur dari Liquid tags ini adalah,</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Setiap baris baru (newline), akan diconvert menjadi 1 baris command (perintah).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Seperti ini contohnya:</p>
+</div>
+<div class="listingblock">
+<div class="title">_posts/blog/2021/2021-01-01-contoh-artikel.md</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="markdown"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td>
+  <td class="code"><pre>{% shell_user %}
+mkdir project
+cd project
+git clone https://github.com/bandithijo/new_project
+cd new_project
+bundle exec jekyll server
+{% endshell_user %}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hasilnya:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ mkdir project
+$ cd project
+$ git clone https://github.com/bandithijo/new_project
+$ cd new_project
+$ bundle exec jekyll server</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, sederhana kan?</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="liquidblock_dengan_parameter">Liquid::Block dengan Parameter</h3>
+<div class="paragraph">
+<p>Untuk membuat Liquid::Block dengan Parameter, cukup tricky tapi mungkin.</p>
+</div>
+<div class="sect3">
+<h4 id="command_prompt_2">Command Prompt</h4>
+<div class="paragraph">
+<p>Saya akan contohkan lagi untuk Command Prompt tapi dapat kita definisikan sendiri bentuk dari prompt dan warnanya.</p>
+</div>
+<div class="paragraph">
+<p>Seperti ini misalnya,</p>
+</div>
+<div class="listingblock">
+<div class="title">_posts/blog/2021/2021-01-01-contoh-artikel.md</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="markdown"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>{% shell_term $ %}
+sudo pacman -Syu
+sudo pacman -Scc
+{% endshell_term %}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo pacman -Syu
+$ sudo pacman -Scc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Atau,</p>
+</div>
+<div class="listingblock">
+<div class="title">_posts/blog/2021/2021-01-01-contoh-artikel.md</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="markdown"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+</pre></td>
+  <td class="code"><pre>{% shell_term # %}
+pacman -Syu
+pacman -Scc
+{% endshell_term %}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console"># pacman -Syu
+# pacman -Scc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Saya menggunakan parameter <code>$</code> untuk mengindikasikan user biasa dan <code>#</code> untuk mengindikasikan root.</p>
+</div>
+<div class="paragraph">
+<p>Atau, dengan parameter warna</p>
+</div>
+<div class="listingblock">
+<div class="title">_posts/blog/2021/2021-01-01-contoh-artikel.md</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="markdown"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+</pre></td>
+  <td class="code"><pre>{% shell_term [arch@iso ~]# | #DC322F %}
+mkdir project
+cd project
+git clone https://github.com/bandithijo/new_project
+cd new_project
+bundle exec jekyll server
+{% endshell_term %}</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[arch@iso ~]# mkdir project
+[arch@iso ~]# cd project
+[arch@iso ~]# git clone https://github.com/bandithijo/new_project
+[arch@iso ~]# cd new_project
+[arch@iso ~]# bundle exec jekyll server</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Jadi lebih fleksible.</p>
+</div>
+<div class="paragraph">
+<p>Nah! Codenya seperti ini.</p>
+</div>
+<div class="listingblock">
+<div class="title">_plugins/shells.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+</pre></td>
+  <td class="code"><pre><span class="keyword">module</span> <span class="class">Jekyll</span>
+  <span class="keyword">class</span> <span class="class">ShellCommand</span> &lt; <span class="constant">Liquid</span>::<span class="constant">Block</span>
+    <span class="keyword">def</span> <span class="function">initialize</span>(tag_name, input, tokens)
+      <span class="keyword">super</span>
+      <span class="instance-variable">@input</span> = input
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">render</span>(context)
+      params        = split_params(<span class="instance-variable">@input</span>)
+      prompt_symbol = params[<span class="integer">0</span>]&amp;.strip
+      prompt_color  = params[<span class="integer">1</span>]&amp;.strip <span class="keyword">if</span> params.length &gt; <span class="integer">1</span>
+
+      commands = <span class="keyword">super</span>.split(<span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>)
+      output  = <span class="string"><span class="delimiter">'</span><span class="content">&lt;pre&gt;</span><span class="delimiter">'</span></span>
+      output += commands[<span class="integer">1</span>..].map <span class="keyword">do</span> |i|
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;span class='cmd' </span><span class="inline"><span class="inline-delimiter">#{</span><span class="string"><span class="delimiter">&quot;</span><span class="content">style='color:</span><span class="inline"><span class="inline-delimiter">#{</span>prompt_color<span class="inline-delimiter">}</span></span><span class="content">;'</span><span class="delimiter">&quot;</span></span> <span class="keyword">unless</span> prompt_color.nil?<span class="inline-delimiter">}</span></span><span class="content">&gt;</span><span class="delimiter">&quot;</span></span> \
+        <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">#{</span>prompt_symbol.nil? ? <span class="string"><span class="delimiter">'</span><span class="content">$</span><span class="delimiter">'</span></span> : prompt_symbol<span class="inline-delimiter">}</span></span><span class="content"> &lt;/span&gt;&lt;b&gt;</span><span class="inline"><span class="inline-delimiter">#{</span>i<span class="inline-delimiter">}</span></span><span class="content">&lt;/b&gt;&lt;br&gt;</span><span class="delimiter">&quot;</span></span>
+      <span class="keyword">end</span>.join.to_s
+      output += <span class="string"><span class="delimiter">'</span><span class="content">&lt;/pre&gt;</span><span class="delimiter">'</span></span>
+      output
+    <span class="keyword">end</span>
+
+    <span class="keyword">def</span> <span class="function">split_params</span>(params)
+      params.split(<span class="string"><span class="delimiter">'</span><span class="content"> | </span><span class="delimiter">'</span></span>)
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+<span class="constant">Liquid</span>::<span class="constant">Template</span>.register_tag(<span class="string"><span class="delimiter">'</span><span class="content">shell_term</span><span class="delimiter">'</span></span>,  <span class="constant">Jekyll</span>::<span class="constant">ShellCommand</span>)</pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://jekyllrb.com/docs/liquid/tags/" target="_blank" rel="noopener">jekyllrb.com/docs/liquid/tags/</a><br>
+Diakses tanggal: 2021/01/22</p>
+</li>
+<li>
+<p><a href="https://jekyllrb.com/docs/plugins/your-first-plugin/" target="_blank" rel="noopener">jekyllrb.com/docs/plugins/your-first-plugin/</a><br>
+Diakses tanggal: 2021/01/22</p>
+</li>
+<li>
+<p><a href="https://blog.sverrirs.com/2016/04/custom-jekyll-tags.html" target="_blank" rel="noopener">blog.sverrirs.com/2016/04/custom-jekyll-tags.html</a><br>
+Diakses tanggal: 2021/01/25</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2021/2021-01-22-membuat-jekyll-custom-tags-dengan-liquid-tags.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#jekll</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-01-22</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang_masalah">Latar Belakang Masalah</a></li>
+  <li><a href="#apa_yang_saya_inginkan">Apa yang saya inginkan?</a></li>
+  <li><a href="#praktik_membuat_liquid_tags">Praktik Membuat Liquid Tags</a>
+    <ul>
+      <li><a href="#liquidtags_dengan_parameter">Liquid::Tags dengan Parameter</a>
+        <ul>
+          <li><a href="#image_tag">Image Tag</a></li>
+        </ul>
+      </li>
+      <li><a href="#liquidblock_tanpa_parameter">Liquid::Block Tanpa Parameter</a>
+        <ul>
+          <li><a href="#command_prompt">Command Prompt</a></li>
+        </ul>
+      </li>
+      <li><a href="#liquidblock_dengan_parameter">Liquid::Block dengan Parameter</a>
+        <ul>
+          <li><a href="#command_prompt_2">Command Prompt</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

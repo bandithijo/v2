@@ -1,0 +1,942 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catatan Terkait Bluetoothctl | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Catatan Terkait Bluetoothctl" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Description or excerpt of the page." />
+<meta property="og:description" content="Description or excerpt of the page." />
+<link rel="canonical" href="https://bandithijo.dev/v2/note/catatan-terkait-bluetoothctl" />
+<meta property="og:url" content="https://bandithijo.dev/v2/note/catatan-terkait-bluetoothctl" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-13T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Catatan Terkait Bluetoothctl","dateModified":"2021-01-13T00:00:00+00:00","datePublished":"2021-01-13T00:00:00+00:00","description":"Description or excerpt of the page.","url":"https://bandithijo.dev/v2/note/catatan-terkait-bluetoothctl","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/note/catatan-terkait-bluetoothctl"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Catatan Terkait Bluetoothctl"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/note/catatan-terkait-bluetoothctl">Catatan Terkait Bluetoothctl</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/note/">note</a>
+  
+
+  
+    / catatan terkait bluetoothctl
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#bluetooth</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-01-13</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#terminologi">Terminologi</a></li>
+  <li><a href="#apa_itu_bluetoothctl">Apa itu bluetoothctl?</a></li>
+  <li><a href="#cara_penggunaan">Cara Penggunaan</a>
+    <ul>
+      <li><a href="#nyalakan_bluetoothd_service">Nyalakan bluetoothd service</a></li>
+      <li><a href="#periksa_bluetooth_controller">Periksa Bluetooth Controller</a></li>
+      <li><a href="#masuk_bluetoothctl_shell">Masuk bluetoothctl shell</a></li>
+      <li><a href="#pilih_controller">Pilih Controller</a></li>
+      <li><a href="#melihat_detail_dari_controller">Melihat Detail dari Controller</a></li>
+      <li><a href="#scanning_perangkat_bluetooth_yang_lain">Scanning Perangkat Bluetooth yang Lain</a></li>
+      <li><a href="#pairing_dengan_perangkat_lain">Pairing dengan Perangkat Lain</a></li>
+      <li><a href="#connect_dengan_paired_device">Connect dengan Paired Device</a></li>
+      <li><a href="#disconnect">Disconnect</a></li>
+      <li><a href="#melihat_daftar_paired_devices">Melihat Daftar Paired Devices</a></li>
+      <li><a href="#menghapus_paired_device">Menghapus Paired Device</a></li>
+    </ul>
+  </li>
+  <li><a href="#demonstrasi">Demonstrasi</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Selama ini saya masih menggunakan Blueman Manager untuk mengurusi hal-hal terkait bluetooth. Satu-satunya bluetooth device yang saya gunakan adalah headset bluetooth yang jarang sekali saya pergunakan. Karena jarang digunakan, maka ketika harus berurusan dengannya, saya memilih untuk gak ribet-ribet untuk mencoba workflow baru. Maka, saya gunakan Blueman Manager saja yang praktis.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="terminologi">Terminologi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kita samakan persepsi dulu yaa, agar teman-teman mudah memahami istilah-istilah yang ada dalam catatan ini.</p>
+</div>
+<div class="paragraph">
+<p><strong>Bluetooth Controller</strong>, adalah perangkah bluetooth yang berada di laptop/komputer kita.</p>
+</div>
+<div class="paragraph">
+<p><strong>Bluetooth Device</strong>, adalah perangkat bluetooth yang akan dihubungkan dengan bluetooth controller, seperti Bluetooth Headset, Bluetooth Keyboard, Blutooth Speaker, Smartphone, dll.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="apa_itu_bluetoothctl">Apa itu bluetoothctl?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Bluetoothctl</strong> adalah tools yang dapat kita pergunakan untuk melakukan <em>pairing a device from the shell</em>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cara_penggunaan">Cara Penggunaan</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="nyalakan_bluetoothd_service">Nyalakan bluetoothd service</h3>
+<div class="listingblock">
+<div class="title">systemd</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo systemctl start bluetoothd.service</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">OpenRC</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ sudo rc-service bluetoothd start</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pastikan <strong>bluetoothd</strong> service sudah dalam status aktif.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="periksa_bluetooth_controller">Periksa Bluetooth Controller</h3>
+<div class="paragraph">
+<p>Biasanya, kalau kita memiliki satu buah bluetooth controller, maka akan bernama <strong>hci0</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Periksa dengan peritah,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ hciconfig -a</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>hci0:   Type: Primary  Bus: USB
+        BD Address: 00:1C:26:D8:E0:18  ACL MTU: 1017:8  SCO MTU: 64:8
+        DOWN
+        RX bytes:488 acl:0 sco:0 events:20 errors:0
+        TX bytes:82 acl:0 sco:0 commands:20 errors:0
+        Features: 0xff 0xff 0x8f 0xfe 0x9b 0xf9 0x00 0x80
+        Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3
+        Link policy: RSWITCH HOLD SNIFF PARK
+        Link mode: SLAVE ACCEPT</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dapat terlihat, di laptop saya, terdapat Bluetooth Controller.</p>
+</div>
+<div class="paragraph">
+<p>Namun, statusnya masih DOWN (bukan OFF).</p>
+</div>
+<div class="paragraph">
+<p>Untuk dapat menggunakannya, kita perlu menjalankan langkah-langkah di bawah.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="masuk_bluetoothctl_shell">Masuk bluetoothctl shell</h3>
+<div class="paragraph">
+<p>Untuk mengakses bluetoothctl shell, cukup jalankan perintah di Termial:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ bluetoothctl</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kita akan dibawa ke dalam bluetoothctl shell, ditandai dengan prompt seperti ini:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# _</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Gunakan perintah <strong>help</strong> untuk melihat perintah apa saja yang tersedia.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# help</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Menu main:
+Available commands:
+-------------------
+advertise                                Advertise Options Submenu
+scan                                     Scan Options Submenu
+gatt                                     Generic Attribute Submenu
+list                                     List available controllers
+show [ctrl]                              Controller information
+select &lt;ctrl&gt;                            Select default controller
+devices                                  List available devices
+paired-devices                           List paired devices
+system-alias &lt;name&gt;                      Set controller alias
+reset-alias                              Reset controller alias
+power &lt;on/off&gt;                           Set controller power
+pairable &lt;on/off&gt;                        Set controller pairable mode
+discoverable &lt;on/off&gt;                    Set controller discoverable mode
+discoverable-timeout [value]             Set discoverable timeout
+agent &lt;on/off/capability&gt;                Enable/disable agent with given capability
+default-agent                            Set agent as the default one
+advertise &lt;on/off/type&gt;                  Enable/disable advertising with given type
+set-alias &lt;alias&gt;                        Set device alias
+scan &lt;on/off&gt;                            Scan for devices
+info [dev]                               Device information
+pair [dev]                               Pair with device
+cancel-pairing [dev]                     Cancel pairing with device
+trust [dev]                              Trust device
+untrust [dev]                            Untrust device
+block [dev]                              Block device
+unblock [dev]                            Unblock device
+remove &lt;dev&gt;                             Remove device
+connect &lt;dev&gt;                            Connect device
+disconnect [dev]                         Disconnect device
+menu &lt;name&gt;                              Select submenu
+version                                  Display version
+quit                                     Quit program
+exit                                     Quit program
+help                                     Display help about this program
+export                                   Print environment variables</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pilih_controller">Pilih Controller</h3>
+<div class="paragraph">
+<p>Untuk melihat daftar bluetooth controller yang tersedia:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# list</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Hasilnya, kira-kira seperti ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Controller 00:1C:26:D8:E0:18 BlueZ 5.55 [default]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Saya hanya memiliki satu buat bluetooth controller yang terpasang secara built-in di laptop saya.</p>
+</div>
+<div class="paragraph">
+<p>Apabila terdapat lebih dari satu bluetooth controller, kalian harus memilih salah satu yang akan digunakan untuk menghubungkan dengan perangkat lain.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# select 00:1C:26:D8:E0:18</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="melihat_detail_dari_controller">Melihat Detail dari Controller</h3>
+<div class="paragraph">
+<p>Untuk melihat detail dari controller yang dipilih, gunakan perintah:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# show 00:1C:26:D8:E0:18</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Controller 00:1C:26:D8:E0:18 (public)
+        Name: BlueZ 5.55
+        Alias: BlueZ 5.55
+        Class: 0x003c010c
+        Powered: yes  <i class="conum" data-value="1"></i><b>(1)</b>
+        Discoverable: no
+        DiscoverableTimeout: 0x0000003c
+        Pairable: yes
+        UUID: A/V Remote Control        (0000110e-0000-1000-8000-00805f9b34fb)
+        UUID: PnP Information           (00001200-0000-1000-8000-00805f9b34fb)
+        UUID: Message Access Server     (00001132-0000-1000-8000-00805f9b34fb)
+        UUID: Headset AG                (00001112-0000-1000-8000-00805f9b34fb)
+        UUID: Message Notification Se.. (00001133-0000-1000-8000-00805f9b34fb)
+        UUID: Phonebook Access Server   (0000112f-0000-1000-8000-00805f9b34fb)
+        UUID: A/V Remote Control Target (0000110c-0000-1000-8000-00805f9b34fb)
+        UUID: OBEX Object Push          (00001105-0000-1000-8000-00805f9b34fb)
+        UUID: IrMC Sync                 (00001104-0000-1000-8000-00805f9b34fb)
+        UUID: OBEX File Transfer        (00001106-0000-1000-8000-00805f9b34fb)
+        UUID: Vendor specific           (00005005-0000-1000-8000-0002ee000001)
+        UUID: Audio Source              (0000110a-0000-1000-8000-00805f9b34fb)
+        UUID: Audio Sink                (0000110b-0000-1000-8000-00805f9b34fb)
+        UUID: Headset                   (00001108-0000-1000-8000-00805f9b34fb)
+        Modalias: usb:v1D6Bp0246d0537
+        Discovering: no</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Kalau, status <strong>Powered: no</strong>, bisa kita nyalakan dulu.</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# power on</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Perintah di atas akan menyalakan controller yang kita set sebagai default dengan perintah <strong>select</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Tips</div>
+<div class="paragraph">
+<p>Pada tahap ini, kalau teman-teman buka Terminal lain dan mejalankan,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">$ hciconfig -a</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Maka, status yang tadinya <strong>DOWN</strong>, sudah berubah menjadi UP <strong>RUNNING PSCAN</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>hci0:   Type: Primary  Bus: USB
+        BD Address: 00:1C:26:D8:E0:18  ACL MTU: 1017:8  SCO MTU: 64:8
+        UP RUNNING PSCAN
+        RX bytes:1277 acl:0 sco:0 events:47 errors:0
+        TX bytes:438 acl:0 sco:0 commands:47 errors:0
+        Features: 0xff 0xff 0x8f 0xfe 0x9b 0xf9 0x00 0x80
+        Packet type: DM1 DM3 DM5 DH1 DH3 DH5 HV1 HV2 HV3
+        Link policy: RSWITCH HOLD SNIFF PARK
+        Link mode: SLAVE ACCEPT
+        Name: 'BlueZ 5.55'
+        Class: 0x2c010c
+        Service Classes: Rendering, Capturing, Audio
+        Device Class: Computer, Laptop
+        HCI Version: 2.0 (0x3)  Revision: 0x212b
+        LMP Version: 2.0 (0x3)  Subversion: 0x41d3
+        Manufacturer: Broadcom Corporation (15)</pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scanning_perangkat_bluetooth_yang_lain">Scanning Perangkat Bluetooth yang Lain</h3>
+<div class="paragraph">
+<p>Untuk melakukan scanning terhadap perangkat bluetooth yang lain,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# scan on</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Discovery started
+[CHG] Controller 00:1C:26:D8:E0:18 Discovering: yes</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, kalau outptunya seperti di atas, artinya bluetooth controller kita sedang mencari <span class="line-through">jodoh</span> perangkat bluetooth yang lain.</p>
+</div>
+<div class="paragraph">
+<p>Kalau ketemu, nanti akan seperti ini outputnya.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Discovery started
+[CHG] Controller 00:1C:26:D8:E0:18 Discovering: yes
+[NEW] Device 44:D4:E0:EF:94:DD MBH20   <i class="conum" data-value="1"></i><b>(1)</b></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Dapat dilihat, bahwa ada perangkat bluetooth bernama <strong>MBH20</strong> yang terdeteksi oleh bluetooth controller kita.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="pairing_dengan_perangkat_lain">Pairing dengan Perangkat Lain</h3>
+<div class="paragraph">
+<p>Kalau sudah terdeteksi, tinggal kita pairing saja.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# pair 44:D4:E0:EF:94:DD</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Attempting to pair with 44:D4:E0:EF:94:DD
+[CHG] Device 44:D4:E0:EF:94:DD Connected: yes
+[CHG] Device 44:D4:E0:EF:94:DD UUIDs: 00001108-0000-1000-8000-00805f9b34fb
+[CHG] Device 44:D4:E0:EF:94:DD UUIDs: 0000110b-0000-1000-8000-00805f9b34fb
+[CHG] Device 44:D4:E0:EF:94:DD UUIDs: 0000110c-0000-1000-8000-00805f9b34fb
+[CHG] Device 44:D4:E0:EF:94:DD UUIDs: 0000110e-0000-1000-8000-00805f9b34fb
+[CHG] Device 44:D4:E0:EF:94:DD UUIDs: 0000111e-0000-1000-8000-00805f9b34fb
+[CHG] Device 44:D4:E0:EF:94:DD ServicesResolved: yes
+[CHG] Device 44:D4:E0:EF:94:DD Paired: yes
+Pairing successful  <i class="conum" data-value="1"></i><b>(1)</b>
+[CHG] Device 44:D4:E0:EF:94:DD ServicesResolved: no
+[CHG] Device 44:D4:E0:EF:94:DD Connected: no</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Nah, pairing successfull.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Status <strong>Paired: yes</strong>, namun <strong>Connected: no</strong>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="connect_dengan_paired_device">Connect dengan Paired Device</h3>
+<div class="paragraph">
+<p>Kalau sudah dipairing, sekarang kita bisa hubungkan.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# connect 44:D4:E0:EF:94:DD</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Attempting to connect to 44:D4:E0:EF:94:DD
+[CHG] Device 44:D4:E0:EF:94:DD Connected: yes
+Connection successful  <i class="conum" data-value="1"></i><b>(1)</b>
+[CHG] Device 44:D4:E0:EF:94:DD ServicesResolved: yes</pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Nah, sudah berhasil terhubung.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Ciri-cirinya adalah prompt akan berubah mengikuti nama device.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[MBH20]# _</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kita bisa lihat keterangan tentang device ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[MBH20]# info</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Device 44:D4:E0:EF:94:DD (public)
+        Name: MBH20
+        Alias: MBH20
+        Class: 0x00240404
+        Icon: audio-card
+        Paired: yes
+        Trusted: no
+        Blocked: no
+        Connected: yes
+        LegacyPairing: yes
+        UUID: Headset                   (00001108-0000-1000-8000-00805f9b34fb)
+        UUID: Audio Sink                (0000110b-0000-1000-8000-00805f9b34fb)
+        UUID: A/V Remote Control Target (0000110c-0000-1000-8000-00805f9b34fb)
+        UUID: A/V Remote Control        (0000110e-0000-1000-8000-00805f9b34fb)
+        UUID: Handsfree                 (0000111e-0000-1000-8000-00805f9b34fb)
+        RSSI: -38</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kalau ingin ditrust, tinggal jalankan perintah trust saja.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# trust 44:D4:E0:EF:94:DD</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[CHG] Device 44:D4:E0:EF:94:DD Trusted: yes
+Changing 44:D4:E0:EF:94:DD trust succeeded</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="disconnect">Disconnect</h3>
+<div class="paragraph">
+<p>Untuk memutuskan hubungan dengan device yang terhubung,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# disconnect 44:D4:E0:EF:94:DD</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Attempting to disconnect from 44:D4:E0:EF:94:DD
+[CHG] Device 44:D4:E0:EF:94:DD ServicesResolved: no
+Successful disconnected
+[CHG] Device 44:D4:E0:EF:94:DD Connected: no</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Prompt akan kembali ke semula</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# _</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="melihat_daftar_paired_devices">Melihat Daftar Paired Devices</h3>
+<div class="paragraph">
+<p>Untuk melihat daftar device yang sudah kita pair.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# paired-devices</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>Device 44:D4:E0:EF:94:DD MBH20</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kebetulan saya hanya memiliki satu device saja.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="menghapus_paired_device">Menghapus Paired Device</h3>
+<div class="paragraph">
+<p>Untuk menghapus device yang sudah pernah kita pair,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="console">[bluetooth]# remove 44:D4:E0:EF:94:DD</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[DEL] Device 44:D4:E0:EF:94:DD MBH20
+Device has been removed</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="demonstrasi">Demonstrasi</h2>
+<div class="sectionbody">
+<div class="videoblock">
+<div class="content">
+<iframe src="https://www.youtube.com/embed/Bxc3e6lnEUg?rel=0" frameborder="0" allowfullscreen></iframe>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Masih banyak option-option lain yang tidak saya demokan pada catatan ini. Silahkan teman-teman coba sendiri yaa.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://wiki.archlinux.org/index.php/Bluetooth" target="_blank" rel="noopener">wiki.archlinux.org/index.php/Bluetooth</a><br>
+Diakses tanggal: 2021/01/13</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/note/2021-01-13-catatan-terkait-bluetoothctl.adoc"> Edit this note</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Notes</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/note/welcome-to-test">Welcome to Test</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-post-installation-fedora-workstation">Catatan Post Installation Fedora Workstation</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-daftar-terminal-tools">Catatan Daftar Terminal Tools</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-git">Catatan Terkait Git</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/note/catatan-terkait-vboxmanage">Catatan Terkait VBoxManage</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/note/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#bluetooth</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-01-13</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#terminologi">Terminologi</a></li>
+  <li><a href="#apa_itu_bluetoothctl">Apa itu bluetoothctl?</a></li>
+  <li><a href="#cara_penggunaan">Cara Penggunaan</a>
+    <ul>
+      <li><a href="#nyalakan_bluetoothd_service">Nyalakan bluetoothd service</a></li>
+      <li><a href="#periksa_bluetooth_controller">Periksa Bluetooth Controller</a></li>
+      <li><a href="#masuk_bluetoothctl_shell">Masuk bluetoothctl shell</a></li>
+      <li><a href="#pilih_controller">Pilih Controller</a></li>
+      <li><a href="#melihat_detail_dari_controller">Melihat Detail dari Controller</a></li>
+      <li><a href="#scanning_perangkat_bluetooth_yang_lain">Scanning Perangkat Bluetooth yang Lain</a></li>
+      <li><a href="#pairing_dengan_perangkat_lain">Pairing dengan Perangkat Lain</a></li>
+      <li><a href="#connect_dengan_paired_device">Connect dengan Paired Device</a></li>
+      <li><a href="#disconnect">Disconnect</a></li>
+      <li><a href="#melihat_daftar_paired_devices">Melihat Daftar Paired Devices</a></li>
+      <li><a href="#menghapus_paired_device">Menghapus Paired Device</a></li>
+    </ul>
+  </li>
+  <li><a href="#demonstrasi">Demonstrasi</a></li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->

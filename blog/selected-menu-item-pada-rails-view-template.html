@@ -1,0 +1,781 @@
+<!doctype html>
+<!--[if IE 9]>
+<html class="lt-ie10" lang="en"> <![endif]-->
+<html class="no-js" lang="en" data-useragent="Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Selected Menu Item pada Rails View Template | BanditHijo [R]-Chive</title>
+  <meta name="description" content="Here's where I started writing some notes that someday I will call it, a book.">
+  <meta name="author" content="Rizqi Nur Assyaufi">
+  <meta name="copyright" content="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/foundation-spacing.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-awesome.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/font-fira-code-nerd-font.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/coderay.css">
+  <link rel="stylesheet" href="https://bandithijo.dev/v2/assets/css/asciidoctor.css">
+  <link rel="icon" href="https://bandithijo.dev/v2/assets/images/favicon/favicon.png" type="image/png">
+
+  
+    <!-- Begin Jekyll SEO tag v2.6.1 -->
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="Selected Menu Item pada Rails View Template" />
+<meta name="author" content="Assyaufi, Rizqi Nur" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Membuat menu item untuk menampilkan menu yang aktif dan yang tidak, mungkin akan menjadi hal yang sedikit menyulitkan. Catatan kali ini, saya akan mencatat berbagai macam pendekatan yang pernah saya lakukan untuk membuat fitur menu item yang dapat menampilkan indikator aktif (selected)." />
+<meta property="og:description" content="Membuat menu item untuk menampilkan menu yang aktif dan yang tidak, mungkin akan menjadi hal yang sedikit menyulitkan. Catatan kali ini, saya akan mencatat berbagai macam pendekatan yang pernah saya lakukan untuk membuat fitur menu item yang dapat menampilkan indikator aktif (selected)." />
+<link rel="canonical" href="https://bandithijo.dev/v2/blog/selected-menu-item-pada-rails-view-template" />
+<meta property="og:url" content="https://bandithijo.dev/v2/blog/selected-menu-item-pada-rails-view-template" />
+<meta property="og:site_name" content="BanditHijo [R]-Chive" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-02-09T00:00:00+00:00" />
+<script type="application/ld+json">
+{"author":{"@type":"Person","name":"Assyaufi, Rizqi Nur"},"headline":"Selected Menu Item pada Rails View Template","dateModified":"2021-02-09T00:00:00+00:00","datePublished":"2021-02-09T00:00:00+00:00","description":"Membuat menu item untuk menampilkan menu yang aktif dan yang tidak, mungkin akan menjadi hal yang sedikit menyulitkan. Catatan kali ini, saya akan mencatat berbagai macam pendekatan yang pernah saya lakukan untuk membuat fitur menu item yang dapat menampilkan indikator aktif (selected).","url":"https://bandithijo.dev/v2/blog/selected-menu-item-pada-rails-view-template","mainEntityOfPage":{"@type":"WebPage","@id":"https://bandithijo.dev/v2/blog/selected-menu-item-pada-rails-view-template"},"@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+    <meta property="og:image"          content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+<meta property="og:image:width"    content="460"/>
+<meta property="og:image:height"   content="200"/>
+<meta property="twitter:card"      content="summary_large_image"/>
+<meta property="twitter:title"     content="Selected Menu Item pada Rails View Template"/>
+<meta property="twitter:author"    content="Assyaufi, Rizqi Nur"/>
+<meta property="twitter:image:src" content="https://bandithijo.dev/v2/assets/images/bndt_banner_v2.png"/>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116004889-5"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-116004889-5');
+</script>
+
+  
+</head>
+
+
+<body>
+
+<!-- Nav Bar -->
+<div class="contain-to-grid sticky">
+  <nav class="top-bar" data-topbar role="navigation" data-options="sticky_on: small">
+    <ul class="title-area">
+      <!-- Title Area -->
+      <li class="name">
+        <h1 class="show-for-medium-up">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BanditHijo [R]-Chive <sup>v2-beta</sup></a>
+        </h1>
+        <h1 class="show-for-small-only">
+          <a href="https://bandithijo.dev/v2"><i class="fa fa-archive"></i>&nbsp; BANDITHIJO <sup>v2-beta</sup></a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span></span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+      <!-- Right Nav Section -->
+      <ul class="right">
+        <li class="has-dropdown">
+          <a class="menu-dropdown" href="#"><i class="fa fa-clipboard"></i> Logs</a>
+          <ul class="dropdown">
+            <li><a href="https://bandithijo.dev/v2/blog/">Blog</a></li>
+            <li><a href="https://bandithijo.dev/v2/note/">Note</a></li>
+          </ul>
+        </li>
+      </ul>
+
+      <!-- Left Nav Section -->
+      <!-- <ul class="left"> -->
+      <!--   <li><a href="#">Left Nav Button</a></li> -->
+      <!-- </ul> -->
+    </section>
+  </nav>
+</div>
+
+<!-- End Nav -->
+
+
+  <div class="bg-orbit">
+  <div class="row">
+    <div class="large-12 columns">
+      <ul class="example-orbit-content"
+          data-orbit
+          data-options="next_on_click:false;navigation_arrows:false;bullets:false;timer:false;animation:'fade';slide_number:false;">
+        <li data-orbit-slide="headline-1">
+          <img src="../assets/images/banner/banner-01.png" alt="banner-01" />
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Main Page Content and Sidebar -->
+<div id="content-wrapper">
+  <div class="row">
+
+    <!-- Main Blog Content -->
+    <div class="large-9 columns" role="content">
+      
+  <h1>
+    <a style="text-decoration:none;color:#ba3925" href="https://bandithijo.dev/v2/blog/selected-menu-item-pada-rails-view-template">Selected Menu Item pada Rails View Template</a>
+  </h1>
+
+
+
+  <div class="breadcrumbz my3">
+
+<i class="fa fa-play"></i> &nbsp;<a href="https://bandithijo.dev/v2">home</a>
+
+  
+    / <a href="https://bandithijo.dev/v2/blog/">blog</a>
+  
+
+  
+    / selected menu item pada rails view template
+  
+
+</div>
+
+
+
+<div class="show-for-small-only">
+  
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#rails</a>
+      
+        
+        <a href="#">#template</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-02-09</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#penerapan">Penerapan</a>
+    <ul>
+      <li><a href="#menggunakan_controller_atau_action_name">Menggunakan Controller atau Action Name</a></li>
+      <li><a href="#menggunakan_routing_prefix_dengan_request_path">Menggunakan Routing Prefix dengan Request Path</a></li>
+      <li><a href="#menggunakan_actionview_helper">Menggunakan ActionView Helper</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+</div>
+
+
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Prerequisite</strong></p>
+</div>
+<div class="paragraph">
+<p><code>Ruby 2.7.2</code> <code>Rails 6.1.1</code> <code>Bootstrap 4.6.x</code></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="latar_belakang">Latar Belakang</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kali ini saya kembali mencatat perihal front-end pada Ruby on Rails untuk membuat menu yang dapat menampilkan indikator aktif (selected) saat berada pada halaman yang dipilih.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="https://i.postimg.cc/DyNSMHLs/gambar-01.gif" alt="gambar-01">
+</div>
+</div>
+<div class="paragraph">
+<p>Pada demonstrasi gambar di atas, saya menggunakan <a href="https://www.w3schools.com/howto/howto_js_accordion.asp" target="_blank" rel="noopener"><strong>Accordion/Collapsibles</strong></a> dengan Bootstrap card yang sudah dimodifikasi.</p>
+</div>
+<div class="paragraph">
+<p>Cukup banyak cara yang dapat kita gunakan untuk membuat selected menu item.</p>
+</div>
+<div class="paragraph">
+<p>Saya akan coba meng-cover sebanyak yang saya pernah gunakan.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Style class dan filename, hanya ilustrasi.<br>
+Saya perlu mempersingkat class agar code tidak terlalu panjang.<br>
+Jadi, jangan bingung apabila kode terapan tidak akan mirip dengan contoh di gambar ilustrasi di atas apabila digunakan.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="penerapan">Penerapan</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="menggunakan_controller_atau_action_name">Menggunakan Controller atau Action Name</h3>
+<div class="paragraph">
+<p>Setiap params hash selalu berisi controller dan action, untuk mengetahui valuenya di view template dengan cara seperti ini.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><span class="inline"><span class="inline-delimiter">&lt;%=</span> controller.controller_name <span class="inline-delimiter">%&gt;</span></span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><span class="inline"><span class="inline-delimiter">&lt;%=</span> controller.action_name <span class="inline-delimiter">%&gt;</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Atau yang lebih sederhana,</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><span class="inline"><span class="inline-delimiter">&lt;%=</span> controller_name <span class="inline-delimiter">%&gt;</span></span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><span class="inline"><span class="inline-delimiter">&lt;%=</span> action_name <span class="inline-delimiter">%&gt;</span></span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Nah, kalau sudah begini, tinggal kita jadikan perbandingan saja.</p>
+</div>
+<div class="paragraph">
+<p>Misal seperti ini:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">collapse </span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">show</span><span class="delimiter">'</span></span> <span class="keyword">if</span> controller_name == <span class="string"><span class="delimiter">'</span><span class="content">home</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">collapse </span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">show</span><span class="delimiter">'</span></span> <span class="keyword">if</span> action_name == <span class="string"><span class="delimiter">'</span><span class="content">index</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Penerapan ke view templatenya akan seperti ini:</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/shared/_navbar.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+  <td class="code"><pre><span class="tag">&lt;ul</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">nav nav-tabs mb-3</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;li</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">nav-item</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">&quot;</span><span class="content">Beranda</span><span class="delimiter">&quot;</span></span>, root_path,
+        <span class="key">class</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">nav-link </span><span class="inline"><span class="inline-delimiter">#{</span><span class="string"><span class="delimiter">'</span><span class="content">active</span><span class="delimiter">'</span></span> <span class="keyword">if</span> controller_name == <span class="string"><span class="delimiter">'</span><span class="content">home</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span> <span class="inline-delimiter">%&gt;</span></span>
+  <span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;li</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">nav-item</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="string"><span class="delimiter">&quot;</span><span class="content">Blog</span><span class="delimiter">&quot;</span></span>, blog_path,
+        <span class="key">class</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">nav-link </span><span class="inline"><span class="inline-delimiter">#{</span><span class="string"><span class="delimiter">'</span><span class="content">active</span><span class="delimiter">'</span></span> <span class="keyword">if</span> controller_name == <span class="string"><span class="delimiter">'</span><span class="content">blog</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span> <span class="inline-delimiter">%&gt;</span></span>
+  <span class="tag">&lt;/li&gt;</span>
+<span class="tag">&lt;/ul&gt;</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Bagaimana kalau satu menu yang sama, tetapi digunakan untuk menampilkan dua atau lebih halaman yang berbeda?</strong></p>
+</div>
+<div class="paragraph">
+<p>Mudah, kita dapat menggunakan bentuk array dengan method <strong>include?</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">collapse </span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">show</span><span class="delimiter">'</span></span> <span class="keyword">if</span>  [<span class="string"><span class="delimiter">'</span><span class="content">home</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">blog</span><span class="delimiter">'</span></span>].include? controller_name <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span></code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">collapse </span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">show</span><span class="delimiter">'</span></span> <span class="keyword">if</span>  [<span class="string"><span class="delimiter">'</span><span class="content">index</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">new</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">edit</span><span class="delimiter">'</span></span>].include? action_name <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span></code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="menggunakan_routing_prefix_dengan_request_path">Menggunakan Routing Prefix dengan Request Path</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">collapse </span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">show</span><span class="delimiter">'</span></span> <span class="keyword">if</span> [admins_root_path, admins_dashboard_path].include? request.path <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span><span class="tag">&lt;/div&gt;</span></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dapat dilihat, saya memiliki array dengan dua buah routing prefix:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby">[admins_root_path, admins_dashboard_path]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Kemudian saya buat single if condition:</p>
+</div>
+<div class="paragraph">
+<p>Tampilkan <code>'show'</code> jika <code>path</code> yang di <code>request</code> termasuk di dalam isi dari array <code>[admins_root_path, admins_dashboard_path]</code>.</p>
+</div>
+<div class="paragraph">
+<p>Nah, penerapan ke view templatenya akan seperti ini:</p>
+</div>
+<div class="listingblock">
+<div class="title">app/views/shared/_sidebar.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+</pre></td>
+  <td class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">card</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">card-header</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">headingOne</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;h2</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">mb-0</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="tag">&lt;button</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">btn btn-block </span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">collapsed</span><span class="delimiter">'</span></span> <span class="keyword">unless</span> [admins_root_path, admins_dashboard_path].include? request.path <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">&quot;</span></span> <span class="attribute-name">type</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">button</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">data-toggle</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">collapse</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">data-target</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">#collapseOne</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">aria-expanded</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">aria-controls</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">collapseOne</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>  <i class="conum" data-value="1"></i><b>(1)</b>
+        <span class="inline"><span class="inline-delimiter">&lt;%=</span> bootstrap_icon <span class="string"><span class="delimiter">'</span><span class="content">house-fill</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>
+        <span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">Beranda</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>
+      <span class="tag">&lt;/button&gt;</span>
+    <span class="tag">&lt;/h2&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+
+  <span class="tag">&lt;div</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">collapseOne</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">collapse </span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">show</span><span class="delimiter">'</span></span> <span class="keyword">if</span> [admins_root_path, admins_dashboard_path].include? request.path <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">&quot;</span></span> <span class="attribute-name">aria-labelledby</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">headingOne</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>  <i class="conum" data-value="1"></i><b>(1)</b>
+    <span class="tag">&lt;div</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">card-body</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+      <span class="tag">&lt;ul</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">list-group list-group-flush</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+        <span class="tag">&lt;li</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">list-group-item </span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">active</span><span class="delimiter">'</span></span> <span class="keyword">if</span> [admins_dashboard_path, admins_root_path].include? request.path <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">&quot;</span></span> <span class="attribute-name">aria-current</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>  <i class="conum" data-value="1"></i><b>(1)</b>
+          <span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to admins_dashboard_path, <span class="key">class</span>: <span class="string"><span class="delimiter">'</span><span class="content">child-menu-sidebar d-flex align-items-center</span><span class="delimiter">'</span></span> <span class="keyword">do</span> <span class="inline-delimiter">%&gt;</span></span>
+            <span class="inline"><span class="inline-delimiter">&lt;%=</span> bootstrap_icon <span class="string"><span class="delimiter">'</span><span class="content">pie-chart</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>
+            <span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">Dashboard</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>
+          <span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span>
+        <span class="tag">&lt;/li&gt;</span>
+        <span class="tag">&lt;li</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">list-group-item d-flex align-items-center</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">aria-current</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+          <span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="predefined-constant">nil</span>, <span class="key">class</span>: <span class="string"><span class="delimiter">'</span><span class="content">child-menu-sidebar d-flex align-items-center</span><span class="delimiter">'</span></span> <span class="keyword">do</span> <span class="inline-delimiter">%&gt;</span></span>
+            <span class="inline"><span class="inline-delimiter">&lt;%=</span> bootstrap_icon <span class="string"><span class="delimiter">'</span><span class="content">rss</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>
+            <span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">Feed</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>
+          <span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span>
+        <span class="tag">&lt;/li&gt;</span>
+        <span class="tag">&lt;li</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">list-group-item d-flex align-items-center</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">aria-current</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">true</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+          <span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to <span class="predefined-constant">nil</span>, <span class="key">class</span>: <span class="string"><span class="delimiter">'</span><span class="content">child-menu-sidebar d-flex align-items-center</span><span class="delimiter">'</span></span> <span class="keyword">do</span> <span class="inline-delimiter">%&gt;</span></span>
+            <span class="inline"><span class="inline-delimiter">&lt;%=</span> bootstrap_icon <span class="string"><span class="delimiter">'</span><span class="content">back</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>
+            <span class="inline"><span class="inline-delimiter">&lt;%=</span> <span class="string"><span class="delimiter">'</span><span class="content">Landing</span><span class="delimiter">'</span></span> <span class="inline-delimiter">%&gt;</span></span>
+          <span class="inline"><span class="inline-delimiter">&lt;%</span> <span class="keyword">end</span> <span class="inline-delimiter">%&gt;</span></span>
+        <span class="tag">&lt;/li&gt;</span>
+      <span class="tag">&lt;/ul&gt;</span>
+    <span class="tag">&lt;/div&gt;</span>
+  <span class="tag">&lt;/div&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Dapat dilihat pada bari 4, 11, 14.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="menggunakan_actionview_helper">Menggunakan ActionView Helper</h3>
+<div class="paragraph">
+<p>Kita dapat membuat method sendiri yang dapat kita gunakan di view template.</p>
+</div>
+<div class="paragraph">
+<p>Saya akan meletakkan di <strong>app/helpers/application_helper.rb</strong>.</p>
+</div>
+<div class="listingblock">
+<div class="title">app/helpers/application_helper.rb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="ruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td>
+  <td class="code"><pre><span class="keyword">module</span> <span class="class">ApplicationHelper</span>
+  <span class="constant">ACTIVE_CLASS</span> = <span class="string"><span class="delimiter">'</span><span class="content">is-active</span><span class="delimiter">'</span></span>.freeze
+
+  <span class="keyword">def</span> <span class="function">active_for</span>(options)
+    name_of_controller = options.fetch(<span class="symbol">:controller</span>) { <span class="predefined-constant">nil</span> }
+    name_of_action     = options.fetch(<span class="symbol">:action</span>) { <span class="predefined-constant">nil</span> }
+    request_path       = options.fetch(<span class="symbol">:path</span>) { <span class="predefined-constant">nil</span> }
+
+    <span class="keyword">return</span> <span class="constant">ACTIVE_CLASS</span> <span class="keyword">if</span> request_path &amp;&amp; request_path == request.path
+
+    <span class="keyword">if</span> name_of_controller == controller_name
+      <span class="constant">ACTIVE_CLASS</span> <span class="keyword">if</span> name_of_action.nil? || (name_of_action == action_name)
+    <span class="keyword">end</span>
+  <span class="keyword">end</span>
+<span class="keyword">end</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dan, penerapan pada view templatenya akan seperti ini:</p>
+</div>
+<div class="paragraph">
+<p>Terdapat 2 cara yang dapat digunakan:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Menggunakan routing path</p>
+</li>
+<li>
+<p>Menggunakan controller atau action name</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">app/views/shared/_navbar.html.erb</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="eruby"><table class="CodeRay"><tr>
+  <td class="line-numbers"><pre>1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td>
+  <td class="code"><pre><span class="tag">&lt;div</span> <span class="attribute-name">id</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">navbar</span><span class="delimiter">&quot;</span></span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">navbar-collapse collapse</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+  <span class="tag">&lt;ul</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">&quot;</span><span class="content">nav navbar-nav navbar-right</span><span class="delimiter">&quot;</span></span><span class="tag">&gt;</span>
+    <span class="tag">&lt;li</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">'</span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> active_for(<span class="key">path</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">/users/</span><span class="inline"><span class="inline-delimiter">#{</span>current_user.id<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>) <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">'</span></span><span class="tag">&gt;</span>
+      <span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to current_user <span class="inline-delimiter">%&gt;</span></span>
+    <span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;li</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">'</span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> active_for(<span class="key">controller</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">events</span><span class="delimiter">&quot;</span></span>) <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">'</span></span><span class="tag">&gt;</span>
+      <span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to events_path <span class="inline-delimiter">%&gt;</span></span>
+    <span class="tag">&lt;/li&gt;</span>
+    <span class="tag">&lt;li</span> <span class="attribute-name">class</span>=<span class="string"><span class="delimiter">'</span></span><span class="inline"><span class="inline-delimiter">&lt;%=</span> active_for(<span class="key">controller</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">users</span><span class="delimiter">&quot;</span></span>, <span class="key">action</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">edit</span><span class="delimiter">&quot;</span></span>) <span class="inline-delimiter">%&gt;</span></span><span class="string"><span class="delimiter">'</span></span><span class="tag">&gt;</span>
+      <span class="inline"><span class="inline-delimiter">&lt;%=</span> link_to edit_user_path(current_user) <span class="inline-delimiter">%&gt;</span></span>
+    <span class="tag">&lt;/li&gt;</span>
+  <span class="tag">&lt;/ul&gt;</span>
+<span class="tag">&lt;/div&gt;</span></pre></td>
+</tr></table></code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Sumber: <a href="https://gist.github.com/pelted/5dac756f690a61f698145dc9495a9633" target="_blank" rel="noopener"><strong>pelted/application_helper.rb</strong></a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="pesan_penulis">Pesan Penulis</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Sepertinya, segini dulu yang dapat saya tuliskan.</p>
+</div>
+<div class="paragraph">
+<p>Selanjutnya, saya serahkan kepada imajinasi dan kreatifitas teman-teman. Hehe.</p>
+</div>
+<div class="paragraph">
+<p>Mudah-mudahan dapat bermanfaat.</p>
+</div>
+<div class="paragraph">
+<p>Terima kasih.</p>
+</div>
+<div class="paragraph">
+<p>(^_^)</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="referensi">Referensi</h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="https://www.w3schools.com/howto/howto_js_accordion.asp" target="_blank" rel="noopener">How TO - Collapsibles/Accordion</a><br>
+Diakses tanggal: 2021/02/09</p>
+</li>
+<li>
+<p><a href="https://gist.github.com/pelted/5dac756f690a61f698145dc9495a9633" target="_blank" rel="noopener">gist.github.com/pelted/5dac756f690a61f698145dc9495a9633</a><br>
+Diakses tanggal: 2021/02/09</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+
+  <div class="text-center mt3 mb4">***</div>
+
+  <!-- Edit this article -->
+  <div class="text-right">
+    
+      <span style="font-size:1.1em"><i class="fa fa-edit"></i></span><a href="https://github.com/bandithijo/v2/edit/master/_posts/blog/2021/2021-02-09-selected-menu-item-pada-rails-view-template.adoc"> Edit this post</a>
+    
+  </div>
+  <!-- End Edit this article -->
+
+  <hr style="border-color:#efefed">
+
+
+<!-- New post -->
+
+  <div class="mb3">
+    <h3>Posts</h3>
+    <ul id="posts" class="posts nav">
+      
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/memaanfaatkan-dmenu-sebagai-jalan-pintas-menu-pencari-di-web-desktop-entry-spec">Memanfaatkan dmenu sebagai Jalan Pintas Menu Pencari di Web (Desktop Entry Spec)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/clear-history-recent-file-via-command-line">Membersihkan History atau Recent Files via Command Line</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/mencoba-bermain-container-dengan-podman-di-fedora-bitnami-postgresql">Mencoba Bermain Container dengan Podman di Fedora (Bitnami/Postgresql)</a></li>
+      
+        <li><a href="https://bandithijo.dev/v2/blog/inject-null-audio-source-dengan-ffmpeg">Injeksi Null Audio Source dengan FFMPEG ke dalam Video</a></li>
+      
+    </ul>
+    <p><a href="https://bandithijo.dev/v2/blog/">more...</a></p>
+  </div>
+
+<!-- End New post -->
+
+    </div>
+    <!-- End Main Content -->
+
+    <!-- Sidebar -->
+    <aside class="large-3 columns show-for-medium-up mt3">
+      
+
+    <div class="panel plain mt2">
+  <ul class="vcard">
+    <li class="fn"><i class="fa fa-user-secret"></i> Assyaufi, Rizqi Nur</li>
+    <li><span style="font-size:0.8em"><i class="fa fa-envelope"></i></span> <a href="mailto:bandithijo@gmail.com"><span style="font-size:0.85em">bandithijo@gmail.com</span></a></li>
+    <li class="tags"><i class="fa fa-tag"></i>
+      <span style="font-size:0.90em">
+      
+      
+        
+        <a href="#">#rails</a>
+      
+        
+        <a href="#">#template</a>
+      
+      </span>
+    </li>
+    <li><span style="font-size:0.9em"><i class="fa fa-calendar"></i></span> 2021-02-09</li>
+  </ul>
+</div>
+
+
+
+
+
+
+  <h4>Table of Contents</h4>
+<div class="toc">
+  <ul>
+  <li><a href="#latar_belakang">Latar Belakang</a></li>
+  <li><a href="#penerapan">Penerapan</a>
+    <ul>
+      <li><a href="#menggunakan_controller_atau_action_name">Menggunakan Controller atau Action Name</a></li>
+      <li><a href="#menggunakan_routing_prefix_dengan_request_path">Menggunakan Routing Prefix dengan Request Path</a></li>
+      <li><a href="#menggunakan_actionview_helper">Menggunakan ActionView Helper</a></li>
+    </ul>
+  </li>
+  <li><a href="#pesan_penulis">Pesan Penulis</a></li>
+  <li><a href="#referensi">Referensi</a></li>
+</ul>
+
+</div>
+
+
+
+
+
+
+  <div class="show-for-medium-up">
+    <div class="panel mt2">
+  <h5><span style="font-size:1.1em"><i class="fa fa-info-circle"></i></span>&nbsp; Info</h5>
+
+  <p>
+    The AsciiDoc format is a useful presentation format in its own right: AsciiDoc markup is simple, intuitive and as such is easily proofed and edited.
+  </p>
+</div>
+
+  </div>
+
+
+
+    </aside>
+    <!-- End Sidebar -->
+
+  </div>
+</div>
+<!-- End Main Content and Sidebar -->
+
+
+<!-- Footer -->
+<footer id="footer">
+  <div class="row">
+    <div class="large-12 columns mt2">
+      <div class="row">
+        <div class="large-12 columns">
+          <div class="row">
+            <div class="large-6 columns">
+              
+              <p class="large-text-left small-text-center">
+                <a href="https://bandithijo.dev/v2/about/">About</a> |
+                <a href="https://bandithijo.dev/v2/contact/">Contact</a>
+              </p>
+            </div>
+            <div class="large-6 columns">
+              <p class="large-text-right small-text-center">
+                <a href="https://bandithijo.dev/v2/feed.xml" target="_blank"><i class="fa fa-rss"></i> RSS</a>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <hr class="mt0">
+      <div class="row">
+        <div class="large-12 columns">
+          <!-- <p>BanditHijo [R]-Chive | Made with </p> -->
+          <div class="row">
+            <div class="large-8 columns">
+              <p class="large-text-left small-text-center">Made with <i class="fa fa-heart"></i> by <a href="https://bandithijo.dev/v2">Rizqi Nur Assyaufi - @bandithijo</a></p>
+            </div>
+            <div class="large-4 columns">
+              <p class="large-text-right small-text-center">Powered by <a href="https://jekyllrb.com">Jekyll</a>, <a href="https://www.ruby-lang.org">Ruby</a>, <a href="https://asciidoc.org/">AsciiDoc</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- End Footer -->
+
+<script src="https://bandithijo.dev/v2/assets/js/vendor/jquery.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/vendor/modernizr.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/foundation.min.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/headings-permalink.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc-sidebar.js"></script>
+<script src="https://bandithijo.dev/v2/assets/js/toc.js"></script>
+<script>
+$(document).foundation();
+var doc = document.documentElement;
+doc.setAttribute('data-useragent', navigator.userAgent);
+</script>
+
+
+</body>
+</html>
+<!-- Made with ❤️ by Rizqi Nur Assyaufi - @bandithijo | 2012 - 2022 -->
